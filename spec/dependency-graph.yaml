@@ -1,0 +1,126 @@
+version: 1
+edge_types:
+  - enables
+  - supplies
+  - settles
+  - tokenizes
+  - provides_liquidity
+  - provides_oracle
+  - provides_registry
+  - regulates
+  - increases_addressable_market
+  - creates_revenue
+  - creates_token_demand
+  - dilutes
+  - competes_with
+edges:
+  - id: edge.1
+    from: DTCC
+    to: STELLAR
+    type: settles
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.2
+    from: STELLAR
+    to: XLM
+    type: creates_token_demand
+    economic: true
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.3
+    from: SEC
+    to: SECZ
+    type: regulates
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.4
+    from: SECZ
+    to: UNI
+    type: increases_addressable_market
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.5
+    from: SUPERSTATE
+    to: SOL
+    type: tokenizes
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.6
+    from: GLXY
+    to: SECZ
+    type: provides_liquidity
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.7
+    from: BLSH
+    to: UNI
+    type: competes_with
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.8
+    from: EQUINITI
+    to: SECZ
+    type: provides_registry
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.9
+    from: LINK
+    to: SOL
+    type: provides_oracle
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.10
+    from: NYSE
+    to: SECZ
+    type: enables
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.
+  - id: edge.11
+    from: NASDAQ
+    to: SECZ
+    type: enables
+    economic: false
+    transmission: indirect
+    status: assumed
+    source_ids: []
+    rationale: Research hypothesis only. No verified relationship or automatic
+      economic transmission is asserted.

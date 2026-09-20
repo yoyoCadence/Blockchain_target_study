@@ -1,0 +1,158 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+required: [dictionary, registry, assets, graph, thesis, sensitivity]
+properties:
+  dictionary:
+    type: object
+    additionalProperties: false
+    required: [version, metrics]
+    properties:
+      version: {type: integer, minimum: 1}
+      metrics:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, asset, label, unit, kind, minimum, maximum]
+          properties:
+            id: {type: string, minLength: 1}
+            asset: {type: string, minLength: 1}
+            label: {type: string, minLength: 1}
+            unit: {enum: [USD, USD/year, UNI, UNI/year, XLM, XLM/year, count/year, count, ratio, years, turns/year, bps]}
+            kind: {enum: [input, derived]}
+            minimum: {type: [number, 'null']}
+            maximum: {type: [number, 'null']}
+  registry:
+    type: object
+    additionalProperties: false
+    required: [version, formulas]
+    properties:
+      version: {type: integer, minimum: 1}
+      formulas:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, version, output, asset, label, unit, expression, period_policy, description]
+          properties:
+            id: {type: string, minLength: 1}
+            version: {type: integer, minimum: 1}
+            output: {type: string, minLength: 1}
+            asset: {type: string, minLength: 1}
+            label: {type: string, minLength: 1}
+            unit: {type: string, minLength: 1}
+            expression: {$ref: '#/definitions/expression'}
+            period_policy: {enum: [compatible, prior_comparison]}
+            description: {type: string, minLength: 1}
+  assets:
+    type: object
+    additionalProperties: false
+    required: [version, discovery_enabled, promotion_stages, candidate_triggers, assets]
+    properties:
+      version: {type: integer, minimum: 1}
+      discovery_enabled: {const: true}
+      promotion_stages: {type: array, items: {type: string}, minItems: 8}
+      candidate_triggers: {type: array, items: {type: string}, minItems: 1}
+      assets:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, name, role, investability, basis, aliases]
+          properties:
+            id: {type: string, minLength: 1}
+            name: {type: string, minLength: 1}
+            role: {enum: [core, secondary, dependency]}
+            investability: {enum: [unverified, investable, non_investable]}
+            basis: {type: string, minLength: 1}
+            aliases: {type: array, items: {type: string}}
+  graph:
+    type: object
+    additionalProperties: false
+    required: [version, edge_types, edges]
+    properties:
+      version: {type: integer, minimum: 1}
+      edge_types: {type: array, items: {type: string}, minItems: 13, uniqueItems: true}
+      edges:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, from, to, type, economic, transmission, status, source_ids, rationale]
+          properties:
+            id: {type: string, minLength: 1}
+            from: {type: string, minLength: 1}
+            to: {type: string, minLength: 1}
+            type: {enum: [enables, supplies, settles, tokenizes, provides_liquidity, provides_oracle, provides_registry, regulates, increases_addressable_market, creates_revenue, creates_token_demand, dilutes, competes_with]}
+            economic: {type: boolean}
+            transmission: {enum: [direct, medium, indirect]}
+            status: {enum: [observed, planned, assumed]}
+            source_ids: {type: array, items: {type: string}, uniqueItems: true}
+            rationale: {type: string, minLength: 1}
+  thesis:
+    type: object
+    additionalProperties: false
+    required: [version, states, rules]
+    properties:
+      version: {type: integer, minimum: 1}
+      states: {const: [HEALTHY, WATCH, STRESS, BREAK_CANDIDATE, INVALIDATED]}
+      rules:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, version, asset, state, periods, classification, rationale, why, conditions]
+          properties:
+            id: {type: string, minLength: 1}
+            version: {type: integer, minimum: 1}
+            asset: {enum: [UNI, SECZ, XLM]}
+            state: {enum: [WATCH, STRESS, BREAK_CANDIDATE, INVALIDATED]}
+            periods: {type: integer, minimum: 1}
+            classification: {const: ASSUMPTION}
+            rationale: {type: string, minLength: 1}
+            why: {type: string, minLength: 1}
+            conditions:
+              type: array
+              minItems: 1
+              items:
+                type: object
+                additionalProperties: false
+                required: [metric, operator, value]
+                properties:
+                  metric: {type: string, minLength: 1}
+                  operator: {enum: [lt, lte, gt, gte, eq]}
+                  value: {type: number}
+  sensitivity:
+    type: object
+    additionalProperties: false
+    required: [version, parameters, matrix]
+    properties:
+      version: {type: integer, minimum: 1}
+      parameters: {type: array, minItems: 1, uniqueItems: true, items: {type: string}}
+      matrix:
+        type: object
+        additionalProperties: false
+        required: [row, rows, column, columns, output]
+        properties:
+          row: {type: string, minLength: 1}
+          rows: {type: array, minItems: 1, maxItems: 10, items: {type: number}}
+          column: {type: string, minLength: 1}
+          columns: {type: array, minItems: 1, maxItems: 10, items: {type: number}}
+          output: {type: string, minLength: 1}
+definitions:
+  expression:
+    anyOf:
+      - {type: number}
+      - {type: string, minLength: 1}
+      - type: object
+        additionalProperties: false
+        required: [op, args]
+        properties:
+          op: {enum: [add, sub, mul, div, pow]}
+          args:
+            type: array
+            minItems: 2
+            items: {$ref: '#/definitions/expression'}

@@ -1,0 +1,199 @@
+version: 1
+metrics:
+  - id: uni.turnover@1
+    metric_id: uni.turnover
+    asset: UNI
+    value: null
+    unit: turns/year
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: uni.onchain_share@1
+    metric_id: uni.onchain_share
+    asset: UNI
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: uni.amm_share@1
+    metric_id: uni.amm_share
+    asset: UNI
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: uni.market_share@1
+    metric_id: uni.market_share
+    asset: UNI
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: uni.fee@1
+    metric_id: uni.fee
+    asset: UNI
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: uni.required_yield@1
+    metric_id: uni.required_yield
+    asset: UNI
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: uni.growth_budget@1
+    metric_id: uni.growth_budget
+    asset: UNI
+    value: null
+    unit: UNI/year
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: User-supplied 20M UNI/year baseline. Unverified; production value
+      remains null pending primary-source review.
+  - id: uni.other_dilution@1
+    metric_id: uni.other_dilution
+    asset: UNI
+    value: null
+    unit: USD/year
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: secz.multiple@1
+    metric_id: secz.multiple
+    asset: SECZ
+    value: null
+    unit: years
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: secz.fcf_margin@1
+    metric_id: secz.fcf_margin
+    asset: SECZ
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: secz.years@1
+    metric_id: secz.years
+    asset: SECZ
+    value: null
+    unit: years
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: xlm.dtcc_live@1
+    metric_id: xlm.dtcc_live
+    asset: XLM
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: xlm.dtcc_material@1
+    metric_id: xlm.dtcc_material
+    asset: XLM
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+  - id: xlm.demand_material@1
+    metric_id: xlm.demand_material
+    asset: XLM
+    value: null
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.

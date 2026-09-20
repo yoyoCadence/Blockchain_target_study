@@ -1,0 +1,893 @@
+version: 1
+notice: "SYNTHETIC FIXTURE: no real market observations; financial values are
+  deterministic test inputs."
+metrics:
+  - id: market.equity_aum@1
+    metric_id: market.equity_aum
+    asset: MARKET
+    value: 4000000000000
+    unit: USD
+    classification: SCENARIO
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+    scenario: Regression TAM, not observed AUM
+    range:
+      - 1000000000000
+      - 8000000000000
+  - id: market.volume@1
+    metric_id: market.volume
+    asset: MARKET
+    value: 8000000000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: market.global_equity@1
+    metric_id: market.global_equity
+    asset: MARKET
+    value: 120000000000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.price@1
+    metric_id: uni.price
+    asset: UNI
+    value: 9
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.market_cap@1
+    metric_id: uni.market_cap
+    asset: UNI
+    value: 4840000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.fdv@1
+    metric_id: uni.fdv
+    asset: UNI
+    value: 9000000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.crypto_fees@1
+    metric_id: uni.crypto_fees
+    asset: UNI
+    value: 80000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.other_rwa@1
+    metric_id: uni.other_rwa
+    asset: UNI
+    value: 0
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.unichain@1
+    metric_id: uni.unichain
+    asset: UNI
+    value: 5000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.mev@1
+    metric_id: uni.mev
+    asset: UNI
+    value: 0
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.other_accrual@1
+    metric_id: uni.other_accrual
+    asset: UNI
+    value: 0
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.activity_growth@1
+    metric_id: uni.activity_growth
+    asset: UNI
+    value: 0.2
+    unit: ratio
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.supply_growth@1
+    metric_id: uni.supply_growth
+    asset: UNI
+    value: 0.01
+    unit: ratio
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: uni.turnover@1
+    metric_id: uni.turnover
+    asset: UNI
+    value: 2
+    unit: turns/year
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.onchain_share@1
+    metric_id: uni.onchain_share
+    asset: UNI
+    value: 1
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.amm_share@1
+    metric_id: uni.amm_share
+    asset: UNI
+    value: 1
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.market_share@1
+    metric_id: uni.market_share
+    asset: UNI
+    value: 0.3
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.fee@1
+    metric_id: uni.fee
+    asset: UNI
+    value: 0.00017
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.required_yield@1
+    metric_id: uni.required_yield
+    asset: UNI
+    value: 0.05
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.growth_budget@1
+    metric_id: uni.growth_budget
+    asset: UNI
+    value: 20000000
+    unit: UNI/year
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: uni.other_dilution@1
+    metric_id: uni.other_dilution
+    asset: UNI
+    value: 0
+    unit: USD/year
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: secz.tokenization@1
+    metric_id: secz.tokenization
+    asset: SECZ
+    value: 20000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.servicing@1
+    metric_id: secz.servicing
+    asset: SECZ
+    value: 30000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.transaction@1
+    metric_id: secz.transaction
+    asset: SECZ
+    value: 15000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.saas@1
+    metric_id: secz.saas
+    asset: SECZ
+    value: 10000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.administration@1
+    metric_id: secz.administration
+    asset: SECZ
+    value: 20000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.other@1
+    metric_id: secz.other
+    asset: SECZ
+    value: 5000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.prior_revenue@1
+    metric_id: secz.prior_revenue
+    asset: SECZ
+    value: 80000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2024-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.aum@1
+    metric_id: secz.aum
+    asset: SECZ
+    value: 5000000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.prior_aum@1
+    metric_id: secz.prior_aum
+    asset: SECZ
+    value: 4000000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2024-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.volume@1
+    metric_id: secz.volume
+    asset: SECZ
+    value: 2000000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.prior_volume@1
+    metric_id: secz.prior_volume
+    asset: SECZ
+    value: 1000000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2024-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.ebitda@1
+    metric_id: secz.ebitda
+    asset: SECZ
+    value: 20000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.prior_ebitda@1
+    metric_id: secz.prior_ebitda
+    asset: SECZ
+    value: 10000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2024-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.ev@1
+    metric_id: secz.ev
+    asset: SECZ
+    value: 1000000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: secz.multiple@1
+    metric_id: secz.multiple
+    asset: SECZ
+    value: 20
+    unit: years
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: secz.fcf_margin@1
+    metric_id: secz.fcf_margin
+    asset: SECZ
+    value: 0.25
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: secz.years@1
+    metric_id: secz.years
+    asset: SECZ
+    value: 5
+    unit: years
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: xlm.price@1
+    metric_id: xlm.price
+    asset: XLM
+    value: 0.1
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.rwa@1
+    metric_id: xlm.rwa
+    asset: XLM
+    value: 1000000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.stablecoins@1
+    metric_id: xlm.stablecoins
+    asset: XLM
+    value: 500000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.transfer_volume@1
+    metric_id: xlm.transfer_volume
+    asset: XLM
+    value: 10000000000
+    unit: USD/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.operations@1
+    metric_id: xlm.operations
+    asset: XLM
+    value: 1000000000
+    unit: count/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.active_addresses@1
+    metric_id: xlm.active_addresses
+    asset: XLM
+    value: 1000000
+    unit: count
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.issuers@1
+    metric_id: xlm.issuers
+    asset: XLM
+    value: 20
+    unit: count
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.dtcc_activity@1
+    metric_id: xlm.dtcc_activity
+    asset: XLM
+    value: null
+    unit: count/year
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.fee_xlm@1
+    metric_id: xlm.fee_xlm
+    asset: XLM
+    value: 0.00001
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.reserves@1
+    metric_id: xlm.reserves
+    asset: XLM
+    value: 2000000
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.liquidity@1
+    metric_id: xlm.liquidity
+    asset: XLM
+    value: 10000000
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.collateral@1
+    metric_id: xlm.collateral
+    asset: XLM
+    value: 5000000
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.settlement@1
+    metric_id: xlm.settlement
+    asset: XLM
+    value: 1000000
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.other_locked@1
+    metric_id: xlm.other_locked
+    asset: XLM
+    value: 2000000
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.prior_demand@1
+    metric_id: xlm.prior_demand
+    asset: XLM
+    value: 20000000
+    unit: XLM
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2024-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.activity_growth@1
+    metric_id: xlm.activity_growth
+    asset: XLM
+    value: 0.5
+    unit: ratio
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.rwa_growth@1
+    metric_id: xlm.rwa_growth
+    asset: XLM
+    value: 0.3
+    unit: ratio
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.institutional_growth@1
+    metric_id: xlm.institutional_growth
+    asset: XLM
+    value: 0.6
+    unit: ratio
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@1
+  - id: xlm.dtcc_live@1
+    metric_id: xlm.dtcc_live
+    asset: XLM
+    value: 0
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: xlm.dtcc_material@1
+    metric_id: xlm.dtcc_material
+    asset: XLM
+    value: 0
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.
+  - id: xlm.demand_material@1
+    metric_id: xlm.demand_material
+    asset: XLM
+    value: 0
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst input for deterministic MVP demonstration; not
+      verified market data.

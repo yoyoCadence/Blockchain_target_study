@@ -1,0 +1,56 @@
+version: 1
+sources:
+  - id: fixture-source@1
+    version: 1
+    url: https://example.invalid/synthetic-fixture
+    publisher: Local test fixture generator
+    title: Synthetic financial inputs — NOT evidence or market data
+    date: 2025-12-31
+    retrieved_at: 2026-01-01T00:00:00Z
+    tier: 5
+    covered_metrics:
+      - market.volume
+      - market.global_equity
+      - uni.price
+      - uni.market_cap
+      - uni.fdv
+      - uni.crypto_fees
+      - uni.other_rwa
+      - uni.unichain
+      - uni.mev
+      - uni.other_accrual
+      - uni.activity_growth
+      - uni.supply_growth
+      - secz.tokenization
+      - secz.servicing
+      - secz.transaction
+      - secz.saas
+      - secz.administration
+      - secz.other
+      - secz.prior_revenue
+      - secz.aum
+      - secz.prior_aum
+      - secz.volume
+      - secz.prior_volume
+      - secz.ebitda
+      - secz.prior_ebitda
+      - secz.ev
+      - xlm.price
+      - xlm.rwa
+      - xlm.stablecoins
+      - xlm.transfer_volume
+      - xlm.operations
+      - xlm.active_addresses
+      - xlm.issuers
+      - xlm.dtcc_activity
+      - xlm.fee_xlm
+      - xlm.reserves
+      - xlm.liquidity
+      - xlm.collateral
+      - xlm.settlement
+      - xlm.other_locked
+      - xlm.prior_demand
+      - xlm.activity_growth
+      - xlm.rwa_growth
+      - xlm.institutional_growth
+    fixture: true

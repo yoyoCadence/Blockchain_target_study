@@ -1,0 +1,12 @@
+import {loadProject,calculate,selectInputs} from '../engine/index.js';
+import {readSnapshots,makeSnapshot,saveSnapshot} from '../engine/snapshots.js';
+import {applyEvent} from '../engine/propagation/index.js';
+const project=loadProject('fixture');
+if(readSnapshots(project.root,'fixture').length) throw new Error('Fixture history already exists; never overwrite snapshots.');
+if(selectInputs(project.inputs)['uni.fee'].value!==0.00017) throw new Error('Demo requires the explicit 1.70 bp baseline.');
+const initial=makeSnapshot(project,calculate(project),{reason:'MVP synthetic fixture baseline. Initial protocol fee assumption: 1.70 bp; no verified market observations.'});
+saveSnapshot(project.root,initial);
+const old=selectInputs(project.inputs)['uni.fee'];
+const event={id:'fixture-fee-revision-001',type:'protocol_fee_change',status:'planned',as_of_date:'2025-12-31',source_ids:[],affected_nodes:['UNI'],reason:'Synthetic analyst assumption changed from 1.70 bp to 1.25 bp. No source or formula change. Required standalone UNI share increases from 31.03% to 42.2%. This is not a live fee change.',fixture:true,updates:[{...old,id:'uni.fee@2',version:2,value:0.000125,supersedes:old.id,rationale:'Synthetic analyst fee revision for version-comparison demonstration; not a protocol fact.'}]};
+const prepared=applyEvent(project,event);
+console.log(`Created baseline ${initial.id} and event snapshot ${prepared.snapshot.id}`);

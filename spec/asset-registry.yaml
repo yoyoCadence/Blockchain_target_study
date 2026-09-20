@@ -1,0 +1,105 @@
+version: 1
+discovery_enabled: true
+promotion_stages:
+  - DISCOVERED
+  - CANDIDATE
+  - PRIMARY_SOURCE_VERIFIED
+  - VALUE_CAPTURE_MAPPED
+  - INVESTABILITY_CHECKED
+  - REVERSE_UNDERWRITING_AVAILABLE
+  - CORE
+  - SECONDARY
+candidate_triggers:
+  - material_dtcc_integration
+  - issuer_native_tokenization
+  - registered_transfer_agent
+  - permissioned_amm
+  - material_tokenized_aum
+  - tokenized_equity_distribution
+  - oracle_interoperability
+assets:
+  - id: UNI
+    name: Uniswap
+    role: core
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: SECZ
+    name: Securitize
+    role: core
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: XLM
+    name: Stellar Lumens
+    role: core
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: GLXY
+    name: Galaxy Digital
+    role: secondary
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: SUPERSTATE
+    name: Superstate
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: BLSH
+    name: Bullish
+    role: secondary
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: EQUINITI
+    name: Equiniti
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases:
+      - EQUIINITI
+  - id: SOL
+    name: Solana
+    role: secondary
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: LINK
+    name: Chainlink
+    role: secondary
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: DTCC
+    name: DTCC
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: SEC
+    name: SEC
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: NYSE
+    name: NYSE
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: NASDAQ
+    name: Nasdaq
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []
+  - id: STELLAR
+    name: Stellar network
+    role: dependency
+    investability: unverified
+    basis: User-requested research universe; symbol is not a verified listing.
+    aliases: []

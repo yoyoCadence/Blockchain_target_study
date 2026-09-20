@@ -1,0 +1,182 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+properties:
+  id: &a2
+    type: string
+    minLength: 1
+  type:
+    enum:
+      - regulation
+      - protocol_fee_change
+      - token_burn
+      - dilution
+      - issuer_tokenization
+      - permissioned_amm_launch
+      - partnership
+      - acquisition
+      - quarterly_results
+      - dtcc_migration
+      - chain_integration
+      - governance
+      - competitive_entry
+  status:
+    enum:
+      - planned
+      - announced
+      - live
+      - completed
+      - cancelled
+  as_of_date: &a1
+    type: string
+    format: date
+  effective_date: *a1
+  source_ids: &a3
+    type: array
+    items: *a2
+    uniqueItems: true
+  affected_nodes:
+    type: array
+    items: *a2
+    uniqueItems: true
+    minItems: 1
+  reason: *a2
+  fixture:
+    type: boolean
+  updates:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *a2
+        metric_id: *a2
+        asset: *a2
+        value:
+          type:
+            - number
+            - "null"
+        unit:
+          enum:
+            - USD
+            - USD/year
+            - UNI
+            - UNI/year
+            - XLM
+            - XLM/year
+            - count/year
+            - count
+            - ratio
+            - years
+            - turns/year
+            - bps
+        classification:
+          enum:
+            - OBSERVED
+            - DERIVED
+            - ASSUMPTION
+            - SCENARIO
+        as_of_date: *a1
+        period:
+          type: object
+          additionalProperties: false
+          properties:
+            basis:
+              enum:
+                - annual
+                - quarterly
+                - TTM
+                - point
+                - model
+            end: *a1
+          required:
+            - basis
+            - end
+        confidence:
+          enum:
+            - high
+            - medium
+            - low
+            - unknown
+        version:
+          type: integer
+          minimum: 1
+        fixture:
+          type: boolean
+        source_ids: *a3
+        formula_id: *a2
+        formula_version:
+          type: integer
+          minimum: 1
+        dependencies: *a3
+        rationale: *a2
+        scenario: *a2
+        range:
+          type: array
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+        supersedes: *a2
+      required:
+        - id
+        - metric_id
+        - asset
+        - value
+        - unit
+        - classification
+        - as_of_date
+        - period
+        - confidence
+        - version
+        - fixture
+      allOf:
+        - if:
+            properties:
+              classification:
+                const: OBSERVED
+          then:
+            required:
+              - source_ids
+            properties:
+              source_ids:
+                minItems: 1
+        - if:
+            properties:
+              classification:
+                const: DERIVED
+          then:
+            required:
+              - formula_id
+              - formula_version
+              - dependencies
+            properties:
+              dependencies:
+                minItems: 1
+        - if:
+            properties:
+              classification:
+                const: ASSUMPTION
+          then:
+            required:
+              - rationale
+        - if:
+            properties:
+              classification:
+                const: SCENARIO
+          then:
+            anyOf:
+              - required:
+                  - scenario
+              - required:
+                  - range
+required:
+  - id
+  - type
+  - status
+  - as_of_date
+  - source_ids
+  - affected_nodes
+  - reason
+  - fixture
+  - updates

@@ -1,0 +1,590 @@
+version: 1
+metrics:
+  - id: market.equity_aum
+    asset: MARKET
+    label: Tokenized Equity AUM
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: market.volume
+    asset: MARKET
+    label: Tokenized Equity Volume
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: market.global_equity
+    asset: MARKET
+    label: Global Equity Market
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: market.penetration
+    asset: MARKET
+    label: Scenario Penetration
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.price
+    asset: UNI
+    label: UNI Price
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.market_cap
+    asset: UNI
+    label: Market Cap
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.fdv
+    asset: UNI
+    label: Fully Diluted Valuation
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.crypto_fees
+    asset: UNI
+    label: Crypto Protocol Fees
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.other_rwa
+    asset: UNI
+    label: Other RWA Fees
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.unichain
+    asset: UNI
+    label: Unichain Accrual
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.mev
+    asset: UNI
+    label: MEV Accrual
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.other_accrual
+    asset: UNI
+    label: Other Protocol Accrual
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.activity_growth
+    asset: UNI
+    label: Protocol Activity Growth
+    unit: ratio
+    kind: input
+    minimum: null
+    maximum: null
+  - id: uni.supply_growth
+    asset: UNI
+    label: Net UNI Supply Growth
+    unit: ratio
+    kind: input
+    minimum: null
+    maximum: null
+  - id: uni.turnover
+    asset: UNI
+    label: Turnover
+    unit: turns/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.onchain_share
+    asset: UNI
+    label: Onchain Share
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.amm_share
+    asset: UNI
+    label: AMM Share
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.market_share
+    asset: UNI
+    label: Uniswap Market Share
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.fee
+    asset: UNI
+    label: Effective Protocol Fee
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.required_yield
+    asset: UNI
+    label: Required Yield
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.growth_budget
+    asset: UNI
+    label: Annual Growth Budget
+    unit: UNI/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.other_dilution
+    asset: UNI
+    label: Other Dilution Value
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.growth_distribution
+    asset: UNI
+    label: Growth Distribution Value
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.equity_revenue
+    asset: UNI
+    label: Tokenized Equity Protocol Revenue
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.gross_accrual
+    asset: UNI
+    label: Gross UNI Accrual
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.net_accrual
+    asset: UNI
+    label: Net UNI Accrual
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.net_burn_yield
+    asset: UNI
+    label: Net Burn Yield
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.required_accrual
+    asset: UNI
+    label: Required UNI Accrual
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.required_share
+    asset: UNI
+    label: Required Uniswap Market Share
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.required_share_net
+    asset: UNI
+    label: "Required Share: Full Net Economics"
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.tokenization
+    asset: SECZ
+    label: Tokenization Revenue
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.servicing
+    asset: SECZ
+    label: Asset Servicing Revenue
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.transaction
+    asset: SECZ
+    label: Transaction Revenue
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.saas
+    asset: SECZ
+    label: Issuer SaaS / Maintenance
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.administration
+    asset: SECZ
+    label: Fund Administration
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.other
+    asset: SECZ
+    label: Other Revenue
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.prior_revenue
+    asset: SECZ
+    label: Prior Revenue
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.aum
+    asset: SECZ
+    label: Current AUM
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.prior_aum
+    asset: SECZ
+    label: Prior AUM
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.volume
+    asset: SECZ
+    label: Transaction Volume
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.prior_volume
+    asset: SECZ
+    label: Prior Transaction Volume
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.ebitda
+    asset: SECZ
+    label: EBITDA
+    unit: USD/year
+    kind: input
+    minimum: null
+    maximum: null
+  - id: secz.prior_ebitda
+    asset: SECZ
+    label: Prior EBITDA
+    unit: USD/year
+    kind: input
+    minimum: null
+    maximum: null
+  - id: secz.ev
+    asset: SECZ
+    label: Enterprise Value
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.multiple
+    asset: SECZ
+    label: Terminal FCF Multiple
+    unit: years
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.fcf_margin
+    asset: SECZ
+    label: Target FCF Margin
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: secz.years
+    asset: SECZ
+    label: Projection Horizon
+    unit: years
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.revenue
+    asset: SECZ
+    label: Total Revenue
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.revenue_growth
+    asset: SECZ
+    label: Revenue Growth
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.aum_growth
+    asset: SECZ
+    label: AUM Growth
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.volume_growth
+    asset: SECZ
+    label: Volume Growth
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.revenue_efficiency
+    asset: SECZ
+    label: Revenue Efficiency
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.volume_monetization
+    asset: SECZ
+    label: Volume Monetization
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.operating_leverage
+    asset: SECZ
+    label: Operating Leverage
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.ebitda_margin
+    asset: SECZ
+    label: EBITDA Margin
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.margin_change
+    asset: SECZ
+    label: EBITDA Margin Change
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.required_fcf
+    asset: SECZ
+    label: Required FCF
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.required_revenue
+    asset: SECZ
+    label: Required Revenue
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: secz.required_cagr
+    asset: SECZ
+    label: Required Revenue CAGR
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: xlm.price
+    asset: XLM
+    label: XLM Price
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.rwa
+    asset: XLM
+    label: Network RWA Value
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.stablecoins
+    asset: XLM
+    label: Stablecoin Supply
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.transfer_volume
+    asset: XLM
+    label: Transfer Volume
+    unit: USD/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.operations
+    asset: XLM
+    label: Operations
+    unit: count/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.active_addresses
+    asset: XLM
+    label: Active Addresses
+    unit: count
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.issuers
+    asset: XLM
+    label: Institutional Issuers
+    unit: count
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.dtcc_activity
+    asset: XLM
+    label: DTCC Activity
+    unit: count/year
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.fee_xlm
+    asset: XLM
+    label: Average Fee per Operation
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.reserves
+    asset: XLM
+    label: Account Reserve Demand
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.liquidity
+    asset: XLM
+    label: Liquidity Demand
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.collateral
+    asset: XLM
+    label: Collateral Demand
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.settlement
+    asset: XLM
+    label: Settlement Operational Demand
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.other_locked
+    asset: XLM
+    label: Other Locked XLM
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.prior_demand
+    asset: XLM
+    label: Prior Native XLM Demand
+    unit: XLM
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: xlm.activity_growth
+    asset: XLM
+    label: Network Economic Activity Growth
+    unit: ratio
+    kind: input
+    minimum: null
+    maximum: null
+  - id: xlm.rwa_growth
+    asset: XLM
+    label: Network RWA Growth
+    unit: ratio
+    kind: input
+    minimum: null
+    maximum: null
+  - id: xlm.institutional_growth
+    asset: XLM
+    label: Institutional Tokenized Asset Growth
+    unit: ratio
+    kind: input
+    minimum: null
+    maximum: null
+  - id: xlm.dtcc_live
+    asset: XLM
+    label: DTCC Live Flag
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: xlm.dtcc_material
+    asset: XLM
+    label: DTCC Material Flag
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: xlm.demand_material
+    asset: XLM
+    label: Economic Demand Material Change Flag
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: xlm.network_fees
+    asset: XLM
+    label: Network Fee Value
+    unit: USD/year
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: xlm.native_demand
+    asset: XLM
+    label: Native XLM Demand
+    unit: XLM
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: xlm.demand_growth
+    asset: XLM
+    label: Native Asset Demand Growth
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: xlm.capture_ratio
+    asset: XLM
+    label: Economic Capture Ratio
+    unit: ratio
+    kind: derived
+    minimum: null
+    maximum: null

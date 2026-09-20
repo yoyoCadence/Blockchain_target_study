@@ -1,0 +1,20 @@
+version: 1
+metrics:
+  - id: market.equity_aum@1
+    metric_id: market.equity_aum
+    asset: MARKET
+    value: null
+    unit: USD
+    classification: SCENARIO
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: unknown
+    version: 1
+    fixture: false
+    rationale: Analyst input pending research; unknown production value.
+    scenario: Regression TAM, not observed AUM
+    range:
+      - 1000000000000
+      - 8000000000000

@@ -1,0 +1,24 @@
+version: 1
+parameters:
+  - market.equity_aum
+  - uni.turnover
+  - uni.onchain_share
+  - uni.amm_share
+  - uni.fee
+  - uni.market_share
+  - uni.required_yield
+  - uni.growth_budget
+  - secz.fcf_margin
+  - secz.multiple
+matrix:
+  row: market.equity_aum
+  rows:
+    - 2000000000000
+    - 4000000000000
+    - 6000000000000
+  column: uni.fee
+  columns:
+    - 0.00005
+    - 0.000125
+    - 0.0002
+  output: uni.required_share

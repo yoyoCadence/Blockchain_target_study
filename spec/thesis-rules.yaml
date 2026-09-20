@@ -1,0 +1,158 @@
+version: 1
+states:
+  - HEALTHY
+  - WATCH
+  - STRESS
+  - BREAK_CANDIDATE
+  - INVALIDATED
+rules:
+  - id: uni.watch
+    version: 1
+    asset: UNI
+    state: WATCH
+    periods: 2
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Net burn yield below 2% for two consecutive periods.
+    conditions:
+      - metric: uni.net_burn_yield
+        operator: lt
+        value: 0.02
+  - id: uni.stress
+    version: 1
+    asset: UNI
+    state: STRESS
+    periods: 1
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Fee below 0.5 bp and required share above 50%.
+    conditions:
+      - metric: uni.fee
+        operator: lt
+        value: 0.00005
+      - metric: uni.required_share
+        operator: gt
+        value: 0.5
+  - id: uni.break
+    version: 1
+    asset: UNI
+    state: BREAK_CANDIDATE
+    periods: 4
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Protocol activity and net supply both grow for four periods.
+    conditions:
+      - metric: uni.activity_growth
+        operator: gt
+        value: 0
+      - metric: uni.supply_growth
+        operator: gt
+        value: 0
+  - id: secz.watch
+    version: 1
+    asset: SECZ
+    state: WATCH
+    periods: 1
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: AUM growth fails to convert into revenue growth.
+    conditions:
+      - metric: secz.aum_growth
+        operator: gt
+        value: 0
+      - metric: secz.revenue_growth
+        operator: lte
+        value: 0
+  - id: secz.stress
+    version: 1
+    asset: SECZ
+    state: STRESS
+    periods: 2
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: AUM grows above 15% while revenue contracts for two periods.
+    conditions:
+      - metric: secz.aum_growth
+        operator: gt
+        value: 0.15
+      - metric: secz.revenue_growth
+        operator: lt
+        value: 0
+  - id: secz.break
+    version: 1
+    asset: SECZ
+    state: BREAK_CANDIDATE
+    periods: 4
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Volume growth exceeds 50% without revenue or margin improvement for four
+      periods.
+    conditions:
+      - metric: secz.volume_growth
+        operator: gt
+        value: 0.5
+      - metric: secz.revenue_growth
+        operator: lte
+        value: 0
+      - metric: secz.margin_change
+        operator: lte
+        value: 0
+  - id: xlm.watch
+    version: 1
+    asset: XLM
+    state: WATCH
+    periods: 1
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Network RWA grows above 25% without native demand growth.
+    conditions:
+      - metric: xlm.rwa_growth
+        operator: gt
+        value: 0.25
+      - metric: xlm.demand_growth
+        operator: lte
+        value: 0
+  - id: xlm.stress
+    version: 1
+    asset: XLM
+    state: STRESS
+    periods: 4
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Institutional growth fails to translate into native capture for four
+      periods.
+    conditions:
+      - metric: xlm.institutional_growth
+        operator: gt
+        value: 0.5
+      - metric: xlm.capture_ratio
+        operator: lt
+        value: 0.1
+  - id: xlm.break
+    version: 1
+    asset: XLM
+    state: BREAK_CANDIDATE
+    periods: 4
+    classification: ASSUMPTION
+    rationale: "ANALYST-DEFINED ASSUMPTION: provisional monitoring thresholds, not
+      natural laws."
+    why: Live and material DTCC activity without material XLM demand change for four
+      periods.
+    conditions:
+      - metric: xlm.dtcc_live
+        operator: eq
+        value: 1
+      - metric: xlm.dtcc_material
+        operator: eq
+        value: 1
+      - metric: xlm.demand_material
+        operator: eq
+        value: 0

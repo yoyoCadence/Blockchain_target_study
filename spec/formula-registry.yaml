@@ -1,0 +1,403 @@
+version: 1
+formulas:
+  - id: f.market.penetration
+    version: 1
+    output: market.penetration
+    asset: MARKET
+    label: Scenario Penetration
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - market.equity_aum
+        - market.global_equity
+    period_policy: compatible
+    description: Scenario Penetration
+  - id: f.uni.growth_distribution
+    version: 1
+    output: uni.growth_distribution
+    asset: UNI
+    label: Growth Distribution Value
+    unit: USD/year
+    expression:
+      op: mul
+      args:
+        - uni.growth_budget
+        - uni.price
+    period_policy: compatible
+    description: Growth Distribution Value
+  - id: f.uni.equity_revenue
+    version: 1
+    output: uni.equity_revenue
+    asset: UNI
+    label: Tokenized Equity Protocol Revenue
+    unit: USD/year
+    expression:
+      op: mul
+      args:
+        - market.equity_aum
+        - uni.turnover
+        - uni.onchain_share
+        - uni.amm_share
+        - uni.market_share
+        - uni.fee
+    period_policy: compatible
+    description: Tokenized Equity Protocol Revenue
+  - id: f.uni.gross_accrual
+    version: 1
+    output: uni.gross_accrual
+    asset: UNI
+    label: Gross UNI Accrual
+    unit: USD/year
+    expression:
+      op: add
+      args:
+        - uni.crypto_fees
+        - uni.equity_revenue
+        - uni.other_rwa
+        - uni.unichain
+        - uni.mev
+        - uni.other_accrual
+    period_policy: compatible
+    description: Gross UNI Accrual
+  - id: f.uni.net_accrual
+    version: 1
+    output: uni.net_accrual
+    asset: UNI
+    label: Net UNI Accrual
+    unit: USD/year
+    expression:
+      op: sub
+      args:
+        - uni.gross_accrual
+        - uni.growth_distribution
+        - uni.other_dilution
+    period_policy: compatible
+    description: Net UNI Accrual
+  - id: f.uni.net_burn_yield
+    version: 1
+    output: uni.net_burn_yield
+    asset: UNI
+    label: Net Burn Yield
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - uni.net_accrual
+        - uni.market_cap
+    period_policy: compatible
+    description: Net Burn Yield
+  - id: f.uni.required_accrual
+    version: 1
+    output: uni.required_accrual
+    asset: UNI
+    label: Required UNI Accrual
+    unit: USD/year
+    expression:
+      op: mul
+      args:
+        - uni.market_cap
+        - uni.required_yield
+    period_policy: compatible
+    description: Required UNI Accrual
+  - id: f.uni.required_share
+    version: 1
+    output: uni.required_share
+    asset: UNI
+    label: Required Uniswap Market Share
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - op: add
+          args:
+            - uni.required_accrual
+            - uni.growth_distribution
+        - op: mul
+          args:
+            - market.equity_aum
+            - uni.turnover
+            - uni.onchain_share
+            - uni.amm_share
+            - uni.fee
+    period_policy: compatible
+    description: Conservative prompt-specified standalone tokenized-equity hurdle;
+      does not offset other accrual streams or add other dilution. Not a full
+      net-accrual solve.
+  - id: f.uni.required_share_net
+    version: 1
+    output: uni.required_share_net
+    asset: UNI
+    label: "Required Share: Full Net Economics"
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - op: sub
+          args:
+            - op: add
+              args:
+                - uni.required_accrual
+                - uni.growth_distribution
+                - uni.other_dilution
+            - uni.crypto_fees
+            - uni.other_rwa
+            - uni.unichain
+            - uni.mev
+            - uni.other_accrual
+        - op: mul
+          args:
+            - market.equity_aum
+            - uni.turnover
+            - uni.onchain_share
+            - uni.amm_share
+            - uni.fee
+    period_policy: compatible
+    description: "Required Share: Full Net Economics"
+  - id: f.secz.revenue
+    version: 1
+    output: secz.revenue
+    asset: SECZ
+    label: Total Revenue
+    unit: USD/year
+    expression:
+      op: add
+      args:
+        - secz.tokenization
+        - secz.servicing
+        - secz.transaction
+        - secz.saas
+        - secz.administration
+        - secz.other
+    period_policy: compatible
+    description: Total Revenue
+  - id: f.secz.revenue_growth
+    version: 1
+    output: secz.revenue_growth
+    asset: SECZ
+    label: Revenue Growth
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - op: div
+          args:
+            - secz.revenue
+            - secz.prior_revenue
+        - 1
+    period_policy: prior_comparison
+    description: Revenue Growth
+  - id: f.secz.aum_growth
+    version: 1
+    output: secz.aum_growth
+    asset: SECZ
+    label: AUM Growth
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - op: div
+          args:
+            - secz.aum
+            - secz.prior_aum
+        - 1
+    period_policy: prior_comparison
+    description: AUM Growth
+  - id: f.secz.volume_growth
+    version: 1
+    output: secz.volume_growth
+    asset: SECZ
+    label: Volume Growth
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - op: div
+          args:
+            - secz.volume
+            - secz.prior_volume
+        - 1
+    period_policy: prior_comparison
+    description: Volume Growth
+  - id: f.secz.revenue_efficiency
+    version: 1
+    output: secz.revenue_efficiency
+    asset: SECZ
+    label: Revenue Efficiency
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - secz.revenue_growth
+        - secz.aum_growth
+    period_policy: compatible
+    description: Revenue Efficiency
+  - id: f.secz.volume_monetization
+    version: 1
+    output: secz.volume_monetization
+    asset: SECZ
+    label: Volume Monetization
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - secz.revenue
+        - secz.volume
+    period_policy: compatible
+    description: Volume Monetization
+  - id: f.secz.operating_leverage
+    version: 1
+    output: secz.operating_leverage
+    asset: SECZ
+    label: Operating Leverage
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - op: sub
+          args:
+            - secz.ebitda
+            - secz.prior_ebitda
+        - op: sub
+          args:
+            - secz.revenue
+            - secz.prior_revenue
+    period_policy: prior_comparison
+    description: Operating Leverage
+  - id: f.secz.ebitda_margin
+    version: 1
+    output: secz.ebitda_margin
+    asset: SECZ
+    label: EBITDA Margin
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - secz.ebitda
+        - secz.revenue
+    period_policy: compatible
+    description: EBITDA Margin
+  - id: f.secz.margin_change
+    version: 1
+    output: secz.margin_change
+    asset: SECZ
+    label: EBITDA Margin Change
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - secz.ebitda_margin
+        - op: div
+          args:
+            - secz.prior_ebitda
+            - secz.prior_revenue
+    period_policy: prior_comparison
+    description: EBITDA Margin Change
+  - id: f.secz.required_fcf
+    version: 1
+    output: secz.required_fcf
+    asset: SECZ
+    label: Required FCF
+    unit: USD/year
+    expression:
+      op: div
+      args:
+        - secz.ev
+        - secz.multiple
+    period_policy: compatible
+    description: Required FCF
+  - id: f.secz.required_revenue
+    version: 1
+    output: secz.required_revenue
+    asset: SECZ
+    label: Required Revenue
+    unit: USD/year
+    expression:
+      op: div
+      args:
+        - secz.required_fcf
+        - secz.fcf_margin
+    period_policy: compatible
+    description: Required Revenue
+  - id: f.secz.required_cagr
+    version: 1
+    output: secz.required_cagr
+    asset: SECZ
+    label: Required Revenue CAGR
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - op: pow
+          args:
+            - op: div
+              args:
+                - secz.required_revenue
+                - secz.revenue
+            - op: div
+              args:
+                - 1
+                - secz.years
+        - 1
+    period_policy: compatible
+    description: Required Revenue CAGR
+  - id: f.xlm.network_fees
+    version: 1
+    output: xlm.network_fees
+    asset: XLM
+    label: Network Fee Value
+    unit: USD/year
+    expression:
+      op: mul
+      args:
+        - xlm.operations
+        - xlm.fee_xlm
+        - xlm.price
+    period_policy: compatible
+    description: Network Fee Value
+  - id: f.xlm.native_demand
+    version: 1
+    output: xlm.native_demand
+    asset: XLM
+    label: Native XLM Demand
+    unit: XLM
+    expression:
+      op: add
+      args:
+        - xlm.reserves
+        - xlm.liquidity
+        - xlm.collateral
+        - xlm.settlement
+        - xlm.other_locked
+    period_policy: compatible
+    description: Disjoint inventory buckets; avoid double counting. Network fees are
+      not capitalized into holder value.
+  - id: f.xlm.demand_growth
+    version: 1
+    output: xlm.demand_growth
+    asset: XLM
+    label: Native Asset Demand Growth
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - op: div
+          args:
+            - xlm.native_demand
+            - xlm.prior_demand
+        - 1
+    period_policy: prior_comparison
+    description: Native Asset Demand Growth
+  - id: f.xlm.capture_ratio
+    version: 1
+    output: xlm.capture_ratio
+    asset: XLM
+    label: Economic Capture Ratio
+    unit: ratio
+    expression:
+      op: div
+      args:
+        - xlm.demand_growth
+        - xlm.activity_growth
+    period_policy: compatible
+    description: Economic Capture Ratio

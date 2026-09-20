@@ -1,0 +1,43 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+properties:
+  id: &a1
+    type: string
+    minLength: 1
+  version:
+    type: integer
+    minimum: 1
+  url:
+    type: string
+    format: uri
+  publisher: *a1
+  title: *a1
+  date:
+    type: string
+    format: date
+  retrieved_at:
+    type: string
+    format: date-time
+  tier:
+    type: integer
+    minimum: 1
+    maximum: 5
+  covered_metrics:
+    type: array
+    items: *a1
+    uniqueItems: true
+  fixture:
+    type: boolean
+  supersedes: *a1
+required:
+  - id
+  - version
+  - url
+  - publisher
+  - title
+  - date
+  - retrieved_at
+  - tier
+  - covered_metrics
+  - fixture
