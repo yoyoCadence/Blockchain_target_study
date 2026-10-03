@@ -2,24 +2,20 @@ import path from 'node:path';
 import {assert,validateSchema,checkEventEvidence,checkEventReview,checkResearchEvidence} from '../validation/index.js';
 import {calculate,validateProject,selectInputs} from '../index.js';
 import {makeSnapshot,writeExclusive,readSnapshots,assertVersionHistory} from '../snapshots.js';
-export function affectedNodes(graph,initial) {
- const nodes=new Set(initial);let changed=true;
- while(changed) {changed=false;for(const edge of graph.edges) if(nodes.has(edge.from)&&!nodes.has(edge.to)) {nodes.add(edge.to);changed=true;}}
- return [...nodes];
-}
+import {checkEventScope} from './scope.js';
+export {affectedNodes} from './scope.js';
 export function prepareEvent(p,event,history=[]) {
  validateSchema(p.eventSchema,event,'event');
  assert(/^[a-zA-Z0-9_-]+$/.test(event.id),'Event ID must be a safe filename');
  const withSources={...p,sources:[...p.sources,...(event.sources||[])]};
  // Validate every new source before using it as evidence or writing a journal.
  validateProject(withSources);
- assert(event.affected_nodes.every(id=>p.assets.assets.some(a=>a.id===id)),'Unknown affected node');
+ const nodes=checkEventScope(p,event);
  checkEventEvidence(event,withSources.sources,p.mode);
  checkEventReview(event,withSources.sources);
  checkResearchEvidence(event,withSources.sources);
- const old=selectInputs(p.inputs),nodes=affectedNodes(p.graph,event.affected_nodes);
+ const old=selectInputs(p.inputs);
  for(const update of event.updates) {
-  assert(nodes.includes(update.asset),'Event update asset is outside affected nodes');
   if(old[update.metric_id]) assert(update.supersedes===old[update.metric_id].id,'Updates must explicitly supersede current input');
  }
  const next={...withSources,inputs:[...p.inputs,...event.updates]};validateProject(next);
