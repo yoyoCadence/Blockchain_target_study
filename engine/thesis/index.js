@@ -1,12 +1,11 @@
+import {alignedCalendarPeriods} from '../validation/index.js';
 const rank=['HEALTHY','WATCH','STRESS','BREAK_CANDIDATE','INVALIDATED'];
 const operators={lt:(a,b)=>a<b,lte:(a,b)=>a<=b,gt:(a,b)=>a>b,gte:(a,b)=>a>=b,eq:(a,b)=>a===b};
 function consecutive(frames) {
  for(let i=1;i<frames.length;i++) {
   const a=frames[i-1].period,b=frames[i].period;
   if(a.basis!==b.basis) return false;
-  const da=new Date(a.end),db=new Date(b.end);
-  const months=(db.getUTCFullYear()-da.getUTCFullYear())*12+db.getUTCMonth()-da.getUTCMonth();
-  if(months!==(b.basis==='quarterly'?3:12)) return false;
+  if(!alignedCalendarPeriods(a.end,b.end,b.basis==='quarterly'?3:12))return false;
  }
  return true;
 }

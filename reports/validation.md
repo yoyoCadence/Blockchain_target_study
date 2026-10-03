@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 calendar period endpoint alignment
+
+- `npm test`: **306 passed, 0 failed**, including 18 calendar/growth/thesis/history regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced false annual alignment for 2024-12-30 / 2025-12-31 and a resulting two-period WATCH trigger. Shared validation now rejects the shifted endpoints; thesis reports insufficient evidence without an affirmative healthy interpretation.
+- Verified annual/quarterly fixed days, actual month ends, leap years, year rollover, wrong intervals and invalid date-only endpoints. Calculation errors propagate null and prevent snapshot creation; a separately supported one-period WATCH survives an unsupported four-quarter break.
+- Both latest financial snapshots replay identical metrics/thesis and all history hashes remain intact. Formula AST/versions, analyst thresholds and evidence data remain unchanged. No UI change or additional browser verification; week-based fiscal calendars remain unsupported.
+
 ## 2026-10-03 manual cataloged-research freshness
 
 - `npm test`: **288 passed, 0 failed**, including 17 research-freshness regressions.
