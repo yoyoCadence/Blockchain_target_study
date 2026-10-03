@@ -65,6 +65,8 @@ node cli.js revenue-compare data/research/revenue-reviews/secz-annual-v1.json da
 node cli.js revenue-ttm data/research/secz-ttm-20260630-review-v1.yaml data/research/revenue-reviews/secz-prospectus-v1.json data/research/revenue-reviews/secz-q22026-v1.json --production
 ```
 
+後續 [收購範圍查證](reports/secz-acquisition-context.md)另存 S-1 XBRL 的 Inc.／LLC 標題、相同收購日期／對價及 actual／pro forma 區分。只追加來源事件／完整快照；法律名稱等價未獲直接澄清，原 TTM null 與所有金融輸入保留。
+
 手動來源時效檢查分開顯示觀測 age、發布 age 與重新取得 age；門檻是明示分析者假設，不會改動財務值或 thesis。完整說明見 [來源時效](reports/source-freshness.md)。
 
 ```powershell

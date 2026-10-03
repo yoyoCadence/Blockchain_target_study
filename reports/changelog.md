@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — SECZ acquisition-context cross-check
+
+- Preserved seven dated SEC sources: S-1 acquisition narrative/allocation, selected prospectus/interim statements and all three filing indices. Retained both Inc./LLC headings and the XBRL member label.
+- Recorded matching acquisition-date allocation separately from actual and acquisition pro forma revenue; appended a source-only full snapshot, retaining every earlier financial/source version and formal TTM null.
+- Added four regressions; full suite 325 passed and both modes validate. Four snapshots of one model period do not add thesis evidence. Legal naming equivalence, six-stream ingestion and complete baseline remain unverified.
+
 ## 2026-10-03 — Thesis condition-period evidence
 
 - Prevented an old metric from being counted as a new thesis period solely because its snapshot label changed.

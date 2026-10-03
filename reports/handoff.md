@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-03 — SECZ 收購範圍交叉查證
+
+PR #20 遠端 CI 全部通過後已合併（`88b3db9`）。`research/secz-acquisition-context` 從最新 origin/main 建立，原工作目錄乾淨。回到首項 NEXT baseline 的 acquisition_treatment 阻擋，限定保存新增交叉證據而不自行清除名稱差異。
+
+讀 SEC S-1 R30／R90、三份 filing indices、Chrome 所選 424B3 年度 Note 3／pro forma，及 interim Note 3／actual statement／Note 18。S-1 narrative 同時有 LLC／Inc.，allocation 的 MGStoverLLCMember 及三份披露的 4/15/2025／USD 對價與配置一致；這是財務 presentation 交叉證據，仍不是法律名稱等價的直接澄清。實際收入與收購 pro forma 另列，禁止替換／推定 organic growth。
+
+以既有 acquisition source-only event 追加七份完整 sources 與 snapshot `325bb03d8d7b4b2d395623bd03f43da83a0311d363a08ca6e59f8f7b9255dca7`，parent 為原 Firepit snapshot `c242eeb...`。本事件是回顧歷史子公司收購披露，不是新母公司交易；空 updates，graph／registry／金融 inputs／metrics／thesis 不變。四份 production snapshots 仍同一模型期間。原 TTM request／comparability v1／artifact 原 hash 保留，三項 DERIVED null 不變。
+
+驗證：325 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。四新增回歸涵蓋 dossier／journal／source dates/hash、source-only attribution、所有原 financial/history versions、完整 replay／同期間不能補期數、formal TTM null／actual-pro forma 不混用／fixture 隔離。無 UI 修改或 UI 驗證；原始來源 Chrome tab 已關閉。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成。已新增 primary context，但 Inc./LLC 直接法律釐清與完整更正沿革仍缺；不能僅憑 XBRL 標籤修改 acquisition_treatment。未來新判斷另存新 request/version，不改寫本版 null。六類 mapping／FCF、同步母公司估值、個人管道與 UNI 全期間 capture 亦待驗證。詳見 [收購範圍](secz-acquisition-context.md)。
+
 ## 2026-10-03 — Thesis 條件指標自身期間
 
 PR #19 遠端 CI 全部通過後已合併（`9c012bf`）。`fix/thesis-metric-periods` 從最新 origin/main 建立，原工作目錄乾淨。接續連續期證據前置驗證；在記憶體重現同一筆 2024 年指標放進 2025 snapshot 仍產生二期 WATCH／complete。
