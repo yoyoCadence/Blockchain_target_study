@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — UTC research／source chronology
+
+PR #13 遠端 CI 全部通過後已合併（`02299b4`）。`fix/utc-research-chronology` 從最新 origin/main 建立，原工作目錄乾淨。估值／來源日期檢視發現 `.slice(0,10)` 比較 offset timestamps 會跨 UTC 日誤判，純記憶體重現 canonical source 與 identity review 的錯誤接受。此問題可獨立修正，優先補共用 ingest／研究屏障。
+
+新增 schema 後使用的 utcDay helper，四處改為 UTC 日比較：canonical source publication/retrieval、identity dossier as-of/review、identity publication/retrieval、research review as-of。原始 timestamps／offsets 保留，已正確使用 UTC 的 revenue／TTM／freshness 不改；金融公式、假設及所有資料／artifacts／journal 不變。
+
+驗證：245 tests passed、0 failed；两模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。十项新增回歸涵蓋正負時區、閏日、兩模式 source validation、identity、research preview 成敗／無寫入與 metadata 保留。原 UNI 0.422、API、完整歷史與 research replay 通過。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成。SECZ 尚缺名稱差異澄清／TTM confirmation、六類收入映射、margin／FCF、同步股本／估值及個人管道。Prospectus 有歷史單日報價但無本次同步 EV 證據，canonical SECZ 模型輸入是 EV；未把不同日期股數／subsidiary shares／浮動股數套用價格。UNI realized capture／current state 亦未完成。只推進独立可驗收工作，詳見 [UTC 日期](utc-research-chronology.md)。
+
 ## 2026-10-03 — 明示可比性審查的原始收入 TTM 工具
 
 PR #12 遠端 CI 全部通過後已合併（`ab4d5f3`）。`feat/reviewed-revenue-ttm` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 可比期間的條件式工具子項，驗收完整 review hash 綁定、年／YTD 日期、人工 ASSUMPTION、null 屏障與完整 immutable replay。

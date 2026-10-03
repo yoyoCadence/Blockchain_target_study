@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 UTC research/source chronology
+
+- `npm test`: **245 passed, 0 failed**, including ten UTC-boundary regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced incorrect source/review acceptance caused by slicing local dates from offset timestamps; normalize to UTC days in canonical, identity and research-refresh guards.
+- Covered positive/negative offsets, leap boundaries, valid/rejected evidence and review cutoffs, no preview writes and preservation of raw timestamp text.
+- Existing revenue/TTM/freshness UTC behavior, formula/assumption versions, data, all saved hashes and immutable replay remain unchanged. Complete baseline remains pending.
+
 ## 2026-10-03 explicitly reviewed raw revenue TTM bridge
 
 - `npm test`: **235 passed, 0 failed**, including 36 TTM regressions.

@@ -4,6 +4,8 @@ export class ValidationError extends Error {
   constructor(message, details=[]) { super(message); this.name='ValidationError'; this.details=details; }
 }
 export const assert = (ok,message) => { if(!ok) throw new ValidationError(message); };
+// Use only after schema date-time validation; retain the original timestamp.
+export const utcDay = value => new Date(value).toISOString().slice(0,10);
 const ajv = new Ajv({allErrors:true,strict:false});
 addFormats(ajv);
 export function validateSchema(schema, value, context) {
