@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 manual source freshness
+
+- `npm test`: **97 passed, 0 failed**, including 14 freshness checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Explicit-cutoff production report: 58 unknown inputs; historical UNI budget observation age 275 days, with four recently retrieved sources. Retrieval age never replaces observation age.
+- Covered window boundaries, UTC offsets/leap dates, future evidence at historical cutoffs, unknown/assumption/scenario distinctions, retained source history, invalid policies/CLI dates and unchanged financial results/thesis/snapshots.
+- Read-only CLI scope; no remote fetching, browser UI changes or automatic scheduling. Financial formula/assumption versions and fixture regression 0.422 remain unchanged.
+
 ## 2026-10-03 core identifier review
 
 - `npm test`: **83 passed, 0 failed**, including 18 identity dossier/CLI checks.

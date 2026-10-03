@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — Manual source freshness
+
+- Added read-only freshness CLI and explicit versioned analyst policy, separating observation as-of, publication and retrieval ages.
+- Retained source versions and null data; unavailable-at-cutoff evidence cannot appear fresh. Old historical facts are not invalidated by review-window age.
+- Included DERIVED UTC-calendar-day formula v1 and policy digest/dependencies in report metadata. No financial calculations or thesis rules changed.
+- Added 14 freshness regressions; full suite 97 passed, both modes validate without errors/warnings. Manual NEXT subtask complete; full production baseline remains pending.
+
 ## 2026-10-03 — Core identity dossier
 
 - Recorded dated primary-source identities for UNI (Ethereum ERC-20), SECZ (NYSE parent common stock and SEC CIK) and XLM (native Stellar asset); kept personal eligibility/custody unknown.

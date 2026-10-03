@@ -1,0 +1,15 @@
+id: manual-source-freshness
+version: 1
+classification: ASSUMPTION
+rationale: >-
+  Analyst-defined provisional review windows, not laws or evidence of truth.
+  A stale observation needs re-verification for current use; its historical
+  truth is not invalidated. Recent retrieval does not update its as-of date.
+observation_max_age_days: 90
+retrieval_max_age_days: 30
+observation_overrides:
+  uni.price: 1
+  uni.market_cap: 1
+  uni.fdv: 1
+  secz.ev: 1
+  xlm.price: 1

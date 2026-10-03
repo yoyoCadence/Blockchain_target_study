@@ -24,7 +24,7 @@
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
 - [ ] Better bottom-up TAM engine.
-- [ ] Source freshness monitoring and stale-data detection.
+- [x] Manual source freshness and stale-data detection: read-only CLI, explicit analyst policy, independent observation/publication/retrieval dates, unknown/future evidence and preserved historical sources. See [freshness](reports/source-freshness.md). Scheduling, automatic retrieval and identity-dossier monitoring remain outside this completed scope.
 - [ ] External event-driven recalculation adapters (manual MVP event path exists).
 - [ ] Quarterly earnings ingestion and explicitly aligned fiscal periods.
 - [ ] Protocol governance monitoring.
@@ -45,3 +45,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-03 follow-up: the explicitly authorized manual research-refresh subtask is complete. Its parent task remains open; other NEXT/LATER work requires separate scope authorization.
 
 2026-10-03 continued authorization: proceed through prioritized, independently verifiable NEXT subtasks; publish ready Chinese PRs, merge after successful verification and continue. Unattended automation, scheduling, notifications and portfolio/return-loss models remain excluded.
+
+2026-10-03 baseline research constraints: SECZ quarterly flows and disclosed revenue categories cannot yet be mapped into the annual six-stream model without explicit period/category work; synchronized verified valuations and current access/custody checks are missing. Preserve nulls. Manual source freshness is independent and completed; automated collection, extra models and TAM expansion are deferred while the baseline remains incomplete.
