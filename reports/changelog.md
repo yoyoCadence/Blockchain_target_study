@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — UTC research/source chronology
+
+- Corrected source/review date comparison across UTC midnight by normalizing offset timestamps in shared canonical validation, identity review and research refresh.
+- Retained original timestamp metadata, date-only precision, financial formulas/assumptions and every saved artifact/history record.
+- Added ten regressions; full suite 245 passed and both modes validate. Full production baseline remains incomplete.
+
 ## 2026-10-03 — Explicitly reviewed raw revenue TTM bridge
 
 - Added versioned research formula v1, strict review schema and read-only production TTM CLI with bound immutable inputs, exact annual/YTD intervals and complete lineage.

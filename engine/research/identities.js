@@ -1,5 +1,5 @@
 import {readYaml} from '../index.js';
-import {assert,unique,validateSchema} from '../validation/index.js';
+import {assert,unique,validateSchema,utcDay} from '../validation/index.js';
 
 // This dossier verifies identifiers only. It cannot promote assets or supply
 // numerical financial inputs, market valuations or investability clearance.
@@ -8,12 +8,12 @@ export function reviewIdentities(project,dossier) {
  unique(dossier.sources);unique(dossier.identities);unique(dossier.identities,'asset');
  assert(dossier.review.reviewer.trim()&&dossier.review.rationale.trim(),'Identity review needs a reviewer and rationale');
  assert(Date.parse(dossier.review.reviewed_at)<=Date.now(),'Identity review cannot be in the future');
- assert(dossier.as_of_date<=dossier.review.reviewed_at.slice(0,10),'Identity review precedes dossier as-of');
+ assert(dossier.as_of_date<=utcDay(dossier.review.reviewed_at),'Identity review precedes dossier as-of');
  const sources=Object.fromEntries(dossier.sources.map(s=>[s.id,s]));
  for(const source of dossier.sources) {
   validateSchema(project.sourceSchema,source,'identity source');
   assert(!source.fixture,'Fixture source in identity dossier');
-  assert(source.date<=source.retrieved_at.slice(0,10),'Identity source published after retrieval');
+  assert(source.date<=utcDay(source.retrieved_at),'Identity source published after retrieval');
   assert(Date.parse(source.retrieved_at)<=Date.parse(dossier.review.reviewed_at),'Identity source retrieved after review');
  }
  for(const record of dossier.identities) {

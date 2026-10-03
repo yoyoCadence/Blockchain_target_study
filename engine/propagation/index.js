@@ -1,5 +1,5 @@
 import path from 'node:path';
-import {assert,validateSchema} from '../validation/index.js';
+import {assert,validateSchema,utcDay} from '../validation/index.js';
 import {calculate,validateProject,selectInputs} from '../index.js';
 import {makeSnapshot,writeExclusive,readSnapshots,assertVersionHistory} from '../snapshots.js';
 export function affectedNodes(graph,initial) {
@@ -26,7 +26,7 @@ export function prepareEvent(p,event,history=[]) {
  if(event.type==='research_refresh') {
   assert(event.research_review.reviewer.trim()&&event.research_review.rationale.trim(),'Research review needs a reviewer and rationale');
   assert(Date.parse(event.research_review.reviewed_at)<=Date.now(),'Research review cannot be in the future');
-  assert(event.research_review.reviewed_at.slice(0,10)>=event.as_of_date,'Research review precedes refresh as-of date');
+  assert(utcDay(event.research_review.reviewed_at)>=event.as_of_date,'Research review precedes refresh as-of date');
   assert(event.updates.length>0&&event.updates.every(m=>m.classification==='OBSERVED'),'Research refresh only accepts observations');
   for(const update of event.updates) {
    const sources=update.source_ids.map(id=>withSources.sources.find(s=>s.id===id));

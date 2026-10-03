@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import YAML from 'yaml';
-import {assert,unique,validateSchema,normalize,checkPeriods} from './validation/index.js';
+import {assert,unique,validateSchema,normalize,checkPeriods,utcDay} from './validation/index.js';
 import {references,evaluate,orderFormulas} from './formulas/index.js';
 import {evaluateTheses} from './thesis/index.js';
 import {verifySnapshot,fingerprint} from './snapshots.js';
@@ -42,7 +42,7 @@ export function validateProject(p) {
  for(const source of p.sources) {
   validateSchema(p.sourceSchema,source,'source');
   assert(p.mode==='fixture'||!source.fixture,'Fixture source in production');
-  assert(source.date<=source.retrieved_at.slice(0,10),'Source published after retrieval');
+  assert(source.date<=utcDay(source.retrieved_at),'Source published after retrieval');
   if(source.supersedes) {assert(sourceMap[source.supersedes],`Missing superseded source: ${source.id}`);assert(source.version>sourceMap[source.supersedes].version,`Source version must increase: ${source.id}`);}
  }
  for(const m of p.inputs) {
