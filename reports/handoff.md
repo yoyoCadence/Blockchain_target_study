@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — SECZ 母公司認股權證歷史條款
+
+PR #29 的兩組 CI 通過後依既有授權合併（`d3d8da9`），繁體中文介面已在 main。`research/secz-warrant-context` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。優先接續 baseline 同步估值前的歷史股本核對。
+
+完整 S-1 登記表格／註腳仍受阻：網頁讀取器大小限制、Browser 連線逾時、直接官方下載受到 SEC 自動工具存取限制，未宣稱已核對或清除 6,250,000／7,088,616 差異。可獨立閱讀的 Exhibit 4.1 承接／修訂及原契約選定歸屬／行使條款已完成，保留母公司／舊子公司、歸屬／行使／earnout 的區分。新敘述、來源名稱與交接使用繁體中文。
+
+唯讀準備確認 source change only 與 history bytes 不變，再以既有手動 CLI 追加一份來源及完整快照 `ef433299247e234de2a89d0b151b5be7bb35a5a4439b74e133b65385e9dc6c23`，parent `ba6d00d...`。金融／圖譜／估值／假設／公式／論點不變；原五份快照與來源版本保留，六份同模型期間不能補連續期證據，83 個金融未知與三個正式 TTM null 保留。
+
+驗證：新增四項回歸及既存股本回歸合計八項通過；全套 `npm test` 411 通過、0 失敗，兩模式 validate 84 指標／25 公式／0 錯誤與警告，未知 1／83。diff 檢查通過，engine／spec／Dashboard 無變更，沒有新 UI QA；先前中文介面 QA 保留。CI 與合併狀態以 PR 實際結果為準。
+
+父 baseline 未完成：完整登記類別調節、現行權利履行／母公司股數、同步價格／合併後現金負債、SECZ 法律名稱與 TTM／六類收入／FCF、個人管道及 UNI 全期間捕獲仍待驗證。詳見[認股權證條款](secz-warrant-context.md)。
+
 ## 2026-10-04 — 繁體中文介面
 
 PR #28 的 push／PR／合併後 CI 均通過，已合併（`b49c83b`）。使用者再次授權持續完成，並要求中文版；本項優先補齊 MVP 呈現層。`feat/traditional-chinese-dashboard` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與 GitHub 遠端確認。

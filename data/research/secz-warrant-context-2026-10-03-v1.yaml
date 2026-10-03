@@ -1,0 +1,43 @@
+id: secz-warrant-context-20261003
+type: governance
+status: completed
+as_of_date: 2026-10-03
+effective_date: 2026-07-01
+affected_nodes: [SECZ]
+fixture: false
+source_ids:
+  - secz-parent-capital-s1-index-20260731-v1
+  - secz-parent-capital-10q-20260813-v1
+  - secz-warrant-amendment-20260731-v1
+reason: >-
+  回顧 2026-07-01 母公司承接認股權證的歷史條款，不是新的歸屬、行使或發行事件。
+  Exhibit 4.1 的修訂適用母公司普通股，上限 3711658 股、每股行使價格 USD 3.375；
+  首批 927916 股、其餘三批各 927914 股，不能再套用舊子公司換股比例或 USD 15 價格。
+  原契約的 2.72% 與 fully diluted 定義已刪除，不能套入現在股數重新計算權證容量。
+  10-Q 在 closing 股本段披露首批已歸屬，仍將權證對應股數排除於已發行股數之外。
+  歸屬不等於行使，合約亦允許淨額行使；沒有驗證目前行使、發行、其餘批次歸屬或現金流入。
+  契約第 1.4 節的 earnout 權利另受合併協議條件約束，不能僅因權證尚未歸屬便當作不存在；
+  尚未完成 S-1 登記表格與 6250000／7088616 earnout 類別調節，不建立額外股數結論。
+  BUIDL 抵押使用的歸屬條件不是採用量或持有人收入的已完成證據。
+  金融輸入、公式、假設、圖譜、估值、模型期間與論點不變，未知值保留。
+research_review:
+  reviewer: Codex 一手來源案頭審查；非人工簽核
+  reviewed_at: 2026-10-03T23:28:35Z
+  rationale: >-
+    直接閱讀 SEC Exhibit 4.1 的承接／修訂第 1–2 節及所附原契約的定義、
+    歸屬與行使第 2、5 節，交叉核對既存 10-Q Note 5 與 S-1 index 的發布日。
+    將修訂後母公司股數、舊子公司條款、歸屬／行使／earnout 分開。
+    本次不是完整契約法律審查，也未審查全部合併協議、當前履行或完整 S-1 登記註腳；
+    S-1 全文仍超過網頁讀取器大小限制，瀏覽器連線逾時，直接下載受 SEC 自動工具存取限制。
+updates: []
+sources:
+  - id: secz-warrant-amendment-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/exhibit41-sx1.htm
+    publisher: 美國證券交易委員會／Securitize Corp.
+    title: 7 月 1 日權證承接修訂與所附舊契約選定條款；7 月 31 日公開，現況未驗證
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T23:28:35Z
+    tier: 1
+    covered_metrics: [secz.parent_warrant_context_evidence]
+    fixture: false
