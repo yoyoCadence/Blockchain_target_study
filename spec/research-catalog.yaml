@@ -1,0 +1,27 @@
+version: 1
+records:
+  - id: core-identifiers-20261003
+    label: UNI / SECZ / XLM identifiers
+    kind: identity
+    file: core-identifiers-2026-10-03.yaml
+    expected_id: 831b5b62e0267836a84e5948739f367253b910139134e519282248612988c49c
+  - id: secz-quarter-half-2026
+    label: SECZ reported quarter / half-year revenue
+    kind: revenue
+    file: revenue-reviews/secz-q22026-v1.json
+    expected_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+  - id: secz-annual-s1
+    label: SECZ audited annual revenue / S-1
+    kind: revenue
+    file: revenue-reviews/secz-annual-v1.json
+    expected_id: 6711631d1d64d7f7837cdc4b1180eade966b456a71c959abd1f4140b764b54d1
+  - id: secz-annual-prospectus
+    label: SECZ audited annual revenue / prospectus
+    kind: revenue
+    file: revenue-reviews/secz-prospectus-v1.json
+    expected_id: f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7
+  - id: secz-ttm-20260630
+    label: SECZ TTM review / unresolved comparability
+    kind: revenue_ttm
+    file: revenue-ttm-reviews/secz-20260630-v1.json
+    expected_id: 6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d

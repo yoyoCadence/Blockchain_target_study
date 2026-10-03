@@ -12,3 +12,18 @@ test('local dashboard/API serves canonical values, lineage, sensitivity and erro
   assert.equal((await fetch(`${base}/../package.json`)).status,404);
  } finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
+
+test('research API serves verified production evidence separately from fixtures and refuses writes',async()=>{
+ const server=createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const base=`http://127.0.0.1:${server.address().port}`;
+ try {
+  let response=await fetch(`${base}/api/research`),data=await response.json();
+  assert.equal(response.status,200);assert.equal(data.mode,'fixture');assert.deepEqual(data.records,[]);
+  response=await fetch(`${base}/api/research?mode=production`);data=await response.json();
+  assert.equal(response.status,200);assert.equal(data.records.length,5);assert.equal(data.financial_inputs_updated,false);
+  assert.equal(data.records.find(r=>r.kind==='revenue_ttm').records[0].value,null);
+  assert.equal(data.records.find(r=>r.kind==='identity').records[1].investability.status,'unverified');
+  assert.equal((await fetch(`${base}/api/research?mode=production`,{method:'POST'})).status,405);
+  assert.equal((await fetch(`${base}/api/research?mode=missing`)).status,400);
+ } finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
+});

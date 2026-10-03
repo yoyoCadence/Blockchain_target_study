@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 read-only research evidence inspection
+
+- `npm test`: **254 passed, 0 failed**, including nine inspection/API regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Replayed five cataloged artifacts without changing financial results/history; rejected unsafe paths, kinds, wrong fingerprints, duplicate entries and tampered evidence. API preserves mode isolation and refuses writes.
+- Actual Chrome desktop QA: five Production cards, expandable complete evidence/formulas/assumptions/dependencies, original source links, three null TTM values and unconfirmed acquisition rationale. Rapid Fixture/Production/Fixture switching ends with no Production research in Fixture and no page error; body fits the 1524px viewport. Mobile was not separately verified.
+- Original research and financial history/formulas/assumptions remain unchanged. Local test server stopped and logs removed; verified TTM/full baseline remain incomplete.
+
 ## 2026-10-03 UTC research/source chronology
 
 - `npm test`: **245 passed, 0 failed**, including ten UTC-boundary regressions.
