@@ -1,6 +1,6 @@
 # 人工審查的一手來源研究更新
 
-本流程完成 NEXT 首項的工具子項。首份正式 production baseline 仍需研究與人工審查；目前正式來源與 observations 保持空白，沒有把測試資料帶入 production。
+本流程完成 NEXT 首項的工具子項。正式 journal 已收錄四個一手來源及一筆截至 2026-01-01 的 UNI 核准年度預算觀測；[研究紀錄](uni-growth-budget-baseline.md) 保留日期衝突與額度／實際支出的區別。完整 production baseline 仍需研究與審查；沒有把測試資料帶入 production。
 
 ## 準備資料包
 
@@ -57,4 +57,4 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 - 收集同截止日的價格／估值，以及明確對齊的財務期間；不可用值維持 null。
 - 審查第一份正式資料包並保存 production baseline，更新研究結論與資料限制。
 
-這些研究工作尚未完成；本次僅交付人工更新流程與隔離測試。
+UNI 歷史核准預算子項已完成；實際捕獲、當前估值、識別碼與可投資性、可比期間及完整 baseline 仍未完成。

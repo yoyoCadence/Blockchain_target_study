@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-03 historical UNI budget baseline
+
+- `npm test`: **65 passed, 0 failed**, including three committed production-baseline regressions.
+- Fixture validate: 84 metrics, 25 formulas, 0 errors/warnings, 1 unknown.
+- Production validate: 84 metrics, 25 formulas, 0 errors/warnings, **83 unknowns**. The only known input is the authorized historical 20M UNI/year rate; no realized spending, valuation or healthy thesis is inferred.
+- Replayed the immutable production snapshot from embedded input/source/formula versions, checked recursive primary-source lineage, retained null v1 and confirmed proposal/journal identity.
+- Initial runs caught an incorrect metric name and an assertion that incorrectly excluded explicit UNKNOWN issues; corrected the tests to canonical `uni.required_share` and to preserve UNKNOWN reporting, then reran the complete suite. No model change was required.
+- UNI required-share fixture regression remains 0.422; existing API/schema/period/append-only checks remain covered. Remote CI is verified separately in the PR.
+
 ## 2026-10-03 follow-up validation
 
 - `npm test`: **62 passed, 0 failed**, including 27 new isolated research workflow checks and all 35 bootstrap regressions/API checks.
