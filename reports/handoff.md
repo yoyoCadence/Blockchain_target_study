@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — Thesis 條件指標自身期間
+
+PR #19 遠端 CI 全部通過後已合併（`9c012bf`）。`fix/thesis-metric-periods` 從最新 origin/main 建立，原工作目錄乾淨。接續連續期證據前置驗證；在記憶體重現同一筆 2024 年指標放進 2025 snapshot 仍產生二期 WATCH／complete。
+
+已知 condition metric 自身 endpoint 必須與 frame endpoint 相同，annual／quarterly／TTM flow basis 必須一致；同日 point／model 可保留原分類參與規則。錯位／缺失 period 的已知值仍保留 actual／record_id，另外列出 metric_period／period_aligned false，該規則 insufficient，不影響其他充分支持的 triggers／最高 severity。更新 test frame helpers 使原測試有明示 metric periods；沒有修改 fixture／production 的來源或財務觀察。
+
+驗證：321 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。15 新增回歸涵蓋重複計數、basis 混用、支持／舊 point／model、缺 period、独立 STRESS／缺 BREAK、null、真實 canonical recalculation 的 unrelated later scenario date，以及最新 snapshots／formula versions 重播與 history hashes。最初針對性測試因沙箱 spawn EPERM 未執行；相同命令提權後 38 項通過，再跑全套成功。無 UI 修改，未另做瀏覽器驗證；遠端 CI 以 PR 實際結果為準。
+
+本次保留金融 AST／版本、thesis thresholds、分類與已保存歷史；正常 committed output shape／thesis 一致，僅被拒絕的已知條件增加期間診斷。日期相符不提升 ASSUMPTION／SCENARIO 為事實，也不證明來源時效或經濟可比性。真實連續 production 期間及父 baseline 仍待查證。詳見 [條件期間](thesis-metric-periods.md)。
+
 ## 2026-10-03 — 會計期間端點對齊
 
 PR #18 遠端 CI 全部通過後已合併（`bcb7fd4`）。`fix/calendar-period-alignment` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 可比期間／連續證據的獨立驗證子項；已在記憶體重現 2024-12-30 與 2025-12-31 被月份差判定為可比年度並觸發二期 WATCH。

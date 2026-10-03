@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 thesis condition-period evidence
+
+- `npm test`: **321 passed, 0 failed**, including 15 new condition-period regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced one 2024 annual metric satisfying a two-period WATCH when copied into a 2025-labeled snapshot. Known stale/missing endpoints and annual/quarterly/TTM basis mismatches now produce insufficient evidence, retaining the original value/record/metric period.
+- Tested supported annual/quarterly/point/model evidence, stale point/model inputs, independent STRESS while BREAK lacks evidence, null propagation and real canonical recalculation after an unrelated later scenario reference. Test frames now carry metric periods rather than implicitly inheriting labels.
+- Latest committed metrics/thesis/formula versions replay identically; all history hashes remain intact. Initial sandbox test spawn EPERM prevented execution; the same targeted command passed after escalation, followed by the successful full suite. No UI changes or additional browser verification.
+
 ## 2026-10-03 calendar period endpoint alignment
 
 - `npm test`: **306 passed, 0 failed**, including 18 calendar/growth/thesis/history regressions.

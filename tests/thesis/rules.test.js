@@ -16,7 +16,7 @@ test('SECZ four periods of volume growth without monetization triggers break',()
 test('XLM network growth cannot alone establish capture or a live DTCC break',()=>{
  const values={'xlm.rwa_growth':0.3,'xlm.demand_growth':0,'xlm.institutional_growth':0.6,'xlm.capture_ratio':0,'xlm.dtcc_live':0,'xlm.dtcc_material':1,'xlm.demand_material':0};
  const history=['2022-12-31','2023-12-31','2024-12-31'].map(d=>frame(d,values));let r=evaluateTheses(project().thesis.rules,frame('2025-12-31',values),history).XLM;assert.equal(r.state,'STRESS');assert.ok(!r.triggered_rules.some(x=>x.id==='xlm.break'));
- values['xlm.dtcc_live']=1;r=evaluateTheses(project().thesis.rules,frame('2025-12-31',values),history.map(h=>({...h,metrics:{...h.metrics,'xlm.dtcc_live':{value:1}}}))).XLM;assert.equal(r.state,'BREAK_CANDIDATE');
+ values['xlm.dtcc_live']=1;r=evaluateTheses(project().thesis.rules,frame('2025-12-31',values),history.map(h=>({...h,metrics:{...h.metrics,'xlm.dtcc_live':{...h.metrics['xlm.dtcc_live'],value:1}}}))).XLM;assert.equal(r.state,'BREAK_CANDIDATE');
 });
 test('duplicate periods, gaps, basis changes and unknowns never manufacture persistence',()=>{
  const values={'uni.net_burn_yield':0.01},rules=project().thesis.rules.filter(r=>r.id==='uni.watch'),current=frame('2025-12-31',values);

@@ -49,7 +49,7 @@ test('mismatched prior revenue day propagates an explicit calculation error and 
  assert.equal(fingerprint(readSnapshots(project.root,'fixture')),history);
 });
 
-const frame=(end,basis='annual')=>({period:{basis,end},metrics:{'uni.net_burn_yield':{id:`test-yield-${end}`,value:0.01}}});
+const frame=(end,basis='annual')=>({period:{basis,end},metrics:{'uni.net_burn_yield':{id:`test-yield-${end}`,value:0.01,period:{basis,end}}}});
 const watch=()=>loadProject('fixture').thesis.rules.find(r=>r.id==='uni.watch');
 
 test('one-day-shifted annual history cannot falsely complete or trigger a persistence rule',()=>{

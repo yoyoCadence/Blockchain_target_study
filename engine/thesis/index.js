@@ -1,6 +1,10 @@
 import {alignedCalendarPeriods} from '../validation/index.js';
 const rank=['HEALTHY','WATCH','STRESS','BREAK_CANDIDATE','INVALIDATED'];
 const operators={lt:(a,b)=>a<b,lte:(a,b)=>a<=b,gt:(a,b)=>a>b,gte:(a,b)=>a>=b,eq:(a,b)=>a===b};
+function supportsPeriod(metric,period) {
+ const basis=metric?.period?.basis;
+ return metric?.period?.end===period.end&&(basis===period.basis||basis==='point'||basis==='model');
+}
 function consecutive(frames) {
  for(let i=1;i<frames.length;i++) {
   const a=frames[i-1].period,b=frames[i].period;
@@ -17,8 +21,11 @@ export function evaluateTheses(rules,current,history=[],previousThesis={}) {
  return Object.fromEntries(['UNI','SECZ','XLM'].map(asset=>{
   const evaluations=rules.filter(r=>r.asset===asset).map(rule=>{
    const window=frames.slice(-rule.periods);
-   const evidence=window.map(frame=>({period:frame.period,conditions:rule.conditions.map(c=>({...c,actual:frame.metrics[c.metric]?.value??null,record_id:frame.metrics[c.metric]?.id??null}))}));
-   const sufficient=window.length===rule.periods&&consecutive(window)&&evidence.every(e=>e.conditions.every(c=>c.actual!==null));
+   const evidence=window.map(frame=>({period:frame.period,conditions:rule.conditions.map(c=>{
+    const metric=frame.metrics[c.metric],actual=metric?.value??null;
+    return {...c,actual,record_id:metric?.id??null,...(actual!==null&&!supportsPeriod(metric,frame.period)?{metric_period:metric?.period??null,period_aligned:false}:{})};
+   })}));
+   const sufficient=window.length===rule.periods&&consecutive(window)&&evidence.every(e=>e.conditions.every(c=>c.actual!==null&&c.period_aligned!==false));
    const triggered=sufficient&&evidence.every(e=>e.conditions.every(c=>operators[c.operator](c.actual,c.value)));
    return {id:rule.id,state:rule.state,why:rule.why,classification:rule.classification,rationale:rule.rationale,sufficient,triggered,evidence};
   });
