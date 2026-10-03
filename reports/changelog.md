@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Single historical UNI Firepit release
+
+- Preserved a successful 2025-12-29 receipt with caller-funded UNI dead-address payment, five TokenJar asset transfers and Released nonce, plus dated immutable official source-code evidence.
+- Appended a source-only event/full snapshot while retaining every earlier version and unchanged economics; three snapshots of one model period do not add thesis periods.
+- Added four regressions; full suite 271 passed and both modes validate. Annual fees/burn, fee-origin attribution and full baseline remain unverified.
+
 ## 2026-10-03 — Canonical current-time evidence guard
 
 - Reject future OBSERVED as-of dates and source retrieval instants in shared canonical validation, covering direct loads/API and generic events as well as fixture/null/unused evidence.

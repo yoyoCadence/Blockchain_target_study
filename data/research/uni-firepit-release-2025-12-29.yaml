@@ -1,0 +1,98 @@
+id: uni-firepit-release-20251229
+type: token_burn
+status: completed
+as_of_date: 2026-10-03
+effective_date: 2025-12-29
+source_ids:
+  - ethereum-firepit-release-20251229-v1
+  - uniswap-protocol-fees-8604e4b-commit-v1
+  - uniswap-tokenjar-8604e4b-v1
+  - uniswap-exchange-releaser-8604e4b-v1
+  - uniswap-firepit-8604e4b-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  Single historical successful Ethereum Firepit release, reviewed retrospectively.
+  Receipt 0x2dc3d8a165fe57ef89cd928f16a1de6d39725729cec85a25c5511906ed50fb08
+  at block 24116850 (2025-12-29T07:36:47Z) calls
+  0x0D5Cd355e2aBEB8fb1552F56c965B867346d6721 from
+  0xCC9B975D07b35A96C1b49bd0D98779E78daE2E0E. UNI contract
+  0x1f9840a85d5af5bf1d1762f925bdaddc4201f984 log 338 transfers raw uint256
+  4000000000000000000000 (explorer display 4000 UNI) from that caller to
+  0x000000000000000000000000000000000000dEaD. Firepit log 345 emits Released,
+  nonce 0, recipient the same caller, with USDT/WETH/USDC/WBTC/PAXG addresses.
+  Logs 339-343 transfer those assets from TokenJar
+  0xf38521f130fcCF29dB1961597bc5d2B60F995f85 to the caller: raw uint256
+  16054642585 / 5255598537200314106 / 4203254992 / 3448554 /
+  187841167374250491 respectively. Log 344 is a separate zero PAXG fee transfer;
+  log 337 is Approval, not another burn. The caller-funded dead-address payment
+  and TokenJar asset exchange execute in the same successful receipt.
+  Pinned official source commit 8604e4b9aed88bdd6be3a322e19722c40f94be2c
+  predates the transaction: ExchangeReleaser transfers RESOURCE before releasing
+  TokenJar assets and emitting Released; Firepit sets RESOURCE_RECIPIENT to
+  address(0xdead). This is source interpretation, not deployed-bytecode equivalence.
+  No attribution of every released asset to protocol-generated fees, totalSupply
+  reduction, annualized burn/revenue, USD valuation, current threshold or complete
+  activation coverage is established. The separate 100M treasury transfer remains
+  distinct. All canonical numerical inputs, model periods and graph edges stay unchanged.
+research_review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T08:17:46Z
+  rationale: >-
+    Read receipt Overview and all nine logs through Chrome; retain full addresses,
+    raw uint256 amounts, block/time and log indices. Independently read the official
+    repository commit metadata and pinned TokenJar/ExchangeReleaser/Firepit files.
+    Save one executed asset-exchange/burn-address example without financial ingest,
+    annualization, fee-origin attribution or assumptions about current settings.
+updates: []
+sources:
+  - id: ethereum-firepit-release-20251229-v1
+    version: 1
+    url: https://etherscan.io/tx/0x2dc3d8a165fe57ef89cd928f16a1de6d39725729cec85a25c5511906ed50fb08#eventlog
+    publisher: Ethereum transaction receipt via Etherscan
+    title: Successful Firepit release at block 24116850; UNI Transfer log 338 and Released log 345
+    date: 2025-12-29
+    retrieved_at: 2026-10-03T08:17:46Z
+    tier: 1
+    covered_metrics: [uni.firepit_release, uni.burn_execution_evidence]
+    fixture: false
+  - id: uniswap-protocol-fees-8604e4b-commit-v1
+    version: 1
+    url: https://github.com/Uniswap/protocol-fees/commit/8604e4b9aed88bdd6be3a322e19722c40f94be2c
+    publisher: Uniswap protocol-fees repository
+    title: Immutable mainnet deployment source commit 8604e4b; committed 2025-12-18T07:49:57Z
+    date: 2025-12-18
+    retrieved_at: 2026-10-03T08:17:46Z
+    tier: 2
+    covered_metrics: [uni.firepit_release, uni.burn_execution_evidence]
+    fixture: false
+  - id: uniswap-tokenjar-8604e4b-v1
+    version: 1
+    url: https://github.com/Uniswap/protocol-fees/blob/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/TokenJar.sol
+    publisher: Uniswap protocol-fees repository
+    title: TokenJar source at immutable 2025-12-18 commit; authorized release of selected balances
+    date: 2025-12-18
+    retrieved_at: 2026-10-03T08:17:46Z
+    tier: 2
+    covered_metrics: [uni.firepit_release]
+    fixture: false
+  - id: uniswap-exchange-releaser-8604e4b-v1
+    version: 1
+    url: https://github.com/Uniswap/protocol-fees/blob/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/ExchangeReleaser.sol
+    publisher: Uniswap protocol-fees repository
+    title: ExchangeReleaser at immutable 2025-12-18 commit; resource payment precedes release and Released event
+    date: 2025-12-18
+    retrieved_at: 2026-10-03T08:17:46Z
+    tier: 2
+    covered_metrics: [uni.firepit_release, uni.burn_execution_evidence]
+    fixture: false
+  - id: uniswap-firepit-8604e4b-v1
+    version: 1
+    url: https://github.com/Uniswap/protocol-fees/blob/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/Firepit.sol
+    publisher: Uniswap protocol-fees repository
+    title: Firepit source at immutable 2025-12-18 commit; resource recipient address(0xdead)
+    date: 2025-12-18
+    retrieved_at: 2026-10-03T08:17:46Z
+    tier: 2
+    covered_metrics: [uni.firepit_release, uni.burn_execution_evidence]
+    fixture: false
