@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — Shared observation/source publication validation
+
+- Fixed direct canonical loads and general events accepting sources published after observed as-of; moved the restriction already used in reviewed research into the shared validator.
+- Check all referenced sources, including null/fixture observations, before recomputation/persistence. Retrospective retrieval and explicit assumption/scenario classifications remain valid.
+- Preserved financial formulas, assumptions, all canonical evidence and immutable research/financial history.
+- Added ten chronology/boundary/no-write checks; full suite 169 passed and both modes validate. Full production baseline remains open.
+
 ## 2026-10-03 — SECZ audited annual reported revenue
 
 - Added a separate six-observation full-year revenue dossier and immutable research artifact with primary audit, annual statement, XBRL and filing-index evidence.

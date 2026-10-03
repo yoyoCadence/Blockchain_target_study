@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 shared observation/source chronology
+
+- `npm test`: **169 passed, 0 failed**, including ten shared publication-date checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced a source published after observed as-of being accepted by canonical validation, then rejected it in the shared path used by direct loads and general manual events.
+- Covered publication boundaries, multiple sources, null/fixture records, failed apply without journal writes and legitimate retrospective retrieval. Explicit assumptions/scenarios retain their classifications.
+- No source/observation/formula/assumption history changed; full artifact/snapshot replay, UNI 0.422 and API regressions pass. This chronology check does not establish factual truth or financial comparability.
+
 ## 2026-10-03 SECZ audited annual reported revenue
 
 - `npm test`: **159 passed, 0 failed**, including 11 annual/audit/context checks.
