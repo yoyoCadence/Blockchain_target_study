@@ -34,6 +34,7 @@ export function loadProject(mode='fixture',root=ROOT) {
  return project;
 }
 export function validateProject(p) {
+ const validationTime=Date.now(),validationDay=utcDay(validationTime);
  validateSchema(p.projectSchema,p,'project registries');
  unique(p.dictionary.metrics);unique(p.registry.formulas);unique(p.registry.formulas,'output');unique(p.inputs);unique(p.sources);unique(p.assets.assets);unique(p.thesis.rules);unique(p.graph.edges);
  const dictionary=Object.fromEntries(p.dictionary.metrics.map(x=>[x.id,x]));
@@ -43,6 +44,7 @@ export function validateProject(p) {
   validateSchema(p.sourceSchema,source,'source');
   assert(p.mode==='fixture'||!source.fixture,'Fixture source in production');
   assert(source.date<=utcDay(source.retrieved_at),'Source published after retrieval');
+  assert(Date.parse(source.retrieved_at)<=validationTime,`Source retrieval cannot be in the future: ${source.id}`);
   if(source.supersedes) {assert(sourceMap[source.supersedes],`Missing superseded source: ${source.id}`);assert(source.version>sourceMap[source.supersedes].version,`Source version must increase: ${source.id}`);}
  }
  for(const m of p.inputs) {
@@ -55,6 +57,7 @@ export function validateProject(p) {
   normalize(m,dictionary[m.metric_id]);
   if(m.range) {assert(m.range[0]<=m.range[1],`Invalid scenario range: ${m.id}`);assert(m.value===null||(m.value>=m.range[0]&&m.value<=m.range[1]),`Scenario value outside range: ${m.id}`);}
   if(m.classification==='OBSERVED') {
+   assert(m.as_of_date<=validationDay,`Observation as-of cannot be in the future: ${m.id}`);
    const sources=m.source_ids.map(id=>{assert(sourceMap[id],`Missing source: ${id}`);return sourceMap[id];});
    assert(m.fixture||sources.some(s=>s.tier<5),`Tier 5 alone cannot support observation ${m.id}`);
    assert(sources.every(s=>s.date<=m.as_of_date),`Source published after observation as-of: ${m.id}`);
