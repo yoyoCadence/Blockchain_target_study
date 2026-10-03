@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — SECZ S-1／424B3 年度表查證
+
+PR #11 遠端 CI 全部通過後已合併（`9578304`）。`research/secz-cross-filing-revenue` 從最新 origin/main 建立，原工作目錄乾淨。選擇首項 NEXT baseline 的限定跨 filing 研究，獨立查證 8/7 prospectus 年度表與 7/31 S-1，而非直接推進未驗證 TTM。
+
+核對 424B3 index／cover／營業子公司 KPMG 審計／Note 19 表與分類文字／Note 21 issuance。六個 2025／2024 全年 USD 值與已保存 S-1 相同，entity／scope／GAAP／audit／period context 一致。新資料包六 OBSERVED、兩 tier 1 sources 使用獨立 filing ID 與 8/7 as-of，不 supersede 舊 filing。Schema 只增量允許 424B3；金融及研究公式不變。新研究 snapshot／比較輸出以 exclusive create 保存，舊 quarterly／annual artifacts 原 hash 保留。
+
+驗證：199 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。五項新增回歸核對 exact raw cells、來源／日期、比較 hash 與 semantic replay、舊歷史及 CLI 無 journal 寫入。遠端 CI 以 PR 實際結果為準。大型 SEC 網頁首次讀取逾時後，在相同已載入 tab 重讀成功。
+
+此子項只完成兩份年度表／已讀分類文字的一致性；更早重編沿革、季度／年度 scope 與 recognition comparability、TTM／六類映射仍未完成。重複同期間不增加 thesis evidence，canonical production journal 仍只有兩個同期間 snapshots。下一步需核對季度 exhibit 的收入定義與 presentation／prior-period 說明，再決定是否可提出明示 review 的 TTM bridge。UNI realized capture／現況、估值及個人投資管道仍缺。詳見 [研究](secz-cross-filing-revenue.md)。
+
 ## 2026-10-03 — 原始收入研究快照比較
 
 PR #10 遠端 CI 全部通過後已合併（`968b8ec`）。`feat/revenue-review-comparison` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 跨 filing 的唯讀比較前置子項，驗收完整重播、版本／來源區分、範圍／相同區間對齊與無財務寫入。
