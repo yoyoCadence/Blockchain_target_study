@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-03 — Reviewed primary-source refresh workflow
+
+- Added manual production-only research preview and digest-bound apply commands, with recorded reviewer, review time and rationale.
+- Persist new sources and observations together in the exclusive event journal, retaining full economics, formula versions, source lineage and historical replay.
+- Reject stale previews, missing primary evidence, fixture leakage, incompatible periods, duplicate IDs and invalid supersession before writing.
+- Check the entire saved event against its immutable snapshot, including source and review metadata; historical bootstrap journals remain readable.
+- Fixed absolute YAML input paths for Windows CLI workflows.
+- Added 27 research workflow checks; full suite: 62 passed, 0 failed. Financial formulas and assumptions retain their existing versions. Production research baseline remains pending.
+
 ## 0.1.0 — MVP bootstrap
 
 - Created canonical YAML specs, schemas, data dictionary and distinct fixture/production stores.

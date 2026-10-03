@@ -86,6 +86,15 @@ node cli.js event path/to/reviewed-event.yaml --production
 node cli.js report --production
 ```
 
+人工審查的一手來源研究更新可先預覽，再使用預覽 digest 明確套用；完整格式、來源要求與剩餘研究驗收見 [研究更新流程](reports/research-refresh.md)。
+
+```powershell
+node cli.js research-preview path/to/reviewed-research.yaml --production
+node cli.js research-apply path/to/reviewed-research.yaml --production --digest <review_digest>
+```
+
+預覽不寫入資料；資料包、模型或父快照變動會使舊 digest 失效。此工具子項已完成，首份經審查的 production baseline 仍待研究。
+
 事件會先驗證、找出受影響節點、append observations、重算全部公式、評估 thesis，再把 event 與 snapshot 寫成單一 exclusive-create journal。reason 即該更新的持久 changelog。規劃中／已宣布事件只能建立假設或情境；live/completed 必須有 effective date 與來源。假設改變也要新版本、supersedes、reason。互動敏感度不自動寫入。
 
 套件已附兩個 fixture snapshots：1.70 bp baseline → 1.25 bp 假設更新；Required UNI Share 31.03% → 42.2%。這兩個版本屬於同一年度，不會冒充兩期 thesis 證據。`scripts/seed-history.mjs` 僅供沒有歷史的乾淨 workspace 使用，存在歷史時會拒絕執行；不要重跑 bootstrap authoring script 覆寫 spec。

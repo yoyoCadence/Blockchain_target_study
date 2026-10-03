@@ -5,9 +5,9 @@ import YAML from 'yaml';
 import {assert,unique,validateSchema,normalize,checkPeriods} from './validation/index.js';
 import {references,evaluate,orderFormulas} from './formulas/index.js';
 import {evaluateTheses} from './thesis/index.js';
-import {verifySnapshot} from './snapshots.js';
+import {verifySnapshot,fingerprint} from './snapshots.js';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-export function readYaml(file,root=ROOT) {return YAML.parse(fs.readFileSync(path.join(root,file),'utf8'),{uniqueKeys:true});}
+export function readYaml(file,root=ROOT) {return YAML.parse(fs.readFileSync(path.resolve(root,file),'utf8'),{uniqueKeys:true});}
 export function loadProject(mode='fixture',root=ROOT) {
  assert(['fixture','production'].includes(mode),'Invalid data mode');
  const project={mode,root,schema:readYaml('spec/canonical-schema.yaml',root),sourceSchema:readYaml('spec/source-registry.yaml',root),eventSchema:readYaml('spec/event-schema.yaml',root),projectSchema:readYaml('spec/project-schema.yaml',root)};
@@ -24,9 +24,11 @@ export function loadProject(mode='fixture',root=ROOT) {
  if(fs.existsSync(dir)) for(const file of fs.readdirSync(dir).filter(x=>x.endsWith('.json')).sort()) {
   const transaction=JSON.parse(fs.readFileSync(path.join(dir,file),'utf8'));
   verifySnapshot(transaction.snapshot);
-  assert(transaction.snapshot.event.id===transaction.event.id && JSON.stringify(transaction.snapshot.event.updates)===JSON.stringify(transaction.event.updates),'Event journal does not match immutable snapshot');
+  const {propagated_nodes,...savedEvent}=transaction.snapshot.event;
+  assert(fingerprint(savedEvent)===fingerprint(transaction.event),'Event journal does not match immutable snapshot');
   validateSchema(project.eventSchema,transaction.event,'saved event');
   project.inputs.push(...transaction.event.updates);
+  project.sources.push(...(transaction.event.sources||[]));
  }
  validateProject(project);
  return project;

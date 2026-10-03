@@ -20,6 +20,7 @@ properties:
       - chain_integration
       - governance
       - competitive_entry
+      - research_refresh
   status:
     enum:
       - planned
@@ -43,6 +44,20 @@ properties:
   reason: *a2
   fixture:
     type: boolean
+  sources:
+    type: array
+    items: {type: object}
+  research_review:
+    type: object
+    additionalProperties: false
+    required: [reviewer, reviewed_at, rationale]
+    properties:
+      reviewer: {type: string, minLength: 1}
+      reviewed_at: {type: string, format: date-time}
+      rationale: {type: string, minLength: 1}
+  research_digest:
+    type: string
+    pattern: '^[a-f0-9]{64}$'
   updates:
     type: array
     items:
@@ -180,3 +195,12 @@ required:
   - reason
   - fixture
   - updates
+allOf:
+  - if:
+      properties:
+        type: {const: research_refresh}
+    then:
+      required: [sources, research_review, research_digest, effective_date]
+      properties:
+        fixture: {const: false}
+        status: {const: completed}
