@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import YAML from 'yaml';
-import {assert,unique,validateSchema,normalize,checkPeriods,utcDay} from './validation/index.js';
+import {assert,unique,validateSchema,normalize,checkPeriods,utcDay,checkEventReview} from './validation/index.js';
 import {references,evaluate,orderFormulas} from './formulas/index.js';
 import {evaluateTheses} from './thesis/index.js';
 import {verifySnapshot,fingerprint} from './snapshots.js';
@@ -20,7 +20,7 @@ export function loadProject(mode='fixture',root=ROOT) {
  project.inputs=mode==='fixture'?collection('data/fixtures/inputs.yaml','metrics',project.schema):[...collection('data/observed/observations.yaml','metrics',project.schema),...collection('spec/assumptions.yaml','metrics',project.schema),...collection('spec/scenarios.yaml','metrics',project.schema)];
  project.sources=collection(mode==='fixture'?'data/fixtures/sources.yaml':'sources/sources.yaml','sources',project.sourceSchema);
  // Event journals are single-file immutable transactions and separated by data mode.
- const dir=path.join(root,'data/events',mode);
+ const dir=path.join(root,'data/events',mode),journalEvents=[];
  if(fs.existsSync(dir)) for(const file of fs.readdirSync(dir).filter(x=>x.endsWith('.json')).sort()) {
   const transaction=JSON.parse(fs.readFileSync(path.join(dir,file),'utf8'));
   verifySnapshot(transaction.snapshot);
@@ -29,8 +29,10 @@ export function loadProject(mode='fixture',root=ROOT) {
   validateSchema(project.eventSchema,transaction.event,'saved event');
   project.inputs.push(...transaction.event.updates);
   project.sources.push(...(transaction.event.sources||[]));
+  journalEvents.push(transaction.event);
  }
  validateProject(project);
+ for(const event of journalEvents)checkEventReview(event,project.sources);
  return project;
 }
 export function validateProject(p) {

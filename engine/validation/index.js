@@ -26,6 +26,20 @@ export function validateSchema(schema, value, context) {
 export function unique(items, key='id') {
  const seen=new Set(); for(const item of items) {assert(!seen.has(item[key]),`Duplicate ${key}: ${item[key]}`); seen.add(item[key]);}
 }
+// Event schema and source schemas must be validated before this chronology check.
+export function checkEventReview(event,sources) {
+ const review=event.research_review;if(!review)return;
+ assert(review.reviewer.trim()&&review.rationale.trim(),'Research review needs a reviewer and rationale');
+ const reviewedAt=Date.parse(review.reviewed_at);
+ assert(reviewedAt<=Date.now(),'Research review cannot be in the future');
+ assert(utcDay(review.reviewed_at)>=event.as_of_date,'Research review precedes refresh as-of date');
+ const sourceMap=new Map(sources.map(s=>[s.id,s]));
+ const ids=new Set([...event.source_ids,...(event.sources||[]).map(s=>s.id)]);
+ for(const id of ids) {
+  const source=sourceMap.get(id);assert(source,`Missing research source: ${id}`);
+  assert(Date.parse(source.retrieved_at)<=reviewedAt,'Research source retrieved after review');
+ }
+}
 export function normalize(record, definition) {
  const out=structuredClone(record);
  if(out.unit==='bps' && definition.unit==='ratio') {out.original_value=out.value;out.original_unit=out.unit;out.value=out.value===null?null:out.value/10000;out.unit='ratio';}

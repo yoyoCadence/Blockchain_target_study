@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Shared manual-event review chronology
+
+- Closed generic/source-only events accepting future review timestamps that had only been checked for research-refresh.
+- Reuse review validation during preparation and canonical journal loads: nonblank reviewer/rationale, exact current instant, UTC knowledge day and all declared/new source retrieval cutoffs. Reject invalid direct loads/API even when journal hashes agree.
+- Added 19 regressions; full suite 344 passed and both modes validate. Retrospective review, planned future effective dates and ordinary manual events remain valid; financial formulas/data and saved history remain unchanged.
+
 ## 2026-10-03 — SECZ acquisition-context cross-check
 
 - Preserved seven dated SEC sources: S-1 acquisition narrative/allocation, selected prospectus/interim statements and all three filing indices. Retained both Inc./LLC headings and the XBRL member label.
