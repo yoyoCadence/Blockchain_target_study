@@ -1,0 +1,99 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [id, version, fixture, as_of_date, purpose, statement, periods, observations, comparisons, sources, review]
+properties:
+  id: {type: string, minLength: 1}
+  version: {type: integer, minimum: 1}
+  fixture: {const: false}
+  as_of_date: {type: string, format: date}
+  purpose: {type: string, minLength: 1}
+  statement:
+    type: object
+    additionalProperties: false
+    required: [id, version, classification, fixture, as_of_date, confidence, source_ids, asset, entity_name, scope, accounting_basis, audit_status, fiscal_year_end, filing, limitations]
+    properties:
+      id: {type: string, minLength: 1}
+      version: {type: integer, minimum: 1}
+      classification: {const: OBSERVED}
+      fixture: {const: false}
+      as_of_date: {type: string, format: date}
+      confidence: {enum: [high, medium, low]}
+      source_ids: &source_ids
+        type: array
+        minItems: 1
+        uniqueItems: true
+        items: {type: string, minLength: 1}
+      asset: {const: SECZ}
+      entity_name: {type: string, minLength: 1}
+      scope: {const: operating_subsidiary_consolidated}
+      accounting_basis: {const: US_GAAP}
+      audit_status: {const: unaudited}
+      fiscal_year_end: {const: '12-31'}
+      filing:
+        type: object
+        additionalProperties: false
+        required: [form, accession, registrant_cik, filing_date, period_of_report, financial_issuance_date]
+        properties:
+          form: {const: 8-K/A}
+          accession: {type: string, pattern: '^\d{10}-\d{2}-\d{6}$'}
+          registrant_cik: {type: string, pattern: '^\d{10}$'}
+          filing_date: {type: string, format: date}
+          period_of_report: {type: string, format: date}
+          financial_issuance_date: {type: string, format: date}
+      limitations: {type: string, minLength: 1}
+  periods:
+    type: array
+    minItems: 2
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, basis, start, end, duration_months, fiscal_year, fiscal_quarter]
+      properties:
+        id: {type: string, minLength: 1}
+        basis: {enum: [quarterly, year_to_date]}
+        start: {type: string, format: date}
+        end: {type: string, format: date}
+        duration_months: {enum: [3, 6, 9, 12]}
+        fiscal_year: {type: integer, minimum: 1900, maximum: 9999}
+        fiscal_quarter: {type: integer, minimum: 1, maximum: 4}
+  observations:
+    type: array
+    minItems: 6
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, classification, fixture, as_of_date, confidence, source_ids, metric_id, period_id, value, unit]
+      properties:
+        id: {type: string, minLength: 1}
+        version: {type: integer, minimum: 1}
+        classification: {const: OBSERVED}
+        fixture: {const: false}
+        as_of_date: {type: string, format: date}
+        confidence: {enum: [high, medium, low, unknown]}
+        source_ids: *source_ids
+        metric_id: {enum: [secz.reported_tokenization_revenue, secz.reported_asset_servicing_revenue, secz.reported_total_revenue]}
+        period_id: {type: string, minLength: 1}
+        value: {type: [integer, 'null'], minimum: 0}
+        unit: {const: USD}
+  comparisons:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, kind, current_period_id, prior_period_id]
+      properties:
+        id: {type: string, minLength: 1}
+        kind: {const: year_over_year}
+        current_period_id: {type: string, minLength: 1}
+        prior_period_id: {type: string, minLength: 1}
+  sources: {type: array, items: {type: object}, minItems: 1}
+  review:
+    type: object
+    additionalProperties: false
+    required: [reviewer, reviewed_at, rationale]
+    properties:
+      reviewer: {type: string, minLength: 1}
+      reviewed_at: {type: string, format: date-time}
+      rationale: {type: string, minLength: 1}

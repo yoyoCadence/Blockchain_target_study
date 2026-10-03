@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-03 SECZ comparable reported revenue
+
+- `npm test`: **148 passed, 0 failed**, including 33 revenue dossier/formula/CLI checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reconciled 12 reported observations across four separate quarter/half-year intervals; checked primary sources, subsidiary scope, publication/filing/financial dates and same-interval YoY comparison.
+- Rejected unit/category/period/basis promotion, duplicate/missing evidence, unreconciled totals and invalid AST operations; null and zero-base growth remain unknown.
+- Full content-hashed research artifact replays embedded formulas/data/source versions; altered evidence fails integrity. Financial inputs, results, thesis and canonical snapshot chain remain unchanged.
+- This is raw financial research with a read-only CLI, not canonical annual/TTM earnings ingestion or six-stream allocation.
+
 ## 2026-10-03 historical UNI v2 fee configuration
 
 - `npm test`: **115 passed, 0 failed**, including three production configuration checks.
