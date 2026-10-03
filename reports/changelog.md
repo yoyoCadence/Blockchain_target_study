@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Read-only raw revenue review comparison
+
+- Added production-only revenue-compare with embedded-formula replay, explicit method v1, separate source/formula/context/record/value changes and full evidence retention.
+- Rejected reused historical IDs and invalid declared supersession; retained independent observation conflicts and unknown evidence without selecting a filing or changing financial inputs.
+- Added 15 regressions; full suite 194 passed and both modes validate. Cross-filing economic comparability, TTM and the parent production baseline remain incomplete.
+
 ## 2026-10-03 — Manual event knowledge/source chronology
 
 - Reject future event as-of dates and event sources published after knowledge as-of, including source-only manual events, before recomputation or journal writes.

@@ -1,0 +1,3 @@
+id: research.revenue_review_comparison
+version: 1
+description: Verify hashes and replay embedded formulas; align identical fiscal intervals and statement context; separate source, formula, statement, record and value changes. Reject reused historical IDs and invalid declared supersession. Retain independent conflicting observations without selecting a preferred filing.

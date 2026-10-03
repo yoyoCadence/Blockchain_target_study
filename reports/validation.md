@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 read-only revenue review comparison
+
+- `npm test`: **194 passed, 0 failed**, including 15 comparison regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Verified hashes and replayed embedded formulas before comparison; rejected forged/rehashed results, historical ID rewrites, formula regression and invalid declared supersession.
+- Preserved independent filing conflicts and insufficient null evidence; tested context mismatch, exact/disjoint fiscal intervals, separated changes and CLI failures without journal writes.
+- Canonical history/data/formulas/assumptions/economics and both existing raw review artifacts remain unchanged. Mechanical matching does not establish economic comparability, TTM or new thesis periods.
+
 ## 2026-10-03 manual event knowledge/source chronology
 
 - `npm test`: **179 passed, 0 failed**, including ten event-date checks.
