@@ -1,0 +1,61 @@
+id: secz-ttm-20260630-review@1
+version: 1
+fixture: false
+as_of_date: 2026-10-03
+annual_review_id: f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7
+interim_review_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+annual_period_id: secz-2025-fy
+prior_ytd_period_id: secz-2025-h1
+current_ytd_period_id: secz-2026-h1
+comparability:
+  id: secz-ttm-20260630-comparability@1
+  version: 1
+  classification: ASSUMPTION
+  fixture: false
+  confidence: medium
+  rationale: Desk judgment for the selected reported subsidiary revenue bridge
+    only. Preserve partial evidence and the MG Stover legal-heading conflict; no
+    complete earlier correction/restatement clearance, organic-growth inference,
+    pro forma substitution, parent valuation or six-stream mapping.
+  checks:
+    revenue_definitions:
+      value: true
+      rationale: Reviewed annual Note 19 and interim Note 18 definitions for
+        Tokenization and Asset Servicing; the selected descriptions agree.
+      source_ids: &a1
+        - secz-424b3-20260807-annual-statements-v1
+        - secz-q22026-financial-exhibit-v1
+    continuing_operations:
+      value: true
+      rationale: Annual and interim statements reconcile to the selected revenue
+        totals; both Note 4 disclosures separately present Securitize for
+        Advisors as discontinued operations after the November 26, 2025 sale. Do
+        not add discontinued revenue.
+      source_ids: *a1
+    acquisition_treatment:
+      value: null
+      rationale: Both Note 3 disclosures state April 15, 2025 acquisition-date
+        consolidation, but the annual heading reads MG Stover, Inc. and the
+        interim heading MG Stover LLC. Preserve this legal-entity naming
+        conflict; equivalence/clarification is unverified, so this check remains
+        null. The separate acquisition pro forma table is excluded.
+      source_ids: *a1
+    selected_presentation:
+      value: true
+      rationale: Use the specific saved August prospectus FY2025 and August interim
+        comparative H1 2025 presentations, not earlier quarterly releases or pro
+        forma values. Fiscal windows align mechanically; this is not a full
+        correction-history review.
+      source_ids: *a1
+    audit_difference:
+      value: true
+      rationale: Annual audited and interim unaudited status are retained
+        independently. A derived bridge would not be an audited TTM statement.
+        Analyst acknowledges this difference without upgrading interim evidence.
+      source_ids: *a1
+review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T07:17:36.392Z
+  rationale: Read the August prospectus and Q2 exhibit scope, category
+    definitions, acquisition and discontinued-operation notes. Keep the naming
+    conflict unconfirmed and return null rather than certify comparability.

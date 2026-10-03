@@ -1,0 +1,1496 @@
+{
+  "id": "6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d",
+  "schema_version": 1,
+  "request": {
+    "id": "secz-ttm-20260630-review@1",
+    "version": 1,
+    "fixture": false,
+    "as_of_date": "2026-10-03",
+    "annual_review_id": "f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7",
+    "interim_review_id": "f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173",
+    "annual_period_id": "secz-2025-fy",
+    "prior_ytd_period_id": "secz-2025-h1",
+    "current_ytd_period_id": "secz-2026-h1",
+    "comparability": {
+      "id": "secz-ttm-20260630-comparability@1",
+      "version": 1,
+      "classification": "ASSUMPTION",
+      "fixture": false,
+      "confidence": "medium",
+      "rationale": "Desk judgment for the selected reported subsidiary revenue bridge only. Preserve partial evidence and the MG Stover legal-heading conflict; no complete earlier correction/restatement clearance, organic-growth inference, pro forma substitution, parent valuation or six-stream mapping.",
+      "checks": {
+        "revenue_definitions": {
+          "value": true,
+          "rationale": "Reviewed annual Note 19 and interim Note 18 definitions for Tokenization and Asset Servicing; the selected descriptions agree.",
+          "source_ids": [
+            "secz-424b3-20260807-annual-statements-v1",
+            "secz-q22026-financial-exhibit-v1"
+          ]
+        },
+        "continuing_operations": {
+          "value": true,
+          "rationale": "Annual and interim statements reconcile to the selected revenue totals; both Note 4 disclosures separately present Securitize for Advisors as discontinued operations after the November 26, 2025 sale. Do not add discontinued revenue.",
+          "source_ids": [
+            "secz-424b3-20260807-annual-statements-v1",
+            "secz-q22026-financial-exhibit-v1"
+          ]
+        },
+        "acquisition_treatment": {
+          "value": null,
+          "rationale": "Both Note 3 disclosures state April 15, 2025 acquisition-date consolidation, but the annual heading reads MG Stover, Inc. and the interim heading MG Stover LLC. Preserve this legal-entity naming conflict; equivalence/clarification is unverified, so this check remains null. The separate acquisition pro forma table is excluded.",
+          "source_ids": [
+            "secz-424b3-20260807-annual-statements-v1",
+            "secz-q22026-financial-exhibit-v1"
+          ]
+        },
+        "selected_presentation": {
+          "value": true,
+          "rationale": "Use the specific saved August prospectus FY2025 and August interim comparative H1 2025 presentations, not earlier quarterly releases or pro forma values. Fiscal windows align mechanically; this is not a full correction-history review.",
+          "source_ids": [
+            "secz-424b3-20260807-annual-statements-v1",
+            "secz-q22026-financial-exhibit-v1"
+          ]
+        },
+        "audit_difference": {
+          "value": true,
+          "rationale": "Annual audited and interim unaudited status are retained independently. A derived bridge would not be an audited TTM statement. Analyst acknowledges this difference without upgrading interim evidence.",
+          "source_ids": [
+            "secz-424b3-20260807-annual-statements-v1",
+            "secz-q22026-financial-exhibit-v1"
+          ]
+        }
+      }
+    },
+    "review": {
+      "reviewer": "Codex primary-source desk review; not a human sign-off",
+      "reviewed_at": "2026-10-03T07:17:36.392Z",
+      "rationale": "Read the August prospectus and Q2 exhibit scope, category definitions, acquisition and discontinued-operation notes. Keep the naming conflict unconfirmed and return null rather than certify comparability."
+    }
+  },
+  "formula": {
+    "id": "research.revenue_ttm_bridge",
+    "version": 1,
+    "unit": "USD",
+    "expression": {
+      "op": "add",
+      "args": [
+        {
+          "op": "sub",
+          "args": [
+            "annual",
+            "prior_ytd"
+          ]
+        },
+        "current_ytd"
+      ]
+    },
+    "null_policy": "Missing input or unconfirmed comparability leaves TTM unknown. Never annualize a quarter or multiply YTD."
+  },
+  "input_reviews": {
+    "annual": {
+      "id": "f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7",
+      "schema_version": 1,
+      "dossier": {
+        "id": "secz-prospectus-revenue-2026-10-03-v1",
+        "version": 1,
+        "fixture": false,
+        "as_of_date": "2026-10-03",
+        "purpose": "Independently record the August 7 prospectus annual presentation and compare six cells with the July 31 S-1; no restatement-lineage clearance, TTM or model mapping.",
+        "statement": {
+          "id": "secz-inc-fy2025-424b3-statement@1",
+          "version": 1,
+          "classification": "OBSERVED",
+          "fixture": false,
+          "as_of_date": "2026-08-07",
+          "confidence": "high",
+          "source_ids": [
+            "secz-424b3-20260807-index-v1",
+            "secz-424b3-20260807-annual-statements-v1"
+          ],
+          "asset": "SECZ",
+          "entity_name": "Securitize, Inc. and subsidiaries",
+          "scope": "operating_subsidiary_consolidated",
+          "accounting_basis": "US_GAAP",
+          "audit_status": "audited",
+          "audit": {
+            "auditor": "KPMG LLP",
+            "report_date": "2026-04-10",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ]
+          },
+          "fiscal_year_end": "12-31",
+          "filing": {
+            "form": "424B3",
+            "accession": "0001628280-26-054866",
+            "registrant_cik": "0002094496",
+            "filing_date": "2026-08-07",
+            "body_as_filed_date": "2026-08-07",
+            "period_of_report": null,
+            "financial_issuance_date": "2026-04-10"
+          },
+          "limitations": "Securitize Inc. operating-subsidiary scope, not listed-parent capital structure. The prospectus cover and EDGAR filing index both date August 7. Audit and financial issuance remain April 10. Period of Report is absent and stays null. This independent filing repeats the six annual revenue values and reviewed category definitions in the July 31 S-1; it does not supersede that filing, clear earlier correction/restatement lineage or establish comparability with the August quarterly exhibit."
+        },
+        "periods": [
+          {
+            "id": "secz-2025-fy",
+            "basis": "annual",
+            "start": "2025-01-01",
+            "end": "2025-12-31",
+            "duration_months": 12,
+            "fiscal_year": 2025,
+            "fiscal_quarter": 4
+          },
+          {
+            "id": "secz-2024-fy",
+            "basis": "annual",
+            "start": "2024-01-01",
+            "end": "2024-12-31",
+            "duration_months": 12,
+            "fiscal_year": 2024,
+            "fiscal_quarter": 4
+          }
+        ],
+        "observations": [
+          {
+            "id": "secz-2025-fy.tokenization.424b3-20260807@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-07",
+            "confidence": "high",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ],
+            "metric_id": "secz.reported_tokenization_revenue",
+            "period_id": "secz-2025-fy",
+            "value": 37411171,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-fy.asset_servicing.424b3-20260807@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-07",
+            "confidence": "high",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ],
+            "metric_id": "secz.reported_asset_servicing_revenue",
+            "period_id": "secz-2025-fy",
+            "value": 24740969,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-fy.total.424b3-20260807@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-07",
+            "confidence": "high",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ],
+            "metric_id": "secz.reported_total_revenue",
+            "period_id": "secz-2025-fy",
+            "value": 62152140,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2024-fy.tokenization.424b3-20260807@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-07",
+            "confidence": "high",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ],
+            "metric_id": "secz.reported_tokenization_revenue",
+            "period_id": "secz-2024-fy",
+            "value": 10103109,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2024-fy.asset_servicing.424b3-20260807@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-07",
+            "confidence": "high",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ],
+            "metric_id": "secz.reported_asset_servicing_revenue",
+            "period_id": "secz-2024-fy",
+            "value": 8533061,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2024-fy.total.424b3-20260807@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-07",
+            "confidence": "high",
+            "source_ids": [
+              "secz-424b3-20260807-annual-statements-v1"
+            ],
+            "metric_id": "secz.reported_total_revenue",
+            "period_id": "secz-2024-fy",
+            "value": 18636170,
+            "unit": "USD"
+          }
+        ],
+        "comparisons": [
+          {
+            "id": "secz-424b3-fy-yoy",
+            "kind": "year_over_year",
+            "current_period_id": "secz-2025-fy",
+            "prior_period_id": "secz-2024-fy"
+          }
+        ],
+        "sources": [
+          {
+            "id": "secz-424b3-20260807-index-v1",
+            "version": 1,
+            "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/0001628280-26-054866-index.htm",
+            "publisher": "U.S. Securities and Exchange Commission",
+            "title": "Securitize Corp. 424B3 accession 0001628280-26-054866 filing index",
+            "date": "2026-08-07",
+            "retrieved_at": "2026-10-03T07:03:19Z",
+            "tier": 1,
+            "covered_metrics": [
+              "SECZ.financial_statement"
+            ],
+            "fixture": false
+          },
+          {
+            "id": "secz-424b3-20260807-annual-statements-v1",
+            "version": 1,
+            "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/securitizeholdings-424b3.htm",
+            "publisher": "U.S. Securities and Exchange Commission / Securitize",
+            "title": "424B3 Securitize Inc. audited statements: audit F-81, Note 19 revenue F-134, issuance F-136",
+            "date": "2026-08-07",
+            "retrieved_at": "2026-10-03T07:03:19Z",
+            "tier": 1,
+            "covered_metrics": [
+              "SECZ.financial_statement",
+              "secz.reported_tokenization_revenue",
+              "secz.reported_asset_servicing_revenue",
+              "secz.reported_total_revenue"
+            ],
+            "fixture": false
+          }
+        ],
+        "review": {
+          "reviewer": "Codex primary-source desk review; not a human sign-off",
+          "reviewed_at": "2026-10-03T07:03:19Z",
+          "rationale": "Read EDGAR index and rendered prospectus cover, Securitize Inc. audit opinion, Note 19 table and category definitions, and Note 21 issuance date. Match the six whole-USD annual cells, entity, dates, fiscal intervals, GAAP and audit context to the previously reviewed July 31 S-1. Preserve independent source/observation IDs; same values are repeated evidence, not additional thesis periods or a comprehensive restatement review."
+        }
+      },
+      "formulas": [
+        {
+          "id": "research.revenue_reconciliation",
+          "version": 1,
+          "unit": "USD",
+          "expression": {
+            "op": "sub",
+            "args": [
+              {
+                "op": "add",
+                "args": [
+                  "tokenization",
+                  "asset_servicing"
+                ]
+              },
+              "reported_total"
+            ]
+          },
+          "null_policy": "Any unknown input leaves the difference unknown."
+        },
+        {
+          "id": "research.revenue_yoy",
+          "version": 1,
+          "unit": "ratio",
+          "expression": {
+            "op": "sub",
+            "args": [
+              {
+                "op": "div",
+                "args": [
+                  "current",
+                  "prior"
+                ]
+              },
+              1
+            ]
+          },
+          "null_policy": "Any unknown input or a zero prior leaves growth unknown."
+        }
+      ],
+      "reconciliations": [
+        {
+          "id": "secz-2025-fy.reconciliation",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0,
+          "status": "RECONCILED",
+          "unit": "USD",
+          "formula_id": "research.revenue_reconciliation",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2025-fy.tokenization.424b3-20260807@1",
+            "secz-2025-fy.asset_servicing.424b3-20260807@1",
+            "secz-2025-fy.total.424b3-20260807@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-fy2025-424b3-statement@1",
+            "secz-2025-fy"
+          ],
+          "source_ids": [
+            "secz-424b3-20260807-index-v1",
+            "secz-424b3-20260807-annual-statements-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-07",
+          "periods": [
+            {
+              "id": "secz-2025-fy",
+              "basis": "annual",
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 4
+            }
+          ]
+        },
+        {
+          "id": "secz-2024-fy.reconciliation",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0,
+          "status": "RECONCILED",
+          "unit": "USD",
+          "formula_id": "research.revenue_reconciliation",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2024-fy.tokenization.424b3-20260807@1",
+            "secz-2024-fy.asset_servicing.424b3-20260807@1",
+            "secz-2024-fy.total.424b3-20260807@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-fy2025-424b3-statement@1",
+            "secz-2024-fy"
+          ],
+          "source_ids": [
+            "secz-424b3-20260807-index-v1",
+            "secz-424b3-20260807-annual-statements-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-07",
+          "periods": [
+            {
+              "id": "secz-2024-fy",
+              "basis": "annual",
+              "start": "2024-01-01",
+              "end": "2024-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2024,
+              "fiscal_quarter": 4
+            }
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "secz-424b3-fy-yoy.secz.reported_tokenization_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 2.7029364921233654,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2025-fy.tokenization.424b3-20260807@1",
+            "secz-2024-fy.tokenization.424b3-20260807@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-fy2025-424b3-statement@1",
+            "secz-2025-fy",
+            "secz-2024-fy"
+          ],
+          "source_ids": [
+            "secz-424b3-20260807-index-v1",
+            "secz-424b3-20260807-annual-statements-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-07",
+          "periods": [
+            {
+              "id": "secz-2025-fy",
+              "basis": "annual",
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 4
+            },
+            {
+              "id": "secz-2024-fy",
+              "basis": "annual",
+              "start": "2024-01-01",
+              "end": "2024-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2024,
+              "fiscal_quarter": 4
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-424b3-fy-yoy.secz.reported_asset_servicing_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 1.8994248371129658,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2025-fy.asset_servicing.424b3-20260807@1",
+            "secz-2024-fy.asset_servicing.424b3-20260807@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-fy2025-424b3-statement@1",
+            "secz-2025-fy",
+            "secz-2024-fy"
+          ],
+          "source_ids": [
+            "secz-424b3-20260807-index-v1",
+            "secz-424b3-20260807-annual-statements-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-07",
+          "periods": [
+            {
+              "id": "secz-2025-fy",
+              "basis": "annual",
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 4
+            },
+            {
+              "id": "secz-2024-fy",
+              "basis": "annual",
+              "start": "2024-01-01",
+              "end": "2024-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2024,
+              "fiscal_quarter": 4
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-424b3-fy-yoy.secz.reported_total_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 2.3350275297982366,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2025-fy.total.424b3-20260807@1",
+            "secz-2024-fy.total.424b3-20260807@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-fy2025-424b3-statement@1",
+            "secz-2025-fy",
+            "secz-2024-fy"
+          ],
+          "source_ids": [
+            "secz-424b3-20260807-index-v1",
+            "secz-424b3-20260807-annual-statements-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-07",
+          "periods": [
+            {
+              "id": "secz-2025-fy",
+              "basis": "annual",
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 4
+            },
+            {
+              "id": "secz-2024-fy",
+              "basis": "annual",
+              "start": "2024-01-01",
+              "end": "2024-12-31",
+              "duration_months": 12,
+              "fiscal_year": 2024,
+              "fiscal_quarter": 4
+            }
+          ],
+          "kind": "year_over_year"
+        }
+      ],
+      "persisted": false,
+      "financial_inputs_updated": false
+    },
+    "interim": {
+      "id": "f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173",
+      "schema_version": 1,
+      "dossier": {
+        "id": "secz-comparable-revenue-2026-10-03-v1",
+        "version": 1,
+        "fixture": false,
+        "as_of_date": "2026-10-03",
+        "purpose": "Retain raw reported revenue categories and aligned fiscal intervals; no annualization or six-stream underwriting mapping.",
+        "statement": {
+          "id": "secz-inc-q22026-statement@1",
+          "version": 1,
+          "classification": "OBSERVED",
+          "fixture": false,
+          "as_of_date": "2026-08-13",
+          "confidence": "high",
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1"
+          ],
+          "asset": "SECZ",
+          "entity_name": "Securitize, Inc. and subsidiaries",
+          "scope": "operating_subsidiary_consolidated",
+          "accounting_basis": "US_GAAP",
+          "audit_status": "unaudited",
+          "fiscal_year_end": "12-31",
+          "filing": {
+            "form": "8-K/A",
+            "accession": "0001628280-26-056811",
+            "registrant_cik": "0002094496",
+            "filing_date": "2026-08-13",
+            "period_of_report": "2026-07-08",
+            "financial_issuance_date": "2026-08-13"
+          },
+          "limitations": "This pre-combination operating-subsidiary scope cannot supply listed-parent shares, current valuation or an annual six-stream allocation. Comparative columns retain the presentation in this filing."
+        },
+        "periods": [
+          {
+            "id": "secz-2026-q2",
+            "basis": "quarterly",
+            "start": "2026-04-01",
+            "end": "2026-06-30",
+            "duration_months": 3,
+            "fiscal_year": 2026,
+            "fiscal_quarter": 2
+          },
+          {
+            "id": "secz-2025-q2",
+            "basis": "quarterly",
+            "start": "2025-04-01",
+            "end": "2025-06-30",
+            "duration_months": 3,
+            "fiscal_year": 2025,
+            "fiscal_quarter": 2
+          },
+          {
+            "id": "secz-2026-h1",
+            "basis": "year_to_date",
+            "start": "2026-01-01",
+            "end": "2026-06-30",
+            "duration_months": 6,
+            "fiscal_year": 2026,
+            "fiscal_quarter": 2
+          },
+          {
+            "id": "secz-2025-h1",
+            "basis": "year_to_date",
+            "start": "2025-01-01",
+            "end": "2025-06-30",
+            "duration_months": 6,
+            "fiscal_year": 2025,
+            "fiscal_quarter": 2
+          }
+        ],
+        "observations": [
+          {
+            "id": "secz-2026-q2.tokenization@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_tokenization_revenue",
+            "period_id": "secz-2026-q2",
+            "value": 7839139,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2026-q2.asset_servicing@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_asset_servicing_revenue",
+            "period_id": "secz-2026-q2",
+            "value": 6596706,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2026-q2.total@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_total_revenue",
+            "period_id": "secz-2026-q2",
+            "value": 14435845,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-q2.tokenization@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_tokenization_revenue",
+            "period_id": "secz-2025-q2",
+            "value": 8874393,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-q2.asset_servicing@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_asset_servicing_revenue",
+            "period_id": "secz-2025-q2",
+            "value": 6387783,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-q2.total@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_total_revenue",
+            "period_id": "secz-2025-q2",
+            "value": 15262176,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2026-h1.tokenization@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_tokenization_revenue",
+            "period_id": "secz-2026-h1",
+            "value": 18974344,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2026-h1.asset_servicing@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_asset_servicing_revenue",
+            "period_id": "secz-2026-h1",
+            "value": 14939967,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2026-h1.total@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_total_revenue",
+            "period_id": "secz-2026-h1",
+            "value": 33914311,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-h1.tokenization@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_tokenization_revenue",
+            "period_id": "secz-2025-h1",
+            "value": 20136056,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-h1.asset_servicing@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_asset_servicing_revenue",
+            "period_id": "secz-2025-h1",
+            "value": 9160139,
+            "unit": "USD"
+          },
+          {
+            "id": "secz-2025-h1.total@1",
+            "version": 1,
+            "classification": "OBSERVED",
+            "fixture": false,
+            "as_of_date": "2026-08-13",
+            "confidence": "high",
+            "source_ids": [
+              "secz-q22026-financial-exhibit-v1",
+              "secz-q22026-ir-results-v1"
+            ],
+            "metric_id": "secz.reported_total_revenue",
+            "period_id": "secz-2025-h1",
+            "value": 29296195,
+            "unit": "USD"
+          }
+        ],
+        "comparisons": [
+          {
+            "id": "secz-q2-yoy",
+            "kind": "year_over_year",
+            "current_period_id": "secz-2026-q2",
+            "prior_period_id": "secz-2025-q2"
+          },
+          {
+            "id": "secz-h1-yoy",
+            "kind": "year_over_year",
+            "current_period_id": "secz-2026-h1",
+            "prior_period_id": "secz-2025-h1"
+          }
+        ],
+        "sources": [
+          {
+            "id": "secz-q22026-filing-index-v1",
+            "version": 1,
+            "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/0001628280-26-056811-index.html",
+            "publisher": "U.S. Securities and Exchange Commission",
+            "title": "Securitize Corp. 8-K/A accession 0001628280-26-056811 filing index",
+            "date": "2026-08-13",
+            "retrieved_at": "2026-10-03T06:04:57Z",
+            "tier": 1,
+            "covered_metrics": [
+              "SECZ.financial_statement"
+            ],
+            "fixture": false
+          },
+          {
+            "id": "secz-q22026-financial-exhibit-v1",
+            "version": 1,
+            "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm",
+            "publisher": "U.S. Securities and Exchange Commission / Securitize",
+            "title": "Securitize Inc. unaudited financial exhibit; Note 18 revenue",
+            "date": "2026-08-13",
+            "retrieved_at": "2026-10-03T06:04:57Z",
+            "tier": 1,
+            "covered_metrics": [
+              "SECZ.financial_statement",
+              "secz.reported_tokenization_revenue",
+              "secz.reported_asset_servicing_revenue",
+              "secz.reported_total_revenue"
+            ],
+            "fixture": false
+          },
+          {
+            "id": "secz-q22026-ir-results-v1",
+            "version": 1,
+            "url": "https://investors.securitize.io/news/news-details/2026/Securitize-Reports-Second-Quarter-2026-Results/default.aspx",
+            "publisher": "Securitize investor relations",
+            "title": "Securitize Reports Second Quarter 2026 Results",
+            "date": "2026-08-12",
+            "retrieved_at": "2026-10-03T06:04:57Z",
+            "tier": 2,
+            "covered_metrics": [
+              "secz.reported_tokenization_revenue",
+              "secz.reported_asset_servicing_revenue",
+              "secz.reported_total_revenue"
+            ],
+            "fixture": false
+          }
+        ],
+        "review": {
+          "reviewer": "Codex primary-source desk review; not a human sign-off",
+          "reviewed_at": "2026-10-03T06:04:57Z",
+          "rationale": "Reviewed Note 18 and matching IR columns, with separate filing, report and financial dates. Preserve quarterly and half-year observations separately; compare only corresponding prior-year intervals."
+        }
+      },
+      "formulas": [
+        {
+          "id": "research.revenue_reconciliation",
+          "version": 1,
+          "unit": "USD",
+          "expression": {
+            "op": "sub",
+            "args": [
+              {
+                "op": "add",
+                "args": [
+                  "tokenization",
+                  "asset_servicing"
+                ]
+              },
+              "reported_total"
+            ]
+          },
+          "null_policy": "Any unknown input leaves the difference unknown."
+        },
+        {
+          "id": "research.revenue_yoy",
+          "version": 1,
+          "unit": "ratio",
+          "expression": {
+            "op": "sub",
+            "args": [
+              {
+                "op": "div",
+                "args": [
+                  "current",
+                  "prior"
+                ]
+              },
+              1
+            ]
+          },
+          "null_policy": "Any unknown input or a zero prior leaves growth unknown."
+        }
+      ],
+      "reconciliations": [
+        {
+          "id": "secz-2026-q2.reconciliation",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0,
+          "status": "RECONCILED",
+          "unit": "USD",
+          "formula_id": "research.revenue_reconciliation",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-q2.tokenization@1",
+            "secz-2026-q2.asset_servicing@1",
+            "secz-2026-q2.total@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-q2"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-q2",
+              "basis": "quarterly",
+              "start": "2026-04-01",
+              "end": "2026-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            }
+          ]
+        },
+        {
+          "id": "secz-2025-q2.reconciliation",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0,
+          "status": "RECONCILED",
+          "unit": "USD",
+          "formula_id": "research.revenue_reconciliation",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2025-q2.tokenization@1",
+            "secz-2025-q2.asset_servicing@1",
+            "secz-2025-q2.total@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2025-q2"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2025-q2",
+              "basis": "quarterly",
+              "start": "2025-04-01",
+              "end": "2025-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ]
+        },
+        {
+          "id": "secz-2026-h1.reconciliation",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0,
+          "status": "RECONCILED",
+          "unit": "USD",
+          "formula_id": "research.revenue_reconciliation",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-h1.tokenization@1",
+            "secz-2026-h1.asset_servicing@1",
+            "secz-2026-h1.total@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-h1"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-h1",
+              "basis": "year_to_date",
+              "start": "2026-01-01",
+              "end": "2026-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            }
+          ]
+        },
+        {
+          "id": "secz-2025-h1.reconciliation",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0,
+          "status": "RECONCILED",
+          "unit": "USD",
+          "formula_id": "research.revenue_reconciliation",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2025-h1.tokenization@1",
+            "secz-2025-h1.asset_servicing@1",
+            "secz-2025-h1.total@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2025-h1"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2025-h1",
+              "basis": "year_to_date",
+              "start": "2025-01-01",
+              "end": "2025-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "secz-q2-yoy.secz.reported_tokenization_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": -0.11665631666301013,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-q2.tokenization@1",
+            "secz-2025-q2.tokenization@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-q2",
+            "secz-2025-q2"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-q2",
+              "basis": "quarterly",
+              "start": "2026-04-01",
+              "end": "2026-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            },
+            {
+              "id": "secz-2025-q2",
+              "basis": "quarterly",
+              "start": "2025-04-01",
+              "end": "2025-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-q2-yoy.secz.reported_asset_servicing_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0.032706652683724524,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-q2.asset_servicing@1",
+            "secz-2025-q2.asset_servicing@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-q2",
+            "secz-2025-q2"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-q2",
+              "basis": "quarterly",
+              "start": "2026-04-01",
+              "end": "2026-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            },
+            {
+              "id": "secz-2025-q2",
+              "basis": "quarterly",
+              "start": "2025-04-01",
+              "end": "2025-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-q2-yoy.secz.reported_total_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": -0.05414241062349168,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-q2.total@1",
+            "secz-2025-q2.total@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-q2",
+            "secz-2025-q2"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-q2",
+              "basis": "quarterly",
+              "start": "2026-04-01",
+              "end": "2026-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            },
+            {
+              "id": "secz-2025-q2",
+              "basis": "quarterly",
+              "start": "2025-04-01",
+              "end": "2025-06-30",
+              "duration_months": 3,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-h1-yoy.secz.reported_tokenization_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": -0.05769312520783609,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-h1.tokenization@1",
+            "secz-2025-h1.tokenization@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-h1",
+            "secz-2025-h1"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-h1",
+              "basis": "year_to_date",
+              "start": "2026-01-01",
+              "end": "2026-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            },
+            {
+              "id": "secz-2025-h1",
+              "basis": "year_to_date",
+              "start": "2025-01-01",
+              "end": "2025-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-h1-yoy.secz.reported_asset_servicing_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0.6309760146652796,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-h1.asset_servicing@1",
+            "secz-2025-h1.asset_servicing@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-h1",
+            "secz-2025-h1"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-h1",
+              "basis": "year_to_date",
+              "start": "2026-01-01",
+              "end": "2026-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            },
+            {
+              "id": "secz-2025-h1",
+              "basis": "year_to_date",
+              "start": "2025-01-01",
+              "end": "2025-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ],
+          "kind": "year_over_year"
+        },
+        {
+          "id": "secz-h1-yoy.secz.reported_total_revenue",
+          "classification": "DERIVED",
+          "fixture": false,
+          "value": 0.15763535162160136,
+          "status": "AVAILABLE",
+          "unit": "ratio",
+          "formula_id": "research.revenue_yoy",
+          "formula_version": 1,
+          "dependencies": [
+            "secz-2026-h1.total@1",
+            "secz-2025-h1.total@1"
+          ],
+          "context_dependencies": [
+            "secz-inc-q22026-statement@1",
+            "secz-2026-h1",
+            "secz-2025-h1"
+          ],
+          "source_ids": [
+            "secz-q22026-filing-index-v1",
+            "secz-q22026-financial-exhibit-v1",
+            "secz-q22026-ir-results-v1"
+          ],
+          "confidence": "high",
+          "as_of_date": "2026-08-13",
+          "periods": [
+            {
+              "id": "secz-2026-h1",
+              "basis": "year_to_date",
+              "start": "2026-01-01",
+              "end": "2026-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2026,
+              "fiscal_quarter": 2
+            },
+            {
+              "id": "secz-2025-h1",
+              "basis": "year_to_date",
+              "start": "2025-01-01",
+              "end": "2025-06-30",
+              "duration_months": 6,
+              "fiscal_year": 2025,
+              "fiscal_quarter": 2
+            }
+          ],
+          "kind": "year_over_year"
+        }
+      ],
+      "persisted": false,
+      "financial_inputs_updated": false
+    }
+  },
+  "results": [
+    {
+      "id": "secz-ttm-20260630-review@1.secz.reported_tokenization_revenue",
+      "metric_id": "secz.reported_tokenization_revenue",
+      "classification": "DERIVED",
+      "fixture": false,
+      "value": null,
+      "unit": "USD",
+      "period": {
+        "basis": "TTM",
+        "start": "2025-07-01",
+        "end": "2026-06-30",
+        "duration_months": 12
+      },
+      "as_of_date": "2026-10-03",
+      "confidence": "unknown",
+      "status": "COMPARABILITY_UNVERIFIED",
+      "formula_id": "research.revenue_ttm_bridge",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-2025-fy.tokenization.424b3-20260807@1",
+        "secz-2025-h1.tokenization@1",
+        "secz-2026-h1.tokenization@1"
+      ],
+      "assumption_dependencies": [
+        "secz-ttm-20260630-comparability@1"
+      ],
+      "context_dependencies": [
+        "secz-inc-fy2025-424b3-statement@1",
+        "secz-inc-q22026-statement@1",
+        "secz-2025-fy",
+        "secz-2025-h1",
+        "secz-2026-h1"
+      ],
+      "source_ids": [
+        "secz-424b3-20260807-index-v1",
+        "secz-424b3-20260807-annual-statements-v1",
+        "secz-q22026-filing-index-v1",
+        "secz-q22026-financial-exhibit-v1",
+        "secz-q22026-ir-results-v1"
+      ]
+    },
+    {
+      "id": "secz-ttm-20260630-review@1.secz.reported_asset_servicing_revenue",
+      "metric_id": "secz.reported_asset_servicing_revenue",
+      "classification": "DERIVED",
+      "fixture": false,
+      "value": null,
+      "unit": "USD",
+      "period": {
+        "basis": "TTM",
+        "start": "2025-07-01",
+        "end": "2026-06-30",
+        "duration_months": 12
+      },
+      "as_of_date": "2026-10-03",
+      "confidence": "unknown",
+      "status": "COMPARABILITY_UNVERIFIED",
+      "formula_id": "research.revenue_ttm_bridge",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-2025-fy.asset_servicing.424b3-20260807@1",
+        "secz-2025-h1.asset_servicing@1",
+        "secz-2026-h1.asset_servicing@1"
+      ],
+      "assumption_dependencies": [
+        "secz-ttm-20260630-comparability@1"
+      ],
+      "context_dependencies": [
+        "secz-inc-fy2025-424b3-statement@1",
+        "secz-inc-q22026-statement@1",
+        "secz-2025-fy",
+        "secz-2025-h1",
+        "secz-2026-h1"
+      ],
+      "source_ids": [
+        "secz-424b3-20260807-index-v1",
+        "secz-424b3-20260807-annual-statements-v1",
+        "secz-q22026-filing-index-v1",
+        "secz-q22026-financial-exhibit-v1",
+        "secz-q22026-ir-results-v1"
+      ]
+    },
+    {
+      "id": "secz-ttm-20260630-review@1.secz.reported_total_revenue",
+      "metric_id": "secz.reported_total_revenue",
+      "classification": "DERIVED",
+      "fixture": false,
+      "value": null,
+      "unit": "USD",
+      "period": {
+        "basis": "TTM",
+        "start": "2025-07-01",
+        "end": "2026-06-30",
+        "duration_months": 12
+      },
+      "as_of_date": "2026-10-03",
+      "confidence": "unknown",
+      "status": "COMPARABILITY_UNVERIFIED",
+      "formula_id": "research.revenue_ttm_bridge",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-2025-fy.total.424b3-20260807@1",
+        "secz-2025-h1.total@1",
+        "secz-2026-h1.total@1"
+      ],
+      "assumption_dependencies": [
+        "secz-ttm-20260630-comparability@1"
+      ],
+      "context_dependencies": [
+        "secz-inc-fy2025-424b3-statement@1",
+        "secz-inc-q22026-statement@1",
+        "secz-2025-fy",
+        "secz-2025-h1",
+        "secz-2026-h1"
+      ],
+      "source_ids": [
+        "secz-424b3-20260807-index-v1",
+        "secz-424b3-20260807-annual-statements-v1",
+        "secz-q22026-filing-index-v1",
+        "secz-q22026-financial-exhibit-v1",
+        "secz-q22026-ir-results-v1"
+      ]
+    }
+  ],
+  "unconfirmed_checks": [
+    "acquisition_treatment"
+  ],
+  "persisted": false,
+  "financial_inputs_updated": false,
+  "limitations": "Conditional reported subsidiary revenue bridge, not an observed audited TTM statement, organic/pro forma growth, historical restatement clearance, six-stream model mapping or parent valuation."
+}

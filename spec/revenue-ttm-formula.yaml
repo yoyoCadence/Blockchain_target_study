@@ -1,0 +1,9 @@
+id: research.revenue_ttm_bridge
+version: 1
+unit: USD
+expression:
+  op: add
+  args:
+    - {op: sub, args: [annual, prior_ytd]}
+    - current_ytd
+null_policy: Missing input or unconfirmed comparability leaves TTM unknown. Never annualize a quarter or multiply YTD.

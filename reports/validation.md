@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-03 explicitly reviewed raw revenue TTM bridge
+
+- `npm test`: **235 passed, 0 failed**, including 36 TTM regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Validated digest-bound input review replay, annual/YTD interval alignment, scope/basis, dates, primary evidence from both filings and five explicit comparability assumptions.
+- Formal research preserves an unresolved MG Stover Inc./LLC naming difference and returns three null COMPARABILITY_UNVERIFIED results; conditional arithmetic is verified under a test-only assumption without publishing those values.
+- Tested every false/null gate, unknown propagation, impossible amounts, tampering, unsafe AST and production-only CLI without journal writes. Fixed an initially mismatched expected error message and added separate observation-cutoff coverage before rerunning successfully.
+- Full embedded formula/input/request replay retained; no canonical financial inputs/history/formulas or thesis periods changed. Verified TTM and the full baseline remain incomplete.
+
 ## 2026-10-03 SECZ S-1 / 424B3 annual-table research
 
 - `npm test`: **199 passed, 0 failed**, including five prospectus/history/CLI checks.
