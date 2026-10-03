@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 已存事件證據驗證
+
+PR #23 遠端 CI 全部通過後已合併（`fa5a660`）。`fix/saved-event-evidence` 從最新 origin/main 建立，原工作目錄乾淨。在獨立暫存 fixture journal 重現 future completed event 與 snapshot 一致／重算 hash 後仍可載入，選擇 baseline 所需的既有證據規則一致性修正。
+
+共用 checkEventEvidence，在新事件 preparation 與 saved canonical load 的 schema／source validation 後检查 as-of、mode、declared source publication／存在、live/completed effective／可信證據及 planned/announced/cancelled 更新分類。原規則／訊息沿用；review chronology 仍保留。合法 future plan 與 retrospective retrieval 均有效。
+
+驗證：368 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。15 新增回歸含兩模式、重新計算 hash 的無效 journal、日期／來源／mode／狀態、API 400／bytes 不變、合法計畫／回顧及金融／thesis／history replay。初次兩個 test-only source 日期設定已修正，44 targeted 與最終全套通過。無正式 data／source／snapshot／formula／threshold／UI 更新或瀏覽器 UI 驗證；遠端 CI 以 PR 實際結果為準。
+
+此子項只共用現有證據檢查，不宣告所有 persistence business rules 已全面重播。四份 production snapshots 同模型期、83 unknown；SECZ legal naming／TTM／mapping、同步估值、個人管道與 UNI 全期間 capture 仍未完成。詳見 [已存事件證據](saved-event-evidence.md)。
+
 ## 2026-10-03 — 唯讀手動時效 API
 
 PR #22 遠端 CI 全部通過後已合併（`486c4e6`）。`feat/read-only-freshness-api` 從最新 origin/main 建立，原工作目錄乾淨。選擇已具備依賴的手動時效分析 API 子項，限定 reuse 已完成 CLI 的 engine／policy／formula。

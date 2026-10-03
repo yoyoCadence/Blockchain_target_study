@@ -1,5 +1,5 @@
 import path from 'node:path';
-import {assert,validateSchema,checkEventReview} from '../validation/index.js';
+import {assert,validateSchema,checkEventEvidence,checkEventReview} from '../validation/index.js';
 import {calculate,validateProject,selectInputs} from '../index.js';
 import {makeSnapshot,writeExclusive,readSnapshots,assertVersionHistory} from '../snapshots.js';
 export function affectedNodes(graph,initial) {
@@ -9,20 +9,12 @@ export function affectedNodes(graph,initial) {
 }
 export function prepareEvent(p,event,history=[]) {
  validateSchema(p.eventSchema,event,'event');
- assert(event.as_of_date<=new Date().toISOString().slice(0,10),'Event as-of cannot be in the future');
  assert(/^[a-zA-Z0-9_-]+$/.test(event.id),'Event ID must be a safe filename');
- assert(event.fixture===(p.mode==='fixture'),'Event data mode mismatch');
  const withSources={...p,sources:[...p.sources,...(event.sources||[])]};
  // Validate every new source before using it as evidence or writing a journal.
  validateProject(withSources);
  assert(event.affected_nodes.every(id=>p.assets.assets.some(a=>a.id===id)),'Unknown affected node');
- assert(event.source_ids.every(id=>withSources.sources.some(s=>s.id===id)),'Unknown event source');
- assert(event.source_ids.every(id=>withSources.sources.find(s=>s.id===id).date<=event.as_of_date),'Event source published after event as-of');
- if(['live','completed'].includes(event.status)) {
-  assert(event.effective_date&&event.effective_date<=event.as_of_date,'Live/completed event needs a past effective date');
-  assert(event.fixture||event.source_ids.some(id=>withSources.sources.find(s=>s.id===id).tier<5),'Live/completed event needs primary or credible evidence');
- }
- if(['planned','announced','cancelled'].includes(event.status)) assert(event.updates.every(m=>m.classification==='SCENARIO'||m.classification==='ASSUMPTION'),'Planned/announced event cannot create live observations');
+ checkEventEvidence(event,withSources.sources,p.mode);
  checkEventReview(event,withSources.sources);
  if(event.type==='research_refresh') {
   assert(event.updates.length>0&&event.updates.every(m=>m.classification==='OBSERVED'),'Research refresh only accepts observations');

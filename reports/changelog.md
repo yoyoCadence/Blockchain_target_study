@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Shared saved-event evidence validation
+
+- Reproduced invalid future completed evidence accepted during direct journal loads despite matching/recomputed event and snapshot hashes.
+- Reuse existing preparation rules during canonical loads: knowledge/effective/publication chronology, declared sources, workspace provenance, credible completed evidence and planned-update classifications.
+- Added 15 saved-load/API/history regressions; full suite 368 passed and both modes validate. Valid future plans, retrospective retrieval and all financial/research/history outputs remain unchanged; complete baseline remains pending.
+
 ## 2026-10-03 — Read-only manual freshness API
 
 - Added GET /api/freshness using existing canonical/research freshness engines, policy/formula v1 and canonical history checks.
