@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 已存研究主要來源驗證
+
+PR #25 push／PR CI 全部通過，已 match-head 合併（`1321ab0`）。`fix/saved-research-primary-evidence` 從最新 origin/main 建立，原工作目錄乾淨。已在独立 temp 副本重現，budget research-refresh 的全部來源改成 Tier 3、同步 event／snapshot 並重算 hash 後仍可載入；選擇首項 baseline 所需的既有 primary guard 一致性修正。
+
+共用 checkResearchEvidence，新 preparation／saved canonical loads 均檢查非空 OBSERVED、每筆至少 Tier 1／2、完整 event evidence 宣告及 observation publication cutoff。Schema、一般 event、review、preview digest／supersession 保留；generic completed tier <5 門檻不改，null 仍未知。
+
+驗證：382 tests passed、0 failed；42 targeted 通過；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。14 新增回歸含 matching hash 的 Tier 3／4／null、假設／情境／空更新、未宣告證據，prepare／load 決策一致；合法 Tier 1／2／mixed primary／null／generic Tier 3、API 400／bytes 保留与 committed metrics／thesis／history replay。無正式來源分級／金融／policy／formula／history／UI 更新、無額外瀏覽器驗證；遠端 CI 以 PR 實際結果為準。
+
+Metadata guard 不證明來源內文、簽章或所有 persistence rules 均已重播。四份 production snapshots 同模型期、83 unknown，父 baseline 與原未知項仍未完成。詳見 [主要來源驗證](saved-research-primary-evidence.md)。
+
 ## 2026-10-03 — Dashboard 手動來源時效
 
 PR #24 的 push／PR CI 全部通過，已合併（`ed4d8b9`）。瀏覽器曾斷線；CLI 在正常網路確認 auth、精確 head／main base／非 Draft／兩 checks success，以 match-head 合併。`feat/manual-freshness-dashboard` 從最新 origin/main 建立，工作目錄乾淨；選擇已具 API 依賴的手動時效 UI 子項。

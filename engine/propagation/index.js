@@ -1,5 +1,5 @@
 import path from 'node:path';
-import {assert,validateSchema,checkEventEvidence,checkEventReview} from '../validation/index.js';
+import {assert,validateSchema,checkEventEvidence,checkEventReview,checkResearchEvidence} from '../validation/index.js';
 import {calculate,validateProject,selectInputs} from '../index.js';
 import {makeSnapshot,writeExclusive,readSnapshots,assertVersionHistory} from '../snapshots.js';
 export function affectedNodes(graph,initial) {
@@ -16,16 +16,7 @@ export function prepareEvent(p,event,history=[]) {
  assert(event.affected_nodes.every(id=>p.assets.assets.some(a=>a.id===id)),'Unknown affected node');
  checkEventEvidence(event,withSources.sources,p.mode);
  checkEventReview(event,withSources.sources);
- if(event.type==='research_refresh') {
-  assert(event.updates.length>0&&event.updates.every(m=>m.classification==='OBSERVED'),'Research refresh only accepts observations');
-  for(const update of event.updates) {
-   const sources=update.source_ids.map(id=>withSources.sources.find(s=>s.id===id));
-   assert(sources.every(Boolean),'Missing research source');
-   assert(sources.some(s=>s.tier<=2),'Research observation requires a tier 1 or 2 primary source');
-   assert(sources.every(s=>event.source_ids.includes(s.id)),'Research evidence must be declared in event sources');
-   assert(sources.every(s=>s.date<=update.as_of_date),'Research source published after observation as-of date');
-  }
- }
+ checkResearchEvidence(event,withSources.sources);
  const old=selectInputs(p.inputs),nodes=affectedNodes(p.graph,event.affected_nodes);
  for(const update of event.updates) {
   assert(nodes.includes(update.asset),'Event update asset is outside affected nodes');

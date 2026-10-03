@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Shared saved-research primary evidence
+
+- Reproduced non-primary-only research-refresh journals accepted during canonical loads despite matching/recomputed hashes.
+- Reuse existing preparation rules for nonempty OBSERVED updates, a tier 1/2 source per observation, complete declared evidence and observation publication cutoffs.
+- Added 14 regressions; full suite 382 passed and both modes validate. Preserve primary-backed null, mixed evidence, generic credible-source behavior and all financial/source/history outputs; complete baseline remains pending.
+
 ## 2026-10-03 — Manual Dashboard freshness inspection
 
 - Added an explicit UTC-cutoff query using the existing read-only API; retain canonical/research dates, unknowns, review availability, synthetic provenance and complete policy/formula/source dependencies.

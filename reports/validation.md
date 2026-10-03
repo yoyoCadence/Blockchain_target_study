@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 shared saved-research primary evidence
+
+- `npm test`: **382 passed, 0 failed**, including 14 new regressions; 42 targeted research tests pass.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced Tier 3-only saved research acceptance using an isolated copy with synchronized event/snapshot content and recomputed hash. Shared preparation/load validation now enforces existing primary and classification/declaration rules.
+- Reject Tier 3/4-only, null observation without primary, assumption/scenario posing as research, empty updates and undeclared evidence; API returns 400 without changing journal bytes.
+- Accept declared Tier 1/2 metadata, mixed evidence with one primary, primary-backed null and the unchanged generic Tier 3 completed path. Existing reviewed/digest refresh, financial/thesis/history replay and every committed hash pass. No financial/source/history/UI changes or additional browser verification.
+
 ## 2026-10-03 manual Dashboard freshness inspection
 
 - `npm test`: **368 passed, 0 failed**; both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production). JS syntax/diff checks pass.
