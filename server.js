@@ -6,6 +6,8 @@ import {loadProject,calculate,lineage,ROOT} from './engine/index.js';
 import {matrix} from './engine/sensitivity/index.js';
 import {readSnapshots,compareSnapshots,assertVersionHistory} from './engine/snapshots.js';
 import {inspectResearch} from './engine/research/inspection.js';
+import {sourceFreshness} from './engine/research/freshness.js';
+import {researchFreshness} from './engine/research/research-freshness.js';
 const files={'/':'index.html','/app.js':'app.js','/style.css':'style.css'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'};
 export function createServer(root=ROOT) {
@@ -16,11 +18,15 @@ export function createServer(root=ROOT) {
   try {
    const url=new URL(req.url,'http://localhost');
    if(req.method==='GET'&&files[url.pathname]) {const file=path.join(root,'dashboard',files[url.pathname]);res.writeHead(200,{'Content-Type':mime[path.extname(file)]});res.end(fs.readFileSync(file));return;}
-   if(!['/api/state','/api/sensitivity','/api/lineage','/api/snapshots','/api/research'].includes(url.pathname)) return json(404,{error:'Not found'});
+   if(!['/api/state','/api/sensitivity','/api/lineage','/api/snapshots','/api/research','/api/freshness'].includes(url.pathname)) return json(404,{error:'Not found'});
    if(req.method!=='GET'&&!(req.method==='POST'&&url.pathname==='/api/sensitivity')) return json(405,{error:'Method not allowed'});
    const p=loadProject(url.searchParams.get('mode')||'fixture',root),history=readSnapshots(root,p.mode);
    assertVersionHistory(history.at(-1),p);
    if(url.pathname==='/api/research') return json(200,inspectResearch(p));
+   if(url.pathname==='/api/freshness') {
+    const options=url.searchParams.has('as_of')?{as_of_date:url.searchParams.get('as_of')}:{};
+    return json(200,(p.mode==='production'?researchFreshness:sourceFreshness)(p,options));
+   }
    const options={history,previousThesis:history.at(-1)?.thesis||{}};
    if(url.pathname==='/api/snapshots') return json(200,{snapshots:history.map(s=>({id:s.id,reason:s.reason,period:s.period,created_at:s.created_at})),comparison:history.length?compareSnapshots(history.at(-2),history.at(-1)):{available:false,changes:[]}});
    let overrides={};

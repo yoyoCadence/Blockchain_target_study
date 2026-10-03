@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 唯讀手動時效 API
+
+PR #22 遠端 CI 全部通過後已合併（`486c4e6`）。`feat/read-only-freshness-api` 從最新 origin/main 建立，原工作目錄乾淨。選擇已具備依賴的手動時效分析 API 子項，限定 reuse 已完成 CLI 的 engine／policy／formula。
+
+GET /api/freshness 支援 mode 與 optional as_of。默认 Fixture 只回 sourceFreshness 的 synthetic canonical 資料；Production 回 researchFreshness 的 canonical 與已 hash/replay catalog 報告。未指定 cutoff 使用當前 UTC 日；空／非法／未來日期與非法 mode 拒絕，所有寫入 methods 405。沿用 canonical load／version-history guards，金融計算／資料／snapshot／policy／formula versions 不變。
+
+驗證：353 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。九 HTTP 回歸涵蓋與 engine 完整回應一致、Fixture 隔離、舊 budget／近期 retrieval 同時呈現、formal TTM null、歷史 cutoff、日期／mode／method 拒絕、現在 UTC default、反覆查詢後 inputs／sources／economics／thesis／policy／history hashes 保留。測試 servers 自動關閉；沒有 Dashboard 改動／瀏覽器 UI 驗證。遠端 CI 以 PR 實際結果為準。
+
+此子項只新增手動查詢 API；Dashboard 時效操作尚未實作，亦無 scheduling／自動抓取。日期窗口不證明可投資性、經濟可比性或健康 thesis。四份 production snapshots 同一模型期；SECZ 名稱／TTM／六類 mapping、FCF／估值、個人管道與 UNI 全期間 capture 仍保留未知，父 baseline 未完成。詳見 [API](freshness-api.md)。
+
 ## 2026-10-03 — 共用手動事件 review 日期
 
 PR #21 遠端 CI 全部通過後已合併（`db367ed`）。`fix/manual-event-review-dates` 從最新 origin/main 建立，原工作目錄乾淨。已在記憶體重現一般 acquisition source-only event 能接受 reviewed_at 2099；原日期規則只在 research-refresh 分支生效。

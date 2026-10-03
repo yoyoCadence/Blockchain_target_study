@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 read-only manual freshness API
+
+- `npm test`: **353 passed, 0 failed**, including nine new HTTP freshness regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Actual local HTTP requests verify Fixture-only canonical/synthetic output, Production output identical to the existing combined engine, stale budget versus recently retrieved sources, five reviews / 30 records and all three TTM null/insufficient states.
+- Historical cutoff preserves unavailable review/retrieval evidence. Empty/impossible/future dates and invalid modes return 400; POST/PUT/PATCH/DELETE return 405. Omitted cutoff uses current UTC day and no-store headers remain in place.
+- Repeated workspace requests preserve financial inputs/results/thesis, source versions, policy metadata and all immutable history hashes. No Dashboard changes or browser UI verification; temporary test servers close after each test.
+
 ## 2026-10-03 shared manual-event review chronology
 
 - `npm test`: **344 passed, 0 failed**, including 19 new review chronology/journal/API regressions.
