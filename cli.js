@@ -61,7 +61,8 @@ try {
   const event=readYaml(args[0],process.cwd());const update=applyEvent(project,event);
   console.log(JSON.stringify({snapshot:update.snapshot.id,affected_nodes:update.affected_nodes},null,2));
  } else if(command==='report') {
-  const lines=['# Current thesis', '', `Mode: ${mode.toUpperCase()}${result.fixture?' — SYNTHETIC, NOT MARKET DATA':''}`,`Period: ${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}: ${t.state}`,`Coverage: ${t.coverage}. ${t.interpretation}`,...t.triggered_rules.map(r=>`- ${r.id}: ${r.why}`),''])];
+  const {term}=await import('./dashboard/zh-hant.js');
+  const lines=['# 目前研究論點', '', `工作區：${mode==='fixture'?'合成示範（FIXTURE）':'正式研究（PRODUCTION）'}${result.fixture?'；合成資料，非市場資料':''}`,`模型期間：${term(result.period.basis)}；${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}：${term(t.state)}`,`證據覆蓋：${term(t.coverage)}。${term(t.interpretation)}`,...t.triggered_rules.map(r=>`- ${r.id}（規則原文）：${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
  } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
 } catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}

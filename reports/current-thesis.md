@@ -1,14 +1,14 @@
-# Current thesis
+# 目前研究論點
 
-Mode: FIXTURE — SYNTHETIC, NOT MARKET DATA
-Period: 2025-12-31
+工作區：合成示範（FIXTURE）；合成資料，非市場資料
+模型期間：年度；2025-12-31
 
-## UNI: HEALTHY
-Coverage: insufficient. No confirmed trigger; insufficient evidence. Not an affirmative healthy thesis.
+## UNI：健康（HEALTHY）
+證據覆蓋：證據不足。尚未確認規則觸發；證據不足，不能據此認定投資論點健康。
 
-## SECZ: HEALTHY
-Coverage: insufficient. No confirmed trigger; insufficient evidence. Not an affirmative healthy thesis.
+## SECZ：健康（HEALTHY）
+證據覆蓋：證據不足。尚未確認規則觸發；證據不足，不能據此認定投資論點健康。
 
-## XLM: WATCH
-Coverage: insufficient. Rule-based research monitoring; not an investment recommendation.
-- xlm.watch: Network RWA grows above 25% without native demand growth.
+## XLM：觀察（WATCH）
+證據覆蓋：證據不足。依規則監測研究論點；不構成投資建議。
+- xlm.watch（規則原文）：Network RWA grows above 25% without native demand growth.
