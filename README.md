@@ -1,6 +1,8 @@
-# Tokenized Capital Markets Living Underwriting Engine
+# 代幣化資本市場・持有人價值研究引擎
 
 可追溯、可重算、可比較版本的 tokenized capital markets 研究系統。第一版包含 UNI、SECZ、XLM 三種價值捕獲模型，以及 14 個研究／基礎設施節點。
+
+預設介面為繁體中文，指標、操作、資料血緣、研究與時效狀態均提供中文呈現。四種分類與五種論點狀態保留原始代碼；來源、規則／假設原文及完整 JSON 仍可核對。中文標籤不修改金融定義、公式、門檻或歷史證據。
 
 **這是研究引擎，不是交易訊號。TAM ≠ asset value；network adoption ≠ token-holder value。**
 
@@ -88,16 +90,16 @@ node cli.js freshness --production --as-of 2026-10-03
 node cli.js research-freshness --production --as-of 2026-10-03
 ```
 
-## 使用 Dashboard
+## 使用研究介面
 
-1. 選擇 Fixture 或 Production workspace。
-2. 點擊任何指標卡，查看分類、單位、as-of、會計期間、來源、信心水準、公式版本與每一層依賴。
-3. 資產卡下方展開 `Canonical inputs & market valuation` 查看價格、估值、收入分項與需求存量。
-4. 在 Sensitivity lab 改變參數並按 Recalculate。比例採小數：`0.05` = 5%，`0.000125` = 1.25 bp。矩陣每格也可點擊查看該情境自己的血緣。
-5. Thesis monitor 顯示所有規則、最高嚴重度、證據、最後狀態變更與歷史覆蓋程度。`HEALTHY + insufficient` 代表沒有已確認觸發，不代表已證實健康。
-6. Version history 比較持久化快照；previous/current 數值各自連到當時的血緣，與未儲存敏感度情境分開。
-7. Production 的 [Research evidence](reports/research-inspection.md) 展開已保存身份／原始財報研究、可比性假設、來源與完整 review；Fixture 不混入這些正式研究，研究數值也不補入金融模型。
-8. [Source freshness](reports/freshness-dashboard.md) 填寫 UTC 截止日後手動查詢（留空使用目前 UTC 日），分開查看原觀測、發布、取得與 review 時效、政策與完整依賴。更換日期／workspace 會清除舊結果，需再次按下查詢；不修改金融資料或 thesis。
+1. 選擇「合成示範資料（Fixture）」或「正式研究資料（Production）」工作區。
+2. 點擊任何指標卡，查看分類、單位、知識日、期間、來源、可信程度、公式版本與每一層依賴。
+3. 資產卡下方展開「基準輸入與市場估值」查看價格、估值、收入分項與需求存量。
+4. 在「敏感度分析」改變參數並按「重新計算情境」。比例採小數：`0.05` = 5%，`0.000125` = 1.25 bp。矩陣每格也可點擊查看該情境自己的血緣。
+5. 「投資論點監測」顯示所有規則、最高嚴重度、證據、最後狀態變更與歷史覆蓋程度。`HEALTHY + insufficient` 代表沒有已確認觸發，不代表已證實健康。
+6. 「目前與前一版本」比較已儲存快照；兩版數值各自連到當時的血緣，與未儲存敏感度情境分開。
+7. 正式工作區的[研究證據](reports/research-inspection.md)展開已保存身份／原始財報研究、可比性假設、來源與完整審查原文；合成工作區不混入正式研究，研究數值也不補入金融模型。
+8. [來源時效](reports/freshness-dashboard.md)填寫 UTC 截止日後手動查詢（留空使用目前 UTC 日），分開查看原觀測、發布、取得與審查時效、政策與完整依賴。更換日期／工作區會清除舊結果，需再次按下查詢；不修改金融資料或論點狀態。
 
 ## 架構
 

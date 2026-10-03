@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-04 — 繁體中文介面
+
+- 導航、操作、84 個指標、單位、血緣與研究／時效／版本狀態中文化；保留原始分類／論點代碼、來源／規則原文及完整 JSON。
+- 顯示名稱獨立於 engine／spec／data，數字採 zh-TW 格式；原金融公式／數值／門檻／快照不變，缺值與證據不足維持明示。
+- 實際桌面／手機與重算／還原／來源檢視／時效／鍵盤 QA 通過，JSON 與原檔／API 完全一致；407 tests 與兩模式驗證通過。完整 baseline 仍未完成。
+
 ## 2026-10-04 — SECZ dated parent capital context
 
 - Preserve parent 10-Q issued-share dates, pre-closing financial scope, included restricted sponsor shares and separate conditional/reserved rights alongside Exhibit 5.1 resale categories.

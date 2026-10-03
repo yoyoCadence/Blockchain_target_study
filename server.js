@@ -8,7 +8,7 @@ import {readSnapshots,compareSnapshots,assertVersionHistory} from './engine/snap
 import {inspectResearch} from './engine/research/inspection.js';
 import {sourceFreshness} from './engine/research/freshness.js';
 import {researchFreshness} from './engine/research/research-freshness.js';
-const files={'/':'index.html','/app.js':'app.js','/style.css':'style.css'};
+const files={'/':'index.html','/app.js':'app.js','/zh-hant.js':'zh-hant.js','/style.css':'style.css'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'};
 export function createServer(root=ROOT) {
  return http.createServer(async(req,res)=>{
