@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 single historical UNI Firepit release
+
+- `npm test`: **271 passed, 0 failed**, including four committed receipt/history regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Chrome primary-source review verified the successful receipt and all nine logs, exact block/time, raw caller-funded UNI dead-address payment, five TokenJar transfers and Released nonce/recipient. Read official immutable pre-transaction commit/files separately; no bytecode-equivalence claim.
+- Source-only event adds five sources and a third same-period production snapshot. Prior hashes/versions, all financial metrics/inputs/formulas/thesis and 83 unknowns remain intact; replay passes and no extra thesis period is inferred.
+- One transaction does not establish fee-origin attribution, annual flows, totalSupply reduction, current settings or aggregate activation. No UI changes or additional UI verification.
+
 ## 2026-10-03 canonical current-time evidence guard
 
 - `npm test`: **267 passed, 0 failed**, including 13 future-evidence regressions.

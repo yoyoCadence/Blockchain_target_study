@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-03 — UNI 單筆 Firepit 執行證據
+
+PR #16 遠端 CI 全部通過後已合併（`8323fb2`）。`research/uni-firepit-release` 從最新 origin/main 建立，原工作目錄乾淨。回到 NEXT baseline 的捕獲執行證據，範圍限定單筆 release；不依據配置或文件推定已實現年度收入。
+
+Chrome 核對成功 receipt Overview／九個 logs：block 24116850、2025-12-29T07:36:47Z，UNI raw payment 4000000000000000000000 從 caller 到 dead address，五項 TokenJar asset transfers，以及 Firepit Released nonce 0／同一 recipient。讀取交易前官方 commit 8604e4b（2025-12-18）及固定 TokenJar／ExchangeReleaser／Firepit 源碼；源碼解讀不冒稱 deployed-bytecode 等價驗證。未採 explorer 即時 USD 顯示，Approval／零 PAXG transfer 不另計 burn。
+
+使用既有 token_burn source-only event，新增五份完整 dated sources、空 updates、Codex review 與 immutable snapshot `c242eeb441c989b608a9520d13e54b9e142ee213a818a88dd76d9db15ed763c9`。保留先前 budget／configuration snapshot hashes；source change 與不變的 assumption／scenario／formula／values 分開。三份 production snapshots 同一模型期，thesis insufficient、83 unknown 不變。
+
+驗證：271 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。四項新增驗證涵蓋來源／raw receipt identity、append-only old versions、完整重播及不得年化／升級已驗證 capture 的界線；prospectus test 改為核對原兩個 hash 與同模型期間，允许來源事件增量。無 UI 變更；Chrome 僅用于 primary-source 查證。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成。這筆執行不證明每項資產的 protocol-fee origin、totalSupply 減少、全期間 burn／fee revenue、現行閾值或所有 pool／chain activation。下一步須追溯 fee-origin 與明確計算期間，不能把單次 4,000 UNI 年化或和 100M treasury transfer 混合。SECZ 名稱差異／TTM、六類 mapping、FCF／margin、同步母公司估值與個人管道亦未完成。詳見 [release 研究](uni-firepit-release.md)。
+
 ## 2026-10-03 — Canonical 未來證據日期防線
 
 PR #15 遠端 CI 全部通過後已合併（`0d01067`）。`fix/future-canonical-evidence` 從最新 origin/main 建立，原工作目錄乾淨。以純記憶體重現直接 canonical validation 接受 2099 OBSERVED as-of 與 retrieval；一般 source-only event 也缺精確 retrieval 現在時間防線。優先修復可独立驗收的 baseline 證據屏障。

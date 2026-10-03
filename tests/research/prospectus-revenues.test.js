@@ -47,7 +47,9 @@ test('prior annual and quarterly artifacts replay unchanged; repeated filings do
   verifyRevenueReview(artifact);assert.deepEqual(reviewRevenues(project,artifact.dossier,{formulas:artifact.formulas}),artifact);
  }
  assert.equal(quarter.id,'f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173');
- const snapshots=readSnapshots(project.root,'production');assert.equal(snapshots.length,2);
+ const snapshots=readSnapshots(project.root,'production');assert.ok(snapshots.length>=2);
+ assert.equal(snapshots[0].id,'65e5c2c8adf25d6e0f111e9ff4b63bb83eb098f95951b49376b476a0b7b5fc80');
+ assert.equal(snapshots[1].id,'118771fe14a9f79bc23275390bbc95c1d85aacbcf141abe59ac5c1ad51498522');
  assert.equal(new Set(snapshots.map(s=>JSON.stringify(s.period))).size,1);
  assert.equal(calculate(project,{history:snapshots}).thesis.SECZ.coverage,'insufficient');
 });
