@@ -4,6 +4,7 @@ import {readSnapshots,makeSnapshot,saveSnapshot,compareSnapshots,assertVersionHi
 import {applyEvent} from './engine/propagation/index.js';
 import {prepareResearchRefresh,applyResearchRefresh} from './engine/research/index.js';
 import {reviewIdentities} from './engine/research/identities.js';
+import {sourceFreshness} from './engine/research/freshness.js';
 const [command='validate',...args]=process.argv.slice(2);
 const mode=args.includes('--production')?'production':'fixture';
 try {
@@ -13,7 +14,12 @@ try {
  }
  const project=loadProject(mode),history=readSnapshots(project.root,mode);
  const result=calculate(project,{history,previousThesis:history.at(-1)?.thesis||{}});
- if(command==='identity-review') {
+ if(command==='freshness') {
+  assertVersionHistory(history.at(-1),project);
+  const cutoffIndex=args.indexOf('--as-of');
+  if(cutoffIndex>=0&&(!args[cutoffIndex+1]||args[cutoffIndex+1].startsWith('--'))) throw new Error('Use --as-of YYYY-MM-DD');
+  console.log(JSON.stringify(sourceFreshness(project,cutoffIndex>=0?{as_of_date:args[cutoffIndex+1]}:{}),null,2));
+ } else if(command==='identity-review') {
   console.log(JSON.stringify(reviewIdentities(project,readYaml(args[0],process.cwd())),null,2));
  } else if(command==='validate') {
   assertVersionHistory(history.at(-1),project);
@@ -43,5 +49,5 @@ try {
  } else if(command==='report') {
   const lines=['# Current thesis', '', `Mode: ${mode.toUpperCase()}${result.fixture?' — SYNTHETIC, NOT MARKET DATA':''}`,`Period: ${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}: ${t.state}`,`Coverage: ${t.coverage}. ${t.interpretation}`,...t.triggered_rules.map(r=>`- ${r.id}: ${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
- } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, report');
+ } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, freshness [--production] [--as-of DATE], report');
 } catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}

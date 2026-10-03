@@ -1,0 +1,14 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [id, version, classification, rationale, observation_max_age_days, retrieval_max_age_days, observation_overrides]
+properties:
+  id: {type: string, minLength: 1}
+  version: {type: integer, minimum: 1}
+  classification: {const: ASSUMPTION}
+  rationale: {type: string, minLength: 1}
+  observation_max_age_days: &days {type: integer, minimum: 0}
+  retrieval_max_age_days: *days
+  observation_overrides:
+    type: object
+    additionalProperties: *days
