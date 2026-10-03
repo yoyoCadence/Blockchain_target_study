@@ -14,7 +14,7 @@ Stored ratio values are decimals: 1 bp = 0.0001. A bps input may be explicitly n
 
 Known inputs with `/year` units require annual, TTM or model basis; quarterly/point amounts cannot use an annual-rate label. Observed model annual rates require a rationale. Unknown values stay null. This validates declared metadata, not source contents or actual twelve-month coverage; see [period validation](annual-rate-period-validation.md).
 
-Compatible formulas reject mixed annual/quarterly/TTM flow bases and misaligned factual endpoints. Prior-period comparisons require an earlier comparable period (12 months for annual/TTM/point examples; 3 months for quarterly). Assumptions with model basis are not represented as accounting observations. Unknown placeholder periods use model basis. A production refresh should supply verified periods, including explicitly comparable prior-period values.
+Compatible formulas reject mixed annual/quarterly/TTM flow bases and misaligned factual endpoints. Prior-period comparisons require an earlier comparable period (12 months for annual/TTM/point examples; 3 months for quarterly), with the same calendar day or two actual month ends. This retains leap-year and 30/31-day month ends while rejecting shifted dates. Week-based fiscal calendars need explicit support; calendar alignment does not establish economic comparability. Assumptions with model basis are not represented as accounting observations. Unknown placeholder periods use model basis. A production refresh should supply verified periods, including explicitly comparable prior-period values.
 
 All numbers use IEEE-754 doubles. Regression tolerances are relative 1e-9; this is an analytical model, not a transaction accounting ledger. Divide-by-zero and non-finite calculations produce explicit ERROR/null, never Infinity or replacement estimates. Known invalid denominators are errors even when another operand is unknown. Negative growth and EBITDA may be valid; negative AUM, turnover, market share or distribution budget are not. Required share >100% and FDV below market cap are warnings requiring review.
 
@@ -50,7 +50,7 @@ Every scenario recomputes the formula dependency DAG. Inputs retain base-record 
 
 All nine initial rules and thresholds are analyst-defined assumptions. Every applicable rule retains its window, actual values and threshold comparisons. The highest triggered severity wins, while all triggers remain available. INVALIDATED is a supported state but has no invented automatic rule in the seed.
 
-Windows require consecutive distinct annual or quarterly periods. Multiple revisions of the same period count once; the latest revision wins. Gaps, mixed bases or null support mean insufficient coverage. Current fixture history has one distinct annual period, so four-period rules cannot be confirmed. HEALTHY in an insufficient window means only no confirmed trigger. It is never a trade recommendation.
+Windows require consecutive distinct annual or quarterly periods with aligned calendar endpoints, using the same check as prior-period growth. Multiple revisions of the same period count once; the latest revision wins. Gaps, shifted dates, mixed bases or null support mean insufficient coverage. Current fixture history has one distinct annual period, so four-period rules cannot be confirmed. HEALTHY in an insufficient window means only no confirmed trigger. It is never a trade recommendation.
 
 ## Events, graph and immutable history
 

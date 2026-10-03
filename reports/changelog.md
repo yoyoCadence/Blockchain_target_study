@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Calendar period endpoint alignment
+
+- Corrected month-only comparison that accepted shifted annual/quarterly dates for prior-period growth and consecutive thesis evidence.
+- Share a date-only calendar check requiring the same day or two actual month ends, retaining leap-year and 30/31-day endpoints. Misalignment produces a calculation error or insufficient thesis evidence; independent triggers remain visible.
+- Added 18 regressions; full suite 306 passed and both modes validate. Financial formulas/thresholds, inputs and immutable history remain unchanged. Week-based calendars and the complete production baseline remain pending.
+
 ## 2026-10-03 — Manual cataloged-research freshness
 
 - Added a production-only read-only CLI combining existing canonical freshness with hash-verified/replayed identity/revenue/TTM evidence.

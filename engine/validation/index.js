@@ -6,6 +6,17 @@ export class ValidationError extends Error {
 export const assert = (ok,message) => { if(!ok) throw new ValidationError(message); };
 // Use only after schema date-time validation; retain the original timestamp.
 export const utcDay = value => new Date(value).toISOString().slice(0,10);
+// Calendar intervals require an aligned fixed day or two actual month ends.
+// Week-based fiscal calendars need explicit support instead of month-only inference.
+export function alignedCalendarPeriods(previousEnd,currentEnd,months) {
+ if(![previousEnd,currentEnd].every(value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)))return false;
+ const previous=new Date(`${previousEnd}T00:00:00Z`),current=new Date(`${currentEnd}T00:00:00Z`);
+ if(![previous,current].every(date=>Number.isFinite(date.getTime()))||utcDay(previous)!==previousEnd||utcDay(current)!==currentEnd)return false;
+ const distance=(current.getUTCFullYear()-previous.getUTCFullYear())*12+current.getUTCMonth()-previous.getUTCMonth();
+ if(!Number.isInteger(months)||months<=0||distance!==months)return false;
+ const monthEnd=date=>{const end=new Date(date);end.setUTCMonth(end.getUTCMonth()+1,0);return date.getUTCDate()===end.getUTCDate();};
+ return previous.getUTCDate()===current.getUTCDate()||(monthEnd(previous)&&monthEnd(current));
+}
 const ajv = new Ajv({allErrors:true,strict:false});
 addFormats(ajv);
 export function validateSchema(schema, value, context) {
@@ -41,8 +52,7 @@ export function checkPeriods(formula, dependencies) {
   const current=dependencies.filter(x=>!x.metric_id.includes('.prior_')&&x.period.basis!=='model');
   for(const old of previous) for(const now of current) {
    assert(old.period.end<now.period.end,`Prior period must precede current: ${formula.id}`);
-   const months=(new Date(now.period.end).getUTCFullYear()-new Date(old.period.end).getUTCFullYear())*12+new Date(now.period.end).getUTCMonth()-new Date(old.period.end).getUTCMonth();
-   assert(months===(now.period.basis==='quarterly'?3:12),`Non-comparable prior period: ${formula.id}`);
+   assert(alignedCalendarPeriods(old.period.end,now.period.end,now.period.basis==='quarterly'?3:12),`Non-comparable prior period: ${formula.id}`);
   }
  } else assert(ends.length<=1,`Unaligned accounting periods: ${formula.id}`);
  return {basis:flows[0]?.period.basis||factual[0]?.period.basis||'model',end:ends.at(-1)||dependencies[0].period.end};

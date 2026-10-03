@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 會計期間端點對齊
+
+PR #18 遠端 CI 全部通過後已合併（`bcb7fd4`）。`fix/calendar-period-alignment` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 可比期間／連續證據的獨立驗證子項；已在記憶體重現 2024-12-30 與 2025-12-31 被月份差判定為可比年度並觸發二期 WATCH。
+
+共用 calendar helper 檢查合法 date-only 端點、月份差及同日／雙月末。年度／TTM 保留 12 個月、季度 3 個月，閏年與 30／31 日月末可對齊。prior growth 錯位會產生明確 ERROR／null 並阻擋 snapshot；thesis 錯位保留所有證據、標示 insufficient，不觸發該連續期規則，其他有足夠證據的規則與最高 severity 保留。
+
+驗證：306 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。18 項新增回歸涵蓋日期／閏年／季度／年界、錯位與間隔、拒絕非法日期、重算錯誤／snapshot 屏障、獨立 WATCH 與 BREAK 缺證據、兩模式最新 snapshot 重播及原 history hash。無 UI 修改，未另做瀏覽器驗證。遠端 CI 以 PR 實際結果為準。
+
+本次未改金融 formula AST／版本、人工 thresholds、資料與歷史，不新增 thesis 期數。52／53 週或其他可配置財務曆仍待明確支援；calendar 對齊不等於跨 filing 經濟可比。父 baseline 仍缺確認 TTM／六類映射、同步估值、個人投資管道與 UNI fee-origin／全期間 capture，保留 null。詳見 [期間驗證](calendar-period-alignment.md)。
+
 ## 2026-10-03 — 手動 cataloged-research 時效
 
 PR #17 遠端 CI 全部通過後已合併（`233d597`）。先前額度限制阻擋最後合併／fetch，恢復後重新核對 exact head／base、CI 與實際 merged 狀態。`feat/research-source-freshness` 從最新 origin/main 建立，原工作目錄乾淨。基線依賴仍缺 fee-origin／TTM 可比性／同步估值，接續 NEXT 的可獨立手動時效子項。
