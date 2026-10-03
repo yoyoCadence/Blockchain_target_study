@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-03 — SECZ 已審計全年原始收入
+
+PR #7 遠端 CI 全部通過後合併（`44fe516`）。`research/secz-annual-revenue` 從最新 origin/main 建立，原工作目錄乾淨。延續 baseline 的可比期間前置工作，增量保存 2025／2024 已審計全年兩類分項與合計，共六筆 OBSERVED。
+
+核對 S-1 的 Securitize Inc. 審計段落、Note 19、issuance note 及 matching XBRL entity/product duration contexts。Audit／financial issuance 為 2026-04-10，cover 7/30 與 EDGAR index filing date 7/31 並列保留；S-1 無 Period of Report，保存 null。此版使用本 filing availability，不以 audit date 推定已取得同版；不替代 listed-parent 財務／資本結構，也不宣稱已核對所有更正／重編沿革。
+
+Schema／唯讀 review 增量支援完整日曆年度與 S-1、審計來源及報告日期檢查。原研究公式 v1、金融公式／assumptions 均不變。新 dossier／content-hashed snapshot 使用獨立檔案與 exclusive create，保留舊季度 artifact 原 hash 與完整重播；canonical journal／83 個未知 financial metric／thesis 不變。
+
+驗證：159 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。新增 11 項全年區間、審計證據、日期與新舊 artifact replay；遠端 CI 以 PR 實際執行為準。
+
+子項完成。下一步仍需跨 filing 更正沿革與財務 comparability 才能建立 TTM bridge；兩類收入不足以供應六類年度模型，未知 mapping／margin／FCF／母公司估值與個人投資管道不能補值。UNI fee-generated burn／current state 亦未完成。詳見 [年度原始收入](secz-annual-revenue.md)。
+
 ## 2026-10-03 — SECZ 可比較分期收入
 
 PR #6 遠端 CI 全部通過後合併（`fc0f7ea`）。`research/secz-comparable-revenue` 從最新 origin/main 建立，原工作目錄乾淨。UNI 配置子項已完成，其餘 fee-generated burn／current state 仍缺獨立查證，先推進 baseline 可獨立驗收的 SECZ 財務期間子項。

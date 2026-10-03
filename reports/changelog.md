@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — SECZ audited annual reported revenue
+
+- Added a separate six-observation full-year revenue dossier and immutable research artifact with primary audit, annual statement, XBRL and filing-index evidence.
+- Extended the existing read-only review for full calendar years, S-1, explicit audit evidence and absent Period of Report; retained cover/index date differences and financial issuance separately.
+- Preserved the original quarterly artifact, formula v1 ASTs and all canonical financial history/unknowns. No TTM bridge, annualization or six-stream mapping occurs.
+- Added 11 full-year/audit/date/replay checks; full suite 159 passed and both modes validate. Earlier correction lineage and full production baseline remain pending.
+
 ## 2026-10-03 — SECZ comparable reported revenue
 
 - Added an independent primary-source dossier of 12 disaggregated quarterly/half-year revenue observations with explicit fiscal intervals, filing dates and subsidiary GAAP scope.
