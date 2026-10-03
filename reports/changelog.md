@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Thesis condition-period evidence
+
+- Prevented an old metric from being counted as a new thesis period solely because its snapshot label changed.
+- Require known condition endpoints to match the frame and flow bases to match; retain point/model classifications and explicitly report rejected metric periods without discarding actual values or independent triggers.
+- Added 15 regressions and period metadata to existing test frames; full suite 321 passed and both modes validate. Committed economics/thesis replay and immutable history remain unchanged; complete production baseline remains pending.
+
 ## 2026-10-03 — Calendar period endpoint alignment
 
 - Corrected month-only comparison that accepted shifted annual/quarterly dates for prior-period growth and consecutive thesis evidence.

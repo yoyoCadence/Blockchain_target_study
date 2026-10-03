@@ -52,6 +52,8 @@ All nine initial rules and thresholds are analyst-defined assumptions. Every app
 
 Windows require consecutive distinct annual or quarterly periods with aligned calendar endpoints, using the same check as prior-period growth. Multiple revisions of the same period count once; the latest revision wins. Gaps, shifted dates, mixed bases or null support mean insufficient coverage. Current fixture history has one distinct annual period, so four-period rules cannot be confirmed. HEALTHY in an insufficient window means only no confirmed trigger. It is never a trade recommendation.
 
+Each known condition metric must also have its own period endpoint equal to the frame endpoint. Flow basis must match; point/model inputs are allowed at that endpoint with their original classifications. Missing/stale periods or annual/quarterly/TTM mismatches cannot support a trigger. Rejected known conditions retain their actual value, record ID and original `metric_period` with `period_aligned: false`. Snapshot labels and unrelated later model dates do not renew old evidence; date alignment does not establish economic comparability or observation quality.
+
 ## Events, graph and immutable history
 
 Every graph edge distinguishes dependency from economic transmission, strength, evidence status and source IDs. All seed edges are explicitly assumed; none proves a commercial relationship. Events identify reachable nodes for research impact; they do not infer new token-demand numbers from an edge. Recalculation uses all formulas (small MVP graph) for deterministic safety.
