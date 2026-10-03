@@ -20,9 +20,7 @@ export function prepareEvent(p,event,history=[]) {
  const old=selectInputs(p.inputs),nodes=affectedNodes(p.graph,event.affected_nodes);
  for(const update of event.updates) {
   assert(nodes.includes(update.asset),'Event update asset is outside affected nodes');
-  assert(update.as_of_date<=event.as_of_date,'Update after event as-of date');
   if(old[update.metric_id]) assert(update.supersedes===old[update.metric_id].id,'Updates must explicitly supersede current input');
-  if(['xlm.dtcc_live','xlm.dtcc_material'].includes(update.metric_id)&&update.value===1) assert(['live','completed'].includes(event.status),'Planned DTCC cannot become live/material');
  }
  const next={...withSources,inputs:[...p.inputs,...event.updates]};validateProject(next);
  const result=calculate(next,{history,previousThesis:history.at(-1)?.thesis||{}});

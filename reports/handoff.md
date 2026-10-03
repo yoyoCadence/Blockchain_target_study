@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 已存更新知識日／DTCC 狀態
+
+PR #26 push／PR CI 全部通過，已 match-head 合併（`23aff08`）。`fix/saved-event-update-knowledge` 從最新 origin/main 建立，原工作目錄乾淨。已在 temp 副本重現 event as-of 1/1 可包含 observation as-of 10/3，matching/recomputed hash 仍可载入；選擇 baseline 的歷史知識／planned 狀態一致性修正。
+
+原 updates.as_of <= event.as_of 與 DTCC flags 1 必須 live/completed 兩規則移至 checkEventEvidence，準備與 saved canonical load 共用。Unknown OBSERVED／假設／情境同受知識日限制；同日觀測、future planned effective/not-live scenario、合法 live/completed 路徑保留。沒有新金融公式／thesis threshold 或真實 DTCC 完成認定。
+
+驗證：403 tests passed、0 failed；46 targeted 通過；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。21 新增回歸含兩模式／known-null／classification、matching hash 及 API 400／bytes 不變、兩 DTCC flags／三種非 live 狀態、合法邊界与金融／thesis／history replay。Temp fixture publication 僅隔離知識探針，沒有正式 data／source／graph／formula／threshold／policy／history／UI 更新或额外瀏覽器 QA。遠端 CI 以 PR 實際結果為準。
+
+不是全面 saved business-rule replay；來源內容、DTCC 真實上線與外部不可變性未由 metadata guard 證明。四份 production snapshots 同模型期，完整 baseline 與原未知項保留。詳見 [知識／狀態規則](event-update-knowledge.md)。
+
 ## 2026-10-03 — 已存研究主要來源驗證
 
 PR #25 push／PR CI 全部通過，已 match-head 合併（`1321ab0`）。`fix/saved-research-primary-evidence` 從最新 origin/main 建立，原工作目錄乾淨。已在独立 temp 副本重現，budget research-refresh 的全部來源改成 Tier 3、同步 event／snapshot 並重算 hash 後仍可載入；選擇首項 baseline 所需的既有 primary guard 一致性修正。
