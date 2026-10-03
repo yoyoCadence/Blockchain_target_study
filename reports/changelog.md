@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — Historical UNI approved budget baseline
+
+- Added a reviewed historical proposal and immutable production journal for the 20M UNI/year approved rate effective 2026-01-01, with four dated primary sources.
+- Explicitly superseded null assumption v1 with observed v2 while retaining all history; recorded successful execution, allowance evidence and the governance-page/receipt timestamp conflict.
+- Distinguished approved rate from realized distributions, minting, fee accrual and current settings. Remaining 83 metric values are unknown; thesis coverage remains insufficient.
+- Added production snapshot replay, evidence identity and null-propagation checks. Full suite: 65 passed; both data modes validate without errors/warnings. Financial formula and analyst-assumption versions remain unchanged.
+
 ## 2026-10-03 — Reviewed primary-source refresh workflow
 
 - Added manual production-only research preview and digest-bound apply commands, with recorded reviewer, review time and rationale.

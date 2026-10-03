@@ -26,8 +26,8 @@ Windows Codex 沙箱若回報 `spawn EPERM`，需使用允許建立測試子程�
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
-- **Production 模式**：初始沒有已查證 observations；所有 84 個數值為 `Unknown`。不從 fixture 補值。
-- **ASSUMPTION**：分析者設定與理由。20M UNI/year 是使用者提供、尚待查證的 baseline；只在 fixture 中使用，production 保留 null。
+- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year），其餘 83 個數值仍為 `Unknown`。這不是目前估值或實際支出；不從 fixture 補值。查證與日期衝突見 [研究紀錄](reports/uni-growth-budget-baseline.md)。
+- **ASSUMPTION**：分析者設定與理由。原先使用者提供的 20M UNI/year fixture 假設與 production null v1 均保留；正式資料以 OBSERVED v2 明確 supersede 該 null，代表經查證的核准額度。
 - **SCENARIO**：4T TAM 與互動敏感度等反事實情境，不是預測事實。
 - **DERIVED**：25 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或任何收購已完成。SECZ 等符號為需求指定的研究識別碼，上市與可投資性尚未查證。
@@ -93,7 +93,7 @@ node cli.js research-preview path/to/reviewed-research.yaml --production
 node cli.js research-apply path/to/reviewed-research.yaml --production --digest <review_digest>
 ```
 
-預覽不寫入資料；資料包、模型或父快照變動會使舊 digest 失效。此工具子項已完成，首份經審查的 production baseline 仍待研究。
+預覽不寫入資料；資料包、模型或父快照變動會使舊 digest 失效。此工具子項及歷史 UNI 預算子項已完成；完整 production baseline 的識別碼、價值捕獲、估值與財務期間仍待研究。
 
 事件會先驗證、找出受影響節點、append observations、重算全部公式、評估 thesis，再把 event 與 snapshot 寫成單一 exclusive-create journal。reason 即該更新的持久 changelog。規劃中／已宣布事件只能建立假設或情境；live/completed 必須有 effective date 與來源。假設改變也要新版本、supersedes、reason。互動敏感度不自動寫入。
 

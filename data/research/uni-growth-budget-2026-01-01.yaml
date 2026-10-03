@@ -1,0 +1,94 @@
+version: 1
+id: uni-growth-budget-baseline-20260101
+as_of_date: 2026-01-01
+reason: >-
+  Historical UNI budget authorization baseline effective 2026-01-01.
+  Record the executed governance-approved 20M UNI/year budget rate, not
+  realized spending, minting, protocol fees or a current October valuation.
+affected_nodes: [UNI]
+sources:
+  - id: uniswap-unification-announcement-20251110-v1
+    version: 1
+    url: https://blog.uniswap.org/unification
+    publisher: Uniswap Labs and Uniswap Foundation
+    title: UNIfication — original proposal (planned, not execution evidence)
+    date: 2025-11-10
+    retrieved_at: 2026-10-03T05:00:47Z
+    tier: 2
+    covered_metrics: [uni.growth_budget]
+    fixture: false
+  - id: uniswap-unification-governance-93-v1
+    version: 1
+    url: https://vote.uniswapfoundation.org/proposals/93
+    publisher: Uniswap governance via Agora
+    title: UNIfication proposal 93 — final spec updated 2025-12-18
+    date: 2025-12-18
+    retrieved_at: 2026-10-03T05:00:47Z
+    tier: 2
+    covered_metrics: [uni.growth_budget]
+    fixture: false
+  - id: ethereum-unification-execution-20251227-v1
+    version: 1
+    url: https://etherscan.io/tx/0x091f0083242a777d55821c1189e568d6d033d9da501b75087dc736fa143d2c1e
+    publisher: Ethereum transaction receipt via Etherscan
+    title: Proposal 93 execution — block 24106378; Approval log 17
+    date: 2025-12-27
+    retrieved_at: 2026-10-03T05:00:47Z
+    tier: 1
+    covered_metrics: [uni.growth_budget]
+    fixture: false
+  - id: uniswap-vesting-source-9dbc671-v1
+    version: 1
+    url: https://github.com/Uniswap/protocol-fees/blob/9dbc6717658158c714870170d6f4c55bcdaa4029/src/UNIVesting.sol
+    publisher: Uniswap protocol-fees repository
+    title: UNIVesting source at immutable commit 9dbc6717658158c714870170d6f4c55bcdaa4029
+    date: 2025-11-20
+    retrieved_at: 2026-10-03T05:00:47Z
+    tier: 2
+    covered_metrics: [uni.growth_budget]
+    fixture: false
+observations:
+  - id: uni.growth_budget@2-verified-20260101
+    metric_id: uni.growth_budget
+    asset: UNI
+    value: 20000000
+    unit: UNI/year
+    classification: OBSERVED
+    as_of_date: 2026-01-01
+    period:
+      basis: model
+      end: 2026-01-01
+    confidence: medium
+    version: 2
+    fixture: false
+    supersedes: uni.growth_budget@1
+    source_ids:
+      - uniswap-unification-announcement-20251110-v1
+      - uniswap-unification-governance-93-v1
+      - ethereum-unification-execution-20251227-v1
+      - uniswap-vesting-source-9dbc671-v1
+    rationale: >-
+      OBSERVED is the approved nominal annual budget rate, explicitly stated
+      in executed proposal 93. It is not actual annual distribution, spend,
+      new token issuance or permanent dilution. The first unlock is 2026-01-01;
+      model basis avoids posing an authorization schedule as a completed
+      accounting year. Execution receipt at block 24106378 is successful,
+      contains ProposalExecuted(93) at log 23, and approves 40M UNI to vesting
+      address 0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2 at log 17.
+      Receipt timestamp is 2025-12-27T20:33:11Z. Agora displays execution on
+      2025-12-28 UTC (2025-12-29 in Asia/Taipei); retain this date conflict,
+      using the transaction receipt for event time. Allowance can be revoked
+      and the quarterly schedule can change. No assertion about October
+      2026 settings, actual tranches, aggregate fee capture or token price.
+review:
+  reviewer: Codex — primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T05:00:47Z
+  rationale: >-
+    Read the dated original proposal and the executed final governance record,
+    checked the successful execution receipt and Approval/ProposalExecuted
+    logs through Chrome, and read pinned official vesting source. Original
+    proposal alone is not completion evidence. Preserve the Agora/receipt
+    timestamp disagreement. Historical authorization rate only; other inputs
+    remain null. A human PR review and a complete investability/valuation/
+    financial-period baseline remain pending. Etherscan web-fetch was 403;
+    the visible browser receipt provided the evidence. See the research report.
