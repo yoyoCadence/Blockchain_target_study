@@ -21,6 +21,7 @@
     - [x] Historical UNI approved budget rate effective 2026-01-01: 20M UNI/year, four dated primary sources, execution/allowance evidence, retained timestamp conflict, append-only observation and immutable production snapshot. See [research](reports/uni-growth-budget-baseline.md). This is authorization, not realized spending or a current valuation.
     - [x] Primary-source identifier dossier for UNI / SECZ / XLM with dated evidence, SEC filing/announcement distinction and read-only validation. See [identity research](reports/core-identifiers.md). No promotion or personal investability clearance.
     - [x] Annual-rate period validation: reject known quarterly/point amounts labeled `/year` before computation/persistence, retain null and legitimate annual/TTM/model rates. See [period validation](reports/annual-rate-period-validation.md). Quarterly ingestion/category mapping remains incomplete.
+    - [x] Historical UNI v2 feeTo configuration execution on 2025-12-27: retain receipt/calldata, governance and pinned contract-source evidence in an append-only source-only event/snapshot. See [configuration research](reports/uni-v2-fee-configuration.md). No realized fees/burn, current settings or v3 pool activation inferred.
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
