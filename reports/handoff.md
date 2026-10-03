@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 已存事件節點範圍
+
+PR #30 的 push／PR CI 均通過後合併（`22c27a8`）。`fix/saved-event-scope` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。選擇手動研究流程的已存事件範圍一致性修正：暫存副本中不存在節點被 preparation 拒絕，但同步 event／snapshot 並重算 hash 後 load 接受，修正前兩模式回歸均失敗。
+
+新事件與已存事件共用登記節點、有效圖譜端點及可到達更新資產檢查。保存的傳播集合須完整、型別正確且不重複；順序不影響判定。載入時用各快照自身資產／圖譜，先檢查既有 schema／唯一 ID／端點，避免目前圖譜新增依賴改寫歷史範圍。原 affectedNodes 匯出與傳播算法保留，不將可到達當作經濟傳輸已驗證。
+
+21 新增回歸與既存事件／血緣共 63 項通過，完整測試與兩模式結果見[驗證](validation.md)。API 400 不改 journal bytes，失敗 apply 不追加；真實金融／論點及兩模式全部歷史 hash 保留。正式 spec／data／sources／介面無變更，未新增 UI QA；六份正式快照仍同模型期間，83 個金融未知與三項 TTM null 保留。
+
+本項不是全部已存商業規則重播或外部真實性認證。SECZ 完整登記／現況股本／法律名稱／TTM／估值、個人管道與 UNI 全期間捕獲仍待查證，父 baseline 未完成。詳見[事件範圍](event-scope.md)，遠端 CI／合併狀態以 PR 實際結果為準。
+
 ## 2026-10-04 — SECZ 母公司認股權證歷史條款
 
 PR #29 的兩組 CI 通過後依既有授權合併（`d3d8da9`），繁體中文介面已在 main。`research/secz-warrant-context` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。優先接續 baseline 同步估值前的歷史股本核對。

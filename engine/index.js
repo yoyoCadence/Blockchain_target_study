@@ -6,6 +6,7 @@ import {assert,unique,validateSchema,normalize,checkPeriods,utcDay,checkEventEvi
 import {references,evaluate,orderFormulas} from './formulas/index.js';
 import {evaluateTheses} from './thesis/index.js';
 import {verifySnapshot,fingerprint} from './snapshots.js';
+import {checkEventScope} from './propagation/scope.js';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export function readYaml(file,root=ROOT) {return YAML.parse(fs.readFileSync(path.resolve(root,file),'utf8'),{uniqueKeys:true});}
 export function loadProject(mode='fixture',root=ROOT) {
@@ -29,10 +30,15 @@ export function loadProject(mode='fixture',root=ROOT) {
   validateSchema(project.eventSchema,transaction.event,'saved event');
   project.inputs.push(...transaction.event.updates);
   project.sources.push(...(transaction.event.sources||[]));
-  journalEvents.push(transaction.event);
+  journalEvents.push({event:transaction.event,snapshot:transaction.snapshot});
  }
  validateProject(project);
- for(const event of journalEvents){checkEventEvidence(event,project.sources,mode);checkEventReview(event,project.sources);checkResearchEvidence(event,project.sources);}
+ for(const {event,snapshot} of journalEvents) {
+  checkEventEvidence(event,project.sources,mode);checkEventReview(event,project.sources);checkResearchEvidence(event,project.sources);
+  const scope={...project,assets:snapshot.assets,graph:snapshot.graph};
+  validateSchema(project.projectSchema,scope,'saved event scope registries');
+  checkEventScope(scope,event,{propagatedNodes:snapshot.event.propagated_nodes});
+ }
  return project;
 }
 export function validateProject(p) {
