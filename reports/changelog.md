@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — Read-only research evidence inspection
+
+- Added an explicit hash-pinned local catalog, schema and complete review replay behind a GET-only research API.
+- Added a Dashboard evidence section retaining original periods, classifications, source versions and full review dependencies; unverified TTM and investability remain explicit.
+- Kept Production research separate from fixtures and canonical financial inputs; protected workspace switching against stale responses.
+- Added nine regressions; full suite 254 passed, both modes validate and actual desktop inspection passed. Full baseline remains incomplete.
+
 ## 2026-10-03 — UTC research/source chronology
 
 - Corrected source/review date comparison across UTC midnight by normalizing offset timestamps in shared canonical validation, identity review and research refresh.

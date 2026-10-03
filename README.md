@@ -77,6 +77,7 @@ node cli.js freshness --production --as-of 2026-10-03
 4. 在 Sensitivity lab 改變參數並按 Recalculate。比例採小數：`0.05` = 5%，`0.000125` = 1.25 bp。矩陣每格也可點擊查看該情境自己的血緣。
 5. Thesis monitor 顯示所有規則、最高嚴重度、證據、最後狀態變更與歷史覆蓋程度。`HEALTHY + insufficient` 代表沒有已確認觸發，不代表已證實健康。
 6. Version history 比較持久化快照；previous/current 數值各自連到當時的血緣，與未儲存敏感度情境分開。
+7. Production 的 [Research evidence](reports/research-inspection.md) 展開已保存身份／原始財報研究、可比性假設、來源與完整 review；Fixture 不混入這些正式研究，研究數值也不補入金融模型。
 
 ## 架構
 
@@ -142,6 +143,7 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 - `GET /api/lineage?metric=uni.net_accrual&mode=fixture`：單一指標遞迴血緣。
 - `POST /api/sensitivity?mode=fixture`：`{"overrides":{"uni.fee":0.0001}}`，只計算、不存檔。
 - `GET /api/snapshots?mode=fixture`：快照摘要與差異。
+- `GET /api/research?mode=production`：固定目錄中已驗證／重播的研究證據，與金融輸入分開；Fixture 回傳空清單，禁止写入。
 
 ## 邊界與後續
 

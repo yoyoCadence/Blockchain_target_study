@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 唯讀研究證據 API／Dashboard
+
+PR #14 遠端 CI 全部通過後已合併（`a4793c1`）。`feat/research-inspection` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 的独立審閱子項，把已完成的身份／財報／TTM research artifacts 帶入 Dashboard，以便直接檢查來源、判斷與未知原因；未越過尚未滿足的金融 ingest 依賴。
+
+新增固定本地 catalog／schema、hash 核對與完整 semantic replay、GET-only research API，以及沿用既有風格的研究 section。五份資料保留身份／報表範圍、日期／分類／來源版本及完整內嵌公式／依賴。Fixture 回傳空清單；工作區切換清除舊研究並拒絕遲到回應，canonical refresh 亦加入世代檢查。所有原始資料、金融公式／假設、不可變研究與財務快照不變。
+
+驗證：254 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。九項新增回歸涵蓋唯讀／重播／hash／路徑／篡改／隔離與 API 禁止寫入。Chrome 桌面操作確認五卡片、完整證據／來源連結、TTM 三個 Unknown 與 ASSUMPTION 原因、快速工作區切換後 Fixture 無卡片，1524px body 無橫向溢出；未另驗證手機版。測試伺服器已停止，暫存日誌已移除。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成。MG Stover Inc./LLC 名稱差異未澄清，正式 TTM 保持 null，身份 investability 仍 unverified；六類收入映射、margin／FCF、同步母公司估值、UNI realized capture／現況與個人管道仍缺。新增證據必須另存版本并人工更新 catalog，不能覆寫 artifact。詳見 [研究檢視](research-inspection.md)。
+
 ## 2026-10-03 — UTC research／source chronology
 
 PR #13 遠端 CI 全部通過後已合併（`02299b4`）。`fix/utc-research-chronology` 從最新 origin/main 建立，原工作目錄乾淨。估值／來源日期檢視發現 `.slice(0,10)` 比較 offset timestamps 會跨 UTC 日誤判，純記憶體重現 canonical source 與 identity review 的錯誤接受。此問題可獨立修正，優先補共用 ingest／研究屏障。

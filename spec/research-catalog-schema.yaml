@@ -1,0 +1,18 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [version, records]
+properties:
+  version: {type: integer, minimum: 1}
+  records:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, label, kind, file, expected_id]
+      properties:
+        id: {type: string, minLength: 1}
+        label: {type: string, minLength: 1}
+        kind: {enum: [identity, revenue, revenue_ttm]}
+        file: {type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9/_-]*\.(yaml|json)$'}
+        expected_id: {type: string, pattern: '^[a-f0-9]{64}$'}

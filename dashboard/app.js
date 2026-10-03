@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-let state,mode='fixture',overrides={};
+let state,mode='fixture',overrides={},refreshRevision=0,researchRevision=0;
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;if(className) node.className=className;return node;};
 function format(value,unit) {if(value===null||value===undefined)return 'Unknown';if(unit==='ratio')return new Intl.NumberFormat('en',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
 const definition=id=>state.dictionary.find(x=>x.id===id);
@@ -53,10 +53,55 @@ function render(resetInputs=false) {
  renderGraph();renderThesis();renderComparison();
 }
 async function refresh(nextOverrides={},resetInputs=false) {
+ const revision=++refreshRevision,requestMode=mode;
  $('error').hidden=true;$('scenario-status').textContent='Calculating…';for(const b of document.querySelectorAll('.actions button'))b.disabled=true;
- try {const changed=Object.keys(nextOverrides).length>0;const response=await fetch(`/api/${changed?'sensitivity':'state'}?mode=${mode}`,changed?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({overrides:nextOverrides})}:{});const data=await response.json();if(!response.ok)throw new Error(data.error);state=data;overrides=nextOverrides;render(resetInputs);$('scenario-status').textContent=changed?'Scenario recalculated · not saved':'Canonical inputs loaded';}catch(error){$('error').hidden=false;$('error').textContent=error.message;$('scenario-status').textContent='Calculation failed';}finally{for(const b of document.querySelectorAll('.actions button'))b.disabled=false;}
+ try {const changed=Object.keys(nextOverrides).length>0;const response=await fetch(`/api/${changed?'sensitivity':'state'}?mode=${requestMode}`,changed?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({overrides:nextOverrides})}:{});const data=await response.json();if(revision!==refreshRevision)return;if(!response.ok)throw new Error(data.error);state=data;overrides=nextOverrides;render(resetInputs);$('scenario-status').textContent=changed?'Scenario recalculated · not saved':'Canonical inputs loaded';}catch(error){if(revision!==refreshRevision)return;$('error').hidden=false;$('error').textContent=error.message;$('scenario-status').textContent='Calculation failed';}finally{if(revision===refreshRevision)for(const b of document.querySelectorAll('.actions button'))b.disabled=false;}
+}
+
+function renderResearch(data) {
+ $('research-status').textContent=data.notice;
+ $('research-records').replaceChildren(...data.records.map(report=>{
+  const card=el('details',undefined,'research-card');card.dataset.research=report.id;
+  card.append(el('summary',report.label),el('p',`Knowledge as-of ${report.as_of_date} · ${report.review.reviewer} · Reviewed ${report.review.reviewed_at}`,'hint'));
+  if(report.statement)card.append(el('p',`${report.statement.entity_name} · ${report.statement.scope} · ${report.statement.accounting_basis} · ${report.statement.audit_status}`,'hint'),el('p',report.statement.limitations,'hint'));
+  if(report.comparability) {
+   card.append(el('span',`${report.comparability.classification} · ${report.comparability.confidence}`,'badge ASSUMPTION'),el('p',report.comparability.rationale,'hint'));
+   const checks=el('div',undefined,'research-checks');
+   for(const [name,check] of Object.entries(report.comparability.checks))checks.append(el('p',`${name}: ${check.value===null?'Unconfirmed':check.value?'Confirmed judgment':'Not confirmed'} · ${check.rationale}`));
+   card.append(checks);
+  }
+  const wrap=el('div',undefined,'research-table-wrap'),table=el('table'),head=el('tr');
+  for(const label of ['Metric / asset','Value / identifier','Unit / type','Period','As-of','Classification','Confidence','Status']) {const th=el('th',label);th.scope='col';head.append(th);}table.append(head);
+  for(const record of report.records) {
+   const row=el('tr'),period=record.period||report.periods.find(p=>p.id===record.period_id);
+   const value=record.identifier?JSON.stringify(record.identifier):record.value===null?'Unknown':new Intl.NumberFormat('en',{maximumFractionDigits:6}).format(record.value);
+   for(const text of [record.metric_id||record.asset,value,record.unit||record.identifier?.kind||'—',period?`${period.basis} · ${period.start} → ${period.end}`:'Identifier',record.as_of_date,record.classification,record.confidence,record.status||record.investability?.status||'—'])row.append(el('td',text));
+   table.append(row);
+  }
+  wrap.append(table);card.append(wrap);
+  const sources=el('div',undefined,'research-sources');sources.append(el('h3','Sources and versions'));
+  for(const source of report.sources) {
+   const p=el('p',`${source.title} · ${source.publisher} · Tier ${source.tier} · v${source.version} · Published ${source.date} · Retrieved ${source.retrieved_at} `);
+   const url=new URL(source.url);
+   if(['https:','http:'].includes(url.protocol)) {const link=el('a','Open source ↗');link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';p.append(link);}
+   sources.append(p);
+  }
+  const full=el('details');full.append(el('summary','Full evidence, formulas and dependencies'),el('p',`Recorded fingerprint: ${report.artifact_id}`,'hint'),el('pre',JSON.stringify(report.full_review,null,2)));
+  card.append(sources,full);return card;
+ }));
+}
+
+async function refreshResearch() {
+ const revision=++researchRevision,requestMode=mode;
+ $('research-records').replaceChildren();$('research-status').textContent='Loading research evidence…';
+ try {
+  const response=await fetch(`/api/research?mode=${requestMode}`),data=await response.json();
+  if(revision!==researchRevision)return;
+  if(!response.ok)throw new Error(data.error);
+  renderResearch(data);
+ } catch(error) {if(revision===researchRevision)$('research-status').textContent=`Research unavailable: ${error.message}`;}
 }
 $('scenario-form').onsubmit=event=>{event.preventDefault();const next={};for(const input of $('parameters').querySelectorAll('input'))if(input.value!==''&&Number(input.value)!==state.lineage[input.name].metric.value)next[input.name]=Number(input.value);refresh({...overrides,...next});};
 $('reset').onclick=()=>refresh({},true);
-$('mode').onchange=event=>{mode=event.target.value;refresh({},true);};
-refresh({},true);
+$('mode').onchange=event=>{mode=event.target.value;refresh({},true);refreshResearch();};
+refresh({},true);refreshResearch();
