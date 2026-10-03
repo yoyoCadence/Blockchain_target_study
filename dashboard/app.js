@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-let state,mode='fixture',overrides={},refreshRevision=0,researchRevision=0;
+let state,mode='fixture',overrides={},refreshRevision=0,researchRevision=0,freshnessRevision=0;
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;if(className) node.className=className;return node;};
 function format(value,unit) {if(value===null||value===undefined)return 'Unknown';if(unit==='ratio')return new Intl.NumberFormat('en',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
 const definition=id=>state.dictionary.find(x=>x.id===id);
@@ -101,7 +101,63 @@ async function refreshResearch() {
   renderResearch(data);
  } catch(error) {if(revision===researchRevision)$('research-status').textContent=`Research unavailable: ${error.message}`;}
 }
+function freshnessTable(labels,rows) {
+ const wrap=el('div',undefined,'freshness-table-wrap'),table=el('table'),head=el('tr');
+ for(const label of labels){const th=el('th',label);th.scope='col';head.append(th);}table.append(head);
+ for(const values of rows){const row=el('tr');for(const value of values)row.append(el('td',String(value??'Unknown')));table.append(row);}
+ wrap.append(table);return wrap;
+}
+function freshnessSummary(summary) {
+ const wrap=el('div',undefined,'freshness-summary');
+ for(const [group,counts] of Object.entries(summary))for(const [status,count] of Object.entries(counts))wrap.append(el('span',`${group} · ${status}: ${count}`));
+ return wrap;
+}
+function freshnessSources(rows) {
+ const details=el('details',undefined,'freshness-card');details.append(el('summary','Source publication / retrieval dates and versions'));
+ details.append(freshnessTable(['Source / version','Published','Publication age / days','Retrieved','Retrieval age / days','Retrieval state','Evidence use'],rows.map(row=>[
+  `${row.source.id} · v${row.source.version} · ${row.source.publisher} · Tier ${row.source.tier}`,row.source.date,row.publication_age_days,row.source.retrieved_at,row.retrieval_age_days,row.retrieval_state,row.active?'Active evidence':'Retained source'
+ ])));
+ return details;
+}
+function renderFreshness(data) {
+ const container=$('freshness-report'),policy=el('article',undefined,'freshness-card');
+ $('freshness-status').textContent=`${data.fixture?'Fixture / 合成資料':'Production'} · UTC 截止日 ${data.as_of_date} · 手動查詢完成`;
+ policy.append(el('h3',`Review policy · ${data.policy.id} / v${data.policy.version}`),el('span',data.policy.classification,'badge ASSUMPTION'),el('p',data.policy.rationale,'hint'),el('p',`Observation window ${data.policy.observation_max_age_days} days · retrieval window ${data.policy.retrieval_max_age_days} days · metric overrides are retained in the full report.`,'hint'),el('p',data.interpretation,'hint'));
+ if(data.fixture)policy.append(el('p','SYNTHETIC FIXTURE · 全部時效結果只供合成資料示範。','fixture-label'));
+ const canonical=el('details',undefined,'freshness-card');canonical.append(el('summary',`Canonical input dates (${data.inputs.length})`),freshnessSummary(data.summary),freshnessTable(['Metric / record','Observation as-of','Age / days','Window / days','Observation state','Evidence state','Provenance'],data.inputs.map(row=>[
+  `${row.metric_id} · ${row.record_id??'Unknown'} · ${row.classification??'Unknown'}`,row.observation_as_of,row.observation_age_days,row.observation_max_age_days,row.observation_state,row.evidence_state,row.fixture?'SYNTHETIC FIXTURE':'Production'
+ ])));
+ container.replaceChildren(policy,canonical,freshnessSources(data.source_checks));
+ if(data.research) {
+  const research=el('article',undefined,'freshness-card');research.append(el('h3',`Cataloged research · ${data.research.artifacts.length} reviews / ${data.research.records.length} records`),el('p',data.research.interpretation,'hint'),freshnessSummary(data.research.summary));
+  const reviews=el('details');reviews.append(el('summary','Review availability at cutoff'),freshnessTable(['Catalog / artifact','Knowledge as-of','Reviewed at','Review age / days','Review state'],data.research.artifacts.map(row=>[`${row.id} · ${row.artifact_id}`,row.as_of_date,row.review.reviewed_at,row.review_age_days,row.review_state])));
+  const records=el('details');records.append(el('summary','Original research observation dates and unknown values'),freshnessTable(['Metric / record','Classification / value','Period','Observation as-of','Age / days','Window / days','Observation state','Review state','Evidence state'],data.research.records.map(row=>[
+   `${row.metric_id} · ${row.record_id}`,`${row.record.classification} · ${row.record.value===null?'Unknown':row.record.value??'Identifier'}`,row.period?`${row.period.basis} · ${row.period.start} → ${row.period.end}`:'Identifier',row.record.as_of_date,row.observation_age_days,row.observation_max_age_days,row.observation_state,row.review_state,row.evidence_state
+  ])));
+  research.append(reviews,records,freshnessSources(data.research.source_checks));container.append(research);
+ }
+ const full=el('details',undefined,'freshness-card');full.append(el('summary','Full report, policy and formula dependencies'),el('pre',JSON.stringify(data,null,2)));container.append(full);
+}
+function clearFreshness(message) {
+ ++freshnessRevision;$('freshness-report').replaceChildren();$('freshness-report').setAttribute('aria-busy','false');
+ $('freshness-error').hidden=true;$('check-freshness').disabled=false;$('freshness-status').textContent=message;
+}
+async function refreshFreshness() {
+ const revision=++freshnessRevision,requestMode=mode,query=new URLSearchParams({mode:requestMode});
+ if($('freshness-date').value)query.set('as_of',$('freshness-date').value);
+ $('freshness-report').replaceChildren();$('freshness-report').setAttribute('aria-busy','true');$('freshness-error').hidden=true;
+ $('freshness-status').textContent='正在查詢時效…';$('check-freshness').disabled=true;
+ try {
+  const response=await fetch(`/api/freshness?${query}`),data=await response.json();
+  if(revision!==freshnessRevision)return;
+  if(!response.ok)throw new Error(data.error);
+  renderFreshness(data);
+ }catch(error){if(revision===freshnessRevision){$('freshness-error').hidden=false;$('freshness-error').textContent=`時效查詢失敗：${error.message}`;$('freshness-status').textContent='時效結果未取得，請檢查日期後重新查詢。';}}
+ finally{if(revision===freshnessRevision){$('check-freshness').disabled=false;$('freshness-report').setAttribute('aria-busy','false');}}
+}
+$('freshness-form').onsubmit=event=>{event.preventDefault();refreshFreshness();};
+$('freshness-date').oninput=()=>clearFreshness('日期已變更，請手動重新查詢時效。');
 $('scenario-form').onsubmit=event=>{event.preventDefault();const next={};for(const input of $('parameters').querySelectorAll('input'))if(input.value!==''&&Number(input.value)!==state.lineage[input.name].metric.value)next[input.name]=Number(input.value);refresh({...overrides,...next});};
 $('reset').onclick=()=>refresh({},true);
-$('mode').onchange=event=>{mode=event.target.value;refresh({},true);refreshResearch();};
+$('mode').onchange=event=>{mode=event.target.value;clearFreshness('Workspace 已變更，請手動重新查詢時效。');refresh({},true);refreshResearch();};
 refresh({},true);refreshResearch();

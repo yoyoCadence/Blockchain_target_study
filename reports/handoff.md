@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — Dashboard 手動來源時效
+
+PR #24 的 push／PR CI 全部通過，已合併（`ed4d8b9`）。瀏覽器曾斷線；CLI 在正常網路確認 auth、精確 head／main base／非 Draft／兩 checks success，以 match-head 合併。`feat/manual-freshness-dashboard` 從最新 origin/main 建立，工作目錄乾淨；選擇已具 API 依賴的手動時效 UI 子項。
+
+Dashboard 第 08 節提供明示 cutoff 查詢、canonical／research 原日期／age／unknown／review availability、policy／formula dependencies 完整報告。初次載入不查詢，workspace／日期變更清除結果，revision 隔離舊成功／錯誤回應；UI 無日期／門檻／金融計算。Fixture synthetic 與 Production 保持分離，敏感度亦不改這份 canonical 報告。
+
+驗證：368 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83，JS syntax／diff checks 通過。Browser 多次斷線／逾時，依 Windows Playwright CLI 規則使用獨立 session 實際驗證 desktop 1280×720／mobile 390×844、Fixture／Production、historical／future／空白、API JSON 一致、刻意延遲的 workspace／date races、Enter 查詢。無 pageerror，手機 document width 390；console 僅既有 favicon 404 與預期 future cutoff 400。Screenshot 已檢查、QA session／已核對 owner 的 server 停止、logs 清理；暫存 QA artifacts 未提交。遠端 CI 以 PR 實際結果為準。
+
+沒有金融／policy／formula／來源／觀察／graph／history 更新。Browser 原連線問題未修復，Firefox／Safari 與全部窄寬未驗證。四份 production snapshots 同模型期，父 baseline 與原未知項未完成。詳見 [Dashboard QA](freshness-dashboard.md)。
+
 ## 2026-10-03 — 已存事件證據驗證
 
 PR #23 遠端 CI 全部通過後已合併（`fa5a660`）。`fix/saved-event-evidence` 從最新 origin/main 建立，原工作目錄乾淨。在獨立暫存 fixture journal 重現 future completed event 與 snapshot 一致／重算 hash 後仍可載入，選擇 baseline 所需的既有證據規則一致性修正。

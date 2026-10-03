@@ -91,6 +91,7 @@ node cli.js research-freshness --production --as-of 2026-10-03
 5. Thesis monitor 顯示所有規則、最高嚴重度、證據、最後狀態變更與歷史覆蓋程度。`HEALTHY + insufficient` 代表沒有已確認觸發，不代表已證實健康。
 6. Version history 比較持久化快照；previous/current 數值各自連到當時的血緣，與未儲存敏感度情境分開。
 7. Production 的 [Research evidence](reports/research-inspection.md) 展開已保存身份／原始財報研究、可比性假設、來源與完整 review；Fixture 不混入這些正式研究，研究數值也不補入金融模型。
+8. [Source freshness](reports/freshness-dashboard.md) 填寫 UTC 截止日後手動查詢（留空使用目前 UTC 日），分開查看原觀測、發布、取得與 review 時效、政策與完整依賴。更換日期／workspace 會清除舊結果，需再次按下查詢；不修改金融資料或 thesis。
 
 ## 架構
 

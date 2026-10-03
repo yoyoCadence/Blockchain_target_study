@@ -15,3 +15,5 @@ mode 預設 Fixture，僅回 canonical synthetic 時效／完整來源與 fixtur
 新增九項 HTTP 回歸涵蓋 engine 回應一致、兩種 workspace、舊觀測／近期來源、未知 TTM、historical cutoff、日期／mode／method errors、UTC default 及 inputs／sources／policy／金融結果／thesis／history hashes 不變。`npm test` 353 passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。測試 servers 關閉；無 Dashboard 修改／瀏覽器 UI 驗證。
 
 API 子項完成；Dashboard freshness controls、完整 production baseline、真實連續期數與原有研究缺口仍未完成。政策修訂需新版本／changelog，新增研究需人工 catalog review；此 route 不自動探索或提升資料。
+
+2026-10-03 後續增量：已另完成 [Dashboard 手動查詢](freshness-dashboard.md)，沿用本 API，包含 workspace／cutoff 切換後清除結果、延遲回應隔離、desktop／mobile QA。API 原驗證結果與版本保留；完整 baseline 仍未完成。

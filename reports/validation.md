@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 manual Dashboard freshness inspection
+
+- `npm test`: **368 passed, 0 failed**; both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production). JS syntax/diff checks pass.
+- Browser attempted first but native transport repeatedly closed/timed out. Windows Playwright CLI fallback uses a separate session, exact localhost URL and cached package; no QA scripts/screenshots committed.
+- Actual desktop 1280×720/mobile 390×844 verification covers page identity, meaningful content/no overlay, Fixture isolation, Production stale observation/recent retrieval and three TTM Unknown, review availability at historical cutoff, future error/retry and default UTC cutoff.
+- Deliberately delayed real API requests cannot overwrite a newer workspace/cutoff; complete rendered report equals API JSON. Mobile document width equals 390, keyboard Enter submits, screenshots inspected. No pageerrors/warnings; favicon 404 and deliberately triggered future-cutoff 400 are explained.
+- Named CLI browser closed, verified QA server owner stopped and logs removed. No financial/source/history/policy/formula changes; Firefox/Safari and all mobile widths remain unverified. Complete baseline remains pending. See [QA details](freshness-dashboard.md).
+
 ## 2026-10-03 shared saved-event evidence validation
 
 - `npm test`: **368 passed, 0 failed**, including 15 new saved-event evidence regressions; 44 targeted date/review tests pass.
