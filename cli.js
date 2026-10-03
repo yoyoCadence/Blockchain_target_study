@@ -6,10 +6,11 @@ import {prepareResearchRefresh,applyResearchRefresh} from './engine/research/ind
 import {reviewIdentities} from './engine/research/identities.js';
 import {sourceFreshness} from './engine/research/freshness.js';
 import {reviewRevenues} from './engine/research/revenues.js';
+import {compareRevenueReviews} from './engine/research/revenue-comparison.js';
 const [command='validate',...args]=process.argv.slice(2);
 const mode=args.includes('--production')?'production':'fixture';
 try {
- if(['research-preview','research-apply','identity-review','revenue-review'].includes(command)) {
+ if(['research-preview','research-apply','identity-review','revenue-review','revenue-compare'].includes(command)) {
   if(mode!=='production') throw new Error('Research commands require --production');
   if(!args[0]||args[0].startsWith('--')) throw new Error(`Use node cli.js ${command} path/to/reviewed-research.yaml --production`);
  }
@@ -24,6 +25,9 @@ try {
   console.log(JSON.stringify(reviewIdentities(project,readYaml(args[0],process.cwd())),null,2));
  } else if(command==='revenue-review') {
   console.log(JSON.stringify(reviewRevenues(project,readYaml(args[0],process.cwd())),null,2));
+ } else if(command==='revenue-compare') {
+  if(!args[1]||args[1].startsWith('--')) throw new Error('Use node cli.js revenue-compare previous-review.json current-review.json --production');
+  console.log(JSON.stringify(compareRevenueReviews(project,readYaml(args[0],process.cwd()),readYaml(args[1],process.cwd())),null,2));
  } else if(command==='validate') {
   assertVersionHistory(history.at(-1),project);
   for(const id of Object.keys(result.metrics)) lineage(project,result,id);
@@ -52,5 +56,5 @@ try {
  } else if(command==='report') {
   const lines=['# Current thesis', '', `Mode: ${mode.toUpperCase()}${result.fixture?' — SYNTHETIC, NOT MARKET DATA':''}`,`Period: ${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}: ${t.state}`,`Coverage: ${t.coverage}. ${t.interpretation}`,...t.triggered_rules.map(r=>`- ${r.id}: ${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
- } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, freshness [--production] [--as-of DATE], report');
+ } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, freshness [--production] [--as-of DATE], report');
 } catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}

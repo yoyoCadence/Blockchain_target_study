@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 原始收入研究快照比較
+
+PR #10 遠端 CI 全部通過後已合併（`968b8ec`）。`feat/revenue-review-comparison` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 跨 filing 的唯讀比較前置子項，驗收完整重播、版本／來源區分、範圍／相同區間對齊與無財務寫入。
+
+新增 revenue-compare、spec 方法 v1 與觀察 optional supersedes。比較前驗證雙方雜湊與 embedded formulas 重播，拒絕歷史 ID 改寫／公式無版本變更與倒退／無效宣告取代。不同 filing 的独立觀察保留；已知值衝突明列，不強迫宣告取代或選一方。範圍／會計基礎／審計狀態不同不配對，相同期間才列前後值；null 獨立標 insufficient。所有既有資料包與 artifact 原 hash 保留。
+
+驗證：194 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。15 項新增檢查涵蓋歷史／supersession／完整重播／偽造結果／範圍／期間／衝突／缺值與 CLI；金融公式／假設／journal／thesis 不變。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 未完成。工具不判定經濟可比性／更正沿革、TTM 或六類映射；現有年度對季度報告為 audit_status CONTEXT_MISMATCH。後續可獨立查證 8/7 prospectus 與 7/31 S-1 的同範圍年度表，另保存來源／版本後使用比較；仍需人工核對披露。UNI realized fee burn／現況、估值與個人投資管道仍缺。詳見 [比較工具](revenue-review-comparison.md)。
+
 ## 2026-10-03 — 手動事件 as-of 與來源日期
 
 PR #9 遠端 CI 全部通過後已合併（`e85bb73`）。`fix/future-event-as-of` 從最新 origin/main 建立，原工作目錄乾淨。以純記憶體 production project 重現：event.as_of／effective date 都填 2099 年仍被接受為 completed，未寫任何資料。另補齊 source-only event 的 source publication 日期檢查。

@@ -47,6 +47,12 @@ node cli.js revenue-review data/research/secz-comparable-revenue-2026-10-03-v1.y
 node cli.js revenue-review data/research/secz-annual-revenue-2026-10-03-v1.yaml --production
 ```
 
+兩份研究 JSON 可用[唯讀比較](reports/revenue-review-comparison.md)檢查來源、公式、報表範圍與相同期間觀察差異，保留獨立 filing 的衝突。先驗證雜湊與重播，不自動判定經濟可比性或更新金融模型：
+
+```powershell
+node cli.js revenue-compare data/research/revenue-reviews/secz-annual-v1.json data/research/revenue-reviews/secz-q22026-v1.json --production
+```
+
 手動來源時效檢查分開顯示觀測 age、發布 age 與重新取得 age；門檻是明示分析者假設，不會改動財務值或 thesis。完整說明見 [來源時效](reports/source-freshness.md)。
 
 ```powershell
