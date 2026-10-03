@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 SECZ acquisition-context cross-check
+
+- `npm test`: **325 passed, 0 failed**, including four new committed-evidence/history/null regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Primary-source review: SEC S-1 XBRL narrative/allocation, all three filing indices, selected 424B3 annual Note 3/pro forma through Chrome and interim Note 3/actual statement/Note 18 through SEC web evidence. Matching dates/allocation and the XBRL member do not clear the retained legal naming conflict.
+- Source-only event adds seven source versions and a fourth same-period full production snapshot. Source-change attribution is separate from unchanged financial/assumption/scenario/formula/rule results; earlier hashes and latest metrics/thesis replay remain intact.
+- Formal comparability version 1 and TTM artifact retain acquisition_treatment null and all three null outputs. Pro forma values remain disclosure context, outside canonical revenue/EV/FCF inputs. No UI change or UI verification; primary-source Chrome tab closed after review.
+
 ## 2026-10-03 thesis condition-period evidence
 
 - `npm test`: **321 passed, 0 failed**, including 15 new condition-period regressions.

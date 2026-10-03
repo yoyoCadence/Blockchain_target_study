@@ -1,0 +1,119 @@
+id: secz-acquisition-context-20261003
+type: acquisition
+status: completed
+as_of_date: 2026-10-03
+effective_date: 2025-04-15
+affected_nodes: [SECZ]
+fixture: false
+source_ids:
+  - secz-acquisition-s1-index-20260731-v1
+  - secz-acquisition-s1-note-20260731-v1
+  - secz-acquisition-s1-allocation-20260731-v1
+  - secz-acquisition-prospectus-index-20260807-v1
+  - secz-acquisition-prospectus-note-20260807-v1
+  - secz-acquisition-interim-index-20260813-v1
+  - secz-acquisition-interim-note-20260813-v1
+reason: >-
+  Retrospective source-only review of reported Securitize, Inc. subsidiary
+  acquisition accounting, not a newly completed parent transaction. The annual
+  prospectus Note 3 uses MG Stover, Inc.; the interim Note 3 uses MG Stover LLC.
+  The S-1 R30 narrative contains both headings, and R90 labels the acquisition
+  member MG Stover, LLC (secz_MGStoverLLCMember). Each selected disclosure states
+  consolidation from the 2025-04-15 acquisition date. The purchase allocation
+  agrees in raw USD: consideration 21090525; customer relationships 9400000;
+  prepaid expenses 109538; identifiable assets 9509538; accounts payable -991616;
+  deferred revenue -462398; liabilities -1454014; net identifiable assets 8055524;
+  goodwill 13035001; net assets acquired 21090525. These are acquisition-date
+  amounts, not annual revenue, present parent debt/cash or market valuation.
+  Reported revenue remains separate from acquisition pro forma: prospectus
+  FY2025/FY2024 actual totals 62152140/18636170 versus pro forma 68938369/42492286;
+  interim Q2/H1 2025 actual totals 15262176/29296195 versus pro forma
+  16253221/35365979. Pro forma assumes earlier acquisition and is not actual
+  realized revenue or a forecast. Acquisition-date inclusion is not organic
+  like-for-like growth. Matching dates/amounts and the XBRL label corroborate
+  financial presentation but do not resolve the Inc./LLC legal naming conflict.
+  Legal equivalence and full cross-filing correction history remain unverified.
+  Preserve the version-1 acquisition_treatment null and all three formal TTM
+  outputs null. No financial inputs, assumptions, model periods or graph edges
+  are updated; no additional thesis period, promotion or investability clearance.
+research_review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T11:40:14Z
+  rationale: >-
+    Read the S-1 SEC XBRL narrative/purchase-allocation tables and exact member
+    label; read the selected prospectus annual Note 3/pro forma table through
+    Chrome and the interim Note 3/statement/Note 18 through SEC web evidence.
+    Check the three filing indices independently. Save source versions and
+    explicit context without substituting pro forma or clearing legal equivalence.
+updates: []
+sources:
+  - id: secz-acquisition-s1-index-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/0001628280-26-051182-index.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-1 index 0001628280-26-051182; July 31 filing date versus July 30 acceptance
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
+  - id: secz-acquisition-s1-note-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/R30.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: S-1 XBRL acquisitions narrative with interim LLC and annual Inc. headings
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
+  - id: secz-acquisition-s1-allocation-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/R90.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: S-1 XBRL acquisition-date USD allocation; MG Stover LLC member and April 15 column
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
+  - id: secz-acquisition-prospectus-index-20260807-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/0001628280-26-054866-index.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: August 7 424B3 index 0001628280-26-054866
+    date: 2026-08-07
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
+  - id: secz-acquisition-prospectus-note-20260807-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/securitizeholdings-424b3.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: Prospectus audited subsidiary annual Note 3; Inc. heading and separate acquisition pro forma
+    date: 2026-08-07
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
+  - id: secz-acquisition-interim-index-20260813-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/0001628280-26-056811-index.html
+    publisher: U.S. Securities and Exchange Commission
+    title: August 13 8-K/A index; July 8 report date is distinct from subsidiary June 30 financial periods
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
+  - id: secz-acquisition-interim-note-20260813-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: Interim subsidiary Note 3 LLC acquisition and pro forma; statement and Note 18 actual revenue
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T11:40:14Z
+    tier: 1
+    covered_metrics: [secz.acquisition_context_evidence]
+    fixture: false
