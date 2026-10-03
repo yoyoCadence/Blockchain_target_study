@@ -53,6 +53,8 @@ node cli.js revenue-review data/research/secz-annual-revenue-2026-10-03-v1.yaml 
 node cli.js revenue-compare data/research/revenue-reviews/secz-annual-v1.json data/research/revenue-reviews/secz-q22026-v1.json --production
 ```
 
+已另存 [S-1／424B3 年度表查證](reports/secz-cross-filing-revenue.md)：8/7 prospectus 的六個年度值與 7/31 S-1 一致，保留獨立來源／觀察與可重播比較；這不代表完整更正沿革、季度可比性或 TTM 已驗證。
+
 手動來源時效檢查分開顯示觀測 age、發布 age 與重新取得 age；門檻是明示分析者假設，不會改動財務值或 thesis。完整說明見 [來源時效](reports/source-freshness.md)。
 
 ```powershell

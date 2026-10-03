@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — SECZ S-1 / 424B3 annual-table research
+
+- Added an independently sourced August 7 prospectus dossier, six annual raw revenue observations and immutable research/comparison artifacts matching July 31 S-1 cells.
+- Preserved filing-specific identities and full evidence without superseding prior observations, financial ingestion or additional thesis periods. Extended standalone schema to allow 424B3 only.
+- Added five regressions; full suite 199 passed and both modes validate. Quarterly comparability, earlier correction lineage, TTM and the parent baseline remain pending.
+
 ## 2026-10-03 — Read-only raw revenue review comparison
 
 - Added production-only revenue-compare with embedded-formula replay, explicit method v1, separate source/formula/context/record/value changes and full evidence retention.

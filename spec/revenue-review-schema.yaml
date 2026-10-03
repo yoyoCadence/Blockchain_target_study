@@ -43,7 +43,7 @@ properties:
         additionalProperties: false
         required: [form, accession, registrant_cik, filing_date, period_of_report, financial_issuance_date]
         properties:
-          form: {enum: [8-K/A, S-1]}
+          form: {enum: [8-K/A, S-1, 424B3]}
           accession: {type: string, pattern: '^\d{10}-\d{2}-\d{6}$'}
           registrant_cik: {type: string, pattern: '^\d{10}$'}
           filing_date: {type: string, format: date}

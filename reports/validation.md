@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 SECZ S-1 / 424B3 annual-table research
+
+- `npm test`: **199 passed, 0 failed**, including five prospectus/history/CLI checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Independently recorded six annual observations and two dated primary sources; compared/replayed both artifacts with matching fiscal intervals and no numerical differences.
+- Retained independent filing identities, complete sources, audit/issuance/filing dates and null Period of Report; source/statement changes are distinct from unchanged values/formulas.
+- Original research hashes and canonical financial history remain unchanged. Repeated annual evidence does not create thesis periods; earlier restatement lineage, quarterly comparability, TTM and six-stream mapping are not verified.
+
 ## 2026-10-03 read-only revenue review comparison
 
 - `npm test`: **194 passed, 0 failed**, including 15 comparison regressions.
