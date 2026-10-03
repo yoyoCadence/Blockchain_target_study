@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 historical UNI v2 fee configuration
+
+- `npm test`: **115 passed, 0 failed**, including three production configuration checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Checked reviewed event/receipt metadata, explicit source supersession with original budget lineage, source-only comparison and complete historical replay.
+- Configuration adds no numerical input or graph edge. Financial results and thesis remain unchanged; the two production snapshots describe one model period, with insufficient thesis evidence.
+- Receipt proves the historical configuration action; published code interpretation is not a deployed-bytecode audit or proof of realized UNI fee burns.
+
 ## 2026-10-03 annual-rate period validation
 
 - `npm test`: **112 passed, 0 failed**, with 15 additional normalization/research checks.

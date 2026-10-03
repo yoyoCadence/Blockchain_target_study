@@ -32,6 +32,8 @@ Windows Codex 沙箱若回報 `spawn EPERM`，需使用允許建立測試子程�
 - **DERIVED**：25 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
 
+UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保存為來源事件與快照，財務數值仍不變；實際 fee 收入、UNI burn 與現況查證仍待完成。
+
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 
 ```powershell

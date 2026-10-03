@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — Historical UNI v2 fee configuration
+
+- Saved proposal 93's executed v2 feeTo configuration as a source-only manual event and immutable production snapshot, with receipt, governance and pinned official contract sources.
+- Explicitly superseded receipt/governance source versions while retaining old records, budget observation lineage and the reported execution timestamp conflict.
+- Preserved all financial inputs, formula/assumption versions, graph and thesis. Configuration is separate from realized fee revenue, UNI burns, current state and v3 pool activation.
+- Added three production replay/source-only regressions; full suite 115 passed and both modes validate. Full production baseline remains incomplete.
+
 ## 2026-10-03 — Annual-rate input period validation
 
 - Reject known annual-rate inputs tagged quarterly/point, preventing quarterly totals from silently entering USD/year or other annual-rate calculations.

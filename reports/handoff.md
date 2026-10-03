@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — UNI v2 歷史 feeTo 配置
+
+PR #5 CI 全部通過後合併（`a4ebd51`）。`research/uni-v2-fee-configuration` 從最新 origin/main 建立，原工作目錄乾淨。回到 baseline 的最高優先捕獲查證，範圍限定 proposal 93 已執行的 v2 factory setFeeTo(TokenJar) 配置，保存 receipt、治理規格與固定 commit 的官方 Factory／Pair 程式碼。
+
+使用既有手動 protocol_fee_change event 保存 sources 與完整 immutable snapshot；updates 為空。receipt／governance v2 明確 supersedes v1，舊來源及 budget 既有觀察 lineage 原封保留。保留 Agora／receipt 執行時間衝突。非零 feeTo 與 feeOn 的解讀來自公開程式碼，未完成部署 bytecode 等價驗證；不能以配置推定已實現收入或 UNI burn。graph 與全部數值／公式不變，production 仍有 83 個未知 metric。
+
+驗證：115 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。新增三項驗證：事件與來源一致性、source-only 比較與版本／lineage 保留、歷史重播及同期間不足證據。遠端 CI 以 PR 實際執行結果為準。
+
+子項完成，完整 baseline 未完成。仍待 fee-generated TokenJar／Firepit／UNI burn 的期間與鏈上證據、v3 各 pool 的實際配置、現況查證、估值與個人投資管道；不能把 treasury 的 100M transfer 當 fee revenue。SECZ 季度／年度與收入分類對應仍待處理。詳見 [配置研究](uni-v2-fee-configuration.md)。
+
 ## 2026-10-03 — 年率單位與期間防線
 
 PR #4 CI 成功後已合併（`7f09c16`）；分支 `fix/annual-rate-period-validation` 從該最新 origin/main 建立，工作目錄乾淨。接續 baseline 期間障礙，在 synthetic fixture 重現六個季度 SECZ 示範收入可產生 USD/year 加總的錯誤標籤，完成可獨立驗收的輸入防線。

@@ -1,0 +1,78 @@
+id: uni-v2-fee-configuration-20251227
+type: protocol_fee_change
+status: completed
+as_of_date: 2026-10-03
+effective_date: 2025-12-27
+source_ids:
+  - ethereum-unification-execution-20251227-v2
+  - uniswap-unification-governance-93-v2
+  - uniswap-v2-factory-1136544-v1
+  - uniswap-v2-pair-1136544-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  Historical executed Ethereum v2 feeTo configuration in proposal 93, not
+  realized fees, UNI burn, a current-setting assertion or an aggregate fee rate.
+  Successful receipt at block 24106378 (2025-12-27T20:33:11Z), log 16, targets
+  factory 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f with calldata
+  F46901ED000000000000000000000000F38521F130FCCF29DB1961597BC5D2B60F995F85.
+  This matches the final governance setFeeTo(TokenJar) action; log 23 records
+  ProposalExecuted(93). Published pinned factory/pair logic maps a nonzero
+  feeTo to feeOn, with LP minting conditional on liquidity events and growth.
+  That interpretation is not deployed-bytecode equivalence verification.
+  Retain the Agora/receipt timestamp conflict. V3 owner change alone does not
+  prove every pool activated. The separate 100M treasury transfer is not fee
+  revenue. All numerical inputs and graph edges remain unchanged/null.
+research_review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T05:49:02Z
+  rationale: >-
+    Read the executed proposal's setFeeTo action, successful receipt and log
+    16/23 through Chrome, and immutable official factory/pair sources. Save
+    sources and historical configuration evidence only, with full snapshot.
+    Further fee-generated UNI burns, revenue periods, v3 pool activation,
+    current contract state and deployed-bytecode verification remain pending.
+updates: []
+sources:
+  - id: ethereum-unification-execution-20251227-v2
+    version: 2
+    supersedes: ethereum-unification-execution-20251227-v1
+    url: https://etherscan.io/tx/0x091f0083242a777d55821c1189e568d6d033d9da501b75087dc736fa143d2c1e
+    publisher: Ethereum transaction receipt via Etherscan
+    title: Proposal 93 execution; v2 feeTo calldata log 16 and ProposalExecuted log 23
+    date: 2025-12-27
+    retrieved_at: 2026-10-03T05:49:02Z
+    tier: 1
+    covered_metrics: [uni.growth_budget, uni.v2_fee_configuration]
+    fixture: false
+  - id: uniswap-unification-governance-93-v2
+    version: 2
+    supersedes: uniswap-unification-governance-93-v1
+    url: https://vote.uniswapfoundation.org/proposals/93
+    publisher: Uniswap governance via Agora
+    title: UNIfication proposal 93; final 2025-12-18 specification and setFeeTo action
+    date: 2025-12-18
+    retrieved_at: 2026-10-03T05:49:02Z
+    tier: 2
+    covered_metrics: [uni.growth_budget, uni.v2_fee_configuration]
+    fixture: false
+  - id: uniswap-v2-factory-1136544-v1
+    version: 1
+    url: https://github.com/Uniswap/v2-core/blob/1136544ac842ff48ae0b1b939701436598d74075/contracts/UniswapV2Factory.sol
+    publisher: Uniswap v2-core repository
+    title: UniswapV2Factory at immutable commit 1136544ac842ff48ae0b1b939701436598d74075
+    date: 2020-03-17
+    retrieved_at: 2026-10-03T05:49:02Z
+    tier: 2
+    covered_metrics: [uni.v2_fee_configuration]
+    fixture: false
+  - id: uniswap-v2-pair-1136544-v1
+    version: 1
+    url: https://github.com/Uniswap/v2-core/blob/1136544ac842ff48ae0b1b939701436598d74075/contracts/UniswapV2Pair.sol
+    publisher: Uniswap v2-core repository
+    title: UniswapV2Pair at immutable commit 1136544ac842ff48ae0b1b939701436598d74075
+    date: 2020-03-17
+    retrieved_at: 2026-10-03T05:49:02Z
+    tier: 2
+    covered_metrics: [uni.v2_fee_configuration]
+    fixture: false
