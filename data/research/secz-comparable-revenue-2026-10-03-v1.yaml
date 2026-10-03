@@ -1,0 +1,203 @@
+id: secz-comparable-revenue-2026-10-03-v1
+version: 1
+fixture: false
+as_of_date: 2026-10-03
+purpose: Retain raw reported revenue categories and aligned fiscal intervals; no annualization or six-stream underwriting mapping.
+statement:
+  id: secz-inc-q22026-statement@1
+  version: 1
+  classification: OBSERVED
+  fixture: false
+  as_of_date: 2026-08-13
+  confidence: high
+  source_ids: [secz-q22026-filing-index-v1, secz-q22026-financial-exhibit-v1]
+  asset: SECZ
+  entity_name: Securitize, Inc. and subsidiaries
+  scope: operating_subsidiary_consolidated
+  accounting_basis: US_GAAP
+  audit_status: unaudited
+  fiscal_year_end: '12-31'
+  filing:
+    form: 8-K/A
+    accession: 0001628280-26-056811
+    registrant_cik: '0002094496'
+    filing_date: 2026-08-13
+    period_of_report: 2026-07-08
+    financial_issuance_date: 2026-08-13
+  limitations: This pre-combination operating-subsidiary scope cannot supply listed-parent shares, current valuation or an annual six-stream allocation. Comparative columns retain the presentation in this filing.
+periods:
+  - {id: secz-2026-q2, basis: quarterly, start: 2026-04-01, end: 2026-06-30, duration_months: 3, fiscal_year: 2026, fiscal_quarter: 2}
+  - {id: secz-2025-q2, basis: quarterly, start: 2025-04-01, end: 2025-06-30, duration_months: 3, fiscal_year: 2025, fiscal_quarter: 2}
+  - {id: secz-2026-h1, basis: year_to_date, start: 2026-01-01, end: 2026-06-30, duration_months: 6, fiscal_year: 2026, fiscal_quarter: 2}
+  - {id: secz-2025-h1, basis: year_to_date, start: 2025-01-01, end: 2025-06-30, duration_months: 6, fiscal_year: 2025, fiscal_quarter: 2}
+observations:
+  - id: secz-2026-q2.tokenization@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_tokenization_revenue
+    period_id: secz-2026-q2
+    value: 7839139
+    unit: USD
+  - id: secz-2026-q2.asset_servicing@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_asset_servicing_revenue
+    period_id: secz-2026-q2
+    value: 6596706
+    unit: USD
+  - id: secz-2026-q2.total@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_total_revenue
+    period_id: secz-2026-q2
+    value: 14435845
+    unit: USD
+  - id: secz-2025-q2.tokenization@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_tokenization_revenue
+    period_id: secz-2025-q2
+    value: 8874393
+    unit: USD
+  - id: secz-2025-q2.asset_servicing@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_asset_servicing_revenue
+    period_id: secz-2025-q2
+    value: 6387783
+    unit: USD
+  - id: secz-2025-q2.total@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_total_revenue
+    period_id: secz-2025-q2
+    value: 15262176
+    unit: USD
+  - id: secz-2026-h1.tokenization@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_tokenization_revenue
+    period_id: secz-2026-h1
+    value: 18974344
+    unit: USD
+  - id: secz-2026-h1.asset_servicing@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_asset_servicing_revenue
+    period_id: secz-2026-h1
+    value: 14939967
+    unit: USD
+  - id: secz-2026-h1.total@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_total_revenue
+    period_id: secz-2026-h1
+    value: 33914311
+    unit: USD
+  - id: secz-2025-h1.tokenization@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_tokenization_revenue
+    period_id: secz-2025-h1
+    value: 20136056
+    unit: USD
+  - id: secz-2025-h1.asset_servicing@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_asset_servicing_revenue
+    period_id: secz-2025-h1
+    value: 9160139
+    unit: USD
+  - id: secz-2025-h1.total@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q22026-financial-exhibit-v1, secz-q22026-ir-results-v1]
+    metric_id: secz.reported_total_revenue
+    period_id: secz-2025-h1
+    value: 29296195
+    unit: USD
+comparisons:
+  - {id: secz-q2-yoy, kind: year_over_year, current_period_id: secz-2026-q2, prior_period_id: secz-2025-q2}
+  - {id: secz-h1-yoy, kind: year_over_year, current_period_id: secz-2026-h1, prior_period_id: secz-2025-h1}
+sources:
+  - id: secz-q22026-filing-index-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/0001628280-26-056811-index.html
+    publisher: U.S. Securities and Exchange Commission
+    title: Securitize Corp. 8-K/A accession 0001628280-26-056811 filing index
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 1
+    covered_metrics: [SECZ.financial_statement]
+    fixture: false
+  - id: secz-q22026-financial-exhibit-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: Securitize Inc. unaudited financial exhibit; Note 18 revenue
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 1
+    covered_metrics: [SECZ.financial_statement, secz.reported_tokenization_revenue, secz.reported_asset_servicing_revenue, secz.reported_total_revenue]
+    fixture: false
+  - id: secz-q22026-ir-results-v1
+    version: 1
+    url: https://investors.securitize.io/news/news-details/2026/Securitize-Reports-Second-Quarter-2026-Results/default.aspx
+    publisher: Securitize investor relations
+    title: Securitize Reports Second Quarter 2026 Results
+    date: 2026-08-12
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 2
+    covered_metrics: [secz.reported_tokenization_revenue, secz.reported_asset_servicing_revenue, secz.reported_total_revenue]
+    fixture: false
+review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T06:04:57Z
+  rationale: Reviewed Note 18 and matching IR columns, with separate filing, report and financial dates. Preserve quarterly and half-year observations separately; compare only corresponding prior-year intervals.

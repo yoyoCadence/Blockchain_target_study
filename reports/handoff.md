@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-03 — SECZ 可比較分期收入
+
+PR #6 遠端 CI 全部通過後合併（`fc0f7ea`）。`research/secz-comparable-revenue` 從最新 origin/main 建立，原工作目錄乾淨。UNI 配置子項已完成，其餘 fee-generated burn／current state 仍缺獨立查證，先推進 baseline 可獨立驗收的 SECZ 財務期間子項。
+
+新增 standalone revenue dossier／schema／唯讀 CLI，保存 2026／2025 Q2、半年的 Tokenization、Asset Servicing 與披露合計，共 12 筆 OBSERVED；SEC exhibit、filing index、IR 三份 dated primary sources。區間開始／截止、duration、fiscal year／quarter、GAAP、未經審計、營業子公司範圍與 filing／financial issuance／Period of Report 分開保存。研究公式 v1 使用既有受限 AST，核對合計與同長度去年同期；unknown／zero base 保持 null。
+
+以 exclusive create 保存完整 content-hashed 研究快照，包含所有來源、觀察、報表範圍、review、公式與結果，可用 embedded versions 重播。這是原始財報研究，沒有 canonical annual financial updates；兩個 production financial snapshots 與 fixture 歷史保持原狀，83 個 financial metric 未知值不變。後續更正另建版本檔案，不改此版。
+
+驗證：148 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。33 個新增檢查包括來源／分類／日期／區間／合計拒絕、null／zero base、完整重播、hash tamper rejection 與 CLI 無 financial journal 寫入。遠端 CI 以 PR 實際結果為準。
+
+子項完成，父 baseline 與季度 ingestion 仍未完成。仍缺年度／TTM 銜接、六類收入分配證據、其他財務指標、母公司資本結構／估值與投資管道。不可把半年乘二、季度乘四當 OBSERVED 年度值，或把 operating subsidiary 的股數套用 SECZ parent。詳見 [分期收入研究](secz-comparable-revenue.md)。
+
 ## 2026-10-03 — UNI v2 歷史 feeTo 配置
 
 PR #5 CI 全部通過後合併（`a4ebd51`）。`research/uni-v2-fee-configuration` 從最新 origin/main 建立，原工作目錄乾淨。回到 baseline 的最高優先捕獲查證，範圍限定 proposal 93 已執行的 v2 factory setFeeTo(TokenJar) 配置，保存 receipt、治理規格與固定 commit 的官方 Factory／Pair 程式碼。

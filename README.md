@@ -40,6 +40,12 @@ UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)�
 node cli.js identity-review data/research/core-identifiers-2026-10-03.yaml --production
 ```
 
+SECZ 的[分期收入資料包](reports/secz-comparable-revenue.md)保留兩類季度／半年收入及可比較期間。唯讀命令核對合計與同比，不更新六類年度模型：
+
+```powershell
+node cli.js revenue-review data/research/secz-comparable-revenue-2026-10-03-v1.yaml --production
+```
+
 手動來源時效檢查分開顯示觀測 age、發布 age 與重新取得 age；門檻是明示分析者假設，不會改動財務值或 thesis。完整說明見 [來源時效](reports/source-freshness.md)。
 
 ```powershell

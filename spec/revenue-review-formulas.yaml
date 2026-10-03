@@ -1,0 +1,20 @@
+version: 1
+formulas:
+  - id: research.revenue_reconciliation
+    version: 1
+    unit: USD
+    expression:
+      op: sub
+      args:
+        - {op: add, args: [tokenization, asset_servicing]}
+        - reported_total
+    null_policy: Any unknown input leaves the difference unknown.
+  - id: research.revenue_yoy
+    version: 1
+    unit: ratio
+    expression:
+      op: sub
+      args:
+        - {op: div, args: [current, prior]}
+        - 1
+    null_policy: Any unknown input or a zero prior leaves growth unknown.

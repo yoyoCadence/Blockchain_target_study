@@ -22,13 +22,14 @@
     - [x] Primary-source identifier dossier for UNI / SECZ / XLM with dated evidence, SEC filing/announcement distinction and read-only validation. See [identity research](reports/core-identifiers.md). No promotion or personal investability clearance.
     - [x] Annual-rate period validation: reject known quarterly/point amounts labeled `/year` before computation/persistence, retain null and legitimate annual/TTM/model rates. See [period validation](reports/annual-rate-period-validation.md). Quarterly ingestion/category mapping remains incomplete.
     - [x] Historical UNI v2 feeTo configuration execution on 2025-12-27: retain receipt/calldata, governance and pinned contract-source evidence in an append-only source-only event/snapshot. See [configuration research](reports/uni-v2-fee-configuration.md). No realized fees/burn, current settings or v3 pool activation inferred.
+    - [x] SECZ disaggregated comparable reported revenue dossier: 12 observed quarter/half-year values, explicit dates/subsidiary scope, source checks, reconciliation and versioned YoY review with immutable research replay. See [revenue research](reports/secz-comparable-revenue.md). Annual/TTM conversion and six-stream model mapping remain pending.
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
 - [ ] Better bottom-up TAM engine.
 - [x] Manual source freshness and stale-data detection: read-only CLI, explicit analyst policy, independent observation/publication/retrieval dates, unknown/future evidence and preserved historical sources. See [freshness](reports/source-freshness.md). Scheduling, automatic retrieval and identity-dossier monitoring remain outside this completed scope.
 - [ ] External event-driven recalculation adapters (manual MVP event path exists).
-- [ ] Quarterly earnings ingestion and explicitly aligned fiscal periods.
+- [ ] Quarterly earnings ingestion and explicitly aligned fiscal periods. Raw SECZ quarter/half-year revenue review is complete; canonical annual model ingestion, six-stream mapping and broader statements remain pending.
 - [ ] Protocol governance monitoring.
 - [ ] Populate enough verified consecutive periods for persistence rules.
 

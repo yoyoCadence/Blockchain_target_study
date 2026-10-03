@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — SECZ comparable reported revenue
+
+- Added an independent primary-source dossier of 12 disaggregated quarterly/half-year revenue observations with explicit fiscal intervals, filing dates and subsidiary GAAP scope.
+- Added strict schema and read-only revenue-review CLI. Two research formulas v1 reconcile categories and compare corresponding prior-year intervals through the existing restricted AST; missing or zero-base evidence stays null.
+- Saved a full immutable content-hashed research artifact with embedded observations, source versions, context, review, formulas and results; canonical annual formulas/assumptions and financial snapshot chain are unchanged.
+- Added 33 evidence/period/replay/CLI checks; full suite 148 passed and both data modes validate. Annual/TTM conversion, six-stream mapping and full production baseline remain pending.
+
 ## 2026-10-03 — Historical UNI v2 fee configuration
 
 - Saved proposal 93's executed v2 feeTo configuration as a source-only manual event and immutable production snapshot, with receipt, governance and pinned official contract sources.
