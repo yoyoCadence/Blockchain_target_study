@@ -50,6 +50,8 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 
 沿用本機 single-writer 的限制：不支援同時寫入，寫檔中斷時可能需要人工修復不完整的 journal。沒有排程、外部 feed 或自動採集。
 
+2026-10-03 後續增量：已存 research-refresh journal 的 canonical／API 載入也共用 [primary evidence validation](saved-research-primary-evidence.md)。即使重算 event／snapshot hash，Tier 3／4-only、非 OBSERVED／空更新及未宣告的 observation evidence 仍拒絕；原 source tiers／review／digest 規則與正式 history 保留。
+
 ## 父任務剩餘驗收
 
 - 查證 UNI／SECZ／XLM 的識別碼與可投資性，維持未查證狀態直到證據足夠。

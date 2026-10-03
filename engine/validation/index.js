@@ -53,6 +53,19 @@ export function checkEventReview(event,sources) {
   assert(Date.parse(source.retrieved_at)<=reviewedAt,'Research source retrieved after review');
  }
 }
+// Event, observation and source schemas must be validated before evidence selection.
+export function checkResearchEvidence(event,sources) {
+ if(event.type!=='research_refresh')return;
+ assert(event.updates.length>0&&event.updates.every(m=>m.classification==='OBSERVED'),'Research refresh only accepts observations');
+ const sourceMap=new Map(sources.map(s=>[s.id,s]));
+ for(const update of event.updates) {
+  const evidence=update.source_ids.map(id=>sourceMap.get(id));
+  assert(evidence.every(Boolean),'Missing research source');
+  assert(evidence.some(s=>s.tier<=2),'Research observation requires a tier 1 or 2 primary source');
+  assert(evidence.every(s=>event.source_ids.includes(s.id)),'Research evidence must be declared in event sources');
+  assert(evidence.every(s=>s.date<=update.as_of_date),'Research source published after observation as-of date');
+ }
+}
 export function normalize(record, definition) {
  const out=structuredClone(record);
  if(out.unit==='bps' && definition.unit==='ratio') {out.original_value=out.value;out.original_unit=out.unit;out.value=out.value===null?null:out.value/10000;out.unit='ratio';}
