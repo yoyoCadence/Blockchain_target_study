@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-03 — 明示可比性審查的原始收入 TTM 工具
+
+PR #12 遠端 CI 全部通過後已合併（`ab4d5f3`）。`feat/reviewed-revenue-ttm` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 可比期間的條件式工具子項，驗收完整 review hash 綁定、年／YTD 日期、人工 ASSUMPTION、null 屏障與完整 immutable replay。
+
+新增 schema／受限 AST 公式 v1／production-only revenue-ttm。先核對兩份原研究 hash 與 embedded-formula 重播，檢查 entity／scope／basis／fiscal end；只接受前一全年減去年同長度 YTD 加今年 YTD。五項人工可比性判斷皆保留 ASSUMPTION、rationale、雙 filing primary evidence；未確認則不產生數值。輸出 DERIVED、完整觀察／假設／範圍／來源／期間 dependencies；金融 registry 25 公式与 canonical journal 不變。
+
+已讀年度與季度收入定義、actual-acquisition basis、停止營業與 pro forma 區分；發現年度 MG Stover, Inc.／季度 MG Stover LLC 標題差異，未宣稱等價。正式 request 的 acquisition_treatment 為 null，三個 TTM 結果保持 null／COMPARABILITY_UNVERIFIED。新研究 artifact 完整保存 request／雙 input reviews／formula／results，舊檔與 hash 保留。此阻擋不影响工具與可独立驗收的其他工作；真正 TTM／六類 ingest 父項不能勾選。
+
+驗證：235 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。36 新增檢查包括每項 false／null、分類、日期、hash 綁定、scope、未知、negative／annual limit、重播、unsafe AST、CLI 無寫入；條件全確認只在 test-only 假設的記憶體測試驗算。首輪錯誤訊息預期不符已修正並補独立 observation cutoff coverage，完整重跑通過。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成。後續需以 primary clarification 解決名稱差異或保持 null；尚缺完整更正沿革、六類收入映射、FCF／margin、同步母公司估值、UNI realized capture／現況及個人投資管道。不可修改本版 artifact 的判斷；新證據另存新版本。詳見 [TTM review](secz-revenue-ttm.md)。
+
 ## 2026-10-03 — SECZ S-1／424B3 年度表查證
 
 PR #11 遠端 CI 全部通過後已合併（`9578304`）。`research/secz-cross-filing-revenue` 從最新 origin/main 建立，原工作目錄乾淨。選擇首項 NEXT baseline 的限定跨 filing 研究，獨立查證 8/7 prospectus 年度表與 7/31 S-1，而非直接推進未驗證 TTM。

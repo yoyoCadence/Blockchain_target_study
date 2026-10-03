@@ -1,0 +1,54 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [id, version, fixture, as_of_date, annual_review_id, interim_review_id, annual_period_id, prior_ytd_period_id, current_ytd_period_id, comparability, review]
+properties:
+  id: {type: string, minLength: 1}
+  version: {type: integer, minimum: 1}
+  fixture: {const: false}
+  as_of_date: {type: string, format: date}
+  annual_review_id: {type: string, pattern: '^[a-f0-9]{64}$'}
+  interim_review_id: {type: string, pattern: '^[a-f0-9]{64}$'}
+  annual_period_id: {type: string, minLength: 1}
+  prior_ytd_period_id: {type: string, minLength: 1}
+  current_ytd_period_id: {type: string, minLength: 1}
+  comparability:
+    type: object
+    additionalProperties: false
+    required: [id, version, classification, fixture, confidence, rationale, checks]
+    properties:
+      id: {type: string, minLength: 1}
+      version: {type: integer, minimum: 1}
+      classification: {const: ASSUMPTION}
+      fixture: {const: false}
+      confidence: {enum: [high, medium, low, unknown]}
+      rationale: {type: string, minLength: 1}
+      checks:
+        type: object
+        additionalProperties: false
+        required: [revenue_definitions, continuing_operations, acquisition_treatment, selected_presentation, audit_difference]
+        properties:
+          revenue_definitions: &check
+            type: object
+            additionalProperties: false
+            required: [value, rationale, source_ids]
+            properties:
+              value: {type: [boolean, 'null']}
+              rationale: {type: string, minLength: 1}
+              source_ids:
+                type: array
+                minItems: 1
+                uniqueItems: true
+                items: {type: string, minLength: 1}
+          continuing_operations: *check
+          acquisition_treatment: *check
+          selected_presentation: *check
+          audit_difference: *check
+  review:
+    type: object
+    additionalProperties: false
+    required: [reviewer, reviewed_at, rationale]
+    properties:
+      reviewer: {type: string, minLength: 1}
+      reviewed_at: {type: string, format: date-time}
+      rationale: {type: string, minLength: 1}

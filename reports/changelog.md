@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Explicitly reviewed raw revenue TTM bridge
+
+- Added versioned research formula v1, strict review schema and read-only production TTM CLI with bound immutable inputs, exact annual/YTD intervals and complete lineage.
+- Preserved comparability as explicit ASSUMPTION; false/null checks block numerical output. Saved a full review retaining the unresolved MG Stover Inc./LLC name difference and three null TTM values.
+- Added 36 regressions; full suite 235 passed and both modes validate. No financial ingestion, canonical formula change, additional thesis periods or automated collection; verified TTM/model mapping and parent baseline remain pending.
+
 ## 2026-10-03 — SECZ S-1 / 424B3 annual-table research
 
 - Added an independently sourced August 7 prospectus dossier, six annual raw revenue observations and immutable research/comparison artifacts matching July 31 S-1 cells.
