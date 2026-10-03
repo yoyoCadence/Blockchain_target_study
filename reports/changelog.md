@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Shared saved-update knowledge/state guards
+
+- Reproduced saved events accepting observations whose knowledge dates postdated the event despite matching/recomputed hashes.
+- Reuse existing update-as-of and DTCC live/material status rules in shared evidence validation for preparation and saved canonical loads.
+- Added 21 regressions; full suite 403 passed and both modes validate. Preserve same-day observations, legal future plans, not-live scenarios, live/completed paths and all financial/source/history outputs; complete baseline remains pending.
+
 ## 2026-10-03 — Shared saved-research primary evidence
 
 - Reproduced non-primary-only research-refresh journals accepted during canonical loads despite matching/recomputed hashes.

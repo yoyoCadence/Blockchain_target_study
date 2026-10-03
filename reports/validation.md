@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 shared saved-update knowledge/state guards
+
+- `npm test`: **403 passed, 0 failed**, including 21 new regressions; 46 targeted event tests pass.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced event as-of 1/1 carrying observation as-of 10/3 in an isolated production copy with synchronized/recomputed hashes. Shared validation applies existing knowledge and DTCC status guards during prepare/load.
+- Reject known/null observations and assumptions/scenarios postdating events in both modes, future scenario knowledge and both DTCC live/material flags under planned/announced/cancelled states. API returns 400 without rewriting journal bytes.
+- Valid same-day observations, future planned effective/not-live scenarios and live/completed paths still load. Latest financial/thesis replay and every committed hash pass; test-only source metadata stays in isolated roots. No financial/source/history/UI changes or additional browser verification.
+
 ## 2026-10-03 shared saved-research primary evidence
 
 - `npm test`: **382 passed, 0 failed**, including 14 new regressions; 42 targeted research tests pass.

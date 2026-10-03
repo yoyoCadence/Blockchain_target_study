@@ -38,6 +38,10 @@ export function checkEventEvidence(event,sources,mode) {
   assert(event.fixture||event.source_ids.some(id=>sourceMap.get(id).tier<5),'Live/completed event needs primary or credible evidence');
  }
  if(['planned','announced','cancelled'].includes(event.status))assert(event.updates.every(m=>m.classification==='SCENARIO'||m.classification==='ASSUMPTION'),'Planned/announced event cannot create live observations');
+ for(const update of event.updates) {
+  assert(update.as_of_date<=event.as_of_date,'Update after event as-of date');
+  if(['xlm.dtcc_live','xlm.dtcc_material'].includes(update.metric_id)&&update.value===1)assert(['live','completed'].includes(event.status),'Planned DTCC cannot become live/material');
+ }
 }
 // Event schema and source schemas must be validated before this chronology check.
 export function checkEventReview(event,sources) {

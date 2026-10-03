@@ -13,3 +13,5 @@
 2026-10-03 後續增量：附 review 的一般／source-only 事件與 journal 載入共用 [review chronology](manual-event-review-dates.md)，檢查 review 不晚於現在、UTC day 不早於事件 as-of，以及引用／新增 sources 不晚於 review。原先未附 review 的一般手動 path 保留；research-refresh 仍需要 mandatory review／digest。
 
 2026-10-03 後續增量：原 preparation 的日期／證據／狀態規則已抽成共用檢查，亦用於 [saved journal loads](saved-event-evidence.md)。即使 event 與 snapshot 一致並重算 hash，無效證據仍在 canonical/API 載入時拒絕；本次不修改既有 journal。
+
+2026-10-03 後續增量：[更新知識日／DTCC 狀態](event-update-knowledge.md)亦抽回此共用 evidence guard，防止舊事件包含較晚才知悉的更新，或以 scenario 在 planned／announced／cancelled 狀態寫入 live/material flags。

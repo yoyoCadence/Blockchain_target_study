@@ -31,6 +31,8 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 
 已存 `research_refresh` 亦沿用[主要來源驗證](reports/saved-research-primary-evidence.md)：非空 OBSERVED 更新，每項引用至少一個 Tier 1／2，且全部證據列入 event.source_ids；null 不會因此補值。
 
+事件內更新的知識日亦[不得晚於事件 as-of](reports/event-update-knowledge.md)；planned／announced／cancelled 的 DTCC 更新不能變成 live／material。新事件與已存載入共用原規則，保留合法的未來 planned 生效日。
+
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
