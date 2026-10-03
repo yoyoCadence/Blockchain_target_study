@@ -71,6 +71,12 @@ node cli.js revenue-ttm data/research/secz-ttm-20260630-review-v1.yaml data/rese
 node cli.js freshness --production --as-of 2026-10-03
 ```
 
+[研究來源時效](reports/research-source-freshness.md)另納入已保存的身份／財報／TTM review，分開顯示觀察、publication、retrieval 與 review 可用日期；不把窗口內的資料當成可比性或投資性確認：
+
+```powershell
+node cli.js research-freshness --production --as-of 2026-10-03
+```
+
 ## 使用 Dashboard
 
 1. 選擇 Fixture 或 Production workspace。

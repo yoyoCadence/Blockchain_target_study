@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-03 manual cataloged-research freshness
+
+- `npm test`: **288 passed, 0 failed**, including 17 research-freshness regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Replay/hash-check five research artifacts before independent observation/publication/retrieval/review availability checks. Retain full source versions, original classifications, periods, scope, unknown TTM and unverified investability.
+- Current cutoff reports 30 research records / 13 sources; 27 observed records within the existing analyst window and three non-observed null TTM records with insufficient evidence. Counts do not add thesis periods or clear economic comparability.
+- Tested historical/UTC cutoffs, window boundaries, old retrieval, source/observation ID conflicts, new versions, metadata/null, catalog pins and CLI no writes. Initial test-only null confidence was corrected; final full suite passes.
+- Existing canonical freshness output, policy/formula v1, financial data/results and all immutable history remain unchanged. No UI changes or additional browser verification.
+
 ## 2026-10-03 single historical UNI Firepit release
 
 - `npm test`: **271 passed, 0 failed**, including four committed receipt/history regressions.

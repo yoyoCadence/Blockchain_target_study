@@ -4,12 +4,17 @@ import {fingerprint} from '../snapshots.js';
 
 const DAY=86_400_000;
 // UTC calendar-day difference. An unavailable-at-cutoff date has no usable age.
-const ageAt=(cutoff,date)=>{
+export const ageAt=(cutoff,date)=>{
  if(!date) return null;
  const days=Math.floor(Date.parse(`${cutoff}T00:00:00Z`)/DAY)-Math.floor(Date.parse(date)/DAY);
  return days<0?null:days;
 };
-const countBy=(rows,key)=>Object.fromEntries([...new Set(rows.map(r=>r[key]))].sort().map(state=>[state,rows.filter(r=>r[key]===state).length]));
+export const countBy=(rows,key)=>Object.fromEntries([...new Set(rows.map(r=>r[key]))].sort().map(state=>[state,rows.filter(r=>r[key]===state).length]));
+export function sourceDateCheck(source,as_of_date,policy) {
+ const retrievedAge=ageAt(as_of_date,source.retrieved_at);
+ return {publication_age_days:ageAt(as_of_date,source.date),retrieval_age_days:retrievedAge,
+  retrieval_state:retrievedAge===null?'NOT_AVAILABLE_AT_CUTOFF':retrievedAge>policy.retrieval_max_age_days?'RECHECK_DUE':'RECENTLY_RETRIEVED'};
+}
 
 export function sourceFreshness(project,{as_of_date=new Date().toISOString().slice(0,10),policy=readYaml('spec/source-freshness.yaml',project.root)}={}) {
  validateSchema({type:'string',format:'date'},as_of_date,'freshness as-of date');
@@ -26,12 +31,8 @@ export function sourceFreshness(project,{as_of_date=new Date().toISOString().sli
    usedBy.get(id).push(definition.id);
   }
  }
- const sourceChecks=project.sources.map(source=>{
-  const retrievedAge=ageAt(as_of_date,source.retrieved_at);
-  const retrievalState=retrievedAge===null?'NOT_AVAILABLE_AT_CUTOFF':retrievedAge>policy.retrieval_max_age_days?'RECHECK_DUE':'RECENTLY_RETRIEVED';
-  return {source,active:usedBy.has(source.id),used_by:usedBy.get(source.id)||[],
-   publication_age_days:ageAt(as_of_date,source.date),retrieval_age_days:retrievedAge,retrieval_state:retrievalState};
- });
+ const sourceChecks=project.sources.map(source=>({source,active:usedBy.has(source.id),used_by:usedBy.get(source.id)||[],
+  ...sourceDateCheck(source,as_of_date,policy)}));
  const sourceMap=Object.fromEntries(sourceChecks.map(row=>[row.source.id,row]));
  const inputs=definitions.map(definition=>{
   const record=selected[definition.id],limit=policy.observation_overrides[definition.id]??policy.observation_max_age_days;

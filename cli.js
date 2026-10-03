@@ -5,23 +5,26 @@ import {applyEvent} from './engine/propagation/index.js';
 import {prepareResearchRefresh,applyResearchRefresh} from './engine/research/index.js';
 import {reviewIdentities} from './engine/research/identities.js';
 import {sourceFreshness} from './engine/research/freshness.js';
+import {researchFreshness} from './engine/research/research-freshness.js';
 import {reviewRevenues} from './engine/research/revenues.js';
 import {compareRevenueReviews} from './engine/research/revenue-comparison.js';
 import {reviewRevenueTtm} from './engine/research/revenue-ttm.js';
 const [command='validate',...args]=process.argv.slice(2);
 const mode=args.includes('--production')?'production':'fixture';
 try {
+ if(command==='research-freshness'&&mode!=='production') throw new Error('Research freshness requires --production');
  if(['research-preview','research-apply','identity-review','revenue-review','revenue-compare','revenue-ttm'].includes(command)) {
   if(mode!=='production') throw new Error('Research commands require --production');
   if(!args[0]||args[0].startsWith('--')) throw new Error(`Use node cli.js ${command} path/to/reviewed-research.yaml --production`);
  }
  const project=loadProject(mode),history=readSnapshots(project.root,mode);
  const result=calculate(project,{history,previousThesis:history.at(-1)?.thesis||{}});
- if(command==='freshness') {
+ if(command==='freshness'||command==='research-freshness') {
   assertVersionHistory(history.at(-1),project);
   const cutoffIndex=args.indexOf('--as-of');
   if(cutoffIndex>=0&&(!args[cutoffIndex+1]||args[cutoffIndex+1].startsWith('--'))) throw new Error('Use --as-of YYYY-MM-DD');
-  console.log(JSON.stringify(sourceFreshness(project,cutoffIndex>=0?{as_of_date:args[cutoffIndex+1]}:{}),null,2));
+  const inspect=command==='research-freshness'?researchFreshness:sourceFreshness;
+  console.log(JSON.stringify(inspect(project,cutoffIndex>=0?{as_of_date:args[cutoffIndex+1]}:{}),null,2));
  } else if(command==='identity-review') {
   console.log(JSON.stringify(reviewIdentities(project,readYaml(args[0],process.cwd())),null,2));
  } else if(command==='revenue-review') {
@@ -60,5 +63,5 @@ try {
  } else if(command==='report') {
   const lines=['# Current thesis', '', `Mode: ${mode.toUpperCase()}${result.fixture?' — SYNTHETIC, NOT MARKET DATA':''}`,`Period: ${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}: ${t.state}`,`Coverage: ${t.coverage}. ${t.interpretation}`,...t.triggered_rules.map(r=>`- ${r.id}: ${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
- } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, freshness [--production] [--as-of DATE], report');
+ } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
 } catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}
