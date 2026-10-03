@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-04 SECZ 母公司認股權證歷史條款
+
+- `npm test`：**411 通過、0 失敗**；新增四項來源／事件綁定、金融保留、全歷史重播與 TTM／合成隔離回歸。與既存股本回歸合計八項針對性測試通過。
+- `npm run validate` 及 `npm run validate -- --production`：84 指標、25 公式、0 錯誤／警告；未知 1／83。diff 檢查通過。
+- 唯讀準備不寫 journal；既有 CLI 追加一份新來源及完整 snapshot，原五份快照／來源版本、金融／圖譜／估值／論點全部保留。六份同模型期間不新增連續期證據，三個正式 TTM null 保留。
+- 直接閱讀 Exhibit 4.1 選定承接修訂／歸屬／行使條款，交叉核對原 10-Q 與發布日期。完整 S-1 仍受到 reader 大小、Browser 逾時及 SEC 自動存取限制；未完成登記註腳、earnout 類別調節或現況履行查證。
+- 未修改 engine／spec／介面，未新增 UI QA；完整 baseline 仍未完成，詳見[研究範圍](secz-warrant-context.md)。
+
 ## 2026-10-04 繁體中文介面
 
 - 最終 `npm test`：**407 通過、0 失敗**；兩模式 validate：84 metrics、25 formulas、0 errors/warnings，未知 1／83。語法／diff 檢查通過。
