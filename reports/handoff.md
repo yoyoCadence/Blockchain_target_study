@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-03 — 手動 cataloged-research 時效
+
+PR #17 遠端 CI 全部通過後已合併（`233d597`）。先前額度限制阻擋最後合併／fetch，恢復後重新核對 exact head／base、CI 與實際 merged 狀態。`feat/research-source-freshness` 從最新 origin/main 建立，原工作目錄乾淨。基線依賴仍缺 fee-origin／TTM 可比性／同步估值，接續 NEXT 的可獨立手動時效子項。
+
+新增 production-only research-freshness CLI，在原 canonical 回應外檢查固定 catalog 的五份已驗證／重播研究。分開 observation／publication／retrieval／review 日期，保留 artifact hash、原始 records／期間／scope／comparability 與完整來源版本／dependencies；未知與非 OBSERVED 不提升為新鮮事實。跨 artifact／canonical source ID 衝突與 observation ID 改寫拒絕。共用原 UTC day helper／來源日期計算，policy／formula v1 與原 freshness 輸出不變，沒有金融或文件來源更新／寫入。
+
+2026-10-03 報告：30 research records／13 sources，27 OBSERVED 在既有窗口，三項 TTM DERIVED 仍 null／COMPARABILITY_UNVERIFIED／INSUFFICIENT。這些是 record counts，不能充當連續期數或 current investability 確認。歷史 cutoff 另外顯示 review 尚不可用，不把本日 review 回填到 filing 時點。
+
+驗證：288 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。17 項新增回歸包含歷史 cutoff／UTC／窗口、metadata／ID／hash、未知與來源版本、CLI／原金融結果／journal 不變；首輪 test-only null confidence 漏同步已修正，完整重跑通過。無 UI 修改，未另做瀏覽器驗證。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成；MVP 範圍排除維持。目錄新增研究需人工版本審查，本子項不自動掃描／抓取來源、不新增 scheduler／notification，亦不解決 fee-origin、SECZ 名稱差異／TTM／six-stream mapping、FCF／margin、同步估值或個人管道。詳見 [研究時效](research-source-freshness.md)。
+
 ## 2026-10-03 — UNI 單筆 Firepit 執行證據
 
 PR #16 遠端 CI 全部通過後已合併（`8323fb2`）。`research/uni-firepit-release` 從最新 origin/main 建立，原工作目錄乾淨。回到 NEXT baseline 的捕獲執行證據，範圍限定單筆 release；不依據配置或文件推定已實現年度收入。

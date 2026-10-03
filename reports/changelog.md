@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Manual cataloged-research freshness
+
+- Added a production-only read-only CLI combining existing canonical freshness with hash-verified/replayed identity/revenue/TTM evidence.
+- Separated observation/publication/retrieval ages from review availability; retained original classifications, periods, scope, source versions and explicit insufficient evidence. Rejected conflicting source/observation ID content.
+- Reused existing analyst policy/formula v1 and preserved canonical output, financial data/history and unknowns. Added 17 regressions; full suite 288 passed and both modes validate. Complete baseline remains pending.
+
 ## 2026-10-03 — Single historical UNI Firepit release
 
 - Preserved a successful 2025-12-29 receipt with caller-funded UNI dead-address payment, five TokenJar asset transfers and Released nonce, plus dated immutable official source-code evidence.
