@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-04 SECZ dated parent capital context
+
+- `npm test`: **407 passed, 0 failed**; four new committed-evidence regressions. The 36 targeted capital/date checks pass.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Read-only preparation confirms source change only, no metric/assumption/scenario/formula/rule change or journal write; authorized CLI event appends five source versions and one complete production snapshot.
+- Dossier/journal/hash/date binding, retained existing source versions and four historical hashes, complete financial/thesis replay, unchanged market valuation/graph, one repeated model period, three formal TTM nulls and Fixture isolation pass.
+- First full run: 391 passed, 16 failed because existing probes freeze the clock at 10/3 noon and newly retrieved real evidence is from that afternoon. Corrected only in-memory test baselines; real sources and current-time guards remain intact. Final full suite passes.
+- Selected 10-Q, Exhibit 5.1 and filing indices were read. Retain S-1 indexed-only/reader-size limitation and unresolved earnout/registration category conflict. Source metadata is not a current capitalization or legal/investability clearance. No UI changes or additional browser QA; five snapshots do not add verified thesis periods. See [research limits](secz-parent-capital-context.md).
+
 ## 2026-10-03 shared saved-update knowledge/state guards
 
 - `npm test`: **403 passed, 0 failed**, including 21 new regressions; 46 targeted event tests pass.

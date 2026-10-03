@@ -9,6 +9,10 @@ import {fingerprint,readSnapshots} from '../../engine/snapshots.js';
 import {createServer} from '../../server.js';
 
 const project=loadProject('production');
+// Isolate the noon clock probes from later real research retrievals. Only this
+// in-memory test input changes; committed history/replay below reloads real data.
+for(const source of project.sources)if(Date.parse(source.retrieved_at)>Date.parse('2026-10-03T12:00:00Z'))
+ source.retrieved_at='2026-10-03T12:00:00Z';
 const event=()=>({id:'test-only-event-review',type:'acquisition',status:'completed',fixture:false,
  as_of_date:'2026-10-03',effective_date:'2025-12-27',source_ids:['ethereum-unification-execution-20251227-v2'],
  affected_nodes:['UNI'],reason:'Isolated chronology regression; no real research',updates:[],

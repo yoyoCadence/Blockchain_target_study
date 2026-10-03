@@ -1,0 +1,107 @@
+id: secz-parent-capital-context-20261003
+type: governance
+status: completed
+as_of_date: 2026-10-03
+effective_date: 2026-07-01
+affected_nodes: [SECZ]
+fixture: false
+source_ids:
+  - secz-parent-capital-10q-index-20260813-v1
+  - secz-parent-capital-10q-20260813-v1
+  - secz-parent-capital-s1-index-20260731-v1
+  - secz-parent-capital-opinion-20260731-v1
+  - secz-parent-capital-s1-excerpt-20260731-v1
+reason: >-
+  Retrospective source-only review of the July 1, 2026 parent corporate closing,
+  not a new issuance or current capitalization estimate. Securitize Corp.
+  (formerly Securitize Holdings, Inc.) is distinct from its operating subsidiary
+  Securitize I, Inc. (formerly Securitize, Inc.). The parent 10-Q cover reports
+  163265685 common shares issued and outstanding as of August 13, 2026; Note 5
+  reports the same count at the July 1 closing. The July 1 count includes
+  1800000 sponsor shares subject to vesting, forfeiture and transfer restrictions;
+  do not add them again. It excludes up to 6250000 conditional additional earnout
+  shares, 16321869 shares reserved for incentive/employee purchase plans,
+  3711658 warrant underlying shares and 3681510 option/RSU underlying shares.
+  These are separate disclosed capacities or conditional rights, not completed
+  issuances or a mechanically additive fully diluted share count. Current
+  exercises, vesting, earnout triggers and transfers remain unverified.
+  June 30 financial statements concern the pre-combination holding company:
+  10000 common shares and USD 1 petty cash are not post-closing consolidated
+  shares or current parent cash/debt. Existing subsidiary revenue cannot be
+  silently combined with that pre-closing balance sheet. The July 31 S-1 resale
+  registration covers 151568524 shares, not all newly issued shares. Exhibit 5.1
+  separates 140768250 already issued resale shares, 3711658 warrant underlying
+  shares and up to 7088616 earnout-category shares. The opinion's earnout category
+  and the 10-Q's 6250000 additional-share maximum are not reconciled here.
+  Retain the S-1 indexed offering-table excerpt of 314834209 post-offering shares
+  as unresolved context, not a verified current or fully diluted denominator;
+  only the indexed excerpt was reviewed because the full S-1 exceeds the web
+  reader size limit. Do not double-count registered resale shares. The opinion
+  is dated July 30 and calls the S-1 filed July 30; EDGAR accepted July 30 at
+  20:11:36 but lists filing July 31. Preserve both dates; source availability
+  uses the July 31 index date. No synchronized price, current consolidated
+  cash/debt, market cap or EV is established. No financial inputs, assumptions,
+  formulas, graph edges, model periods or thesis states are changed; no new
+  thesis period, promotion or personal investability clearance.
+research_review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T13:25:29Z
+  rationale: >-
+    Read the parent 10-Q cover, explanatory note, June 30 balance sheet and
+    Note 5; read the complete selected Exhibit 5.1 and both SEC filing indices.
+    Review only the indexed S-1 offering excerpt, not the oversized full S-1.
+    Preserve parent/subsidiary, pre/post-closing, issued/issuable/reserved and
+    registration distinctions and unresolved category/date conflicts. Historical
+    disclosure review does not verify present share movements or a valuation.
+updates: []
+sources:
+  - id: secz-parent-capital-10q-index-20260813-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056788/0001628280-26-056788-index.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: Parent 10-Q index; August 13 filing and June 30 report period
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T13:25:29Z
+    tier: 1
+    covered_metrics: [secz.parent_capital_context_evidence]
+    fixture: false
+  - id: secz-parent-capital-10q-20260813-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056788/secz-20260630.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize Corp.
+    title: Parent 10-Q cover, pre-closing balance sheet and Note 5 capital categories
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T13:25:29Z
+    tier: 1
+    covered_metrics: [secz.parent_capital_context_evidence]
+    fixture: false
+  - id: secz-parent-capital-s1-index-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/0001628280-26-051182-index.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-1 index; July 31 filing versus July 30 acceptance and Exhibit 5.1
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T13:25:29Z
+    tier: 1
+    covered_metrics: [secz.parent_capital_context_evidence]
+    fixture: false
+  - id: secz-parent-capital-opinion-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/exhibit51-sx1.htm
+    publisher: U.S. Securities and Exchange Commission / Davis Polk & Wardwell LLP
+    title: July 30 Exhibit 5.1; issued resale shares versus conditional warrant/earnout shares
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T13:25:29Z
+    tier: 1
+    covered_metrics: [secz.parent_capital_context_evidence]
+    fixture: false
+  - id: secz-parent-capital-s1-excerpt-20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/secz-20260731.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize Corp.
+    title: Indexed S-1 offering-table excerpt only; full statement over reader limit, denominator unverified
+    date: 2026-07-31
+    retrieved_at: 2026-10-03T13:25:29Z
+    tier: 1
+    covered_metrics: [secz.parent_capital_context_evidence]
+    fixture: false
