@@ -155,6 +155,7 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 - `POST /api/sensitivity?mode=fixture`：`{"overrides":{"uni.fee":0.0001}}`，只計算、不存檔。
 - `GET /api/snapshots?mode=fixture`：快照摘要與差異。
 - `GET /api/research?mode=production`：固定目錄中已驗證／重播的研究證據，與金融輸入分開；Fixture 回傳空清單，禁止写入。
+- `GET /api/freshness?mode=production&as_of=2026-10-03`：唯讀時效報告；Production 包含 canonical 與固定研究目錄，Fixture 只回 canonical synthetic 資料。省略日期使用目前 UTC 日，無效／未來／空日期拒絕。詳見 [API](reports/freshness-api.md)。
 
 ## 邊界與後續
 

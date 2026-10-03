@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Read-only manual freshness API
+
+- Added GET /api/freshness using existing canonical/research freshness engines, policy/formula v1 and canonical history checks.
+- Preserve workspace isolation, synthetic provenance, independent dates, unknown/formal TTM evidence and optional historical UTC cutoffs; reject empty/invalid/future cutoffs and write methods.
+- Added nine HTTP regressions; full suite 353 passed and both modes validate. No financial, historical, UI, policy or formula changes; complete production baseline remains pending.
+
 ## 2026-10-03 — Shared manual-event review chronology
 
 - Closed generic/source-only events accepting future review timestamps that had only been checked for research-refresh.
