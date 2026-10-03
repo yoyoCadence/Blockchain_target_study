@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Manual Dashboard freshness inspection
+
+- Added an explicit UTC-cutoff query using the existing read-only API; retain canonical/research dates, unknowns, review availability, synthetic provenance and complete policy/formula/source dependencies.
+- Clear results when dates/workspaces change and isolate late responses. No initial/automatic freshness queries, date calculations or financial formulas in the UI.
+- Full suite 368 passed and both modes validate. Actual Playwright desktop/mobile, historical/error/keyboard and delayed-response QA passes; Browser transport failures and expected console 404/400 are documented. Financial/source/history and policy/formula versions remain unchanged.
+
 ## 2026-10-03 — Shared saved-event evidence validation
 
 - Reproduced invalid future completed evidence accepted during direct journal loads despite matching/recomputed event and snapshot hashes.
