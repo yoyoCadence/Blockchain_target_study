@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 手動事件 as-of 與來源日期
+
+PR #9 遠端 CI 全部通過後已合併（`e85bb73`）。`fix/future-event-as-of` 從最新 origin/main 建立，原工作目錄乾淨。以純記憶體 production project 重現：event.as_of／effective date 都填 2099 年仍被接受為 completed，未寫任何資料。另補齊 source-only event 的 source publication 日期檢查。
+
+在共用 prepareEvent 限制 as-of <= 目前 UTC 日，並要求所有 event.source_ids 的 date <= event.as_of。未知來源先拒絕，日期檢查在重算／journal 寫入之前完成。今日 recorded 的未來 planned／announced effective date 仍保留，既有狀態／OBSERVED 屏障不變；晚取得的歷史 receipt 不會因 retrieval date 而被錯誤排除。
+
+驗證：179 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。十項新增驗證涵蓋所有狀態的 future as-of、合法未來 plan、failed apply 無寫入、source-only future publication、歷史來源晚取得。金融公式／假設、所有來源／觀察／snapshot、graph／thesis 保留；遠端 CI 以 PR 實際執行結果為準。
+
+父 baseline 仍未完成。已保存 UNI historical authorization／v2 configuration 與 SECZ 分期／全年原始收入，但 fee-generated burn、現況、跨 filing 更正／comparability、TTM／六類收入 mapping、同步估值及個人投資管道均尚待驗證。只接續可獨立驗收的工作，保留 null 與來源衝突。詳見 [事件日期](event-source-dates.md)。
+
 ## 2026-10-03 — 共用觀察／來源日期驗證
 
 PR #8 CI 通過後已合併（`e7fe1f9`）。`fix/observation-source-dates` 從最新 origin/main 建立，原工作目錄乾淨。在 baseline 來源／期間工作中以純記憶體資料重現：canonical validator 接受 7 月觀察引用 8 月發布的來源；一般 event 也能繞過 research-refresh 已有日期檢查。此漏洞可獨立修正，優先補齊 ingest barrier。

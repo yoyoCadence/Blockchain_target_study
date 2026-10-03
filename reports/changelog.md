@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Manual event knowledge/source chronology
+
+- Reject future event as-of dates and event sources published after knowledge as-of, including source-only manual events, before recomputation or journal writes.
+- Retain legitimate planned/announced future effective dates and retrospective retrieval; live/completed evidence requirements and observation classification barriers remain in place.
+- Added ten event chronology/no-write checks; full suite 179 passed and both modes validate. No canonical evidence, financial formula/assumption or immutable history changes.
+
 ## 2026-10-03 — Shared observation/source publication validation
 
 - Fixed direct canonical loads and general events accepting sources published after observed as-of; moved the restriction already used in reviewed research into the shared validator.

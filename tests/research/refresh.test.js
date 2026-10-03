@@ -156,7 +156,7 @@ for(const [name,edit,pattern] of [
  ['tier 3 only',b=>{b.sources[0].tier=3;},/tier 1 or 2/],
  ['tier 5 only',b=>{b.sources[0].tier=5;},/primary or credible|tier 1 or 2/],
  ['missing evidence',b=>{b.observations[0].source_ids=['absent'];},/Unknown event source/],
- ['future publication',b=>{b.sources[0].date='2026-01-08';b.sources[0].retrieved_at='2026-01-08T09:00:00Z';},/published after observation/],
+ ['future publication',b=>{b.as_of_date='2026-01-08';b.sources[0].date='2026-01-08';b.sources[0].retrieved_at='2026-01-08T09:00:00Z';},/published after observation/],
  ['late retrieval',b=>{b.sources[0].retrieved_at='2026-01-09T10:00:00Z';},/retrieved after review/],
  ['wrong coverage',b=>{b.sources[0].covered_metrics=['uni.price'];},/Source does not cover/],
  ['assumption posing as research',b=>{b.observations[0].classification='ASSUMPTION';b.observations[0].rationale='Not verified';},/only accepts observations/],
