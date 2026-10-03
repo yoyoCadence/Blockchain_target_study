@@ -40,7 +40,7 @@ UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)�
 node cli.js identity-review data/research/core-identifiers-2026-10-03.yaml --production
 ```
 
-SECZ 的[分期收入資料包](reports/secz-comparable-revenue.md)保留兩類季度／半年收入及可比較期間。唯讀命令核對合计與同比，不更新六類年度模型：
+SECZ 的[分期收入資料包](reports/secz-comparable-revenue.md)保留兩類季度／半年收入及可比較期間。唯讀命令核對合計與同比，不更新六類年度模型：
 
 ```powershell
 node cli.js revenue-review data/research/secz-comparable-revenue-2026-10-03-v1.yaml --production
