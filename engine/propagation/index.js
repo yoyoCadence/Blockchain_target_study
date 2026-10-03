@@ -1,5 +1,5 @@
 import path from 'node:path';
-import {assert,validateSchema,utcDay} from '../validation/index.js';
+import {assert,validateSchema,checkEventReview} from '../validation/index.js';
 import {calculate,validateProject,selectInputs} from '../index.js';
 import {makeSnapshot,writeExclusive,readSnapshots,assertVersionHistory} from '../snapshots.js';
 export function affectedNodes(graph,initial) {
@@ -23,10 +23,8 @@ export function prepareEvent(p,event,history=[]) {
   assert(event.fixture||event.source_ids.some(id=>withSources.sources.find(s=>s.id===id).tier<5),'Live/completed event needs primary or credible evidence');
  }
  if(['planned','announced','cancelled'].includes(event.status)) assert(event.updates.every(m=>m.classification==='SCENARIO'||m.classification==='ASSUMPTION'),'Planned/announced event cannot create live observations');
+ checkEventReview(event,withSources.sources);
  if(event.type==='research_refresh') {
-  assert(event.research_review.reviewer.trim()&&event.research_review.rationale.trim(),'Research review needs a reviewer and rationale');
-  assert(Date.parse(event.research_review.reviewed_at)<=Date.now(),'Research review cannot be in the future');
-  assert(utcDay(event.research_review.reviewed_at)>=event.as_of_date,'Research review precedes refresh as-of date');
   assert(event.updates.length>0&&event.updates.every(m=>m.classification==='OBSERVED'),'Research refresh only accepts observations');
   for(const update of event.updates) {
    const sources=update.source_ids.map(id=>withSources.sources.find(s=>s.id===id));
@@ -34,7 +32,6 @@ export function prepareEvent(p,event,history=[]) {
    assert(sources.some(s=>s.tier<=2),'Research observation requires a tier 1 or 2 primary source');
    assert(sources.every(s=>event.source_ids.includes(s.id)),'Research evidence must be declared in event sources');
    assert(sources.every(s=>s.date<=update.as_of_date),'Research source published after observation as-of date');
-   assert(sources.every(s=>Date.parse(s.retrieved_at)<=Date.parse(event.research_review.reviewed_at)),'Research source retrieved after review');
   }
  }
  const old=selectInputs(p.inputs),nodes=affectedNodes(p.graph,event.affected_nodes);

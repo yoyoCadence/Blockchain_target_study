@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 共用手動事件 review 日期
+
+PR #21 遠端 CI 全部通過後已合併（`db367ed`）。`fix/manual-event-review-dates` 從最新 origin/main 建立，原工作目錄乾淨。已在記憶體重現一般 acquisition source-only event 能接受 reviewed_at 2099；原日期規則只在 research-refresh 分支生效。
+
+共用 checkEventReview，對有 research_review 的事件要求 reviewer／rationale 非空白、review <= 當前精確時間、review UTC 日 >= event as-of，以及全部 event.source_ids／新 sources 的 retrieval <= review。Prepare／apply 与 canonical saved journal loads 均使用，無 review 的一般手動 path 保留；mandatory research-refresh review／digest／primary OBSERVED 規則不變。原 timestamp文字不改，歴史晚取得後 review、planned future effective date 仍合法。
+
+驗證：344 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。19 新增回歸涵蓋五種狀態、trim／UTC／offset／exact cutoffs、existing／未列入 evidence 的新增 sources、合法回顧與計畫、兩模式無 review path、failed apply 無寫入、重新計算 hash 的 direct journal loads／API 400、最新 metrics／thesis 與歷史 hash 保留。既有 refresh／digest 流程全套通過，無 UI 變更／額外瀏覽器驗證。遠端 CI 以 PR 實際結果為準。
+
+沒有 financial AST／threshold／觀察／來源／graph 或已保存 journal 修改。四份 production snapshots 仍同模型期、83 unknown；原 SECZ acquisition_treatment 與 TTM null 保留。驗證 metadata 時序不代表來源內容、法律名稱、實際捕獲或個人投資性已查證；父 baseline 仍未完成。詳見 [review 日期](manual-event-review-dates.md)。
+
 ## 2026-10-03 — SECZ 收購範圍交叉查證
 
 PR #20 遠端 CI 全部通過後已合併（`88b3db9`）。`research/secz-acquisition-context` 從最新 origin/main 建立，原工作目錄乾淨。回到首項 NEXT baseline 的 acquisition_treatment 阻擋，限定保存新增交叉證據而不自行清除名稱差異。

@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 shared manual-event review chronology
+
+- `npm test`: **344 passed, 0 failed**, including 19 new review chronology/journal/API regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced generic source-only acceptance of reviewed_at 2099. Shared validation now covers provided review metadata before preparation/persistence and on canonical journal loads.
+- Tested all five statuses, blank fields, UTC day/offset instants, exact retrieval cutoff, declared existing and uncited added sources, retrospective review, future planned effective dates and the original path without optional review in both modes.
+- Failed apply leaves no journal; direct temporary journal/API tests preserve matching/recomputed hashes yet reject invalid future/retrieval review chronology. Existing digest-bound refresh tests and latest committed financial/thesis replay pass with original history hashes. No UI changes or additional browser verification.
+
 ## 2026-10-03 SECZ acquisition-context cross-check
 
 - `npm test`: **325 passed, 0 failed**, including four new committed-evidence/history/null regressions.

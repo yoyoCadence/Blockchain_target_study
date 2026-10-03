@@ -9,3 +9,5 @@
 驗證：179 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。新增十項 event 日期檢查，包括五種狀態的 future as-of、合法未來 plan、拒絕 apply 且不寫檔、無數值更新的未來發布證據及回溯取得 receipt。既有研究與財務 snapshot 完整重播、UNI 0.422 與 API 保留。
 
 本次只修正時間驗證，不改來源、觀察、公式、假設、graph 或歷史紀錄；不建立 scheduler／自動事件抓取。來源內容、實際捕獲與投資性仍需研究，完整 baseline 未完成。
+
+2026-10-03 後續增量：附 review 的一般／source-only 事件與 journal 載入共用 [review chronology](manual-event-review-dates.md)，檢查 review 不晚於現在、UTC day 不早於事件 as-of，以及引用／新增 sources 不晚於 review。原先未附 review 的一般手動 path 保留；research-refresh 仍需要 mandatory review／digest。
