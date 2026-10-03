@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 shared saved-event evidence validation
+
+- `npm test`: **368 passed, 0 failed**, including 15 new saved-event evidence regressions; 44 targeted date/review tests pass.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced future completed source-only evidence accepted in an isolated journal with matching/recomputed hashes. Canonical loads now reuse existing preparation evidence rules after schema/source validation.
+- Tests reject future knowledge in both modes, missing/future completed effective dates, future publication, unknown sources, mode mismatch, observed planned/announced/cancelled updates and missing credible production evidence. API returns 400 without rewriting bytes.
+- Legal future scenario plans and retrospective receipt retrieval still load. Latest metrics/thesis and all saved hashes replay unchanged. Two initial test-only source-date selections were corrected before the final passing suite; no financial/source/history/UI changes or browser UI verification.
+
 ## 2026-10-03 read-only manual freshness API
 
 - `npm test`: **353 passed, 0 failed**, including nine new HTTP freshness regressions.

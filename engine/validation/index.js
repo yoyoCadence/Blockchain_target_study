@@ -26,6 +26,19 @@ export function validateSchema(schema, value, context) {
 export function unique(items, key='id') {
  const seen=new Set(); for(const item of items) {assert(!seen.has(item[key]),`Duplicate ${key}: ${item[key]}`); seen.add(item[key]);}
 }
+// Validate event/source schemas first; use the same evidence rules for new and saved events.
+export function checkEventEvidence(event,sources,mode) {
+ assert(event.as_of_date<=utcDay(Date.now()),'Event as-of cannot be in the future');
+ assert(event.fixture===(mode==='fixture'),'Event data mode mismatch');
+ const sourceMap=new Map(sources.map(s=>[s.id,s]));
+ assert(event.source_ids.every(id=>sourceMap.has(id)),'Unknown event source');
+ assert(event.source_ids.every(id=>sourceMap.get(id).date<=event.as_of_date),'Event source published after event as-of');
+ if(['live','completed'].includes(event.status)) {
+  assert(event.effective_date&&event.effective_date<=event.as_of_date,'Live/completed event needs a past effective date');
+  assert(event.fixture||event.source_ids.some(id=>sourceMap.get(id).tier<5),'Live/completed event needs primary or credible evidence');
+ }
+ if(['planned','announced','cancelled'].includes(event.status))assert(event.updates.every(m=>m.classification==='SCENARIO'||m.classification==='ASSUMPTION'),'Planned/announced event cannot create live observations');
+}
 // Event schema and source schemas must be validated before this chronology check.
 export function checkEventReview(event,sources) {
  const review=event.research_review;if(!review)return;

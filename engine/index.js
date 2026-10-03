@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import YAML from 'yaml';
-import {assert,unique,validateSchema,normalize,checkPeriods,utcDay,checkEventReview} from './validation/index.js';
+import {assert,unique,validateSchema,normalize,checkPeriods,utcDay,checkEventEvidence,checkEventReview} from './validation/index.js';
 import {references,evaluate,orderFormulas} from './formulas/index.js';
 import {evaluateTheses} from './thesis/index.js';
 import {verifySnapshot,fingerprint} from './snapshots.js';
@@ -32,7 +32,7 @@ export function loadProject(mode='fixture',root=ROOT) {
   journalEvents.push(transaction.event);
  }
  validateProject(project);
- for(const event of journalEvents)checkEventReview(event,project.sources);
+ for(const event of journalEvents){checkEventEvidence(event,project.sources,mode);checkEventReview(event,project.sources);}
  return project;
 }
 export function validateProject(p) {

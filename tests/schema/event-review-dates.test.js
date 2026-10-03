@@ -90,12 +90,16 @@ test('failed reviewed-event apply creates no journal and leaves historical evide
  assert.equal(fingerprint(readSnapshots(project.root,'production')),before);
 });
 
-function fixtureJournal(t) {
+function fixtureJournal(t,{retrievalProbe=false}={}) {
  const p=loadProject('fixture'),root=fs.mkdtempSync(path.join(os.tmpdir(),'event-review-load-'));
  t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  const names=['canonical-schema','source-registry','event-schema','project-schema','data-dictionary','formula-registry','asset-registry','dependency-graph','thesis-rules','sensitivity'];
  for(const file of [...names.map(n=>`spec/${n}.yaml`),'data/fixtures/inputs.yaml','data/fixtures/sources.yaml']) {
   const target=path.join(root,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,fs.readFileSync(path.join(p.root,file)));
+ }
+ if(retrievalProbe) {
+  Object.assign(p.sources[0],{date:'2024-01-01',retrieved_at:'2026-01-01T00:00:00Z'});
+  fs.writeFileSync(path.join(root,'data/fixtures/sources.yaml'),JSON.stringify({version:1,sources:p.sources}));
  }
  const e=event();e.fixture=true;e.source_ids=[p.sources[0].id];
  const prepared=prepareEvent(p,e),transaction={event:e,snapshot:prepared.snapshot};
@@ -104,7 +108,7 @@ function fixtureJournal(t) {
 }
 
 for(const kind of ['future_review','retrieval_after_review'])test(`direct journal load and API reject ${kind} even with matching hashes`,async t=>{
- fixedClock(t);const {root,file,transaction}=fixtureJournal(t);
+ fixedClock(t);const {root,file,transaction}=fixtureJournal(t,{retrievalProbe:kind==='retrieval_after_review'});
  const reviewed_at=kind==='future_review'?'2099-01-01T00:00:00Z':'2024-01-02T00:00:00Z';
  for(const e of [transaction.event,transaction.snapshot.event]) {
   e.research_review.reviewed_at=reviewed_at;

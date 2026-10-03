@@ -27,6 +27,8 @@ Windows Codex 沙箱若回報 `spawn EPERM`，需使用允許建立測試子程�
 Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚於當前 UTC 日的 OBSERVED as-of，以及晚於現在精確時間的來源取得；明示情境／假設與計畫 effective date 仍分開。
 手動事件若附 review，亦套用 [review 日期檢查](reports/manual-event-review-dates.md)：未來 review、早於知識日或來源晚於 review 會在寫入／journal 載入前被拒絕。
 
+已存事件載入時也重用[事件證據檢查](reports/saved-event-evidence.md)：知識／生效／來源日期、workspace provenance 與計畫狀態分類必須有效。雜湊一致仍需語意驗證；合法未來計畫與晚取得的歷史來源保留。
+
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
