@@ -30,7 +30,13 @@ Windows Codex 沙箱若回報 `spawn EPERM`，需使用允許建立測試子程�
 - **ASSUMPTION**：分析者設定與理由。原先使用者提供的 20M UNI/year fixture 假設與 production null v1 均保留；正式資料以 OBSERVED v2 明確 supersede 該 null，代表經查證的核准額度。
 - **SCENARIO**：4T TAM 與互動敏感度等反事實情境，不是預測事實。
 - **DERIVED**：25 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
-- 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或任何收購已完成。SECZ 等符號為需求指定的研究識別碼，上市與可投資性尚未查證。
+- 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
+
+UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
+
+```powershell
+node cli.js identity-review data/research/core-identifiers-2026-10-03.yaml --production
+```
 
 ## 使用 Dashboard
 

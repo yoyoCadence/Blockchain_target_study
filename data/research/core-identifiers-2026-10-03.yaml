@@ -1,0 +1,145 @@
+version: 1
+id: core-identifiers-20261003-v1
+as_of_date: 2026-10-03
+purpose: >-
+  Standalone primary-source identity dossier. Not a numeric research-refresh
+  proposal, current trading-status check, asset promotion or personal access approval.
+sources:
+  - id: uniswap-uni-launch-20200916-v1
+    version: 1
+    url: https://blog.uniswap.org/uni
+    publisher: Uniswap Labs
+    title: Introducing UNI
+    date: 2020-09-16
+    retrieved_at: 2026-10-03T05:17:45Z
+    tier: 2
+    covered_metrics: [UNI.identity]
+    fixture: false
+  - id: securitize-combination-20260701-v1
+    version: 1
+    url: https://investors.securitize.io/news/news-details/2026/Securitize-Completes-Business-Combination-with-Cantor-Equity-Partners-II/default.aspx
+    publisher: Securitize Corp. investor relations
+    title: Securitize Completes Business Combination with Cantor Equity Partners II
+    date: 2026-07-01
+    retrieved_at: 2026-10-03T05:17:45Z
+    tier: 2
+    covered_metrics: [SECZ.identity]
+    fixture: false
+  - id: securitize-sec-8ka-20260813-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/0001628280-26-056811-index.html
+    publisher: US SEC EDGAR
+    title: Securitize Corp. 8-K/A filing index; accession 0001628280-26-056811
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T05:17:45Z
+    tier: 1
+    covered_metrics: [SECZ.identity]
+    fixture: false
+  - id: securitize-sec-identity-ex991-20260813-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: Securitize via US SEC EDGAR
+    title: Securitize Inc. Q2 2026 financial statements; Note 1 and Note 20
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T05:17:45Z
+    tier: 1
+    covered_metrics: [SECZ.identity]
+    fixture: false
+  - id: stellar-lumens-docs-20260928-v1
+    version: 1
+    url: https://developers.stellar.org/docs/learn/fundamentals/lumens
+    publisher: Stellar Development Foundation
+    title: Lumens (XLM); last updated 2026-09-28
+    date: 2026-09-28
+    retrieved_at: 2026-10-03T05:17:45Z
+    tier: 2
+    covered_metrics: [XLM.identity]
+    fixture: false
+identities:
+  - id: UNI.identity@1-20261003
+    version: 1
+    asset: UNI
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-10-03
+    confidence: high
+    source_ids: [uniswap-uni-launch-20200916-v1]
+    identifier:
+      kind: erc20
+      name: Uniswap Protocol governance token
+      symbol: UNI
+      network: Ethereum mainnet
+      contract_address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+      exchange: null
+      cik: null
+    investability:
+      status: unverified
+      access_route: null
+      investor_eligibility: null
+      custody_review: null
+    limitations: >-
+      Official token identity, not Uniswap Labs equity. Current venue access,
+      jurisdiction, custody and bridged deployments have not been reviewed.
+      Genesis supply and planned inflation are not current observed supply or issuance.
+  - id: SECZ.identity@1-20261003
+    version: 1
+    asset: SECZ
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-10-03
+    confidence: high
+    source_ids: [securitize-combination-20260701-v1, securitize-sec-8ka-20260813-v1, securitize-sec-identity-ex991-20260813-v1]
+    identifier:
+      kind: common_stock
+      name: Securitize Corp. common stock
+      symbol: SECZ
+      network: null
+      contract_address: null
+      exchange: NYSE
+      cik: '0002094496'
+    investability:
+      status: unverified
+      access_route: NYSE-listed common stock; historical trading commencement 2026-07-02 confirmed in SEC filing
+      investor_eligibility: null
+      custody_review: null
+    limitations: >-
+      July 1 release alone planned July 2 trading; later SEC statements confirm
+      trading commenced. SEC accession filed August 13, not June 30 fiscal end
+      or July 8 period-of-report date. Current listing status, broker access,
+      share classes, dilution and any tokenized share contract/eligibility need
+      further review. Do not substitute predecessor CEPT or operating-subsidiary
+      historical shares for the listed parent security.
+  - id: XLM.identity@1-20261003
+    version: 1
+    asset: XLM
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-10-03
+    confidence: high
+    source_ids: [stellar-lumens-docs-20260928-v1]
+    identifier:
+      kind: native_asset
+      name: Stellar lumen
+      symbol: XLM
+      network: Stellar public network
+      contract_address: null
+      exchange: null
+      cik: null
+    investability:
+      status: unverified
+      access_route: null
+      investor_eligibility: null
+      custody_review: null
+    limitations: >-
+      Native XLM has no issuer or trustline. Do not assign an ERC-20 address
+      or conflate native XLM with a wrapped/SAC representation, SDF equity or
+      assets issued on Stellar. Venue access, custody and personal eligibility
+      remain unreviewed. Network use does not establish holder value capture.
+review:
+  reviewer: Codex primary-source desk review; not a human sign-off
+  reviewed_at: 2026-10-03T05:17:45Z
+  rationale: >-
+    Read original UNI launch identity, SECZ completion announcement, SEC filing
+    index and subsequent-event note, and dated Stellar documentation. Identifier
+    observations only. Investability remains unverified and all unknown access
+    and custody fields remain null. No registry promotion or financial data apply.

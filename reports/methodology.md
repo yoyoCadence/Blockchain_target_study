@@ -20,7 +20,7 @@ All numbers use IEEE-754 doubles. Regression tolerances are relative 1e-9; this 
 
 Volume → protocol fee → accrual/burn → distribution/dilution → net holder economic accrual. The engine separately includes crypto, tokenized equity, other RWA, Unichain, MEV and other accrual; no stream is automatically assumed to exist in production.
 
-Growth distribution = annual UNI growth budget × UNI price. The 20M UNI/year seed is a user-provided unverified assumption, not independently validated evidence. Net accrual subtracts growth distribution and other dilution; net burn yield divides by market cap.
+Growth distribution = annual UNI growth budget × UNI price. The fixture seed remains the original user-provided assumption. Production now contains a separately verified historical 20M UNI/year authorization rate effective 2026-01-01; the original null assumption is retained and explicitly superseded. The budget-price formula models the authorization's economic burden, not observed realized spending. Net accrual subtracts growth distribution and other dilution; net burn yield divides by market cap. See [budget evidence and limitations](uni-growth-budget-baseline.md).
 
 The prompt-specified required-share formula is retained exactly: (required accrual + growth distribution) / (TAM × turnover × onchain share × AMM share × effective fee). It is a conservative standalone tokenized-equity revenue hurdle. It does not offset other accrual and does not include other dilution. A separately labeled full-net formula includes other dilution and subtracts all other accrual streams. A negative full-net required share means those modeled streams already exceed the hurdle; it is not a negative realized market share.
 

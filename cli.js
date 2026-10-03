@@ -3,16 +3,19 @@ import {loadProject,calculate,lineage,readYaml} from './engine/index.js';
 import {readSnapshots,makeSnapshot,saveSnapshot,compareSnapshots,assertVersionHistory} from './engine/snapshots.js';
 import {applyEvent} from './engine/propagation/index.js';
 import {prepareResearchRefresh,applyResearchRefresh} from './engine/research/index.js';
+import {reviewIdentities} from './engine/research/identities.js';
 const [command='validate',...args]=process.argv.slice(2);
 const mode=args.includes('--production')?'production':'fixture';
 try {
- if(command==='research-preview'||command==='research-apply') {
+ if(['research-preview','research-apply','identity-review'].includes(command)) {
   if(mode!=='production') throw new Error('Research commands require --production');
   if(!args[0]||args[0].startsWith('--')) throw new Error(`Use node cli.js ${command} path/to/reviewed-research.yaml --production`);
  }
  const project=loadProject(mode),history=readSnapshots(project.root,mode);
  const result=calculate(project,{history,previousThesis:history.at(-1)?.thesis||{}});
- if(command==='validate') {
+ if(command==='identity-review') {
+  console.log(JSON.stringify(reviewIdentities(project,readYaml(args[0],process.cwd())),null,2));
+ } else if(command==='validate') {
   assertVersionHistory(history.at(-1),project);
   for(const id of Object.keys(result.metrics)) lineage(project,result,id);
   // Validate both canonical data modes even when the selected mode is fixture.
@@ -40,5 +43,5 @@ try {
  } else if(command==='report') {
   const lines=['# Current thesis', '', `Mode: ${mode.toUpperCase()}${result.fixture?' — SYNTHETIC, NOT MARKET DATA':''}`,`Period: ${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}: ${t.state}`,`Coverage: ${t.coverage}. ${t.interpretation}`,...t.triggered_rules.map(r=>`- ${r.id}: ${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
- } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, report');
+ } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, report');
 } catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}

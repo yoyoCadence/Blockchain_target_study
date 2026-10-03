@@ -1,0 +1,56 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [version, id, as_of_date, purpose, sources, identities, review]
+properties:
+  version: {type: integer, minimum: 1}
+  id: {type: string, minLength: 1}
+  as_of_date: {type: string, format: date}
+  purpose: {type: string, minLength: 1}
+  sources: {type: array, items: {type: object}, minItems: 1}
+  identities:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, classification, fixture, as_of_date, confidence, source_ids, identifier, investability, limitations]
+      properties:
+        id: {type: string, minLength: 1}
+        version: {type: integer, minimum: 1}
+        asset: {type: string, minLength: 1}
+        classification: {const: OBSERVED}
+        fixture: {const: false}
+        as_of_date: {type: string, format: date}
+        confidence: {enum: [high, medium, low]}
+        source_ids: {type: array, minItems: 1, uniqueItems: true, items: {type: string, minLength: 1}}
+        identifier:
+          type: object
+          additionalProperties: false
+          required: [kind, name, symbol, network, contract_address, exchange, cik]
+          properties:
+            kind: {enum: [erc20, native_asset, common_stock]}
+            name: {type: string, minLength: 1}
+            symbol: {type: string, minLength: 1}
+            network: {type: [string, 'null']}
+            contract_address: {type: [string, 'null']}
+            exchange: {type: [string, 'null']}
+            cik: {type: [string, 'null']}
+        investability:
+          type: object
+          additionalProperties: false
+          required: [status, access_route, investor_eligibility, custody_review]
+          properties:
+            status: {const: unverified}
+            access_route: {type: [string, 'null']}
+            investor_eligibility: {type: 'null'}
+            custody_review: {type: 'null'}
+        limitations: {type: string, minLength: 1}
+  review:
+    type: object
+    additionalProperties: false
+    required: [reviewer, reviewed_at, rationale]
+    properties:
+      reviewer: {type: string, minLength: 1}
+      reviewed_at: {type: string, format: date-time}
+      rationale: {type: string, minLength: 1}

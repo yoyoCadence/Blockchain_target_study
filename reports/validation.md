@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 core identifier review
+
+- `npm test`: **83 passed, 0 failed**, including 18 identity dossier/CLI checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- The committed primary-source identity dossier validates through the read-only CLI. Tests retain exact financial results, input/source project state and snapshot identity before/after review.
+- Rejections cover missing/fixture/low-tier evidence, coverage, dates, wrong contract/CIK, stock versus token representation, unknown/duplicate assets and attempted investability promotion.
+- No financial formulas, numerical inputs, asset registry, graph or UI changes. Corrected a nonexistent metric reference in the initial new test before the successful full run.
+
 ## 2026-10-03 historical UNI budget baseline
 
 - `npm test`: **65 passed, 0 failed**, including three committed production-baseline regressions.
