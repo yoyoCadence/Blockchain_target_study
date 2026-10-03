@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — 繁體中文介面
+
+PR #28 的 push／PR／合併後 CI 均通過，已合併（`b49c83b`）。使用者再次授權持續完成，並要求中文版；本項優先補齊 MVP 呈現層。`feat/traditional-chinese-dashboard` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與 GitHub 遠端確認。
+
+導航、標題、按鈕、狀態、84 個指標、單位、期間、血緣、研究／時效／版本變更皆中文化，使用 zh-TW 數字格式。新增 dashboard/zh-hant.js 僅包含顯示名稱與文字映射；伺服器 allowlist 送出該模組。四種分類與五種論點代碼保留，原始來源／規則／假設理由與完整 JSON 不翻寫；未知代碼保留原文。金融公式、數字、門檻、engine／spec／data／快照未改。證據不足的中文警語仍與 HEALTHY 狀態分開，沒有買賣訊號。
+
+實際 Browser 驗證網址 http://127.0.0.1:4831/：桌面 CSS 1536×729、手機 CSS 390×844（另測更窄 312×675），scrollWidth 均不超過 innerWidth。核對標題／內容、無框架錯誤遮罩、無應用 console error/warn；中文血緣保留紀錄 ID／分類／公式 AST，UNI 情境費率 0.0002 由 API 重算顯示 26.375%，還原 42.2%。正式資料切換、三項 TTM 未知與收購可比性未確認、目前／歷史時效、未來日中文錯誤／清空／重試、Enter 查詢均通過。從 DOM 取得的完整 TTM JSON 與原檔、時效 JSON 與同 cutoff API 完全一致；84 個中文名稱完整覆蓋 dictionary。
+
+Browser 可使用，未切 Playwright。一次 CUA 捲動命令逾時；使用文件支援的正常導航與新驗證 tab 收尾，最終手機／來源時效截圖已核對，未將舊畫面當新結果。圖片與原始 QA 檔案保留系統 temp/blockchain-zh-qa29，未提交。暫時 viewport 已重設，QA tabs 關閉；核對 port owner 8880 的 node server.js 後停止，確認無 listener／process。
+
+驗證：最終 npm test 407 passed、0 failed，兩模式 validate 84 metrics／25 formulas／0 errors/warnings，未知 1／83；syntax／diff checks 通過。既有 API 測試增查中文模組路由與 MIME；初次 406 passed、1 failed 是新檢查誤寫 application/javascript，已對齊專案原有 text/javascript，產品模組原本正常送出。遠端 CI／合併狀態以 PR 實際結果為準。尚未測 Firefox／Safari 或所有手機寬度；正式 baseline、五份同期間快照／TTM null 與原缺口仍保留，子項完成不代表 baseline 完成。
+
 ## 2026-10-04 — SECZ 母公司歷史股本範圍
 
 PR #27 push／PR CI 全部通過，已 match-head 合併（`f00b0d9`）。`research/secz-parent-capital-context` 從最新 origin/main 建立，原工作目錄乾淨；收尾前再次 fetch 確認 main 未變。選擇首項 baseline 同步估值前可獨立查證的母公司股本 context，限定 dated source-only evidence。

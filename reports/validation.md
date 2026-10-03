@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-04 繁體中文介面
+
+- 最終 `npm test`：**407 通過、0 失敗**；兩模式 validate：84 metrics、25 formulas、0 errors/warnings，未知 1／83。語法／diff 檢查通過。
+- 中文模組路由與既有金融／研究／歷史 API 回歸通過。初次新 MIME 檢查預期誤用 application/javascript，對齊既有 text/javascript 後全套通過；產品模組與數據未受影響。
+- Browser 實測 http://127.0.0.1:4831/，桌面 CSS 1536×729／手機 CSS 390×844，另測 312×675；頁面身份／內容／無遮罩／無應用 console error/warn／無水平溢出通過。
+- 中文血緣、UNI 情境重算 26.375%／還原 42.2%、正式資料／三個 TTM 未知、收購判斷未確認、手動時效目前／歷史／未來錯誤與重試、Enter 查詢通過。實際 DOM 的完整 TTM／時效 JSON 與原檔／同 cutoff API 完全一致，84 指標標籤覆蓋完整。
+- 手機與桌面截圖已檢查。一次 CUA 捲動逾時，正常導航／新驗證 tab 後完成；未使用 fallback。Viewport／tabs／已核對 PID 的 QA server 清理，未提交暫存圖片／腳本。
+- engine／spec／data 無差異，所有來源／公式／thesis／歷史保留；未測 Firefox／Safari 與所有寬度，完整 baseline 仍未完成。
+
 ## 2026-10-04 SECZ dated parent capital context
 
 - `npm test`: **407 passed, 0 failed**; four new committed-evidence regressions. The 36 targeted capital/date checks pass.

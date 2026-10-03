@@ -12,6 +12,7 @@
 - [x] Dashboard with source, formula, period, classification and historical inspection.
 - [x] Deterministic regressions, schema/temporal/lineage/thesis/API tests.
 - [x] README, methodology, current thesis and changelog.
+- [x] 繁體中文介面：導航、84 個指標、操作、血緣、研究及時效狀態中文化，保留原始分類／論點代碼及完整證據。驗收含實際桌面／手機操作、情境重算／還原、TTM 未知與原始 JSON 一致；金融／來源／歷史不變。
 
 ## NEXT
 
@@ -71,3 +72,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-03 continued authorization: proceed through prioritized, independently verifiable NEXT subtasks; publish ready Chinese PRs, merge after successful verification and continue. Unattended automation, scheduling, notifications and portfolio/return-loss models remain excluded.
 
 2026-10-03 baseline research constraints: SECZ quarterly flows and disclosed revenue categories cannot yet be mapped into the annual six-stream model without explicit period/category work; synchronized verified valuations and current access/custody checks are missing. Preserve nulls. Manual source freshness is independent and completed; automated collection, extra models and TAM expansion are deferred while the baseline remains incomplete.
+
+2026-10-04 最新授權：持續完成可獨立驗收的工作，產品介面及新增紀錄使用繁體中文；依既有授權提交中文非 Draft PR，驗證成功後合併並接續。原始來源、歷史紀錄與機器代碼保留，不擴大自動化或金融模型範圍。
