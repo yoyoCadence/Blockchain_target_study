@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-03 manual event knowledge/source chronology
+
+- `npm test`: **179 passed, 0 failed**, including ten event-date checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced future effective/as-of dates being accepted as completed; prepareEvent now rejects a future knowledge date and sources published after event as-of before recomputation/persistence.
+- Covered all statuses, source-only events, failure without journal writes, legitimate future planned effective dates and retrospective retrieval of historical receipt evidence.
+- The first full run caught an existing research test now rejected by the earlier event barrier. Aligned that test's event as-of with source publication while retaining an earlier observation as-of, preserving separate observation-level coverage; reran the full suite successfully.
+- No canonical data, formulas, assumptions, graph or snapshot history changed; all replay/API/UNI 0.422 regressions pass. Full baseline remains incomplete.
+
 ## 2026-10-03 shared observation/source chronology
 
 - `npm test`: **169 passed, 0 failed**, including ten shared publication-date checks.
