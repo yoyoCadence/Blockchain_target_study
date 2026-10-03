@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 annual-rate period validation
+
+- `npm test`: **112 passed, 0 failed**, with 15 additional normalization/research checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced an invalid six-stream quarterly SECZ sum carrying USD/year; normalization now rejects the mismatched input before economics/persistence.
+- Covered all five annual-rate units, quarterly/point rejection, legitimate annual/TTM/model, observed model rationale, unknown values, point prices/inventories and research failure without writes.
+- Financial formula versions and immutable history are unchanged; full replay/API/regression suite passes, including UNI 0.422. No automatic annualization or quarterly ingestion is claimed.
+
 ## 2026-10-03 manual source freshness
 
 - `npm test`: **97 passed, 0 failed**, including 14 freshness checks.

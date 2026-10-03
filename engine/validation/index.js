@@ -19,6 +19,10 @@ export function normalize(record, definition) {
  assert(out.unit===definition.unit,`Unit mismatch: ${out.metric_id}: ${out.unit} != ${definition.unit}`);
  assert(out.value===null||Number.isFinite(out.value),`Non-finite value: ${out.metric_id}`);
  if(out.value!==null) {
+  if(out.unit.endsWith('/year')) {
+   assert(['annual','TTM','model'].includes(out.period.basis),`Annual-rate unit ${out.unit} cannot use ${out.period.basis} period: ${out.metric_id}`);
+   if(out.classification==='OBSERVED'&&out.period.basis==='model') assert(out.rationale?.trim(),`Observed model annual rate requires rationale: ${out.metric_id}`);
+  }
   if(definition.minimum!==null) assert(out.value>=definition.minimum,`Below minimum: ${out.metric_id}`);
   if(definition.maximum!==null) assert(out.value<=definition.maximum,`Above maximum: ${out.metric_id}`);
  }

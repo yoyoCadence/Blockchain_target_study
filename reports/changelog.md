@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — Annual-rate input period validation
+
+- Reject known annual-rate inputs tagged quarterly/point, preventing quarterly totals from silently entering USD/year or other annual-rate calculations.
+- Require rationale for observed model annual rates; retain unknowns, valid annual/TTM/model rates and point prices/inventories.
+- Added 15 checks and retained formula accounting-basis coverage. Full suite 112 passed; both modes validate; financial formulas, canonical observations and historical snapshots are unchanged.
+- Quarterly raw-data ingestion and revenue-category mapping remain pending; this correction does not annualize data.
+
 ## 2026-10-03 — Manual source freshness
 
 - Added read-only freshness CLI and explicit versioned analyst policy, separating observation as-of, publication and retrieval ages.
