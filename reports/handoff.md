@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — Canonical 未來證據日期防線
+
+PR #15 遠端 CI 全部通過後已合併（`0d01067`）。`fix/future-canonical-evidence` 從最新 origin/main 建立，原工作目錄乾淨。以純記憶體重現直接 canonical validation 接受 2099 OBSERVED as-of 與 retrieval；一般 source-only event 也缺精確 retrieval 現在時間防線。優先修復可独立驗收的 baseline 證據屏障。
+
+共用驗證每次擷取一次 now，OBSERVED 使用當前 UTC 日上限，來源取得使用精確 instant 上限，涵蓋 null／fixture／未引用来源與直接 load/API。保留 retrospective retrieval、原始時區文字、分析者假設／情境及 planned/announced 未來 effective date；沒有 financial formula／assumption／data／history/artifact 變更。
+
+驗證：267 tests passed、0 failed；兩模式 validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。13 項新增回歸包含直接隔離檔案載入／API 400、source-only apply 無寫入及時區／精度邊界。既有 source-after-event 測試改用歷史來源，獨立維持原屏障 coverage。首輪兩項誤引用未儲存 production price，改為隔離 fixture 後完整重跑；未補造正式值。無 UI 修改，未另做瀏覽器驗證。遠端 CI 以 PR 實際結果為準。
+
+父 baseline 仍未完成，research 依賴與 83 個金融 Unknown 保留。日期防線依赖環境時鐘，不能代替來源內文查證；尚待 MG Stover 名稱差異／TTM、六類 mapping、margin／FCF、同步母公司估值、UNI realized capture／現況及個人投資管道。詳見 [未來證據日期](future-canonical-evidence.md)。
+
 ## 2026-10-03 — 唯讀研究證據 API／Dashboard
 
 PR #14 遠端 CI 全部通過後已合併（`a4793c1`）。`feat/research-inspection` 從最新 origin/main 建立，原工作目錄乾淨。選擇 baseline 的独立審閱子項，把已完成的身份／財報／TTM research artifacts 帶入 Dashboard，以便直接檢查來源、判斷與未知原因；未越過尚未滿足的金融 ingest 依賴。

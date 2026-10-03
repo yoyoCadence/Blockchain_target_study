@@ -24,6 +24,7 @@ npm run validate -- --production
 Windows Codex 沙箱若回報 `spawn EPERM`，需使用允許建立測試子程序的環境執行測試。這是環境權限問題。
 
 來源取得與人工 review 的帶時區時間戳會先換算 [UTC 日](reports/utc-research-chronology.md)再比較知識日期，原始 offset／時間文字保留。
+Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚於當前 UTC 日的 OBSERVED as-of，以及晚於現在精確時間的來源取得；明示情境／假設與計畫 effective date 仍分開。
 
 ## 資料品質：請先閱讀
 

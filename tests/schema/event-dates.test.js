@@ -39,9 +39,9 @@ test('failed future completed event apply never writes a journal',t=>{
 });
 
 for(const status of ['completed','announced']) test(`${status} source-only event rejects evidence published after its as-of`,()=>{
- const source={...project.sources.find(s=>s.id===event.source_ids[0]),id:'future-source-test',version:1,date:'2099-01-01',retrieved_at:'2099-01-02T00:00:00Z'};
+ const source={...project.sources.find(s=>s.id===event.source_ids[0]),id:'future-source-test',version:1,date:'2026-01-03',retrieved_at:'2026-01-04T00:00:00Z'};
  delete source.supersedes;
- const updated={...event,status,as_of_date:new Date().toISOString().slice(0,10),effective_date:'2025-12-27',sources:[source],source_ids:[source.id]};
+ const updated={...event,status,as_of_date:'2026-01-02',effective_date:'2025-12-27',sources:[source],source_ids:[source.id]};
  assert.throws(()=>prepareEvent(project,updated),/Event source published after event as-of/);
 });
 

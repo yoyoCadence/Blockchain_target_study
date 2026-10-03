@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-03 canonical current-time evidence guard
+
+- `npm test`: **267 passed, 0 failed**, including 13 future-evidence regressions.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reproduced acceptance of future canonical OBSERVED knowledge/retrieval dates; reject them in shared validation before loads, API responses or generic-event persistence.
+- Covered known/null values, both modes, unused sources, UTC day and exact-offset instant boundaries, explicit future assumptions/scenarios, direct temporary-file loads/API 400 and no journal writes.
+- Preserved retrospective retrieval, planned future effective dates, all financial formulas/data and complete historical/research replay. Adjusted event publication tests to historical evidence and corrected two initial test-only references to an unstored production price before the successful full run. No UI changes or additional browser verification.
+
 ## 2026-10-03 read-only research evidence inspection
 
 - `npm test`: **254 passed, 0 failed**, including nine inspection/API regressions.

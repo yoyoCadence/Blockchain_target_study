@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — Canonical current-time evidence guard
+
+- Reject future OBSERVED as-of dates and source retrieval instants in shared canonical validation, covering direct loads/API and generic events as well as fixture/null/unused evidence.
+- Preserve explicit analyst forecasts, future planned effective dates, retrospective retrieval and original timestamp precision; no financial or historical evidence changes.
+- Added 13 regressions; full suite 267 passed and both modes validate. Complete production baseline remains open.
+
 ## 2026-10-03 — Read-only research evidence inspection
 
 - Added an explicit hash-pinned local catalog, schema and complete review replay behind a GET-only research API.
