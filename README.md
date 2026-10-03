@@ -150,6 +150,8 @@ node cli.js event path/to/reviewed-event.yaml --production
 node cli.js report --production
 ```
 
+論點報告寫入 `reports/current-thesis.md`，使用繁體中文，保留原始論點代碼與觸發規則原文，另外標示證據不足。未指定 `--production` 時仍使用合成示範工作區；產生報告不會追加或修改金融資料／快照。
+
 人工審查的一手來源研究更新可先預覽，再使用預覽 digest 明確套用；完整格式、來源要求與剩餘研究驗收見 [研究更新流程](reports/research-refresh.md)。
 
 ```powershell

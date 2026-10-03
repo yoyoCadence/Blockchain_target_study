@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 繁體中文 CLI 論點報告
+
+PR #31 的兩組 CI 通過後合併（`6122cb8`）。`feat/traditional-chinese-thesis-report` 從最新 origin/main 建立，工作目錄乾淨，單一 worktree 與遠端確認。接續使用者中文版要求，限定修正 CLI report 的呈現文字。
+
+報告沿用既有 dashboard/zh-hant.js 的純呈現詞彙；中文化工作區、模型期間、狀態／代碼、證據覆蓋與解釋，保留每個觸發規則 ID 與標示為原文的說明。保留合成資料標記，HEALTHY 且證據不足時仍明示不能據此認定健康。報告維持原路徑及模式選擇；已存示範報告重生為中文，原 2025-12-31 期間及 XLM WATCH 不變。
+
+在暫存目錄實際執行 Fixture／Production CLI report，逐項與引擎的期間、狀態、證據覆蓋、解釋及全部觸發規則核對，兩模式歷史 hash 完全一致。完整 npm test 432 通過、0 失敗，兩模式 validate 84 指標／25 公式／0 錯誤與警告，未知 1／83；diff 檢查通過。本項是文字呈現，未新增重複字串測試或 UI QA，未修改 Dashboard／engine／spec／data／sources／快照。遠端 CI／合併狀態以 PR 實際結果為準。
+
+原始觸發規則原文不翻寫，機器 JSON 欄位／代碼保留。正式三項 TTM null、六份同模型期快照、83 個金融未知與父 baseline 缺口仍在；本項不新增金融結論或投資訊號。
+
 ## 2026-10-04 — 已存事件節點範圍
 
 PR #30 的 push／PR CI 均通過後合併（`22c27a8`）。`fix/saved-event-scope` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。選擇手動研究流程的已存事件範圍一致性修正：暫存副本中不存在節點被 preparation 拒絕，但同步 event／snapshot 並重算 hash 後 load 接受，修正前兩模式回歸均失敗。
