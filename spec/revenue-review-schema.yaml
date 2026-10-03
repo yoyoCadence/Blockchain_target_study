@@ -28,18 +28,27 @@ properties:
       entity_name: {type: string, minLength: 1}
       scope: {const: operating_subsidiary_consolidated}
       accounting_basis: {const: US_GAAP}
-      audit_status: {const: unaudited}
+      audit_status: {enum: [unaudited, audited]}
+      audit:
+        type: object
+        additionalProperties: false
+        required: [auditor, report_date, source_ids]
+        properties:
+          auditor: {type: string, minLength: 1}
+          report_date: {type: string, format: date}
+          source_ids: *source_ids
       fiscal_year_end: {const: '12-31'}
       filing:
         type: object
         additionalProperties: false
         required: [form, accession, registrant_cik, filing_date, period_of_report, financial_issuance_date]
         properties:
-          form: {const: 8-K/A}
+          form: {enum: [8-K/A, S-1]}
           accession: {type: string, pattern: '^\d{10}-\d{2}-\d{6}$'}
           registrant_cik: {type: string, pattern: '^\d{10}$'}
           filing_date: {type: string, format: date}
-          period_of_report: {type: string, format: date}
+          period_of_report: {type: [string, 'null'], format: date}
+          body_as_filed_date: {type: string, format: date}
           financial_issuance_date: {type: string, format: date}
       limitations: {type: string, minLength: 1}
   periods:
@@ -51,7 +60,7 @@ properties:
       required: [id, basis, start, end, duration_months, fiscal_year, fiscal_quarter]
       properties:
         id: {type: string, minLength: 1}
-        basis: {enum: [quarterly, year_to_date]}
+        basis: {enum: [quarterly, year_to_date, annual]}
         start: {type: string, format: date}
         end: {type: string, format: date}
         duration_months: {enum: [3, 6, 9, 12]}

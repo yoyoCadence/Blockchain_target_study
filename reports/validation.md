@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-03 SECZ audited annual reported revenue
+
+- `npm test`: **159 passed, 0 failed**, including 11 annual/audit/context checks.
+- Both validate modes: 84 metrics, 25 formulas, 0 errors/warnings; unknown 1 (fixture), 83 (production).
+- Reconciled six full-year reported category/total values and preserved exact fiscal intervals, audit evidence, issuance date and filing-index/cover date difference. Missing S-1 Period of Report remains null.
+- Rejected short intervals tagged annual, missing/inconsistent audit evidence, mixed audited quarter scope and invalid filing dates.
+- Both annual and pre-existing quarterly research artifacts replay embedded versions exactly; the previous quarterly content hash and canonical financial journal/economics remain unchanged.
+- Cross-filing revisions/comparability and TTM/six-stream canonical ingestion remain unverified.
+
 ## 2026-10-03 SECZ comparable reported revenue
 
 - `npm test`: **148 passed, 0 failed**, including 33 revenue dossier/formula/CLI checks.

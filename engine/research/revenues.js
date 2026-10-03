@@ -49,11 +49,20 @@ export function reviewRevenues(project,dossier,{formulas=readYaml('spec/revenue-
  const statement=dossier.statement,filing=statement.filing;
  evidence(statement,'SECZ.financial_statement');
  assert(statement.entity_name.trim()&&statement.limitations.trim(),'Statement scope needs name and limitations');
- assert(filing.period_of_report<=filing.filing_date&&filing.financial_issuance_date<=filing.filing_date,'Filing precedes report/financial issuance');
+ assert((filing.period_of_report===null||filing.period_of_report<=filing.filing_date)&&filing.financial_issuance_date<=filing.filing_date,'Filing precedes report/financial issuance');
+ assert(filing.form!=='8-K/A'||filing.period_of_report!==null,'8-K/A requires its reported event date');
+ assert(!filing.body_as_filed_date||filing.body_as_filed_date<=filing.filing_date,'Body as-filed date after filing index date');
  assert(filing.filing_date<=statement.as_of_date,'Statement as-of precedes filing');
+ if(statement.audit_status==='audited') {
+  assert(statement.audit?.auditor.trim(),'Audited statement requires audit evidence');
+  evidence({as_of_date:statement.as_of_date,source_ids:statement.audit.source_ids},'SECZ.financial_statement');
+  assert(statement.audit.report_date<=filing.financial_issuance_date,'Audit report after financial issuance');
+  assert(dossier.periods.every(p=>p.basis==='annual'),'Audited annual dossier requires annual intervals');
+ } else assert(!statement.audit,'Unaudited statement cannot claim an audit report');
  const periods=Object.fromEntries(dossier.periods.map(p=>[p.id,p]));
  for(const period of dossier.periods) {
   const {fiscal_year:year,fiscal_quarter:quarter,basis}=period;
+  assert(basis!=='annual'||quarter===4,'Annual interval requires fiscal year end');
   const start=utcDay(Date.UTC(year,basis==='quarterly'?(quarter-1)*3:0,1));
   const end=utcDay(Date.UTC(year,quarter*3,0));
   assert(period.start===start&&period.end===end&&period.duration_months===(basis==='quarterly'?3:quarter*3),'Invalid calendar fiscal interval/duration');
