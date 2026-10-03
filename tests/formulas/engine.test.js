@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {project,change} from '../helpers.js';
 import {calculate,validateProject} from '../../engine/index.js';
 import {sensitivity,matrix} from '../../engine/sensitivity/index.js';
+import {checkPeriods} from '../../engine/validation/index.js';
 test('zero denominators become explicit errors, never Infinity or zero substitutes',()=>{
  const r=calculate(change(project(),'secz.fcf_margin',0));assert.equal(r.metrics['secz.required_revenue'].value,null);assert.ok(r.issues.some(x=>x.severity==='ERROR'&&x.message==='Division by zero'));
 });
@@ -25,7 +26,8 @@ test('cycles, unknown dependencies and arbitrary expression code are rejected',(
  p=project();p.registry.formulas[0].expression={op:'eval',args:['process.exit()']};assert.throws(()=>validateProject(p),/Invalid project registries/);
 });
 test('quarterly/annual, shifted fiscal endpoints and wrong prior years cannot mix',()=>{
- let p=project();change(p,'secz.tokenization',20e6,{period:{basis:'quarterly',end:'2025-12-31'}});let r=calculate(p);assert.ok(r.issues.some(x=>x.message.includes('accounting bases')));
- p=project();change(p,'secz.servicing',30e6,{period:{basis:'annual',end:'2025-09-30'}});r=calculate(p);assert.ok(r.issues.some(x=>x.message.includes('Unaligned')));
+ let p=project();change(p,'secz.tokenization',20e6,{period:{basis:'quarterly',end:'2025-12-31'}});assert.throws(()=>calculate(p),/Annual-rate unit/);
+ assert.throws(()=>checkPeriods({id:'mixed-flow-test',period_policy:'compatible'},[{period:{basis:'quarterly',end:'2025-12-31'}},{period:{basis:'annual',end:'2025-12-31'}}]),/accounting bases/);
+ p=project();change(p,'secz.servicing',30e6,{period:{basis:'annual',end:'2025-09-30'}});let r=calculate(p);assert.ok(r.issues.some(x=>x.message.includes('Unaligned')));
  p=project();change(p,'secz.prior_revenue',80e6,{period:{basis:'annual',end:'2023-12-31'}});r=calculate(p);assert.ok(r.issues.some(x=>x.message.includes('Non-comparable')));
 });

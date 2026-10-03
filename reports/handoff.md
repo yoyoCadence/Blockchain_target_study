@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 年率單位與期間防線
+
+PR #4 CI 成功後已合併（`7f09c16`）；分支 `fix/annual-rate-period-validation` 從該最新 origin/main 建立，工作目錄乾淨。接續 baseline 期間障礙，在 synthetic fixture 重現六個季度 SECZ 示範收入可產生 USD/year 加總的錯誤標籤，完成可獨立驗收的輸入防線。
+
+共同 normalize 拒絕已知 `/year` input 使用 quarterly／point；annual／TTM／model 保留，OBSERVED model 年率必須有 rationale。null 與 point 價格／存量仍合法。沒有年化、改寫來源／分類、修改公式或既有 fixture／production history；錯誤 research proposal 會在寫入前拒絕。
+
+驗證：112 tests passed／0 failed；fixture／production validate 84 metrics、25 formulas、0 errors／warnings，unknown 1／83。新增 15 項檢查，涵蓋五個年率單位、合法期間、unknown、model rationale、價格／存量及研究失敗不寫入。原先 mixed-basis 測試調整為輸入提前拒絕，並繼續直接驗證 formula accounting-basis 檢查。UNI 0.422、完整歷史重播與 API 回歸均通過。遠端 CI 另於 PR 確認。
+
+子項完成，父 baseline 與季度 ingestion 尚未完成：仍需原始期間／YoY-QoQ／收入分類對照、同步估值、現行可投資性及 UNI 執行後 fee-path 證據。驗證器不驗證來源內文；不能靠把季度資料改成 TTM metadata 取得正確年度值。詳見 [期間防線](annual-rate-period-validation.md)。
+
 ## 2026-10-03 — 手動來源時效分析
 
 PR #3 CI 全部成功後已合併（`0e079f6`）；分支 `feat/manual-source-freshness` 從該最新 origin/main 建立，工作目錄乾淨。完整 baseline 尚缺年度／季度收入分類與可比期對照、同步估值及現行可投資性查證，因此保留 null，接續獨立的 NEXT 時效子項。

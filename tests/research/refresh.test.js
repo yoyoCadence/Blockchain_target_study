@@ -161,6 +161,7 @@ for(const [name,edit,pattern] of [
  ['wrong coverage',b=>{b.sources[0].covered_metrics=['uni.price'];},/Source does not cover/],
  ['assumption posing as research',b=>{b.observations[0].classification='ASSUMPTION';b.observations[0].rationale='Not verified';},/only accepts observations/],
  ['incorrect unit',b=>{b.observations[0].unit='ratio';},/Unit mismatch/],
+ ['quarterly amount labeled as annual rate',b=>{b.observations[1].period.basis='quarterly';},/Annual-rate unit/],
  ['unmatched period',b=>{b.observations[0].period.end='2025-11-30';},/Cannot snapshot calculation errors/],
  ['missing supersession',b=>{delete b.observations[1].supersedes;},/explicitly supersede/],
  ['regressed version',b=>{b.observations[1].version=1;},/Non-monotonic supersession/],
