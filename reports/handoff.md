@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — SECZ 母公司歷史股本範圍
+
+PR #27 push／PR CI 全部通過，已 match-head 合併（`f00b0d9`）。`research/secz-parent-capital-context` 從最新 origin/main 建立，原工作目錄乾淨；收尾前再次 fetch 確認 main 未變。選擇首項 baseline 同步估值前可獨立查證的母公司股本 context，限定 dated source-only evidence。
+
+保存母公司 10-Q cover／explanatory note／合併前 balance sheet／Note 5、S-1 Exhibit 5.1 與兩個 SEC indices，另保留未完整核對的 S-1 indexed offering-table 衝突。區分 dated issued 股數、已包含的 sponsor restrictions、conditional earnout、plan reserve、warrant／option／RSU 與 resale registration。保留 7/30 acceptance／opinion 與 7/31 filing 日期、6,250,000／7,088,616 類別未調節及 indexed 314,834,209 的閱讀限制，不選成現在／FDV denominator。沒有使用 pre-closing USD 1 cash／10,000 shares 估算 combined parent。
+
+既有 governance source-only event 追加五份來源版本及完整 snapshot `ba6d00d12f57a40fb017ffdf6e0b473d05b9e1e60f2abf6c23acf55b46037f49`，前四個 hash 原封保留；五份同模型期不是五期證據。知識日／review 為 UTC 10/3，開發交接日期為台北 10/4。金融／假設／formula／graph／market valuation／thesis 全部相同，83 unknown 與三個 formal TTM null 保留，catalog 不新增股本模型。
+
+四項新增資料綁定／版本／重播／null／Fixture 回歸通過。初次全套 391 passed、16 failed：舊 clock probes 固定 10/3 中午，新增下午 source retrieval 在該人工時鐘下合法被拒；僅將測試記憶體 baseline 的無關 retrieval 限在測試時鐘內，沒有改真實來源、正式 guard 或已存 event。36 targeted tests 重新通過；最終全套／兩模式結果見 [validation](validation.md)，遠端 CI／合併狀態以 PR 實際結果為準。無 UI 修改或新瀏覽器 QA。
+
+完整 baseline 未完成：current share movements／同步價格／post-close consolidated cash-debt、登記與 earnout 類別調節、SECZ legal naming／TTM／六類收入／FCF、個人管道與 UNI fee-origin／全期間 capture 仍待查證。S-1 全文超過 web reader 大小限制，只保留 indexed excerpt 的未驗證範圍；沒有以律師 opinion 替代獨立法律確認。本輪依「告一段落就停」指示在此子項 PR 流程後收尾，不接續下一項。詳見 [股本 context](secz-parent-capital-context.md)。
+
 ## 2026-10-03 — 已存更新知識日／DTCC 狀態
 
 PR #26 push／PR CI 全部通過，已 match-head 合併（`23aff08`）。`fix/saved-event-update-knowledge` 從最新 origin/main 建立，原工作目錄乾淨。已在 temp 副本重現 event as-of 1/1 可包含 observation as-of 10/3，matching/recomputed hash 仍可载入；選擇 baseline 的歷史知識／planned 狀態一致性修正。

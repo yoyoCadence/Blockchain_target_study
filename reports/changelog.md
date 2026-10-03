@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-04 — SECZ dated parent capital context
+
+- Preserve parent 10-Q issued-share dates, pre-closing financial scope, included restricted sponsor shares and separate conditional/reserved rights alongside Exhibit 5.1 resale categories.
+- Retain filing/opinion dates, unresolved earnout-category difference and indexed-only S-1 offering context; do not infer a current/fully diluted denominator, incremental issuance or market valuation.
+- Append five primary-publisher source versions and one source-only full snapshot; keep prior hashes, financial inputs/formulas/thesis/graph and three formal TTM nulls. Five snapshots still represent one model period.
+- Four new regressions and test-only isolation of noon clock probes from later research retrievals; final full suite 407 passed and both validate modes pass. Complete production baseline remains pending; this work session stops after the PR flow.
+
 ## 2026-10-03 — Shared saved-update knowledge/state guards
 
 - Reproduced saved events accepting observations whose knowledge dates postdated the event despite matching/recomputed hashes.

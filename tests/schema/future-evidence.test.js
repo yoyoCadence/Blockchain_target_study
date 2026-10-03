@@ -32,16 +32,23 @@ for(const classification of ['ASSUMPTION','SCENARIO']) test(`future ${classifica
  assert.equal(record.classification,classification);
 });
 
+function projectAtNoon(t) {
+ const project=loadProject('production'),instant=Date.parse('2026-10-03T12:00:00Z');
+ // Later appended evidence must not mask these isolated observation/source
+ // probes. Adjust only the in-memory baseline before freezing its clock.
+ for(const source of project.sources)if(Date.parse(source.retrieved_at)>instant)
+  source.retrieved_at='2026-10-03T12:00:00Z';
+ t.mock.method(Date,'now',()=>instant);return project;
+}
+
 test('observation boundary uses current UTC day and does not depend on local wall dates',t=>{
- const project=loadProject('production'),record=project.inputs.find(r=>r.classification==='OBSERVED');
- t.mock.method(Date,'now',()=>Date.parse('2026-10-03T12:00:00Z'));
+ const project=projectAtNoon(t),record=project.inputs.find(r=>r.classification==='OBSERVED');
  record.as_of_date='2026-10-03';assert.doesNotThrow(()=>validateProject(project));
  record.as_of_date='2026-10-04';assert.throws(()=>validateProject(project),/Observation as-of cannot be in the future/);
 });
 
 test('retrieval compares exact UTC instants while preserving original offset text',t=>{
- const project=loadProject('production'),source=project.sources[0];
- t.mock.method(Date,'now',()=>Date.parse('2026-10-03T12:00:00Z'));
+ const project=projectAtNoon(t),source=project.sources[0];
  source.retrieved_at='2026-10-03T00:30:00-13:00'; // 13:30 UTC: future despite earlier local clock.
  assert.throws(()=>validateProject(project),/Source retrieval cannot be in the future/);
  source.retrieved_at='2026-10-03T23:30:00+14:00'; // 09:30 UTC: already retrieved.
