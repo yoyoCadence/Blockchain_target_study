@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-03 — 共用觀察／來源日期驗證
+
+PR #8 CI 通過後已合併（`e7fe1f9`）。`fix/observation-source-dates` 從最新 origin/main 建立，原工作目錄乾淨。在 baseline 來源／期間工作中以純記憶體資料重現：canonical validator 接受 7 月觀察引用 8 月發布的來源；一般 event 也能繞過 research-refresh 已有日期檢查。此漏洞可獨立修正，優先補齊 ingest barrier。
+
+在共用 validateProject 增加 OBSERVED 的全部 source.date <= observation.as_of_date 檢查，涵蓋 canonical loads／普通手動事件、null 與 fixture。晚取得來源仍能用於回溯研究；期間與知識 as-of 分開保留，ASSUMPTION／SCENARIO 不提升成事實。未改公式、假設、來源／觀察或 immutable artifacts，未擴大自動化範圍。
+
+驗證：169 tests passed、0 failed；fixture／production validate 84 metrics、25 formulas、0 errors/warnings，unknown 1／83。十項新增驗證涵蓋 boundary、多來源、一般 event／apply 拒絕且不寫入、null、fixture 及分析者輸入；原資料包與 financial snapshots 完整重播保留。遠端 CI 以 PR 實際執行結果為準。
+
+父 baseline 未完成。後續可推進 SECZ 跨 filing presentation／更正沿革比較，才考慮 TTM；8/7 prospectus 的同主體年度收入表已做人工初讀，但本次未建立其正式版本或 comparability 結論。UNI fee-generated burn／現況、同步估值、六類收入 mapping 與個人投資管道仍未完成。詳見 [日期驗證](observation-source-dates.md)。
+
 ## 2026-10-03 — SECZ 已審計全年原始收入
 
 PR #7 遠端 CI 全部通過後合併（`44fe516`）。`research/secz-annual-revenue` 從最新 origin/main 建立，原工作目錄乾淨。延續 baseline 的可比期間前置工作，增量保存 2025／2024 已審計全年兩類分項與合計，共六筆 OBSERVED。

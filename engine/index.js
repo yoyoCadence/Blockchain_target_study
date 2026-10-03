@@ -57,6 +57,7 @@ export function validateProject(p) {
   if(m.classification==='OBSERVED') {
    const sources=m.source_ids.map(id=>{assert(sourceMap[id],`Missing source: ${id}`);return sourceMap[id];});
    assert(m.fixture||sources.some(s=>s.tier<5),`Tier 5 alone cannot support observation ${m.id}`);
+   assert(sources.every(s=>s.date<=m.as_of_date),`Source published after observation as-of: ${m.id}`);
    assert(sources.every(s=>s.covered_metrics.includes(m.metric_id)),`Source does not cover ${m.id}`);
    assert(m.fixture===sources.some(s=>s.fixture),`Fixture provenance mismatch: ${m.id}`);
   }
