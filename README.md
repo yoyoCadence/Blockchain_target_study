@@ -84,6 +84,8 @@ node cli.js revenue-ttm data/research/secz-ttm-20260630-review-v1.yaml data/rese
 
 [母公司認股權證條款](reports/secz-warrant-context.md)保存 Exhibit 4.1 修訂後的母公司權利及歸屬／行使區分，防止沿用舊子公司價格或重複換股；只追加來源，完整登記註腳、現況行使與估值仍未驗證。
 
+[轉售登記分類核對](reports/secz-resale-capital-reconciliation.md)已直接讀取 S-1 選定股數表及 50 列轉售／註腳，保存原始觀察、null 與版本化算術依賴。披露加總對上登記量，仍保留已發行 Sponsor 股重疊、earnout 差額及分類衝突；來源／完整快照追加，83 個金融未知與 TTM null 不改。目前固定介面研究目錄未包含此股本紀錄，可從報告連結閱覽。
+
 手動來源時效檢查分開顯示觀測 age、發布 age 與重新取得 age；門檻是明示分析者假設，不會改動財務值或 thesis。完整說明見 [來源時效](reports/source-freshness.md)。
 
 ```powershell

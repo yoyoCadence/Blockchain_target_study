@@ -1,0 +1,3178 @@
+{
+  "id": "f3bce7412757bc8e418b2c6b6afc2066886660a7a636ef78b320a44e59e4d693",
+  "schema_version": 1,
+  "kind": "secz_resale_capital_review",
+  "version": 1,
+  "mode": "production",
+  "fixture": false,
+  "as_of_date": "2026-10-04",
+  "review": {
+    "reviewer": "Codex 一手來源案頭審查；非人工簽核",
+    "reviewed_at": "2026-10-04T00:51:08Z",
+    "rationale": "直接讀取 SEC 原始 S-1 第 15 頁股數表、第 49 頁款項用途，以及第 129–135 頁轉售段落中的 50 列股數和第 7、8 註腳；對照申報費表、Exhibit 5.1 及 10-Q Note 5。只核對選定披露，非全文、法律或現行股本審查。"
+  },
+  "context": {
+    "entity": "Securitize Corp. 母公司普通股",
+    "unit_definition": "count = 母公司普通股股數，不是 USD、費用或已流通代幣",
+    "table_basis": "2026-07-01 closing-date 轉售表；common 含權證標的，earnout 含已發行 Sponsor 條件股",
+    "unknown_policy": "原始破折號保留 OBSERVED null；已披露 earnout 數值合計明示列集合，不是缺值填零或完整權利總數。",
+    "comparison_basis": "跨披露的機械類別調節，保留各 observation 原日期；DERIVED 的 7/31 對照日不代表同日完整股本或現在估值。",
+    "interpretation": "S-1 after/before 差額等於登記總數，仍不能把已發行轉售股、Sponsor 重疊權利及條件新發行全數加進現在股本。",
+    "unresolved": [
+      "Exhibit 5.1 把 7,088,616 股整體描述為可能發行 earnout，但 S-1 明細其中 1,800,000 是 10-Q 已發行的 Sponsor 條件股；分類差異保留。",
+      "排除 Sponsor 後轉售表披露 earnout 數值 5,288,616，與公司條件發行上限 6,250,000 相差 961,384；原因、完整分配及登記覆蓋未查證。",
+      "未逐一驗證全部 beneficial owner 歸屬、全部契約／法律意見或更正沿革；未確認目前行使、發行、股本、價格或可投資性。"
+    ],
+    "known_rows": 50
+  },
+  "sources": [
+    {
+      "id": "secz-parent-capital-10q-20260813-v1",
+      "version": 1,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026056788/secz-20260630.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Securitize Corp.",
+      "title": "Parent 10-Q cover, pre-closing balance sheet and Note 5 capital categories",
+      "date": "2026-08-13",
+      "retrieved_at": "2026-10-03T13:25:29Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.parent_capital_context_evidence"
+      ],
+      "fixture": false
+    },
+    {
+      "id": "secz-parent-capital-s1-index-20260731-v1",
+      "version": 1,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/0001628280-26-051182-index.htm",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "title": "S-1 index; July 31 filing versus July 30 acceptance and Exhibit 5.1",
+      "date": "2026-07-31",
+      "retrieved_at": "2026-10-03T13:25:29Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.parent_capital_context_evidence"
+      ],
+      "fixture": false
+    },
+    {
+      "id": "secz-parent-capital-opinion-20260731-v1",
+      "version": 1,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/exhibit51-sx1.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Davis Polk & Wardwell LLP",
+      "title": "July 30 Exhibit 5.1; issued resale shares versus conditional warrant/earnout shares",
+      "date": "2026-07-31",
+      "retrieved_at": "2026-10-03T13:25:29Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.parent_capital_context_evidence"
+      ],
+      "fixture": false
+    },
+    {
+      "id": "secz-resale-s1-selected-20260731-v1",
+      "version": 1,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/secz-20260731.htm",
+      "publisher": "美國證券交易委員會／Securitize Corp.",
+      "title": "S-1 選定股數表、50 列轉售登記及第 7／8 註腳直接閱讀；非全文或現況查證",
+      "date": "2026-07-31",
+      "retrieved_at": "2026-10-04T00:51:08Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.resale_capital_context_evidence",
+        "research.secz.resale.common-row01",
+        "research.secz.resale.earnout-row01",
+        "research.secz.resale.common-row02",
+        "research.secz.resale.earnout-row02",
+        "research.secz.resale.common-row03",
+        "research.secz.resale.earnout-row03",
+        "research.secz.resale.common-row04",
+        "research.secz.resale.earnout-row04",
+        "research.secz.resale.common-row05",
+        "research.secz.resale.earnout-row05",
+        "research.secz.resale.common-row06",
+        "research.secz.resale.earnout-row06",
+        "research.secz.resale.common-row07",
+        "research.secz.resale.earnout-row07",
+        "research.secz.resale.common-row08",
+        "research.secz.resale.earnout-row08",
+        "research.secz.resale.common-row09",
+        "research.secz.resale.earnout-row09",
+        "research.secz.resale.common-row10",
+        "research.secz.resale.earnout-row10",
+        "research.secz.resale.common-row11",
+        "research.secz.resale.earnout-row11",
+        "research.secz.resale.common-row12",
+        "research.secz.resale.earnout-row12",
+        "research.secz.resale.common-row13",
+        "research.secz.resale.earnout-row13",
+        "research.secz.resale.common-row14",
+        "research.secz.resale.earnout-row14",
+        "research.secz.resale.common-row15",
+        "research.secz.resale.earnout-row15",
+        "research.secz.resale.common-row16",
+        "research.secz.resale.earnout-row16",
+        "research.secz.resale.common-row17",
+        "research.secz.resale.earnout-row17",
+        "research.secz.resale.common-row18",
+        "research.secz.resale.earnout-row18",
+        "research.secz.resale.common-row19",
+        "research.secz.resale.earnout-row19",
+        "research.secz.resale.common-row20",
+        "research.secz.resale.earnout-row20",
+        "research.secz.resale.common-row21",
+        "research.secz.resale.earnout-row21",
+        "research.secz.resale.common-row22",
+        "research.secz.resale.earnout-row22",
+        "research.secz.resale.common-row23",
+        "research.secz.resale.earnout-row23",
+        "research.secz.resale.common-row24",
+        "research.secz.resale.earnout-row24",
+        "research.secz.resale.common-row25",
+        "research.secz.resale.earnout-row25",
+        "research.secz.resale.common-row26",
+        "research.secz.resale.earnout-row26",
+        "research.secz.resale.common-row27",
+        "research.secz.resale.earnout-row27",
+        "research.secz.resale.common-row28",
+        "research.secz.resale.earnout-row28",
+        "research.secz.resale.common-row29",
+        "research.secz.resale.earnout-row29",
+        "research.secz.resale.common-row30",
+        "research.secz.resale.earnout-row30",
+        "research.secz.resale.common-row31",
+        "research.secz.resale.earnout-row31",
+        "research.secz.resale.common-row32",
+        "research.secz.resale.earnout-row32",
+        "research.secz.resale.common-row33",
+        "research.secz.resale.earnout-row33",
+        "research.secz.resale.common-row34",
+        "research.secz.resale.earnout-row34",
+        "research.secz.resale.common-row35",
+        "research.secz.resale.earnout-row35",
+        "research.secz.resale.common-row36",
+        "research.secz.resale.earnout-row36",
+        "research.secz.resale.common-row37",
+        "research.secz.resale.earnout-row37",
+        "research.secz.resale.common-row38",
+        "research.secz.resale.earnout-row38",
+        "research.secz.resale.common-row39",
+        "research.secz.resale.earnout-row39",
+        "research.secz.resale.common-row40",
+        "research.secz.resale.earnout-row40",
+        "research.secz.resale.common-row41",
+        "research.secz.resale.earnout-row41",
+        "research.secz.resale.common-row42",
+        "research.secz.resale.earnout-row42",
+        "research.secz.resale.common-row43",
+        "research.secz.resale.earnout-row43",
+        "research.secz.resale.common-row44",
+        "research.secz.resale.earnout-row44",
+        "research.secz.resale.common-row45",
+        "research.secz.resale.earnout-row45",
+        "research.secz.resale.common-row46",
+        "research.secz.resale.earnout-row46",
+        "research.secz.resale.common-row47",
+        "research.secz.resale.earnout-row47",
+        "research.secz.resale.common-row48",
+        "research.secz.resale.earnout-row48",
+        "research.secz.resale.common-row49",
+        "research.secz.resale.earnout-row49",
+        "research.secz.resale.common-row50",
+        "research.secz.resale.earnout-row50",
+        "research.secz.resale.issued-before",
+        "research.secz.resale.stated-after",
+        "research.secz.resale.company-earnout-capacity",
+        "research.secz.resale.sponsor-issued-conditional"
+      ],
+      "fixture": false
+    },
+    {
+      "id": "secz-resale-fees-20260731-v1",
+      "version": 1,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/securitizefilingfees.htm",
+      "publisher": "美國證券交易委員會／Securitize Corp.",
+      "title": "S-1 申報費表之登記股數及 Rule 457(c) 歷史計費基準；非公司募資或目前市值",
+      "date": "2026-07-31",
+      "retrieved_at": "2026-10-04T00:51:08Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.resale_capital_context_evidence",
+        "research.secz.resale.registered-total"
+      ],
+      "fixture": false
+    },
+    {
+      "id": "secz-parent-capital-10q-20260813-v2",
+      "version": 2,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026056788/secz-20260630.htm",
+      "publisher": "美國證券交易委員會／Securitize Corp.",
+      "title": "10-Q Note 5：Sponsor 條件股已發行與公司 earnout 另行發行的範圍再次核對",
+      "date": "2026-08-13",
+      "retrieved_at": "2026-10-04T00:51:08Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.parent_capital_context_evidence",
+        "research.secz.resale.company-earnout-capacity",
+        "research.secz.resale.sponsor-issued-conditional"
+      ],
+      "fixture": false,
+      "supersedes": "secz-parent-capital-10q-20260813-v1"
+    },
+    {
+      "id": "secz-parent-capital-opinion-20260731-v2",
+      "version": 2,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/exhibit51-sx1.htm",
+      "publisher": "美國證券交易委員會／Davis Polk & Wardwell LLP",
+      "title": "Exhibit 5.1 已發行轉售、權證與 earnout 類別再次核對；法律意見分類差異保留",
+      "date": "2026-07-31",
+      "retrieved_at": "2026-10-04T00:51:08Z",
+      "tier": 1,
+      "covered_metrics": [
+        "secz.parent_capital_context_evidence",
+        "research.secz.resale.opinion-issued-resale",
+        "research.secz.resale.opinion-warrant-capacity",
+        "research.secz.resale.opinion-earmarked-earnout"
+      ],
+      "fixture": false,
+      "supersedes": "secz-parent-capital-opinion-20260731-v1"
+    }
+  ],
+  "rows": [
+    {
+      "row": 1,
+      "label": "Entities affiliated with Hanwha(2)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row01@1",
+      "earnout_observation_id": "secz-resale-earnout-row01@1",
+      "common_text": "15,689,509",
+      "earnout_text": "656,632"
+    },
+    {
+      "row": 2,
+      "label": "Entities affiliated with Blockchain Capital(3)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row02@1",
+      "earnout_observation_id": "secz-resale-earnout-row02@1",
+      "common_text": "9,831,423",
+      "earnout_text": "439,472"
+    },
+    {
+      "row": 3,
+      "label": "Entities affiliated with Borderless Capitall(4)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row03@1",
+      "earnout_observation_id": "secz-resale-earnout-row03@1",
+      "common_text": "9,474,995",
+      "earnout_text": "141,254"
+    },
+    {
+      "row": 4,
+      "label": "Entity affiliated with Morgan Stanley(5)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row04@1",
+      "earnout_observation_id": "secz-resale-earnout-row04@1",
+      "common_text": "8,159,412",
+      "earnout_text": "364,732"
+    },
+    {
+      "row": 5,
+      "label": "Entity affiliated with BlackRock, Inc. (6)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row05@1",
+      "earnout_observation_id": "secz-resale-earnout-row05@1",
+      "common_text": "7,279,327",
+      "earnout_text": "325,392"
+    },
+    {
+      "row": 6,
+      "label": "J DIGITAL 6 LLC(7)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row06@1",
+      "earnout_observation_id": "secz-resale-earnout-row06@1",
+      "common_text": "6,697,829",
+      "earnout_text": "299,398"
+    },
+    {
+      "row": 7,
+      "label": "Cantor EP Holdings II, LLC(8)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row07@1",
+      "earnout_observation_id": "secz-resale-earnout-row07@1",
+      "common_text": "6,580,000",
+      "earnout_text": "1,800,000"
+    },
+    {
+      "row": 8,
+      "label": "Carlos Domingo(9)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row08@1",
+      "earnout_observation_id": "secz-resale-earnout-row08@1",
+      "common_text": "5,919,513",
+      "earnout_text": "457,706"
+    },
+    {
+      "row": 9,
+      "label": "James H Finn(10)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row09@1",
+      "earnout_observation_id": "secz-resale-earnout-row09@1",
+      "common_text": "5,628,202",
+      "earnout_text": "278,906"
+    },
+    {
+      "row": 10,
+      "label": "Entities affiliated with Fifth Era(11)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row10@1",
+      "earnout_observation_id": "secz-resale-earnout-row10@1",
+      "common_text": "4,644,678",
+      "earnout_text": "127,158"
+    },
+    {
+      "row": 11,
+      "label": "Entities affiliated with Global Brain Corporation(12)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row11@1",
+      "earnout_observation_id": "secz-resale-earnout-row11@1",
+      "common_text": "4,592,447",
+      "earnout_text": "205,286"
+    },
+    {
+      "row": 12,
+      "label": "Entities affiliated with ParaFi Capital LP(13)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row12@1",
+      "earnout_observation_id": "secz-resale-earnout-row12@1",
+      "common_text": "3,063,727",
+      "earnout_text": "76,604"
+    },
+    {
+      "row": 13,
+      "label": "Tradeweb Markets LLC(14)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row13@1",
+      "earnout_observation_id": "secz-resale-earnout-row13@1",
+      "common_text": "2,877,392",
+      "earnout_text": "128,620"
+    },
+    {
+      "row": 14,
+      "label": "Mouro Capital I LP(15)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row14@1",
+      "earnout_observation_id": "secz-resale-earnout-row14@1",
+      "common_text": "2,829,814",
+      "earnout_text": "126,494"
+    },
+    {
+      "row": 15,
+      "label": "IDCV Multiple-Opportunities SPV K/S(16)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row15@1",
+      "earnout_observation_id": "secz-resale-earnout-row15@1",
+      "common_text": "2,669,542",
+      "earnout_text": "47,808"
+    },
+    {
+      "row": 16,
+      "label": "Ripple Labs, Inc. (17)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row16@1",
+      "earnout_observation_id": "secz-resale-earnout-row16@1",
+      "common_text": "2,557,348",
+      "earnout_text": "114,314"
+    },
+    {
+      "row": 17,
+      "label": "ASP-BSC Securitize (BVI) Ltd.(18)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row17@1",
+      "earnout_observation_id": "secz-resale-earnout-row17@1",
+      "common_text": "2,409,298",
+      "earnout_text": "107,696"
+    },
+    {
+      "row": 18,
+      "label": "2026 Elyashiv Family Trust(19)",
+      "page": 129,
+      "common_observation_id": "secz-resale-common-row18@1",
+      "earnout_observation_id": "secz-resale-earnout-row18@1",
+      "common_text": "2,285,458",
+      "earnout_text": "102,160"
+    },
+    {
+      "row": 19,
+      "label": "Alyeska Master Fund, LP(20)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row19@1",
+      "earnout_observation_id": "secz-resale-earnout-row19@1",
+      "common_text": "2,000,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 20,
+      "label": "Propel Horizon Holdings Limited(21)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row20@1",
+      "earnout_observation_id": "secz-resale-earnout-row20@1",
+      "common_text": "2,000,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 21,
+      "label": "MMCAP International Inc. SPC(221)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row21@1",
+      "earnout_observation_id": "secz-resale-earnout-row21@1",
+      "common_text": "1,970,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 22,
+      "label": "Canaan IX L.P. (23)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row22@1",
+      "earnout_observation_id": "secz-resale-earnout-row22@1",
+      "common_text": "1,892,427",
+      "earnout_text": "84,592"
+    },
+    {
+      "row": 23,
+      "label": "Entities affiliated with Spark Capital(24)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row23@1",
+      "earnout_observation_id": "secz-resale-earnout-row23@1",
+      "common_text": "1,892,394",
+      "earnout_text": "84,590"
+    },
+    {
+      "row": 24,
+      "label": "Entities affiliated with IDC(25)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row24@1",
+      "earnout_observation_id": "secz-resale-earnout-row24@1",
+      "common_text": "1,840,908",
+      "earnout_text": "82,290"
+    },
+    {
+      "row": 25,
+      "label": "Shay Finkelstein(26)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row25@1",
+      "earnout_observation_id": "secz-resale-earnout-row25@1",
+      "common_text": "1,688,699",
+      "earnout_text": "75,486"
+    },
+    {
+      "row": 26,
+      "label": "Entities affiliated with Thrive Capital(27)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row26@1",
+      "earnout_observation_id": "secz-resale-earnout-row26@1",
+      "common_text": "1,683,445",
+      "earnout_text": "75,250"
+    },
+    {
+      "row": 27,
+      "label": "Brent Belote(28)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row27@1",
+      "earnout_observation_id": "secz-resale-earnout-row27@1",
+      "common_text": "1,521,875",
+      "earnout_text": "34,480"
+    },
+    {
+      "row": 28,
+      "label": "HLUS Holdings LLC(29)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row28@1",
+      "earnout_observation_id": "secz-resale-earnout-row28@1",
+      "common_text": "1,455,867",
+      "earnout_text": "65,078"
+    },
+    {
+      "row": 29,
+      "label": "Ark Venture Fund(30)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row29@1",
+      "earnout_observation_id": "secz-resale-earnout-row29@1",
+      "common_text": "1,296,916",
+      "earnout_text": "57,972"
+    },
+    {
+      "row": 30,
+      "label": "Amihay Ben David",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row30@1",
+      "earnout_observation_id": "secz-resale-earnout-row30@1",
+      "common_text": "1,143,364",
+      "earnout_text": "51,108"
+    },
+    {
+      "row": 31,
+      "label": "BH Digital Liquid Directional Master Fund I, LP(31)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row31@1",
+      "earnout_observation_id": "secz-resale-earnout-row31@1",
+      "common_text": "1,000,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 32,
+      "label": "Entities affiliated with Burkehill Global Management, LP(32)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row32@1",
+      "earnout_observation_id": "secz-resale-earnout-row32@1",
+      "common_text": "1,000,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 33,
+      "label": "NXTP Fund II, LP(33)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row33@1",
+      "earnout_observation_id": "secz-resale-earnout-row33@1",
+      "common_text": "919,167",
+      "earnout_text": "41,086"
+    },
+    {
+      "row": 34,
+      "label": "OKG Ventures Limited(34)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row34@1",
+      "earnout_observation_id": "secz-resale-earnout-row34@1",
+      "common_text": "919,167",
+      "earnout_text": "41,086"
+    },
+    {
+      "row": 35,
+      "label": "Investment Holdings 1857, SL(35)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row35@1",
+      "earnout_observation_id": "secz-resale-earnout-row35@1",
+      "common_text": "906,524",
+      "earnout_text": "40,522"
+    },
+    {
+      "row": 36,
+      "label": "Entities affiliated with Lvna(36)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row36@1",
+      "earnout_observation_id": "secz-resale-earnout-row36@1",
+      "common_text": "832,573",
+      "earnout_text": "37,216"
+    },
+    {
+      "row": 37,
+      "label": "Entities affiliated with Polar Asset Management Partners Inc. (37)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row37@1",
+      "earnout_observation_id": "secz-resale-earnout-row37@1",
+      "common_text": "800,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 38,
+      "label": "HBK Master Fund L.P. (38)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row38@1",
+      "earnout_observation_id": "secz-resale-earnout-row38@1",
+      "common_text": "500,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 39,
+      "label": "Ghisallo Master Fund LP(39)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row39@1",
+      "earnout_observation_id": "secz-resale-earnout-row39@1",
+      "common_text": "200,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 40,
+      "label": "GSR Markets Switzerland GmbH(40)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row40@1",
+      "earnout_observation_id": "secz-resale-earnout-row40@1",
+      "common_text": "100,000",
+      "earnout_text": "—"
+    },
+    {
+      "row": 41,
+      "label": "Other Selling Stockholders that beneficially own between 600,000 and 799,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row41@1",
+      "earnout_observation_id": "secz-resale-earnout-row41@1",
+      "common_text": "1,301,212",
+      "earnout_text": "58,164"
+    },
+    {
+      "row": 42,
+      "label": "Other Selling Stockholders that beneficially own between 500,000 and 599,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row42@1",
+      "earnout_observation_id": "secz-resale-earnout-row42@1",
+      "common_text": "1,587,655",
+      "earnout_text": "48,618"
+    },
+    {
+      "row": 43,
+      "label": "Other Selling Stockholders that beneficially own between 380,000 and 499,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row43@1",
+      "earnout_observation_id": "secz-resale-earnout-row43@1",
+      "common_text": "1,328,840",
+      "earnout_text": "59,396"
+    },
+    {
+      "row": 44,
+      "label": "Other Selling Stockholders that beneficially own between 300,000 and 379,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row44@1",
+      "earnout_observation_id": "secz-resale-earnout-row44@1",
+      "common_text": "1,310,745",
+      "earnout_text": "39,212"
+    },
+    {
+      "row": 45,
+      "label": "Other Selling Stockholders that beneficially own between 250,000 and 299,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row45@1",
+      "earnout_observation_id": "secz-resale-earnout-row45@1",
+      "common_text": "1,578,525",
+      "earnout_text": "24,258"
+    },
+    {
+      "row": 46,
+      "label": "Other Selling Stockholders that beneficially own between 200,000 and 249,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row46@1",
+      "earnout_observation_id": "secz-resale-earnout-row46@1",
+      "common_text": "1,577,765",
+      "earnout_text": "61,580"
+    },
+    {
+      "row": 47,
+      "label": "Other Selling Stockholders that beneficially own between 130,000 and 199,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row47@1",
+      "earnout_observation_id": "secz-resale-earnout-row47@1",
+      "common_text": "1,315,889",
+      "earnout_text": "52,596"
+    },
+    {
+      "row": 48,
+      "label": "Other Selling Stockholders that beneficially own between 100,000 and 129,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row48@1",
+      "earnout_observation_id": "secz-resale-earnout-row48@1",
+      "common_text": "1,590,642",
+      "earnout_text": "58,632"
+    },
+    {
+      "row": 49,
+      "label": "Other Selling Stockholders that beneficially own between 50,000 and 99,999 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row49@1",
+      "earnout_observation_id": "secz-resale-earnout-row49@1",
+      "common_text": "1,185,776",
+      "earnout_text": "50,758"
+    },
+    {
+      "row": 50,
+      "label": "Other Selling Stockholders that beneficially own less than 50,000 shares of common stock(41)",
+      "page": 130,
+      "common_observation_id": "secz-resale-common-row50@1",
+      "earnout_observation_id": "secz-resale-earnout-row50@1",
+      "common_text": "949,619",
+      "earnout_text": "65,014"
+    }
+  ],
+  "observations": [
+    {
+      "id": "secz-resale-common-row01@1",
+      "metric_id": "research.secz.resale.common-row01",
+      "asset": "SECZ",
+      "value": 15689509,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row01@1",
+      "metric_id": "research.secz.resale.earnout-row01",
+      "asset": "SECZ",
+      "value": 656632,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row02@1",
+      "metric_id": "research.secz.resale.common-row02",
+      "asset": "SECZ",
+      "value": 9831423,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row02@1",
+      "metric_id": "research.secz.resale.earnout-row02",
+      "asset": "SECZ",
+      "value": 439472,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row03@1",
+      "metric_id": "research.secz.resale.common-row03",
+      "asset": "SECZ",
+      "value": 9474995,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row03@1",
+      "metric_id": "research.secz.resale.earnout-row03",
+      "asset": "SECZ",
+      "value": 141254,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row04@1",
+      "metric_id": "research.secz.resale.common-row04",
+      "asset": "SECZ",
+      "value": 8159412,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row04@1",
+      "metric_id": "research.secz.resale.earnout-row04",
+      "asset": "SECZ",
+      "value": 364732,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row05@1",
+      "metric_id": "research.secz.resale.common-row05",
+      "asset": "SECZ",
+      "value": 7279327,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row05@1",
+      "metric_id": "research.secz.resale.earnout-row05",
+      "asset": "SECZ",
+      "value": 325392,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row06@1",
+      "metric_id": "research.secz.resale.common-row06",
+      "asset": "SECZ",
+      "value": 6697829,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row06@1",
+      "metric_id": "research.secz.resale.earnout-row06",
+      "asset": "SECZ",
+      "value": 299398,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row07@1",
+      "metric_id": "research.secz.resale.common-row07",
+      "asset": "SECZ",
+      "value": 6580000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row07@1",
+      "metric_id": "research.secz.resale.earnout-row07",
+      "asset": "SECZ",
+      "value": 1800000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row08@1",
+      "metric_id": "research.secz.resale.common-row08",
+      "asset": "SECZ",
+      "value": 5919513,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row08@1",
+      "metric_id": "research.secz.resale.earnout-row08",
+      "asset": "SECZ",
+      "value": 457706,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row09@1",
+      "metric_id": "research.secz.resale.common-row09",
+      "asset": "SECZ",
+      "value": 5628202,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row09@1",
+      "metric_id": "research.secz.resale.earnout-row09",
+      "asset": "SECZ",
+      "value": 278906,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row10@1",
+      "metric_id": "research.secz.resale.common-row10",
+      "asset": "SECZ",
+      "value": 4644678,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row10@1",
+      "metric_id": "research.secz.resale.earnout-row10",
+      "asset": "SECZ",
+      "value": 127158,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row11@1",
+      "metric_id": "research.secz.resale.common-row11",
+      "asset": "SECZ",
+      "value": 4592447,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row11@1",
+      "metric_id": "research.secz.resale.earnout-row11",
+      "asset": "SECZ",
+      "value": 205286,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row12@1",
+      "metric_id": "research.secz.resale.common-row12",
+      "asset": "SECZ",
+      "value": 3063727,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row12@1",
+      "metric_id": "research.secz.resale.earnout-row12",
+      "asset": "SECZ",
+      "value": 76604,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row13@1",
+      "metric_id": "research.secz.resale.common-row13",
+      "asset": "SECZ",
+      "value": 2877392,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row13@1",
+      "metric_id": "research.secz.resale.earnout-row13",
+      "asset": "SECZ",
+      "value": 128620,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row14@1",
+      "metric_id": "research.secz.resale.common-row14",
+      "asset": "SECZ",
+      "value": 2829814,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row14@1",
+      "metric_id": "research.secz.resale.earnout-row14",
+      "asset": "SECZ",
+      "value": 126494,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row15@1",
+      "metric_id": "research.secz.resale.common-row15",
+      "asset": "SECZ",
+      "value": 2669542,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row15@1",
+      "metric_id": "research.secz.resale.earnout-row15",
+      "asset": "SECZ",
+      "value": 47808,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row16@1",
+      "metric_id": "research.secz.resale.common-row16",
+      "asset": "SECZ",
+      "value": 2557348,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row16@1",
+      "metric_id": "research.secz.resale.earnout-row16",
+      "asset": "SECZ",
+      "value": 114314,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row17@1",
+      "metric_id": "research.secz.resale.common-row17",
+      "asset": "SECZ",
+      "value": 2409298,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row17@1",
+      "metric_id": "research.secz.resale.earnout-row17",
+      "asset": "SECZ",
+      "value": 107696,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row18@1",
+      "metric_id": "research.secz.resale.common-row18",
+      "asset": "SECZ",
+      "value": 2285458,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row18@1",
+      "metric_id": "research.secz.resale.earnout-row18",
+      "asset": "SECZ",
+      "value": 102160,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row19@1",
+      "metric_id": "research.secz.resale.common-row19",
+      "asset": "SECZ",
+      "value": 2000000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row19@1",
+      "metric_id": "research.secz.resale.earnout-row19",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row20@1",
+      "metric_id": "research.secz.resale.common-row20",
+      "asset": "SECZ",
+      "value": 2000000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row20@1",
+      "metric_id": "research.secz.resale.earnout-row20",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row21@1",
+      "metric_id": "research.secz.resale.common-row21",
+      "asset": "SECZ",
+      "value": 1970000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row21@1",
+      "metric_id": "research.secz.resale.earnout-row21",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row22@1",
+      "metric_id": "research.secz.resale.common-row22",
+      "asset": "SECZ",
+      "value": 1892427,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row22@1",
+      "metric_id": "research.secz.resale.earnout-row22",
+      "asset": "SECZ",
+      "value": 84592,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row23@1",
+      "metric_id": "research.secz.resale.common-row23",
+      "asset": "SECZ",
+      "value": 1892394,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row23@1",
+      "metric_id": "research.secz.resale.earnout-row23",
+      "asset": "SECZ",
+      "value": 84590,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row24@1",
+      "metric_id": "research.secz.resale.common-row24",
+      "asset": "SECZ",
+      "value": 1840908,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row24@1",
+      "metric_id": "research.secz.resale.earnout-row24",
+      "asset": "SECZ",
+      "value": 82290,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row25@1",
+      "metric_id": "research.secz.resale.common-row25",
+      "asset": "SECZ",
+      "value": 1688699,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row25@1",
+      "metric_id": "research.secz.resale.earnout-row25",
+      "asset": "SECZ",
+      "value": 75486,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row26@1",
+      "metric_id": "research.secz.resale.common-row26",
+      "asset": "SECZ",
+      "value": 1683445,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row26@1",
+      "metric_id": "research.secz.resale.earnout-row26",
+      "asset": "SECZ",
+      "value": 75250,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row27@1",
+      "metric_id": "research.secz.resale.common-row27",
+      "asset": "SECZ",
+      "value": 1521875,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row27@1",
+      "metric_id": "research.secz.resale.earnout-row27",
+      "asset": "SECZ",
+      "value": 34480,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row28@1",
+      "metric_id": "research.secz.resale.common-row28",
+      "asset": "SECZ",
+      "value": 1455867,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row28@1",
+      "metric_id": "research.secz.resale.earnout-row28",
+      "asset": "SECZ",
+      "value": 65078,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row29@1",
+      "metric_id": "research.secz.resale.common-row29",
+      "asset": "SECZ",
+      "value": 1296916,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row29@1",
+      "metric_id": "research.secz.resale.earnout-row29",
+      "asset": "SECZ",
+      "value": 57972,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row30@1",
+      "metric_id": "research.secz.resale.common-row30",
+      "asset": "SECZ",
+      "value": 1143364,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row30@1",
+      "metric_id": "research.secz.resale.earnout-row30",
+      "asset": "SECZ",
+      "value": 51108,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row31@1",
+      "metric_id": "research.secz.resale.common-row31",
+      "asset": "SECZ",
+      "value": 1000000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row31@1",
+      "metric_id": "research.secz.resale.earnout-row31",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row32@1",
+      "metric_id": "research.secz.resale.common-row32",
+      "asset": "SECZ",
+      "value": 1000000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row32@1",
+      "metric_id": "research.secz.resale.earnout-row32",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row33@1",
+      "metric_id": "research.secz.resale.common-row33",
+      "asset": "SECZ",
+      "value": 919167,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row33@1",
+      "metric_id": "research.secz.resale.earnout-row33",
+      "asset": "SECZ",
+      "value": 41086,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row34@1",
+      "metric_id": "research.secz.resale.common-row34",
+      "asset": "SECZ",
+      "value": 919167,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row34@1",
+      "metric_id": "research.secz.resale.earnout-row34",
+      "asset": "SECZ",
+      "value": 41086,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row35@1",
+      "metric_id": "research.secz.resale.common-row35",
+      "asset": "SECZ",
+      "value": 906524,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row35@1",
+      "metric_id": "research.secz.resale.earnout-row35",
+      "asset": "SECZ",
+      "value": 40522,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row36@1",
+      "metric_id": "research.secz.resale.common-row36",
+      "asset": "SECZ",
+      "value": 832573,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row36@1",
+      "metric_id": "research.secz.resale.earnout-row36",
+      "asset": "SECZ",
+      "value": 37216,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row37@1",
+      "metric_id": "research.secz.resale.common-row37",
+      "asset": "SECZ",
+      "value": 800000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row37@1",
+      "metric_id": "research.secz.resale.earnout-row37",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row38@1",
+      "metric_id": "research.secz.resale.common-row38",
+      "asset": "SECZ",
+      "value": 500000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row38@1",
+      "metric_id": "research.secz.resale.earnout-row38",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row39@1",
+      "metric_id": "research.secz.resale.common-row39",
+      "asset": "SECZ",
+      "value": 200000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row39@1",
+      "metric_id": "research.secz.resale.earnout-row39",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row40@1",
+      "metric_id": "research.secz.resale.common-row40",
+      "asset": "SECZ",
+      "value": 100000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row40@1",
+      "metric_id": "research.secz.resale.earnout-row40",
+      "asset": "SECZ",
+      "value": null,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "unknown",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row41@1",
+      "metric_id": "research.secz.resale.common-row41",
+      "asset": "SECZ",
+      "value": 1301212,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row41@1",
+      "metric_id": "research.secz.resale.earnout-row41",
+      "asset": "SECZ",
+      "value": 58164,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row42@1",
+      "metric_id": "research.secz.resale.common-row42",
+      "asset": "SECZ",
+      "value": 1587655,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row42@1",
+      "metric_id": "research.secz.resale.earnout-row42",
+      "asset": "SECZ",
+      "value": 48618,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row43@1",
+      "metric_id": "research.secz.resale.common-row43",
+      "asset": "SECZ",
+      "value": 1328840,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row43@1",
+      "metric_id": "research.secz.resale.earnout-row43",
+      "asset": "SECZ",
+      "value": 59396,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row44@1",
+      "metric_id": "research.secz.resale.common-row44",
+      "asset": "SECZ",
+      "value": 1310745,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row44@1",
+      "metric_id": "research.secz.resale.earnout-row44",
+      "asset": "SECZ",
+      "value": 39212,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row45@1",
+      "metric_id": "research.secz.resale.common-row45",
+      "asset": "SECZ",
+      "value": 1578525,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row45@1",
+      "metric_id": "research.secz.resale.earnout-row45",
+      "asset": "SECZ",
+      "value": 24258,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row46@1",
+      "metric_id": "research.secz.resale.common-row46",
+      "asset": "SECZ",
+      "value": 1577765,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row46@1",
+      "metric_id": "research.secz.resale.earnout-row46",
+      "asset": "SECZ",
+      "value": 61580,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row47@1",
+      "metric_id": "research.secz.resale.common-row47",
+      "asset": "SECZ",
+      "value": 1315889,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row47@1",
+      "metric_id": "research.secz.resale.earnout-row47",
+      "asset": "SECZ",
+      "value": 52596,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row48@1",
+      "metric_id": "research.secz.resale.common-row48",
+      "asset": "SECZ",
+      "value": 1590642,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row48@1",
+      "metric_id": "research.secz.resale.earnout-row48",
+      "asset": "SECZ",
+      "value": 58632,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row49@1",
+      "metric_id": "research.secz.resale.common-row49",
+      "asset": "SECZ",
+      "value": 1185776,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row49@1",
+      "metric_id": "research.secz.resale.earnout-row49",
+      "asset": "SECZ",
+      "value": 50758,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-common-row50@1",
+      "metric_id": "research.secz.resale.common-row50",
+      "asset": "SECZ",
+      "value": 949619,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-earnout-row50@1",
+      "metric_id": "research.secz.resale.earnout-row50",
+      "asset": "SECZ",
+      "value": 65014,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-issued-before@1",
+      "metric_id": "research.secz.resale.issued-before",
+      "asset": "SECZ",
+      "value": 163265685,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-stated-after@1",
+      "metric_id": "research.secz.resale.stated-after",
+      "asset": "SECZ",
+      "value": 314834209,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-registered-total@1",
+      "metric_id": "research.secz.resale.registered-total",
+      "asset": "SECZ",
+      "value": 151568524,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-fees-20260731-v1"
+      ]
+    },
+    {
+      "id": "secz-resale-opinion-issued-resale@1",
+      "metric_id": "research.secz.resale.opinion-issued-resale",
+      "asset": "SECZ",
+      "value": 140768250,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-30"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-parent-capital-opinion-20260731-v2"
+      ]
+    },
+    {
+      "id": "secz-resale-opinion-warrant-capacity@1",
+      "metric_id": "research.secz.resale.opinion-warrant-capacity",
+      "asset": "SECZ",
+      "value": 3711658,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-30"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-parent-capital-opinion-20260731-v2"
+      ]
+    },
+    {
+      "id": "secz-resale-opinion-earmarked-earnout@1",
+      "metric_id": "research.secz.resale.opinion-earmarked-earnout",
+      "asset": "SECZ",
+      "value": 7088616,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-07-31",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-30"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-parent-capital-opinion-20260731-v2"
+      ]
+    },
+    {
+      "id": "secz-resale-company-earnout-capacity@1",
+      "metric_id": "research.secz.resale.company-earnout-capacity",
+      "asset": "SECZ",
+      "value": 6250000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-08-13",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-resale-s1-selected-20260731-v1",
+        "secz-parent-capital-10q-20260813-v2"
+      ]
+    },
+    {
+      "id": "secz-resale-sponsor-issued-conditional@1",
+      "metric_id": "research.secz.resale.sponsor-issued-conditional",
+      "asset": "SECZ",
+      "value": 1800000,
+      "unit": "count",
+      "classification": "OBSERVED",
+      "as_of_date": "2026-08-13",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-01"
+      },
+      "confidence": "high",
+      "version": 1,
+      "fixture": false,
+      "source_ids": [
+        "secz-parent-capital-10q-20260813-v2",
+        "secz-resale-s1-selected-20260731-v1"
+      ]
+    }
+  ],
+  "formulas": [
+    {
+      "id": "research.secz_resale_offered-common-total",
+      "version": 1,
+      "output": "research.secz.resale.offered-common-total",
+      "unit": "count",
+      "expression": {
+        "op": "add",
+        "args": [
+          "research.secz.resale.common-row01",
+          "research.secz.resale.common-row02",
+          "research.secz.resale.common-row03",
+          "research.secz.resale.common-row04",
+          "research.secz.resale.common-row05",
+          "research.secz.resale.common-row06",
+          "research.secz.resale.common-row07",
+          "research.secz.resale.common-row08",
+          "research.secz.resale.common-row09",
+          "research.secz.resale.common-row10",
+          "research.secz.resale.common-row11",
+          "research.secz.resale.common-row12",
+          "research.secz.resale.common-row13",
+          "research.secz.resale.common-row14",
+          "research.secz.resale.common-row15",
+          "research.secz.resale.common-row16",
+          "research.secz.resale.common-row17",
+          "research.secz.resale.common-row18",
+          "research.secz.resale.common-row19",
+          "research.secz.resale.common-row20",
+          "research.secz.resale.common-row21",
+          "research.secz.resale.common-row22",
+          "research.secz.resale.common-row23",
+          "research.secz.resale.common-row24",
+          "research.secz.resale.common-row25",
+          "research.secz.resale.common-row26",
+          "research.secz.resale.common-row27",
+          "research.secz.resale.common-row28",
+          "research.secz.resale.common-row29",
+          "research.secz.resale.common-row30",
+          "research.secz.resale.common-row31",
+          "research.secz.resale.common-row32",
+          "research.secz.resale.common-row33",
+          "research.secz.resale.common-row34",
+          "research.secz.resale.common-row35",
+          "research.secz.resale.common-row36",
+          "research.secz.resale.common-row37",
+          "research.secz.resale.common-row38",
+          "research.secz.resale.common-row39",
+          "research.secz.resale.common-row40",
+          "research.secz.resale.common-row41",
+          "research.secz.resale.common-row42",
+          "research.secz.resale.common-row43",
+          "research.secz.resale.common-row44",
+          "research.secz.resale.common-row45",
+          "research.secz.resale.common-row46",
+          "research.secz.resale.common-row47",
+          "research.secz.resale.common-row48",
+          "research.secz.resale.common-row49",
+          "research.secz.resale.common-row50"
+        ]
+      },
+      "rationale": "加總原始轉售 common 欄全部 50 列；包含 JD6 權證標的，不是全部已發行股數。"
+    },
+    {
+      "id": "research.secz_resale_disclosed-earned-rights-total",
+      "version": 1,
+      "output": "research.secz.resale.disclosed-earned-rights-total",
+      "unit": "count",
+      "expression": {
+        "op": "add",
+        "args": [
+          "research.secz.resale.earnout-row01",
+          "research.secz.resale.earnout-row02",
+          "research.secz.resale.earnout-row03",
+          "research.secz.resale.earnout-row04",
+          "research.secz.resale.earnout-row05",
+          "research.secz.resale.earnout-row06",
+          "research.secz.resale.earnout-row07",
+          "research.secz.resale.earnout-row08",
+          "research.secz.resale.earnout-row09",
+          "research.secz.resale.earnout-row10",
+          "research.secz.resale.earnout-row11",
+          "research.secz.resale.earnout-row12",
+          "research.secz.resale.earnout-row13",
+          "research.secz.resale.earnout-row14",
+          "research.secz.resale.earnout-row15",
+          "research.secz.resale.earnout-row16",
+          "research.secz.resale.earnout-row17",
+          "research.secz.resale.earnout-row18",
+          "research.secz.resale.earnout-row22",
+          "research.secz.resale.earnout-row23",
+          "research.secz.resale.earnout-row24",
+          "research.secz.resale.earnout-row25",
+          "research.secz.resale.earnout-row26",
+          "research.secz.resale.earnout-row27",
+          "research.secz.resale.earnout-row28",
+          "research.secz.resale.earnout-row29",
+          "research.secz.resale.earnout-row30",
+          "research.secz.resale.earnout-row33",
+          "research.secz.resale.earnout-row34",
+          "research.secz.resale.earnout-row35",
+          "research.secz.resale.earnout-row36",
+          "research.secz.resale.earnout-row41",
+          "research.secz.resale.earnout-row42",
+          "research.secz.resale.earnout-row43",
+          "research.secz.resale.earnout-row44",
+          "research.secz.resale.earnout-row45",
+          "research.secz.resale.earnout-row46",
+          "research.secz.resale.earnout-row47",
+          "research.secz.resale.earnout-row48",
+          "research.secz.resale.earnout-row49",
+          "research.secz.resale.earnout-row50"
+        ]
+      },
+      "rationale": "只加總 earnout 欄已有數值的列；破折號觀察保留 null、明示排除，不能據此宣稱完整權利或將缺值當零。"
+    },
+    {
+      "id": "research.secz_resale_combined-offered-total",
+      "version": 1,
+      "output": "research.secz.resale.combined-offered-total",
+      "unit": "count",
+      "expression": {
+        "op": "add",
+        "args": [
+          "research.secz.resale.offered-common-total",
+          "research.secz.resale.disclosed-earned-rights-total"
+        ]
+      },
+      "rationale": "披露兩欄數值的算術合計；不代表公司發行或募資，Sponsor 已發行條件股的重疊另保留。"
+    },
+    {
+      "id": "research.secz_resale_common-less-warrant-capacity",
+      "version": 1,
+      "output": "research.secz.resale.common-less-warrant-capacity",
+      "unit": "count",
+      "expression": {
+        "op": "sub",
+        "args": [
+          "research.secz.resale.offered-common-total",
+          "research.secz.resale.opinion-warrant-capacity"
+        ]
+      },
+      "rationale": "轉售 common 欄扣除 Exhibit 5.1 的權證標的上限，與 opinion issued resale 類別對照；不是現況行使或增發證明。"
+    },
+    {
+      "id": "research.secz_resale_earnout-less-sponsor",
+      "version": 1,
+      "output": "research.secz.resale.earnout-less-sponsor",
+      "unit": "count",
+      "expression": {
+        "op": "sub",
+        "args": [
+          "research.secz.resale.disclosed-earned-rights-total",
+          "research.secz.resale.sponsor-issued-conditional"
+        ]
+      },
+      "rationale": "依 10-Q 明示 Sponsor 1.8M 已發行，從表格 earnout 欄扣除該列供類別對照；不選作額外新發行量。"
+    },
+    {
+      "id": "research.secz_resale_unreconciled-company-earnout-gap",
+      "version": 1,
+      "output": "research.secz.resale.unreconciled-company-earnout-gap",
+      "unit": "count",
+      "expression": {
+        "op": "sub",
+        "args": [
+          "research.secz.resale.company-earnout-capacity",
+          "research.secz.resale.earnout-less-sponsor"
+        ]
+      },
+      "rationale": "公司條件發行上限與轉售表排除 Sponsor 後的披露數值差異，仍未調節；不以差額補出遺漏持有人或法律解釋。"
+    },
+    {
+      "id": "research.secz_resale_stated-after-less-before",
+      "version": 1,
+      "output": "research.secz.resale.stated-after-less-before",
+      "unit": "count",
+      "expression": {
+        "op": "sub",
+        "args": [
+          "research.secz.resale.stated-after",
+          "research.secz.resale.issued-before"
+        ]
+      },
+      "rationale": "只核對 S-1 after/before 欄差額與登記總數的數學關係；無法證明全部轉售均為新發行。"
+    }
+  ],
+  "derived": [
+    {
+      "id": "secz-resale-derived-offered-common-total@1",
+      "metric_id": "research.secz.resale.offered-common-total",
+      "asset": "SECZ",
+      "value": 144479908,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_offered-common-total",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-common-row01@1",
+        "secz-resale-common-row02@1",
+        "secz-resale-common-row03@1",
+        "secz-resale-common-row04@1",
+        "secz-resale-common-row05@1",
+        "secz-resale-common-row06@1",
+        "secz-resale-common-row07@1",
+        "secz-resale-common-row08@1",
+        "secz-resale-common-row09@1",
+        "secz-resale-common-row10@1",
+        "secz-resale-common-row11@1",
+        "secz-resale-common-row12@1",
+        "secz-resale-common-row13@1",
+        "secz-resale-common-row14@1",
+        "secz-resale-common-row15@1",
+        "secz-resale-common-row16@1",
+        "secz-resale-common-row17@1",
+        "secz-resale-common-row18@1",
+        "secz-resale-common-row19@1",
+        "secz-resale-common-row20@1",
+        "secz-resale-common-row21@1",
+        "secz-resale-common-row22@1",
+        "secz-resale-common-row23@1",
+        "secz-resale-common-row24@1",
+        "secz-resale-common-row25@1",
+        "secz-resale-common-row26@1",
+        "secz-resale-common-row27@1",
+        "secz-resale-common-row28@1",
+        "secz-resale-common-row29@1",
+        "secz-resale-common-row30@1",
+        "secz-resale-common-row31@1",
+        "secz-resale-common-row32@1",
+        "secz-resale-common-row33@1",
+        "secz-resale-common-row34@1",
+        "secz-resale-common-row35@1",
+        "secz-resale-common-row36@1",
+        "secz-resale-common-row37@1",
+        "secz-resale-common-row38@1",
+        "secz-resale-common-row39@1",
+        "secz-resale-common-row40@1",
+        "secz-resale-common-row41@1",
+        "secz-resale-common-row42@1",
+        "secz-resale-common-row43@1",
+        "secz-resale-common-row44@1",
+        "secz-resale-common-row45@1",
+        "secz-resale-common-row46@1",
+        "secz-resale-common-row47@1",
+        "secz-resale-common-row48@1",
+        "secz-resale-common-row49@1",
+        "secz-resale-common-row50@1"
+      ]
+    },
+    {
+      "id": "secz-resale-derived-disclosed-earned-rights-total@1",
+      "metric_id": "research.secz.resale.disclosed-earned-rights-total",
+      "asset": "SECZ",
+      "value": 7088616,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_disclosed-earned-rights-total",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-earnout-row01@1",
+        "secz-resale-earnout-row02@1",
+        "secz-resale-earnout-row03@1",
+        "secz-resale-earnout-row04@1",
+        "secz-resale-earnout-row05@1",
+        "secz-resale-earnout-row06@1",
+        "secz-resale-earnout-row07@1",
+        "secz-resale-earnout-row08@1",
+        "secz-resale-earnout-row09@1",
+        "secz-resale-earnout-row10@1",
+        "secz-resale-earnout-row11@1",
+        "secz-resale-earnout-row12@1",
+        "secz-resale-earnout-row13@1",
+        "secz-resale-earnout-row14@1",
+        "secz-resale-earnout-row15@1",
+        "secz-resale-earnout-row16@1",
+        "secz-resale-earnout-row17@1",
+        "secz-resale-earnout-row18@1",
+        "secz-resale-earnout-row22@1",
+        "secz-resale-earnout-row23@1",
+        "secz-resale-earnout-row24@1",
+        "secz-resale-earnout-row25@1",
+        "secz-resale-earnout-row26@1",
+        "secz-resale-earnout-row27@1",
+        "secz-resale-earnout-row28@1",
+        "secz-resale-earnout-row29@1",
+        "secz-resale-earnout-row30@1",
+        "secz-resale-earnout-row33@1",
+        "secz-resale-earnout-row34@1",
+        "secz-resale-earnout-row35@1",
+        "secz-resale-earnout-row36@1",
+        "secz-resale-earnout-row41@1",
+        "secz-resale-earnout-row42@1",
+        "secz-resale-earnout-row43@1",
+        "secz-resale-earnout-row44@1",
+        "secz-resale-earnout-row45@1",
+        "secz-resale-earnout-row46@1",
+        "secz-resale-earnout-row47@1",
+        "secz-resale-earnout-row48@1",
+        "secz-resale-earnout-row49@1",
+        "secz-resale-earnout-row50@1"
+      ]
+    },
+    {
+      "id": "secz-resale-derived-combined-offered-total@1",
+      "metric_id": "research.secz.resale.combined-offered-total",
+      "asset": "SECZ",
+      "value": 151568524,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_combined-offered-total",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-derived-offered-common-total@1",
+        "secz-resale-derived-disclosed-earned-rights-total@1"
+      ]
+    },
+    {
+      "id": "secz-resale-derived-common-less-warrant-capacity@1",
+      "metric_id": "research.secz.resale.common-less-warrant-capacity",
+      "asset": "SECZ",
+      "value": 140768250,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_common-less-warrant-capacity",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-derived-offered-common-total@1",
+        "secz-resale-opinion-warrant-capacity@1"
+      ]
+    },
+    {
+      "id": "secz-resale-derived-earnout-less-sponsor@1",
+      "metric_id": "research.secz.resale.earnout-less-sponsor",
+      "asset": "SECZ",
+      "value": 5288616,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_earnout-less-sponsor",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-derived-disclosed-earned-rights-total@1",
+        "secz-resale-sponsor-issued-conditional@1"
+      ]
+    },
+    {
+      "id": "secz-resale-derived-unreconciled-company-earnout-gap@1",
+      "metric_id": "research.secz.resale.unreconciled-company-earnout-gap",
+      "asset": "SECZ",
+      "value": 961384,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_unreconciled-company-earnout-gap",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-company-earnout-capacity@1",
+        "secz-resale-derived-earnout-less-sponsor@1"
+      ]
+    },
+    {
+      "id": "secz-resale-derived-stated-after-less-before@1",
+      "metric_id": "research.secz.resale.stated-after-less-before",
+      "asset": "SECZ",
+      "value": 151568524,
+      "unit": "count",
+      "classification": "DERIVED",
+      "as_of_date": "2026-10-04",
+      "period": {
+        "basis": "point",
+        "end": "2026-07-31"
+      },
+      "confidence": "medium",
+      "version": 1,
+      "fixture": false,
+      "formula_id": "research.secz_resale_stated-after-less-before",
+      "formula_version": 1,
+      "dependencies": [
+        "secz-resale-stated-after@1",
+        "secz-resale-issued-before@1"
+      ]
+    }
+  ]
+}
