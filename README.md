@@ -181,6 +181,8 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 
 ## API
 
+固定研究目錄與[共用證據 ID 檢查](reports/research-evidence-id-consistency.md)會在研究／時效回應前拒絕同 ID 的不同來源或紀錄，包括重用金融輸入 ID；匹配檔案 hash 仍須通過語意與跨集合一致性驗證。
+
 - `GET /api/state?mode=fixture|production`：指標、完整 lineage、thesis、矩陣、graph 與版本比較。
 - `GET /api/lineage?metric=uni.net_accrual&mode=fixture`：單一指標遞迴血緣。
 - `POST /api/sensitivity?mode=fixture`：`{"overrides":{"uni.fee":0.0001}}`，只計算、不存檔。

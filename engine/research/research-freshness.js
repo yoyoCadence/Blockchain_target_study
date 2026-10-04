@@ -1,5 +1,4 @@
 import {assert} from '../validation/index.js';
-import {fingerprint} from '../snapshots.js';
 import {inspectResearch} from './inspection.js';
 import {sourceFreshness,ageAt,countBy,sourceDateCheck} from './freshness.js';
 
@@ -9,11 +8,8 @@ export function researchFreshness(project,{as_of_date,policy,catalog}={}) {
  const canonical=sourceFreshness(project,{as_of_date,policy});
  const inspection=inspectResearch(project,{catalog});
  const cutoff=canonical.as_of_date,reviewPolicy=canonical.policy,sources=new Map(),usage=new Map();
- const knownSources=new Map(project.sources.map(source=>[source.id,source]));
  for(const artifact of inspection.records) {
   for(const source of artifact.sources) {
-   assert(!knownSources.has(source.id)||fingerprint(knownSources.get(source.id))===fingerprint(source),`Research freshness source ID conflict: ${source.id}`);
-   knownSources.set(source.id,source);
    sources.set(source.id,source);
   }
   for(const record of artifact.records) for(const id of record.source_ids||[]) {
@@ -31,13 +27,8 @@ export function researchFreshness(project,{as_of_date,policy,catalog}={}) {
    ...(artifact.kind==='capital'?{context:artifact.context,notice:artifact.notice}:{}),
    review_age_days:reviewAge,review_state:reviewAge===null?'NOT_AVAILABLE_AT_CUTOFF':'AVAILABLE_AT_CUTOFF'};
  });
- const knownRecords=new Map();
  const records=inspection.records.flatMap((artifact,index)=>artifact.records.map(record=>{
-  const {sources:embeddedSources,...original}=record;
   const period=record.period||artifact.periods.find(p=>p.id===record.period_id)||null;
-  const recordDigest=fingerprint({record:original,period,statement:artifact.statement});
-  assert(!knownRecords.has(record.id)||knownRecords.get(record.id)===recordDigest,`Research freshness record ID conflict: ${record.id}`);
-  knownRecords.set(record.id,recordDigest);
   const metric=record.metric_id||`${record.asset}.identity`;
   const limit=reviewPolicy.observation_overrides[metric]??reviewPolicy.observation_max_age_days;
   const base={artifact_id:artifact.artifact_id,catalog_id:artifact.id,record_id:record.id,metric_id:metric,

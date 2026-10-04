@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 共用研究證據 ID 一致性
+
+PR #37 的 push／PR／合併後 main CI 均成功（main `b7dc54a`）；從最新 origin/main 建立 `fix/research-evidence-id-consistency`，開始時工作目錄乾淨、單一 worktree／遠端一致。接續 baseline 的證據版本防線，未擴充模型或自動化。
+
+隔離目錄重現：有效 hash 的研究讓一般 inspection 接受跨資料包來源／觀測同 ID 改寫與 canonical 來源衝突；既有時效入口已拒絕這三種情況。兩入口都容許研究紀錄重用金融輸入 ID。原時效 guard 集中到共用 inspection，先以完整 canonical 來源／輸入歷史建立指紋，再核對研究來源及原紀錄／解析期間／報表 context；相同證據重用及明確新來源版本／獨立紀錄仍合法，時效移除重複 guard。
+
+13 新增回歸通過，含兩個唯讀 API 對有效 hash 的來源／紀錄／金融 ID 衝突回應 400、檔案 bytes 保留及 Fixture 隔離。全套 npm test 512 通過、0 失敗；兩模式 validate 84 指標／25 金融公式／0 錯誤與警告，unknown 1／83。初次正向測試使用身份 schema 不支援的 supersedes 欄位，被 schema 正確拒絕；測試改用該類別支援的獨立新紀錄 ID，未放寬 schema 或修改真實資料。
+
+六份研究／145 紀錄／20 來源與原金融／論點／全部歷史不改；沒有 UI 修改或新增瀏覽器 QA。此項是載入集合內的證據指紋一致性，不替代外部儲存／一手內文／完整修訂沿革查證。83 個金融未知、三項 TTM null、股本未解差異與估值／個人投資性等缺口保留，父 baseline 未完成。詳見[驗證與限制](research-evidence-id-consistency.md)，遠端 CI／PR 狀態以實際結果為準。
+
 ## 2026-10-04 — 股本研究目錄、API 與中文 Dashboard
 
 PR #36 的 push／PR／合併後 main CI 均成功（main `a8483cb`）；從最新 origin/main 建立 `feat/capital-research-inspection`，開始時工作目錄乾淨、單一 worktree／遠端一致。依最高優先 baseline 子項接續，把上一項共用股本重播入口用於固定目錄與唯讀呈現。
