@@ -68,4 +68,11 @@ try {
   const lines=['# 目前研究論點', '', `工作區：${mode==='fixture'?'合成示範（FIXTURE）':'正式研究（PRODUCTION）'}${result.fixture?'；合成資料，非市場資料':''}`,`模型期間：${term(result.period.basis)}；${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}：${term(t.state)}`,`證據覆蓋：${term(t.coverage)}。${term(t.interpretation)}`,...t.triggered_rules.map(r=>`- ${r.id}（規則原文）：${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
  } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, capital-review FILE --production, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
-} catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}
+} catch(error) {
+ if(error.message==='Cannot snapshot calculation errors'&&error.details?.length) {
+  const {metricLabel}=await import('./dashboard/zh-hant.js');
+  console.error(JSON.stringify({error:error.message,message:'無法儲存研究快照：計算仍有錯誤，本次未寫入。',
+   details:error.details.map(issue=>({...issue,metric_label:metricLabel(issue.metric_id)}))},null,2));
+ } else console.error(error.message,error.details||'');
+ process.exitCode=1;
+}

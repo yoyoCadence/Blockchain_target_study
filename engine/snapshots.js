@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {assert} from './validation/index.js';
+import {assert,ValidationError} from './validation/index.js';
 export function stable(value) {
  if(Array.isArray(value)) return value.map(stable);
  if(value&&typeof value==='object') return Object.fromEntries(Object.keys(value).sort().filter(k=>value[k]!==undefined).map(k=>[k,stable(value[k])]));
@@ -26,7 +26,8 @@ export function assertVersionHistory(previous,p) {
 }
 export function makeSnapshot(p,result,{previous=null,reason,event=null}={}) {
  assert(reason?.trim(),'Material update requires a changelog reason');
- assert(!result.issues.some(x=>x.severity==='ERROR'),'Cannot snapshot calculation errors');
+ const calculationErrors=result.issues.filter(x=>x.severity==='ERROR');
+ if(calculationErrors.length)throw new ValidationError('Cannot snapshot calculation errors',structuredClone(calculationErrors));
  assert(!Object.values(result.metrics).some(m=>m.id.endsWith('@sensitivity')),'Persist sensitivity inputs as versioned scenarios before snapshotting');
  assertVersionHistory(previous,p);
  const content={schema_version:1,created_at:new Date().toISOString(),parent_id:previous?.id||null,reason,event,mode:p.mode,fixture:result.fixture,period:result.period,
