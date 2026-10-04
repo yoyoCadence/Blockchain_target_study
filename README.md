@@ -181,6 +181,8 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 
 ## API
 
+TTM [可比性假設也須維持同版本定義](reports/research-assumption-version-consistency.md)；合法升版保留歷史與 ASSUMPTION 分類，null 不因版本檢查而補值。
+
 目錄也檢查[相同公式 ID／版本的完整定義](reports/research-formula-version-consistency.md)，含 TTM 嵌入收入研究；各檔案重播自己的公式，合法多版本可並存。
 
 固定研究目錄與[共用證據 ID 檢查](reports/research-evidence-id-consistency.md)會在研究／時效回應前拒絕同 ID 的不同來源或紀錄，包括重用金融輸入 ID；匹配檔案 hash 仍須通過語意與跨集合一致性驗證。

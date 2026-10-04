@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 固定研究目錄假設版本一致性
+
+PR #39 的 push／PR／合併後 main CI 均成功（main `4d07b21`）；從最新 origin/main 建立 `fix/research-assumption-version-consistency`，開始時工作目錄乾淨、單一 worktree／遠端一致。接續原假設改動需升版原則在固定研究集合的載入缺口，未擴充模型或自動化。
+
+隔離目錄重現：同一可比性假設 ID／版本的理由、信心或 acquisition_treatment 判斷可改寫，兩入口仍接受，且原 TTM 結果完全相同、三項仍 null；也可重用 canonical 假設 ID／版本另定可比性。共用入口先保留 canonical ASSUMPTION 指紋，再檢查研究可比性完整定義；合法新舊版並存及正反目錄順序保留，分類不提升為觀測。
+
+十項新增回歸與相關 54 項通過；全套 npm test 530 通過、0 失敗；兩模式 validate 84 指標／25 金融公式／0 錯誤與警告，unknown 1／83。理由／信心／判斷／canonical 衝突拒絕，合法升版保留原兩份歷史、來源／分類／null，真實六份研究／金融／全部歷史與 Fixture 隔離通過。
+
+未修改原假設／公式／政策、來源、資料、研究目錄、artifact、事件、快照或 UI，沒有新增瀏覽器 QA。這是集合內版本指紋，非完整修訂沿革或政策歷史監控；83 個金融未知、三項正式 TTM null、股本未解分類與估值／個人投資性等原缺口保留，父 baseline 未完成。詳見[重現與驗證](research-assumption-version-consistency.md)，遠端 CI／PR 狀態以實際結果為準。
+
 ## 2026-10-04 — 固定研究目錄公式版本一致性
 
 PR #38 的 push／PR／合併後 main CI 均成功（main `666b24d`）；從最新 origin/main 建立 `fix/research-formula-version-consistency`，開始時工作目錄乾淨、單一 worktree／遠端一致。接續原公式版本約束在固定研究集合的載入缺口，未擴充金融模型或自動化。

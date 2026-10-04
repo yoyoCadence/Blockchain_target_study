@@ -21,8 +21,9 @@ export function inspectResearch(project,{catalog}={}) {
   return fingerprint({record:original,period,statement});
  };
  const knownRecords=new Map(project.inputs.map(record=>[record.id,recordDigest(record,record.period,null)]));
- const formulaKey=formula=>JSON.stringify([formula.id,formula.version]);
- const knownFormulas=new Map(project.registry.formulas.map(formula=>[formulaKey(formula),fingerprint(formula)]));
+ const versionKey=record=>JSON.stringify([record.id,record.version]);
+ const knownFormulas=new Map(project.registry.formulas.map(formula=>[versionKey(formula),fingerprint(formula)]));
+ const knownAssumptions=new Map(project.inputs.filter(record=>record.classification==='ASSUMPTION').map(record=>[versionKey(record),fingerprint(record)]));
  for(const entry of catalog.records) {
   const saved=readYaml(`data/research/${entry.file}`,project.root);
   const actualId=entry.kind==='identity'?fingerprint(saved):saved.id;
@@ -64,9 +65,14 @@ export function inspectResearch(project,{catalog}={}) {
    knownRecords.set(record.id,digest);
   }
   for(const formula of formulas) {
-   const key=formulaKey(formula),digest=fingerprint(formula);
+   const key=versionKey(formula),digest=fingerprint(formula);
    assert(!knownFormulas.has(key)||knownFormulas.get(key)===digest,`Research formula version conflict: ${formula.id} / v${formula.version}`);
    knownFormulas.set(key,digest);
+  }
+  if(comparability) {
+   const key=versionKey(comparability),digest=fingerprint(comparability);
+   assert(!knownAssumptions.has(key)||knownAssumptions.get(key)===digest,`Research assumption version conflict: ${comparability.id} / v${comparability.version}`);
+   knownAssumptions.set(key,digest);
   }
   content.records.push({id:entry.id,label:entry.label,kind:entry.kind,artifact_id:actualId,
    as_of_date,review,records,periods,sources,statement,comparability,full_review:saved,
