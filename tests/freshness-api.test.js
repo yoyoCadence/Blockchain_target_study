@@ -29,8 +29,8 @@ test('production freshness API preserves stale historical budget and separate ve
  const budget=data.inputs.find(r=>r.metric_id==='uni.growth_budget');
  assert.equal(budget.observation_as_of,'2026-01-01');assert.equal(budget.observation_state,'STALE_FOR_CURRENT_USE');
  assert.ok(data.source_checks.filter(s=>s.used_by.includes('uni.growth_budget')).every(s=>s.retrieval_state==='RECENTLY_RETRIEVED'));
- assert.equal(data.research.artifacts.length,5);assert.equal(data.research.records.length,30);
- assert.ok(data.research.records.filter(r=>r.record.classification==='DERIVED').every(r=>r.record.value===null&&r.evidence_state==='INSUFFICIENT'));
+ assert.equal(data.research.artifacts.length,6);assert.equal(data.research.records.length,145);
+ assert.ok(data.research.records.filter(r=>r.catalog_id==='secz-ttm-20260630').every(r=>r.record.value===null&&r.evidence_state==='INSUFFICIENT'));
  assert.equal(data.research.financial_inputs_updated,false);assert.equal(data.research.persisted,false);
 });
 

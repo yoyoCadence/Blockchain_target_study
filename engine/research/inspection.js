@@ -4,6 +4,7 @@ import {fingerprint} from '../snapshots.js';
 import {reviewIdentities} from './identities.js';
 import {reviewRevenues,verifyRevenueReview} from './revenues.js';
 import {reviewRevenueTtm,verifyRevenueTtm} from './revenue-ttm.js';
+import {replayCapitalReview} from './capital.js';
 
 // Explicit local catalog only: no discovery, remote fetching, ingestion or writes.
 export function inspectResearch(project,{catalog}={}) {
@@ -18,7 +19,7 @@ export function inspectResearch(project,{catalog}={}) {
   const saved=readYaml(`data/research/${entry.file}`,project.root);
   const actualId=entry.kind==='identity'?fingerprint(saved):saved.id;
   assert(actualId===entry.expected_id,'Research catalog fingerprint mismatch');
-  let records,periods=[],sources,statement=null,comparability=null,review,as_of_date;
+  let records,periods=[],sources,statement=null,comparability=null,review,as_of_date,capital=null;
   if(entry.kind==='identity') {
    const result=reviewIdentities(project,saved);
    records=result.identities;sources=saved.sources;review=saved.review;as_of_date=saved.as_of_date;
@@ -26,6 +27,11 @@ export function inspectResearch(project,{catalog}={}) {
    verifyRevenueReview(saved);
    assert(reviewRevenues(project,saved.dossier,{formulas:saved.formulas}).id===saved.id,'Research catalog revenue does not replay');
    ({observations:records,periods,sources,statement,review,as_of_date}=saved.dossier);
+  } else if(entry.kind==='capital') {
+   capital=replayCapitalReview(project,saved);
+   records=[...saved.observations,...saved.derived];
+   periods=[...new Map(records.map(r=>[fingerprint(r.period),r.period])).values()];
+   ({sources,review,as_of_date}=saved);
   } else {
    verifyRevenueTtm(saved);
    assert(reviewRevenueTtm(project,saved.request,saved.input_reviews.annual,saved.input_reviews.interim,{formula:saved.formula}).id===saved.id,'Research catalog TTM does not replay');
@@ -34,7 +40,8 @@ export function inspectResearch(project,{catalog}={}) {
    review=saved.request.review;as_of_date=saved.request.as_of_date;
   }
   content.records.push({id:entry.id,label:entry.label,kind:entry.kind,artifact_id:actualId,
-   as_of_date,review,records,periods,sources,statement,comparability,full_review:saved});
+   as_of_date,review,records,periods,sources,statement,comparability,full_review:saved,
+   ...(capital?{context:saved.context,summary:capital.summary,notice:capital.notice}:{})});
  }
  return structuredClone(content);
 }

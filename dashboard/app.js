@@ -1,4 +1,4 @@
-import {term,metricLabel} from './zh-hant.js';
+import {term,metricLabel,periodLabel} from './zh-hant.js';
 const $=id=>document.getElementById(id);
 let state,mode='fixture',overrides={},refreshRevision=0,researchRevision=0,freshnessRevision=0;
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;if(className) node.className=className;return node;};
@@ -65,6 +65,14 @@ function renderResearch(data) {
   const card=el('details',undefined,'research-card');card.dataset.research=report.id;
   card.append(el('summary',term(report.id)),el('p',`知識日 ${report.as_of_date} · 審查者（原文）${report.review.reviewer} · 審查時間 ${report.review.reviewed_at}`,'hint'));
   if(report.statement)card.append(el('p',`${report.statement.entity_name} · ${term(report.statement.scope)} · ${report.statement.accounting_basis} · ${term(report.statement.audit_status)}`,'hint'),el('p',`報表限制（原文）：${report.statement.limitations}`,'hint'));
+  if(report.kind==='capital') {
+   card.append(el('p',report.notice,'hint'));
+   for(const field of ['entity','unit_definition','table_basis','unknown_policy','comparison_basis','interpretation'])card.append(el('p',report.context[field],'hint'));
+   const unresolved=el('ul');for(const item of report.context.unresolved)unresolved.append(el('li',item));card.append(unresolved);
+   card.append(el('h3','機械分類核對'),freshnessTable(['核對項目','股數（count）','公式版本','期間／知識日'],report.summary.checks.map(record=>[
+    record.label,record.value===null?'未知':new Intl.NumberFormat('zh-TW').format(record.value),`${record.formula_id} / v${record.formula_version}`,`${periodLabel(record.period)}／${record.as_of_date}`
+   ])));
+  }
   if(report.comparability) {
    card.append(el('span',`${term(report.comparability.classification)} · 可信程度 ${term(report.comparability.confidence)}`,'badge ASSUMPTION'),el('p',`可比性理由（原文）：${report.comparability.rationale}`,'hint'));
    const checks=el('div',undefined,'research-checks');
@@ -76,10 +84,12 @@ function renderResearch(data) {
   for(const record of report.records) {
    const row=el('tr'),period=record.period||report.periods.find(p=>p.id===record.period_id);
    const value=record.identifier?JSON.stringify(record.identifier):record.value===null?'未知':new Intl.NumberFormat('zh-TW',{maximumFractionDigits:6}).format(record.value);
-   for(const text of [metricLabel(record.metric_id||record.asset),value,term(record.unit||record.identifier?.kind||'—'),period?`${term(period.basis)} · ${period.start} → ${period.end}`:'身份識別',record.as_of_date,term(record.classification),term(record.confidence),term(record.status||record.investability?.status||'—')])row.append(el('td',text));
+   for(const text of [metricLabel(record.metric_id||record.asset),value,report.kind==='capital'?'股數（count）':term(record.unit||record.identifier?.kind||'—'),periodLabel(period),record.as_of_date,term(record.classification),term(record.confidence),term(record.status||record.investability?.status||'—')])row.append(el('td',text));
    table.append(row);
   }
-  wrap.append(table);card.append(wrap);
+  wrap.append(table);
+  if(report.kind==='capital') {const raw=el('details');raw.append(el('summary',`原始觀測與計算紀錄（${report.records.length} 筆／${report.summary.unknown_observations} 筆未知觀測）`),wrap);card.append(raw);}
+  else card.append(wrap);
   const sources=el('div',undefined,'research-sources');sources.append(el('h3','來源與版本'));
   for(const source of report.sources) {
    const p=el('p',`${source.title} · ${source.publisher} · 來源層級 ${source.tier} · v${source.version} · 發布 ${source.date} · 取得 ${source.retrieved_at} `);
@@ -133,7 +143,7 @@ function renderFreshness(data) {
   const research=el('article',undefined,'freshness-card');research.append(el('h3',`已編目研究・${data.research.artifacts.length} 份審查／${data.research.records.length} 筆紀錄`),el('p',term(data.research.interpretation),'hint'),freshnessSummary(data.research.summary));
   const reviews=el('details');reviews.append(el('summary','截止日的審查可用性'),freshnessTable(['目錄／研究檔案','知識日','審查時間','審查距今天數','審查狀態'],data.research.artifacts.map(row=>[`${row.id} · ${row.artifact_id}`,row.as_of_date,row.review.reviewed_at,row.review_age_days,term(row.review_state)])));
   const records=el('details');records.append(el('summary','原始研究觀測日期與未知值'),freshnessTable(['指標／紀錄','分類／數值','期間','觀測知識日','距今天數','窗口天數','觀測狀態','審查狀態','證據狀態'],data.research.records.map(row=>[
-   `${row.metric_id} · ${row.record_id}`,`${term(row.record.classification)} · ${row.record.value===null?'未知':row.record.value??'身份識別'}`,row.period?`${term(row.period.basis)} · ${row.period.start} → ${row.period.end}`:'身份識別',row.record.as_of_date,row.observation_age_days,row.observation_max_age_days,term(row.observation_state),term(row.review_state),term(row.evidence_state)
+   `${metricLabel(row.metric_id)} · ${row.record_id}`,`${term(row.record.classification)} · ${row.record.value===null?'未知':row.record.value??'身份識別'}`,periodLabel(row.period),row.record.as_of_date,row.observation_age_days,row.observation_max_age_days,term(row.observation_state),term(row.review_state),term(row.evidence_state)
   ])));
   research.append(reviews,records,freshnessSources(data.research.source_checks));container.append(research);
  }

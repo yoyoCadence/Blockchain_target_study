@@ -1,4 +1,4 @@
-version: 1
+version: 2
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -25,3 +25,8 @@ records:
     kind: revenue_ttm
     file: revenue-ttm-reviews/secz-20260630-v1.json
     expected_id: 6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d
+  - id: secz-resale-capital-20261004
+    label: SECZ 轉售登記股本分類／未解差額
+    kind: capital
+    file: capital-reviews/secz-resale-20261004-v1.json
+    expected_id: f3bce7412757bc8e418b2c6b6afc2066886660a7a636ef78b320a44e59e4d693

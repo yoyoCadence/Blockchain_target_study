@@ -51,7 +51,7 @@ test('warrant evidence preserves all historical replay and cannot add a consecut
 });
 
 test('warrant source context cannot establish subsidiary TTM or enter the fixture workspace',()=>{
- const research=inspectResearch(project);assert.equal(research.records.length,5);
+ const research=inspectResearch(project);assert.equal(research.records.length,6);
  const ttm=research.records.find(r=>r.kind==='revenue_ttm');
  assert.equal(ttm.artifact_id,'6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d');
  assert.equal(ttm.comparability.checks.acquisition_treatment.value,null);

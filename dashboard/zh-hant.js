@@ -39,6 +39,7 @@ const terms={
  lt:'小於（lt）',lte:'小於等於（lte）',gt:'大於（gt）',gte:'大於等於（gte）',eq:'等於（eq）',
  'Freshness cutoff cannot be in the future':'時效截止日不能晚於目前 UTC 日',
  'core-identifiers-20261003':'UNI／SECZ／XLM 身份識別', 'secz-quarter-half-2026':'SECZ 季度／半年原始收入', 'secz-annual-s1':'SECZ 已審計年度收入／S-1', 'secz-annual-prospectus':'SECZ 已審計年度收入／公開說明書', 'secz-ttm-20260630':'SECZ 近十二個月審查／可比性未確認',
+ 'secz-resale-capital-20261004':'SECZ 轉售登記股本分類／未解差額',
  'No confirmed trigger; insufficient evidence. Not an affirmative healthy thesis.':'尚未確認規則觸發；證據不足，不能據此認定投資論點健康。',
  'Rule-based research monitoring; not an investment recommendation.':'依規則監測研究論點；不構成投資建議。',
  'Production research is available in the Production workspace; it is not mixed with synthetic fixtures.':'請切換至正式研究資料檢視來源證據；正式研究不混入合成示範資料。',
@@ -47,4 +48,21 @@ const terms={
  'Record counts are not thesis periods. Review availability is separate from original observation/publication/retrieval dates. Existing analyst review windows apply; freshness does not resolve comparability or investability, renew observations or update financial values.':'紀錄數不是論點期數。審查可用日與原始觀測／發布／取得日分開；時效結果不解決可比性或投資性、不更新觀測或金融數值。'
 };
 export const term=value=>value===null||value===undefined?'未知':terms[value]??String(value);
-export const metricLabel=id=>metricLabels[id]??id;
+const capitalLabels={
+ 'issued-before':'S-1 披露的原已發行股數','stated-after':'S-1 披露的發售後股數',
+ 'registered-total':'轉售登記總數','opinion-issued-resale':'法律意見的已發行轉售類別',
+ 'opinion-warrant-capacity':'法律意見的權證容量','opinion-earmarked-earnout':'法律意見的 earnout 類別',
+ 'company-earnout-capacity':'公司 earnout 發行上限','sponsor-issued-conditional':'Sponsor 已發行條件股',
+ 'offered-common-total':'轉售表普通股欄合計（含權證標的）','disclosed-earned-rights-total':'轉售表已披露 earnout 數值合計',
+ 'combined-offered-total':'兩欄機械合計','common-less-warrant-capacity':'普通股欄扣除權證容量',
+ 'earnout-less-sponsor':'已披露 earnout 扣除已發行 Sponsor 條件股',
+ 'unreconciled-company-earnout-gap':'公司 earnout 的未解差額','stated-after-less-before':'S-1 發售後與原已發行差額'
+};
+export const metricLabel=id=>{
+ if(typeof id==='string'&&id.startsWith('research.secz.resale.')) {
+  const name=id.slice('research.secz.resale.'.length),row=/^(common|earnout)-row(\d+)$/.exec(name);
+  return capitalLabels[name]??(row?`轉售表第 ${Number(row[2])} 列・${row[1]==='common'?'普通股欄（含權證標的）':'earnout 欄'}`:id);
+ }
+ return metricLabels[id]??id;
+};
+export const periodLabel=period=>!period?'身份識別':period.basis==='point'?`${term(period.basis)} · ${period.end}`:`${term(period.basis)} · ${period.start} → ${period.end}`;
