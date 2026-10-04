@@ -73,9 +73,14 @@ test('API rejects historical source rewrites even if current data agrees with th
 test('committed histories retain all hashes, periods and financial/thesis replay',()=>{
  for(const mode of ['fixture','production']) {
   const p=loadProject(mode),snapshots=readSnapshots(p.root,mode),before=fingerprint(snapshots);
-  const result=calculate(p,{history:snapshots.slice(0,-1),previousThesis:snapshots.at(-2)?.thesis??{}});
-  assert.deepEqual(result.metrics,snapshots.at(-1).metrics);assert.deepEqual(result.thesis,snapshots.at(-1).thesis);
-  assert.equal(new Set(snapshots.map(s=>JSON.stringify(s.period))).size,1);
+  for(const [index,snapshot]of snapshots.entries()) {
+   const historic={...p,inputs:snapshot.inputs,sources:snapshot.sources,
+    registry:{...p.registry,formulas:snapshot.formulas},dictionary:snapshot.dictionary,
+    thesis:{...p.thesis,rules:snapshot.rules}};
+   const result=calculate(historic,{history:snapshots.slice(0,index),previousThesis:snapshots[index-1]?.thesis??{}});
+   assert.deepEqual(result.metrics,snapshot.metrics);assert.deepEqual(result.thesis,snapshot.thesis);
+   assert.deepEqual(result.period,snapshot.period);
+  }
   assert.equal(fingerprint(readSnapshots(p.root,mode)),before);
  }
 });

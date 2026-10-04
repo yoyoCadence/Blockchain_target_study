@@ -181,7 +181,7 @@ test('research failure clears old event cards and independent retry restores the
  assert.equal(margin.value,'0.3');assert.equal(v.requests.length,1);assert.equal(v.count(),84);
 });
 
-test('single venue quote evidence has a Chinese title and remains separate from canonical financial prices',async()=>{
+test('single venue source review retains its saved scope alongside a later independent XLM baseline',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
  v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(card=>card.dataset.event==='uni-xlm-market-quotes-source-review-20261004');
@@ -189,6 +189,11 @@ test('single venue quote evidence has a Chinese title and remains separate from 
  assert.match(card.textContent,/9\.0556 USD\/UNI/);assert.match(card.textContent,/0\.216265 USD\/XLM/);
  assert.match(card.textContent,/2026-10-04T11:33:36\.662371063Z/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);
- assert.equal(production.metrics['uni.price'].value,null);assert.equal(production.metrics['xlm.price'].value,null);
+ assert.equal(production.metrics['uni.price'].value,null);assert.equal(production.metrics['xlm.price'].value,0.216265);
+ assert.equal(production.metrics['xlm.price'].classification,'OBSERVED');
+ const quote=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='xlm.price');
+ assert.match(quote.textContent,/\$0\.216265/);
+ quote.onclick();assert.match(v.$('inspector-body').textContent,/\$0\.216265/);
+ assert.match(v.$('comparison').textContent,/\$0\.216265/);
  assert.equal(v.count(),84);
 });

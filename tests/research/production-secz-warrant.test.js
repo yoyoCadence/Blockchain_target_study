@@ -40,10 +40,12 @@ test('warrant evidence preserves all historical replay and cannot add a consecut
  const before=fingerprint(history);
  for(const [index,snapshot] of history.entries()) {
   verifySnapshot(snapshot);
-  const replay=calculate(project,{history:history.slice(0,index),previousThesis:history[index-1]?.thesis??{}});
+  const replay=calculate({...project,inputs:snapshot.inputs,sources:snapshot.sources,
+   registry:{...project.registry,formulas:snapshot.formulas},dictionary:snapshot.dictionary,
+   thesis:{...project.thesis,rules:snapshot.rules}},{history:history.slice(0,index),previousThesis:history[index-1]?.thesis??{}});
   assert.deepEqual(replay.metrics,snapshot.metrics);assert.deepEqual(replay.thesis,snapshot.thesis);
  }
- assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
+ assert.equal(new Set(history.slice(0,history.indexOf(review)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(review.thesis).every(t=>t.coverage==='insufficient'));
  const capital=readYaml('data/research/secz-parent-capital-context-2026-10-03-v1.yaml');
  const {propagated_nodes,...oldEvent}=previous.event;assert.deepEqual(oldEvent,capital);

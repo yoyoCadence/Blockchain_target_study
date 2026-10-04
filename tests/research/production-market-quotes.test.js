@@ -17,7 +17,7 @@ test('saved market quote archive preserves exact primary responses, product unit
  const {id,...content}=archive;assert.equal(id,fingerprint(content));
  assert.equal(archive.fixture,false);assert.equal(archive.captures.length,4);
  assert.deepEqual(proposal.observations.map(o=>[o.asset,o.value]),[['UNI',9.0556],['XLM',0.216265]]);
- validateProject({...project,inputs:[...project.inputs,...proposal.observations]});
+ validateProject({...project,inputs:[...quoteReview.inputs,...proposal.observations]});
  for(const observation of proposal.observations) {
   const [tickerCapture,productCapture]=observation.source_ids.map(source=>archive.captures.find(c=>c.id===source));
   const ticker=JSON.parse(tickerCapture.body),product=JSON.parse(productCapture.body);
@@ -61,11 +61,12 @@ test('source-only quote review appends four sources while retaining every financ
 
 test('unaligned current quote candidate is refused before persistence without moving historical periods',()=>{
  const before=fingerprint({project,history,economics:calculate(project)});
- const candidate=calculate({...project,inputs:[...project.inputs,...proposal.observations]});
+ const pending=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
+ const candidate=calculate({...project,inputs:[...project.inputs,...pending.observations]});
  assert.deepEqual(candidate.issues.filter(i=>i.severity==='ERROR').map(i=>i.metric_id),
   ['uni.net_accrual','uni.required_share','uni.required_share_net']);
  assert.ok(candidate.issues.filter(i=>i.severity==='ERROR').every(i=>/Unaligned accounting periods/.test(i.message)));
- assert.throws(()=>prepareResearchRefresh(project,proposal),/Cannot snapshot calculation errors/);
+ assert.throws(()=>prepareResearchRefresh(project,pending),/Cannot snapshot calculation errors/);
  assert.equal(fs.existsSync(path.join(project.root,'data/events/production',`${proposal.id}.json`)),false);
  assert.equal(fingerprint({project,history:readSnapshots(project.root,'production'),economics:calculate(project)}),before);
  assert.equal(quoteReview.period.end,'2026-01-01');
@@ -80,7 +81,7 @@ test('quote source review remains separately inspectable, replayable and exclude
  assert.match(review.event.reason,/9\.0556 USD\/UNI/);assert.match(review.event.reason,/0\.216265 USD\/XLM/);
  assert.match(review.event.reason,/正式 uni.price／xlm.price/);assert.ok(review.event.research_review.rationale.includes(archive.id));
  assert.deepEqual(inspectResearch(loadProject('fixture')).events,[]);
- assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
+ assert.equal(new Set(history.slice(0,history.indexOf(quoteReview)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(quoteReview.thesis).every(t=>t.coverage==='insufficient'));
  const replay=calculate({...project,inputs:quoteReview.inputs,sources:quoteReview.sources,
   registry:{...project.registry,formulas:quoteReview.formulas}},

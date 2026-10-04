@@ -43,7 +43,7 @@ test('release snapshot fully replays and repeated model period cannot add thesis
   graph:release.graph,sensitivity:release.sensitivity};
  const replay=calculate(replayProject,{history:history.slice(0,history.indexOf(release)),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,release.metrics);assert.deepEqual(replay.thesis,release.thesis);
- assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
+ assert.equal(new Set(history.slice(0,history.indexOf(release)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(release.thesis).every(t=>t.coverage==='insufficient'));
 });
 

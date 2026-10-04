@@ -1,5 +1,21 @@
 # 開發交接
 
+## 2026-10-04 — XLM 單筆交易所價格基準
+
+使用者最新要求：本子項完成中文 PR／CI／合併後停止，以便換帳號接續，不再啟動下一任務。接續時先讀 AGENTS.md、task.md 與本交接，重新核對最新 origin/main／branch／worktree；下列後續項僅為待辦，尚未實作。
+
+PR #47 的 push／PR／合併後 main CI 均成功（main `07fc136`）；從最新 origin/main 建立 `research/xlm-quote-baseline`，開始時工作區乾淨、單一 worktree 且遠端同步。接續最高優先 baseline 的有日期價格子項，採已確認可獨立計算的 XLM，沒有把仍被 UNI 年度／point 依賴阻擋的父任務勾選完成。
+
+重用已保存 Coinbase XLM ticker／product 的兩份 Tier 1 來源與 raw archive，沒有重新採集；獨立 proposal 先 preview、以 digest `fef75169...` apply，追加一筆 point OBSERVED 與完整不可變快照 `497cec4e68daf9f87d530145d87044af1383bb9eb3691cbc7559b70deb497a18`，parent `0e4062bd...`。原始價格 0.216265 USD／1 XLM、trade_id 169565371、2026-10-04T11:33:54.575362751Z 及取得／商品／review 日期分開保留；已套用的 ID 不可重複 apply。
+
+只有 XLM 價格數值改變，正式 unknown 83 → 82；舊輸入、來源登錄、公式、假設、情境、規則、投資性／圖譜保留。最新研究參考日推進至 2026-10-04，前九份快照仍為原 2026-01-01。來源比較 true 來自新增價格來源依賴，null → null 差異可來自生成的日期／血緣 metadata；不是新財務值。年度模型參考標籤不等於收入已驗證，各論點仍為證據不足、無觸發規則。原始雙資產候選保留，現在請以新 `data/research/uni-market-quote-pending-2026-10-04.yaml` 重現三項 UNI 期間阻擋；CLI preview／apply 不寫入，完整診斷及原 guard 不變。
+
+中文價格卡片／血緣／比較顯示 $0.216265，最多八位小數；金融計算不移入 UI。四項新增回歸及全套 npm test 575 通過、0 失敗，兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／82。初輪舊測試暴露「所有歷史永遠同日／直接用目前資料重播舊版本」假定；改為各不可變快照自身資料／公式／規則／期間精確重播並保留原 hash，固定昨日時鐘只隔離記憶體基準。沒有藉更改資料或放寬日期驗證解決。
+
+Chrome 完整重載後實測正式 84 指標／十事件／六 review、點擊價格來源血緣、兩來源安全連結、Enter 展開事件／完整 JSON、Fixture 立即清除及還原，console error／warn 與服務 stderr 空。桌面 CSS 1536×684，無整頁水平溢出，截圖在 TEMP；本次窄視窗未驗證，未借用先前 LP 卡片的尺寸證據。已核對命令列／PID／4310 埠並停止驗收服務。
+
+三項 TTM null、UNI 年度期間問題、現行估值／供給與個人投資性、足夠連續 verified 期間與父 baseline 仍保留。下一必要工作是明確設計 UNI point／年度預算價格換算的期間語意，再依主來源完成估值研究。詳見[操作與驗收](xlm-quote-baseline.md)，遠端 CI／PR 以實際結果為準。
+
 ## 2026-10-04 — 中文計算阻擋診斷
 
 PR #46 的 push／PR／合併後 main CI 均成功（main `4071b77`）；從最新 origin/main 建立 `fix/research-preview-diagnostics`，開始時工作區乾淨、單一 worktree 且遠端同步。選擇實際市場資料預覽只報總括錯誤的必要使用修正，沒有擴大模型或資料匯入。

@@ -10,10 +10,10 @@ import {prepareResearchRefresh} from '../../engine/research/index.js';
 import {metricLabel} from '../../dashboard/zh-hant.js';
 
 const project=loadProject('production');
-const proposal=readYaml('data/research/market-quotes-2026-10-04.yaml');
+const proposal=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
 const candidate=()=>calculate({...project,inputs:[...project.inputs,...proposal.observations]});
 const state=()=>fingerprint({project,economics:calculate(project),history:readSnapshots(project.root,'production'),
- proposal:fs.readFileSync(path.join(project.root,'data/research/market-quotes-2026-10-04.yaml'),'utf8')});
+ proposal:fs.readFileSync(path.join(project.root,'data/research/uni-market-quote-pending-2026-10-04.yaml'),'utf8')});
 
 test('blocked real quote preview retains every calculation error in a detached structured ValidationError',()=>{
  const before=state(),result=candidate(),errors=result.issues.filter(i=>i.severity==='ERROR');
@@ -30,7 +30,7 @@ test('blocked real quote preview retains every calculation error in a detached s
 });
 
 for(const command of ['research-preview','research-apply'])test(`${command} reports all real quote blockers in Chinese JSON and never writes`,()=>{
- const before=state(),args=['cli.js',command,'data/research/market-quotes-2026-10-04.yaml','--production'];
+ const before=state(),args=['cli.js',command,'data/research/uni-market-quote-pending-2026-10-04.yaml','--production'];
  if(command==='research-apply')args.push('--digest','0'.repeat(64));
  const child=spawnSync(process.execPath,args,{cwd:project.root,encoding:'utf8'});
  assert.ifError(child.error);assert.equal(child.status,1);assert.equal(child.stdout,'');
