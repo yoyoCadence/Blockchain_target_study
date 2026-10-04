@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 中文計算阻擋診斷
+
+PR #46 的 push／PR／合併後 main CI 均成功（main `4071b77`）；從最新 origin/main 建立 `fix/research-preview-diagnostics`，開始時工作區乾淨、單一 worktree 且遠端同步。選擇實際市場資料預覽只報總括錯誤的必要使用修正，沒有擴大模型或資料匯入。
+
+makeSnapshot 沿用拒絕 ERROR 的原條件／原 message，以既有 ValidationError.details 保留全部 ERROR 的 structuredClone；UNKNOWN／WARNING 不混入拒絕詳情，呼叫者修改診斷不影響計算結果。CLI 只將此一錯誤呈現為 stderr JSON，保留完整 machine ID／formula 原因並加中文指標與說明；其他錯誤及成功格式維持原狀。
+
+實際市場候選 preview／apply 均 exit 1、stdout 空、三個 UNI 期間原因逐項呈現，proposal／project／金融／九份 journal 的 bytes／hash 不變；snapshot guard 與 digest 流程不放寬。四項新增回歸、相關 60／全套 npm test 571 項通過，0 失敗；兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。沒有 Dashboard 修改或新的 UI QA，原價格卡片的尺寸控制限制仍保留。
+
+沒有修改 financial／sources／spec／既存資料或快照／公式／假設，三項 TTM null 與父 baseline 保留。失敗命令的本類 stderr 由原 Node inspect array 改為完整 JSON；若外部工具依賴舊 stderr 文字，需要改讀 error／details，exit code 與 stdout 不變。另以純記憶體單一 XLM 價格預覽確認可獨立計算、0 錯誤，尚未套用或完成該子項；下一步可將 XLM 分開依原 review／digest 流程保存，UNI／年度期間問題仍須獨立設計。詳見[診斷操作](research-preview-diagnostics.md)，遠端 CI／PR 以實際結果為準。
+
 ## 2026-10-04 — UNI／XLM 單次交易所價格資料
 
 PR #45 的 push／PR／合併後 main CI 均成功（main `c31c48e`）；從最新 origin/main 建立 `research/manual-market-quotes`，開始時工作區乾淨、單一 worktree 且遠端同步。接續 baseline 的有日期價格子項，未擴大財務模型或自動取得。

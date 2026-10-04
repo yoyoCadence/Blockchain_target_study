@@ -60,6 +60,7 @@
     - [x] 中文已存事件查閱：唯讀研究 API／介面顯示八筆已審查事件，保留各快照的來源版本、完整事件、raw 整數與四種日期；重用歷史／事件驗證，Fixture 不含正式事件。見[操作與驗收](reports/reviewed-event-inspection.md)。562 項測試與桌面／窄視窗、Enter 展開、503／延遲重試通過，金融輸入與八份同期間歷史不改；父 baseline 仍未完成。
     - [x] UNI／XLM 單次交易所價格資料包：四份公開原始回應、兩筆 point OBSERVED 候選、完整 decimal／nanosecond 與商品幣別，唯讀預覽後追加四來源及 source-only 事件／快照。見[查證與阻擋](reports/manual-market-quotes.md)。研究頁九筆事件與中文卡片可查閱；567 項測試通過，83 個金融未知與三項 TTM null 保留。
     - [ ] 同步估值與年度／point 依賴明示對齊：新價格候選的 `uni.net_accrual`、`uni.required_share`、`uni.required_share_net` 因期間未對齊而無法保存。原防線保留；先完成可審查的期間設計／必要研究，再重新 preview，不回填價格日期或偽裝 model 期間。供給量／市值／FDV、SECZ 股本／價格與父 baseline 仍未完成。
+    - [x] 中文計算阻擋診斷：共用快照拒絕錯誤保留全部原始 ERROR，CLI 顯示中文說明／指標名與 machine ID／公式原因。實際價格候選 preview／apply 的三項阻擋完整輸出，exit 1、stdout 空與不寫入驗證；相關 60／全套 571 項通過。見[診斷與限制](reports/research-preview-diagnostics.md)。計算、公式、日期及期間拒絕規則不變，父 baseline 保留。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

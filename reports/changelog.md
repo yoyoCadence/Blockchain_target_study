@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-04 — 中文計算阻擋診斷
+
+- 共用快照拒絕計算錯誤時保留全部原始 ERROR 的獨立副本；不改計算、公式、期間或寫入拒絕。
+- CLI 將此錯誤輸出為完整 stderr JSON，提供中文說明／指標名稱、原始 ID 與公式原因；stdout 空及 exit 1 保留，其他錯誤格式不改。
+- 四項新增真實候選／CLI／快照契約回歸、相關 60／全套 571 項與兩模式驗證通過，preview／apply 三個阻擋完整呈現且歷史不變；金融與父 baseline 缺口保留。
+
 ## 2026-10-04 — UNI／XLM 單次交易所價格資料
 
 - 保存 Coinbase Exchange UNI/USD 與 XLM/USD 最後成交、四份原始 ticker／product 回應、decimal／nanosecond／HTTP Date 及獨立取得時間；兩筆 OBSERVED 候選不等於同步估值或個人交易資格。
