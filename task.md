@@ -49,6 +49,7 @@
     - [x] 相鄰快照版本連續性：歷史讀取逐對重用既有版本檢查，拒絕舊來源／輸入同 ID 改寫、刪除與未升版／退版定義，保留合法追加及升版。見[版本連續性](reports/snapshot-version-continuity.md)。兩模式、API 檔案保留及真實歷史重播通過；非外部不可變性認證，父 baseline 未完成。
     - [x] SECZ 轉售登記分類核對：直接讀取 S-1 選定股數表、50 列轉售資料／註腳，保存 108 個 OBSERVED（9 個 null）及 7 條 v1 研究算術公式，與費表／Exhibit 5.1／10-Q 對照；追加來源版本及 hash 綁定完整快照。見[分類研究](reports/secz-resale-capital-reconciliation.md)。Sponsor 已發行重疊與 961,384 差額／原分類衝突保留，未補目前股本／估值或完成父 baseline。
     - [x] 股本研究手動唯讀驗證：共用 schema／重播核對原始表格、來源／日期／版本、七條嵌入公式與確切依賴，繁體中文摘要保留九個 null 與未解分類。見[操作與限制](reports/manual-capital-review.md)。匹配 hash 仍需語意驗證；金融／來源／歷史不改，目錄呈現與完整 baseline 尚待完成。
+    - [x] 股本研究目錄／API／中文 Dashboard：目錄 v2 釘選原 artifact，共用重播保留 108 個觀測／7 項推導、九個 null、全部來源版本／point 日期／完整依賴；既有手動時效保留審查可用日與原觀測日。見[操作與驗收](reports/capital-research-inspection.md)。桌面／手機與工作區／截止日切換通過，金融／歷史不改，父 baseline 仍未完成。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

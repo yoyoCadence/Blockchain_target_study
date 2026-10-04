@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 股本研究目錄、API 與中文 Dashboard
+
+PR #36 的 push／PR／合併後 main CI 均成功（main `a8483cb`）；從最新 origin/main 建立 `feat/capital-research-inspection`，開始時工作目錄乾淨、單一 worktree／遠端一致。依最高優先 baseline 子項接續，把上一項共用股本重播入口用於固定目錄與唯讀呈現。
+
+目錄升至 v2 只追加原股本 hash，原五份條目保留。研究 API／Dashboard 呈現 108 個 OBSERVED／7 個 DERIVED、原來源版本／point 日期／context／未解分類／完整原文；中文核對與原始 115 紀錄分開展開。既有時效讀取此目錄，六份／145 紀錄／20 來源，保留 point 與知識日、九個未知及非觀測推導；10/3 尚不可用的 review 與 10/4 可用分開，政策／公式版本不改。
+
+六項新增回歸與既有目錄／API／時效共 42 項通過；全套 499 通過、0 失敗，兩模式 validate 84 指標／25 金融公式／0 錯誤與警告，unknown 1／83。Chrome 實際桌面 1524×729／窄 CSS 視窗 300×675（viewport 要求 390×844）檢查七項摘要、115 列／九個未知、完整 hash／108 觀測／七公式／50 個首項依賴／兩來源 supersession，手動截止日前後、改日期清空及 Fixture 隔離通過；頁面非空白、無錯誤畫面／主控台 error／warn、無整頁溢出、表格可橫向捲動。Browser 連線曾逾時但恢復後完成，暫時 viewport 已復原；截圖保留 TEMP，未加入儲存庫。詳見[操作與驗收](capital-research-inspection.md)。
+
+金融／來源／原 artifact／事件／七份同模型期快照保留；83 個未知與三項正式 TTM null 不改。現在及完全稀釋股本、961,384 差額原因、現在估值與個人投資性、SECZ 法律名稱／六類收入及 UNI 全期間捕獲仍未查證，父 baseline 未完成。遠端 CI／PR 狀態以實際結果為準。
+
 ## 2026-10-04 — 股本研究手動唯讀驗證
 
 PR #35 已合併（main `ca3ffa5`），push／PR／合併後 main CI 均成功。從最新 origin/main 建立 `feat/manual-capital-review`，開始時工作目錄乾淨，單一 worktree／遠端一致。使用者已授權逐項中文 PR、驗證成功後合併並繼續，未擴充自動化或金融模型。

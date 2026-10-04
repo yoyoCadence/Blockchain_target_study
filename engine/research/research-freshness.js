@@ -28,6 +28,7 @@ export function researchFreshness(project,{as_of_date,policy,catalog}={}) {
   const reviewAge=ageAt(cutoff,artifact.review.reviewed_at);
   return {id:artifact.id,kind:artifact.kind,artifact_id:artifact.artifact_id,as_of_date:artifact.as_of_date,
    review:artifact.review,periods:artifact.periods,statement:artifact.statement,comparability:artifact.comparability,
+   ...(artifact.kind==='capital'?{context:artifact.context,notice:artifact.notice}:{}),
    review_age_days:reviewAge,review_state:reviewAge===null?'NOT_AVAILABLE_AT_CUTOFF':'AVAILABLE_AT_CUTOFF'};
  });
  const knownRecords=new Map();
