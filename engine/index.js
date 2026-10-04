@@ -77,7 +77,11 @@ export function validateProject(p) {
   assert(Number.isInteger(f.version)&&f.version>0,`Invalid formula version ${f.id}`);
   assert(dictionary[f.output]?.kind==='derived',`Missing derived dictionary entry ${f.output}`);
   assert(f.unit===dictionary[f.output].unit,`Formula output unit mismatch ${f.id}`);
-  assert(['compatible','prior_comparison'].includes(f.period_policy),`Invalid period policy ${f.id}`);
+  assert(['compatible','prior_comparison','annual_rate_valuation','valuation_compatible'].includes(f.period_policy),`Invalid period policy ${f.id}`);
+  if(f.period_policy==='annual_rate_valuation') {
+   assert(f.rate_input!==f.price_input&&f.expression.op==='mul'&&f.expression.args.length===2&&
+    f.expression.args.includes(f.rate_input)&&f.expression.args.includes(f.price_input),`Invalid annual-rate valuation expression: ${f.id}`);
+  }
   assert(references(f.expression).length>0,`Formula has no lineage: ${f.id}`);
  }
  orderFormulas(p.registry.formulas,p.dictionary.metrics.filter(x=>x.kind==='input').map(x=>x.id));
@@ -129,6 +133,12 @@ export function calculate(p,{overrides={},history=[],previousThesis={}}={}) {
   let value=null,period={basis:'model',end:defaultDate},error=null;
   try {period=checkPeriods(f,dependencies);value=evaluate(f.expression,metrics);} catch(e) {error=e.message;issues.push({severity:'ERROR',metric_id:f.output,message:e.message});}
   metrics[f.output]={id:`${f.output}@${f.version}`,metric_id:f.output,asset:f.asset,value,unit:f.unit,classification:'DERIVED',as_of_date:dependencies.map(x=>x.as_of_date).sort().at(-1),period,confidence:dependencies.some(x=>x.value===null)?'unknown':dependencies.some(x=>['low','unknown'].includes(x.confidence))?'low':'medium',version:f.version,fixture:dependencies.some(x=>x.fixture),formula_id:f.id,formula_version:f.version,dependencies:dependencyIds,input_record_ids:dependencies.map(x=>x.id),error};
+  if(!error) {
+   const quote=f.period_policy==='annual_rate_valuation'?dependencies.find(m=>m.metric_id===f.price_input):null;
+   const valuationDate=quote&&quote.value!==null?quote.period.end:dependencies.find(m=>m.valuation_date)?.valuation_date;
+   if(valuationDate)metrics[f.output].valuation_date=valuationDate;
+   if(f.period_policy==='annual_rate_valuation')metrics[f.output].rationale=f.description;
+  }
   if(value===null&&!error) issues.push({severity:'UNKNOWN',metric_id:f.output,message:'Incomplete upstream data.'});
   validateSchema(p.schema,Object.fromEntries(Object.entries(metrics[f.output]).filter(([k])=>!['input_record_ids','error'].includes(k))),`derived ${f.output}`);
  }

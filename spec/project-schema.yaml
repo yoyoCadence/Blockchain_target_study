@@ -44,8 +44,21 @@ properties:
             label: {type: string, minLength: 1}
             unit: {type: string, minLength: 1}
             expression: {$ref: '#/definitions/expression'}
-            period_policy: {enum: [compatible, prior_comparison]}
+            period_policy: {enum: [compatible, prior_comparison, annual_rate_valuation, valuation_compatible]}
+            rate_input: {type: string, minLength: 1}
+            price_input: {type: string, minLength: 1}
             description: {type: string, minLength: 1}
+          allOf:
+            - if:
+                properties:
+                  period_policy: {const: annual_rate_valuation}
+              then:
+                required: [rate_input, price_input]
+              else:
+                not:
+                  anyOf:
+                    - required: [rate_input]
+                    - required: [price_input]
   assets:
     type: object
     additionalProperties: false
