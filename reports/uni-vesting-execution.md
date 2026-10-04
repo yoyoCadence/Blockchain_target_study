@@ -12,6 +12,8 @@
 
 完整地址、topics、整數與可見原文存入 [raw archive](../data/research/uni-vesting-execution-2026-10-04-v1.json)。SHA-256 為 `7f651374e3553eb5625c605c6990633177fd351442b371bb0402d9eccc586cd6`。沒有使用 explorer 的即時美元估值，也沒有把 Approval 與 Transfer 加總。
 
+此保存檔在 `.gitattributes` 明示 LF，避免 Windows `core.autocrlf=true` checkout 改變 bytes；實際 checkout 至隔離 TEMP 後核對原 SHA-256，不改舊事件或資料包。
+
 [公開 readContract](https://etherscan.io/readContract?m=light&a=0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2&n=mainnet&v=0xf32d53ae98c4d6ab04d4b870ff9a97f37a724f79) 在人工保存時顯示六個 getter：UNI／owner／recipient 與上述地址一致，`quarterlyVestingAmount=5000000000000000000000000`、`lastUnlockTimestamp=1790812800`、`quartersPassed=0`。保存時間為 2026-10-04T14:34:27Z，知識日為 10 月 4 日；source date 在這裡表示人工保存日，並非查明的鏈上區塊日期或文件發布日。
 
 讀取頁沒有固定 block number／hash 或實際回應 timestamp，因此三者保持 null，信心為 low。多個 getter 可能來自不同區塊，不能視為 Coinbase tick 時刻的同步狀態；10 月 1 日 Approval 也不能代替今天的 allowance 讀取。[合約頁](https://etherscan.io/address/0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2#code) 顯示 Similar Match，參考地址 `0xf32d53ae98c4d6ab04d4b870ff9a97f37a724f79`；本次沒有驗證部署 bytecode 等價。
