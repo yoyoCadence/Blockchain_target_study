@@ -55,8 +55,40 @@ function render(resetInputs=false) {
 }
 async function refresh(nextOverrides={},resetInputs=false) {
  const revision=++refreshRevision,requestMode=mode;
- $('error').hidden=true;$('scenario-status').textContent='正在計算…';for(const b of document.querySelectorAll('.actions button'))b.disabled=true;
- try {const changed=Object.keys(nextOverrides).length>0;const response=await fetch(`/api/${changed?'sensitivity':'state'}?mode=${requestMode}`,changed?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({overrides:nextOverrides})}:{});const data=await response.json();if(revision!==refreshRevision)return;if(!response.ok)throw new Error(data.error);state=data;overrides=nextOverrides;render(resetInputs);$('scenario-status').textContent=changed?'情境已重算・尚未儲存':'基準輸入已載入';}catch(error){if(revision!==refreshRevision)return;$('error').hidden=false;$('error').textContent=`重算失敗：${term(error.message)}`;$('scenario-status').textContent='計算失敗';}finally{if(revision===refreshRevision)for(const b of document.querySelectorAll('.actions button'))b.disabled=false;}
+ const workspace=requestMode==='fixture'?'合成示範資料（Fixture）':'正式研究資料（Production）';
+ if(resetInputs) {
+  state=null;overrides={};
+  $('inspector').close();$('inspector-body').replaceChildren();$('inspector-title').textContent='';
+  for(const id of ['market-cards','asset-models','parameters','matrix','network','edge-list','thesis-cards','issues','comparison'])$(id).replaceChildren();
+  $('matrix-caption').textContent='';$('notice').textContent=`正在載入${workspace}；尚無可顯示的金融結果。`;
+ }
+ $('error').hidden=true;$('retry-workspace').hidden=true;$('retry-workspace').disabled=true;
+ $('load-status').textContent=state?'正在重算情境；畫面保留上一個成功結果。':`正在載入${workspace}…`;
+ $('scenario-status').textContent='正在計算…';
+ for(const node of $('scenario-form').querySelectorAll('input,button'))node.disabled=true;
+ for(const id of ['overview','assets','sensitivity','graph','thesis','versions'])$(id).setAttribute('aria-busy','true');
+ try {
+  const changed=Object.keys(nextOverrides).length>0;
+  const response=await fetch(`/api/${changed?'sensitivity':'state'}?mode=${requestMode}`,changed?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({overrides:nextOverrides})}:{});
+  const data=await response.json();if(revision!==refreshRevision)return;
+  if(!response.ok)throw new Error(data.error);
+  if(data.mode!==requestMode||data.fixture!==(requestMode==='fixture'))throw new Error('工作區回應不一致，請重新載入。');
+  state=data;overrides=nextOverrides;render(resetInputs);
+  $('load-status').textContent=`${workspace}已載入。${changed?'目前顯示未儲存情境。':'目前顯示基準輸入。'}`;
+  $('scenario-status').textContent=changed?'情境已重算・尚未儲存':'基準輸入已載入';
+ }catch(error){
+  if(revision!==refreshRevision)return;
+  $('error').hidden=false;$('error').textContent=`${state?'情境重算':'工作區載入'}失敗：${term(error.message)}`;
+  $('load-status').textContent=state?'保留同一工作區的上一個成功結果；輸入尚未套用。':`${workspace}尚未載入，請重新載入或切換工作區。`;
+  if(!state)$('notice').textContent=`${workspace}載入失敗；尚無可顯示的金融結果。`;
+  $('retry-workspace').hidden=false;$('scenario-status').textContent='計算失敗';
+ }finally{
+  if(revision===refreshRevision){
+   $('retry-workspace').disabled=false;
+   for(const node of $('scenario-form').querySelectorAll('input,button'))node.disabled=!state;
+   for(const id of ['overview','assets','sensitivity','graph','thesis','versions'])$(id).setAttribute('aria-busy','false');
+  }
+ }
 }
 
 function renderResearch(data) {
@@ -168,7 +200,8 @@ async function refreshFreshness() {
 }
 $('freshness-form').onsubmit=event=>{event.preventDefault();refreshFreshness();};
 $('freshness-date').oninput=()=>clearFreshness('日期已變更，請手動重新查詢時效。');
-$('scenario-form').onsubmit=event=>{event.preventDefault();const next={};for(const input of $('parameters').querySelectorAll('input'))if(input.value!==''&&Number(input.value)!==state.lineage[input.name].metric.value)next[input.name]=Number(input.value);refresh({...overrides,...next});};
+$('scenario-form').onsubmit=event=>{event.preventDefault();if(!state||state.mode!==mode)return;const next={};for(const input of $('parameters').querySelectorAll('input'))if(input.value!==''&&Number(input.value)!==state.lineage[input.name].metric.value)next[input.name]=Number(input.value);refresh({...overrides,...next});};
 $('reset').onclick=()=>refresh({},true);
+$('retry-workspace').onclick=()=>{refresh({},true);refreshResearch();};
 $('mode').onchange=event=>{mode=event.target.value;clearFreshness('工作區已變更，請手動重新查詢時效。');refresh({},true);refreshResearch();};
 refresh({},true);refreshResearch();

@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 工作區載入隔離與中文重試
+
+PR #40 的 push／PR／合併後 main CI 均成功（main `8a99a34`）。使用者新增「能開始使用優先，保留必要防線」授權；從最新 origin/main 建立 `fix/workspace-load-isolation`，開始時 main／遠端同步、單一 worktree 且工作區乾淨。選擇既有 MVP 工作區使用問題，不擴大自動化或金融模型。
+
+Chrome 模擬 Production API 失敗重現：選單已切正式資料，84 張 Fixture 卡片仍保留，失敗後還可計算。切換現在立即清空全部舊金融呈現／情境輸入／血緣；載入失敗保持停用並提供中文基準重試，回應須符合模式與 Fixture flag。原請求 revision 防線保留，舊成功／失敗不能覆蓋最新選擇；同工作區情境重算失敗仍保留上一個成功結果並明示新輸入未套用。
+
+八項真實 app／API 輸出回歸通過；全套 npm test 538 通過、0 失敗；兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。Chrome 實測延遲／503、立即清空、滑鼠及 Enter 重試、快速切換／晚到回應、84 正式卡片／六份研究及 Fixture 隔離；桌面 CSS 1536×684／窄視窗 312×675（要求 390×844）無整頁溢出。身份／非空白／無錯誤畫面／console error-warn 空清單與截圖通過，viewport 已復原；TEMP 測試 shim 首次 BOM 問題修正後重跑，未修改 app 以規避。
+
+engine／spec／來源／資料／公式／假設／政策／快照不變，83 個金融未知與三項 TTM null 保留；不把使用防線視為父 baseline 完成。截圖及模擬伺服器在 TEMP，完整驗收與未驗證項目見[載入與重試](workspace-loading.md)；遠端 CI／PR 狀態以實際結果為準。下一項可獨立完善中文使用入口，仍需現在股本／估值／個人投資性等研究。
+
 ## 2026-10-04 — 固定研究目錄假設版本一致性
 
 PR #39 的 push／PR／合併後 main CI 均成功（main `4d07b21`）；從最新 origin/main 建立 `fix/research-assumption-version-consistency`，開始時工作目錄乾淨、單一 worktree／遠端一致。接續原假設改動需升版原則在固定研究集合的載入缺口，未擴充模型或自動化。
