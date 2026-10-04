@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — UNI 固定區塊參數與剩餘授權
+
+PR #51 push／PR／main CI 成功，main `8f8b047`。使用者授權逐項繼續、自主中文 PR／合併；建立 `research/uni-vesting-fixed-block`。
+
+手動有界限公開 RPC capture：chainId=1／finalized block 26119713，UTC 14:53:11，hash `8c22223f…`；六 getter、allowance／decimals、runtime 全用 blockHash／requireCanonical=true，高度重查相符。allowance raw 20M*10^18，但不證明 owner balance 或未來付款；prior receipt result=null，既有 Explorer／未固定 UI 歷史與限制保留。raw archive hash `cad4aaf3…`，LF 固定；只追加一來源與完整快照 `09d23d84…`（parent `f6580ef3…`），不可再次 event。
+
+全套 596 項與兩模式 validate 通過；十三份正式／三份 Fixture 保留，changes=[]、source_change=true；unknown 80、三項 TTM null、stale 年率、0.422 不變。Chrome CSS 1536×729／312×675，Enter 卡片／JSON、安全連結、窄版無溢出與 Fixture 隔離通過；console／stderr 空，尺寸還原。詳見[研究與驗收](uni-vesting-fixed-block.md)。遠端 PR／CI 狀態以實際結果為準。
+
+下一子項宜把保存的固定區塊 request／response 做成共用唯讀檢查，拒絕混 block／錯 ABI 解碼／重複 ID／回應錯配／chronology，供手動 review 使用；不新增自動取得。部署等價、owner 餘額、全年分配／fee capture／同步估值、SECZ 可比性與個人投資性仍待查證，父 baseline 保留。
+
 ## 2026-10-04 — UNI 季度提領與公開參數
 
 PR #50 已合併，push／PR／main CI 成功，main `6c3a7dc`。使用者再次授權自主繼續；建立 `research/uni-vesting-execution`。

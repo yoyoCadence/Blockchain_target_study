@@ -70,6 +70,8 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 已另存 [UNI 單筆季度提領](reports/uni-vesting-execution.md)：2026-10-01 成功 receipt 的三 logs，及 10 月 4 日稍後公開 getter 回應。保留 raw 整數、未固定區塊／時間的 null 與 Similar Match 限制；原金融輸入與預算時效不變，單筆提領不當作年度分配或實際下游支出。
 
+已另存 [UNI 固定區塊參數與剩餘授權](reports/uni-vesting-fixed-block.md)：finalized block 26119713，六 getter／allowance／decimals 與 runtime 使用相同 hash；保留原始回應及先前 receipt 查詢 null。研究頁十三筆事件可展開，單點授權不更新原核准年率時效；部署 source 等價、owner 餘額與全年分配仍待查證。
+
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 
 ```powershell
