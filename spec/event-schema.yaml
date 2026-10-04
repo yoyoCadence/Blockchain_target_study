@@ -10,6 +10,7 @@ properties:
       - regulation
       - protocol_fee_change
       - protocol_fee_accrual
+      - market_data_review
       - token_burn
       - dilution
       - issuer_tokenization

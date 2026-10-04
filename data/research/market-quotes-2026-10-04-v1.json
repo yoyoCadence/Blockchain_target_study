@@ -1,0 +1,49 @@
+{
+  "id": "8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b",
+  "version": 1,
+  "fixture": false,
+  "as_of_date": "2026-10-04",
+  "context": "人工單次公開 GET 的價格與商品回應；原始字串與 nanosecond 時間保留。不是每日收盤、跨市場同步估值、上市母公司股價或個人交易資格。",
+  "documentation": [
+    "https://docs.cdp.coinbase.com/api-reference/exchange-api/rest-api/products/get-product-ticker",
+    "https://docs.cdp.coinbase.com/api-reference/exchange-api/rest-api/products/get-single-product"
+  ],
+  "captures": [
+    {
+      "id": "coinbase-uni-quote-20261004-v1",
+      "body": "{\"ask\":\"9.0536\",\"bid\":\"9.052\",\"volume\":\"515323.859601\",\"trade_id\":78869651,\"price\":\"9.0556\",\"size\":\"0.148381\",\"time\":\"2026-10-04T11:33:36.662371063Z\",\"rfq_volume\":\"18797.067791\"}",
+      "retrieved_at": "2026-10-04T11:34:02.6720093Z",
+      "requested_at": "2026-10-04T11:34:02.2287743Z",
+      "http_date": "Sun, 04 Oct 2026 11:34:02 GMT",
+      "url": "https://api.exchange.coinbase.com/products/UNI-USD/ticker",
+      "status": 200
+    },
+    {
+      "id": "coinbase-xlm-quote-20261004-v1",
+      "body": "{\"ask\":\"0.216265\",\"bid\":\"0.2162\",\"volume\":\"24574316.88272164\",\"trade_id\":169565371,\"price\":\"0.216265\",\"size\":\"157.2903614\",\"time\":\"2026-10-04T11:33:54.575362751Z\",\"rfq_volume\":\"59152.561334\"}",
+      "retrieved_at": "2026-10-04T11:34:02.1193462Z",
+      "requested_at": "2026-10-04T11:34:01.6796596Z",
+      "http_date": "Sun, 04 Oct 2026 11:34:02 GMT",
+      "url": "https://api.exchange.coinbase.com/products/XLM-USD/ticker",
+      "status": 200
+    },
+    {
+      "id": "coinbase-uni-product-20261004-v1",
+      "body": "{\"id\":\"UNI-USD\",\"base_currency\":\"UNI\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.0001\",\"base_increment\":\"0.000001\",\"display_name\":\"UNI-USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.03000000\",\"auction_mode\":false,\"high_bid_limit_percentage\":\"\"}",
+      "retrieved_at": "2026-10-04T11:37:54.1282550Z",
+      "requested_at": "2026-10-04T11:37:53.7299268Z",
+      "http_date": "Sun, 04 Oct 2026 11:37:54 GMT",
+      "url": "https://api.exchange.coinbase.com/products/UNI-USD",
+      "status": 200
+    },
+    {
+      "id": "coinbase-xlm-product-20261004-v1",
+      "body": "{\"id\":\"XLM-USD\",\"base_currency\":\"XLM\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.000001\",\"base_increment\":\"0.00000001\",\"display_name\":\"XLM-USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.03000000\",\"auction_mode\":false,\"high_bid_limit_percentage\":\"\"}",
+      "retrieved_at": "2026-10-04T11:37:54.0960573Z",
+      "requested_at": "2026-10-04T11:37:53.6062403Z",
+      "http_date": "Sun, 04 Oct 2026 11:37:54 GMT",
+      "url": "https://api.exchange.coinbase.com/products/XLM-USD",
+      "status": 200
+    }
+  ]
+}

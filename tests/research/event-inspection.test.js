@@ -12,7 +12,7 @@ import {createServer} from '../../server.js';
 const project=loadProject('production'),history=readSnapshots(project.root,'production');
 test('reviewed event inspection retains historical dates, source versions and raw integers without financial writes',()=>{
  const before=fingerprint({project,history,economics:calculate(project)}),records=inspectReviewedEvents(project);
- assert.equal(records.length,8);
+ assert.equal(records.length,history.filter(s=>s.event?.research_review).length);
  for(const record of records) {
   const snapshot=history.find(s=>s.id===record.snapshot_id),{propagated_nodes,...event}=snapshot.event;
   assert.deepEqual(record.event,event);assert.deepEqual(record.propagated_nodes,propagated_nodes);
@@ -36,13 +36,13 @@ test('fixture event inspection returns no production evidence and invalid mode i
  assert.throws(()=>inspectReviewedEvents({...project,mode:'invalid'}),/Invalid event inspection mode/);
 });
 
-test('read-only research API includes eight reviewed events, keeps original catalog and refuses event writes',async()=>{
+test('read-only research API includes every reviewed event, keeps original catalog and refuses event writes',async()=>{
  const before=fingerprint({project,history,economics:calculate(project)});
  const server=createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const url=`http://127.0.0.1:${server.address().port}/api/research`;
  try {
   const response=await fetch(`${url}?mode=production`),data=await response.json();
-  assert.equal(response.status,200);assert.equal(data.records.length,6);assert.equal(data.events.length,8);
+  assert.equal(response.status,200);assert.equal(data.records.length,6);assert.equal(data.events.length,history.filter(s=>s.event?.research_review).length);
   assert.equal(data.persisted,false);assert.equal(data.financial_inputs_updated,false);
   assert.equal(data.events.at(-1).snapshot_id,history.at(-1).id);
   assert.deepEqual((await (await fetch(`${url}?mode=fixture`)).json()).events,[]);

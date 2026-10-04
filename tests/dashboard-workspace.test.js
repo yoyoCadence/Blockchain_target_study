@@ -154,10 +154,11 @@ test('reviewed event cards preserve exact evidence and separate current event da
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
  v.researchRequests[0].reply(productionResearch);await tick();
  const cards=v.$('research-events').querySelectorAll('details').filter(card=>card.dataset.event);
- assert.equal(cards.length,8);assert.equal(cards[0].dataset.event,'uni-v2-fee-accrual-20261004');
- assert.match(cards[0].textContent,/6952494133386631432161/);
- assert.match(cards[0].textContent,/知識日 2026-10-04/);assert.match(cards[0].textContent,/模型期間 年度 · 2026-01-01/);
- assert.match(cards[0].textContent,/保存時 0 筆數值更新/);assert.match(cards[0].textContent,/來源層級 1 · v1/);
+ assert.equal(cards.length,productionResearch.events.length);assert.equal(cards[0].dataset.event,productionResearch.events.at(-1).id);
+ const accrued=cards.find(card=>card.dataset.event==='uni-v2-fee-accrual-20261004');
+ assert.match(accrued.textContent,/6952494133386631432161/);
+ assert.match(accrued.textContent,/知識日 2026-10-04/);assert.match(accrued.textContent,/模型期間 年度 · 2026-01-01/);
+ assert.match(accrued.textContent,/保存時 0 筆數值更新/);assert.match(accrued.textContent,/來源層級 1 · v1/);
  assert.equal(v.$('research-events').attrs['aria-busy'],'false');assert.equal(v.count(),84);
 });
 test('switching to fixture immediately clears event evidence and late production success cannot restore it',async()=>{
@@ -176,6 +177,18 @@ test('research failure clears old event cards and independent retry restores the
  v.researchRequests[1].reply({error:'event research offline'},false);await tick();
  assert.equal(v.$('research-events').children.length,0);assert.equal(v.$('retry-research').hidden,false);
  v.$('retry-research').onclick();v.researchRequests[2].reply(productionResearch);await tick();
- assert.equal(v.$('research-events').querySelectorAll('details').filter(card=>card.dataset.event).length,8);
+ assert.equal(v.$('research-events').querySelectorAll('details').filter(card=>card.dataset.event).length,productionResearch.events.length);
  assert.equal(margin.value,'0.3');assert.equal(v.requests.length,1);assert.equal(v.count(),84);
+});
+
+test('single venue quote evidence has a Chinese title and remains separate from canonical financial prices',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(card=>card.dataset.event==='uni-xlm-market-quotes-source-review-20261004');
+ assert.match(card.textContent,/UNI／XLM 單次交易所價格查證 · 市場資料查證/);
+ assert.match(card.textContent,/9\.0556 USD\/UNI/);assert.match(card.textContent,/0\.216265 USD\/XLM/);
+ assert.match(card.textContent,/2026-10-04T11:33:36\.662371063Z/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);
+ assert.equal(production.metrics['uni.price'].value,null);assert.equal(production.metrics['xlm.price'].value,null);
+ assert.equal(v.count(),84);
 });

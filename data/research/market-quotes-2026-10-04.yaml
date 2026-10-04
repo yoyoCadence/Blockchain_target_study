@@ -1,0 +1,88 @@
+version: 1
+id: uni-xlm-market-quotes-20261004
+as_of_date: 2026-10-04
+reason: 尚未套用的人工價格候選。兩笔 OBSERVED 是 Coinbase Exchange 2026-10-04 point
+  最後成交，而既有年度模型沿用原期間；目前 research-preview 因
+  uni.net_accrual、uni.required_share、uni.required_share_net
+  的年度／時點依賴未對齊而拒絕保存。此檔案只保存原始觀察及來源，不作已完成金融 ingest 或同步估值。不要將 point 偽裝為舊日／model
+  來繞過驗證；需獨立完成明示期間設計與研究後重新 review。 四來源已由獨立 source-only 事件保存，本候選 sources=[]
+  只重用既有來源版本，避免重複 ID；觀測尚未 ingest，仍需明示期間對齊後重新 review。
+affected_nodes:
+  - UNI
+  - XLM
+sources: []
+observations:
+  - id: uni.price@1-coinbase-20261004
+    metric_id: uni.price
+    asset: UNI
+    value: 9.0556
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-10-04
+    period:
+      basis: point
+      end: 2026-10-04
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - coinbase-uni-quote-20261004-v1
+      - coinbase-uni-product-20261004-v1
+    rationale: USD 是每 1 UNI 的美元價格。Coinbase Exchange UNI-USD 最後成交
+      price=9.0556，trade_id=78869651，time=2026-10-04T11:33:36.662371063Z；不是
+      bid、ask、中間價或收盤價。單次取得 2026-10-04T11:34:02.6720093Z，HTTP Date Sun, 04 Oct
+      2026 11:34:02 GMT。商品 metadata 於 2026-10-04T11:37:54.1282550Z
+      另外取得，base_currency=UNI、quote_currency=USD，不證明先前 tick 的商品狀態或個人投資性。原始 ticker
+      JSON：{"ask":"9.0536","bid":"9.052","volume":"515323.859601","trade_id":78869651,"price":"9.0556","size":"0.148381","time":"2026-10-04T11:33:36.662371063Z","rfq_volume":"18797.067791"}。保存檔
+      data/research/market-quotes-2026-10-04-v1.json，內容 hash
+      8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b。此價不證明
+      fair value、跨市場同步估值或持有人價值捕獲。
+  - id: xlm.price@1-coinbase-20261004
+    metric_id: xlm.price
+    asset: XLM
+    value: 0.216265
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-10-04
+    period:
+      basis: point
+      end: 2026-10-04
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - coinbase-xlm-quote-20261004-v1
+      - coinbase-xlm-product-20261004-v1
+    rationale: USD 是每 1 XLM 的美元價格。Coinbase Exchange XLM-USD 最後成交
+      price=0.216265，trade_id=169565371，time=2026-10-04T11:33:54.575362751Z；不是
+      bid、ask、中間價或收盤價。單次取得 2026-10-04T11:34:02.1193462Z，HTTP Date Sun, 04 Oct
+      2026 11:34:02 GMT。商品 metadata 於 2026-10-04T11:37:54.0960573Z
+      另外取得，base_currency=XLM、quote_currency=USD，不證明先前 tick 的商品狀態或個人投資性。原始 ticker
+      JSON：{"ask":"0.216265","bid":"0.2162","volume":"24574316.88272164","trade_id":169565371,"price":"0.216265","size":"157.2903614","time":"2026-10-04T11:33:54.575362751Z","rfq_volume":"59152.561334"}。保存檔
+      data/research/market-quotes-2026-10-04-v1.json，內容 hash
+      8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b。此價不證明
+      fair value、跨市場同步估值或持有人價值捕獲。
+review:
+  reviewer: Codex 人工公開一手來源查證；非人類簽核
+  reviewed_at: 2026-10-04T11:39:20.656Z
+  rationale: 官方文件確認 ticker 為最後成交與獨立 bid／ask，不取文件範例。公開 GET 四回應皆 HTTP 200，核對 USD 是每
+    1 UNI 的美元價格。Coinbase Exchange UNI-USD 最後成交
+    price=9.0556，trade_id=78869651，time=2026-10-04T11:33:36.662371063Z；不是
+    bid、ask、中間價或收盤價。單次取得 2026-10-04T11:34:02.6720093Z，HTTP Date Sun, 04 Oct 2026
+    11:34:02 GMT。商品 metadata 於 2026-10-04T11:37:54.1282550Z
+    另外取得，base_currency=UNI、quote_currency=USD，不證明先前 tick 的商品狀態或個人投資性。原始 ticker
+    JSON：{"ask":"9.0536","bid":"9.052","volume":"515323.859601","trade_id":78869651,"price":"9.0556","size":"0.148381","time":"2026-10-04T11:33:36.662371063Z","rfq_volume":"18797.067791"}。保存檔
+    data/research/market-quotes-2026-10-04-v1.json，內容 hash
+    8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b。此價不證明 fair
+    value、跨市場同步估值或持有人價值捕獲。；USD 是每 1 XLM 的美元價格。Coinbase Exchange XLM-USD 最後成交
+    price=0.216265，trade_id=169565371，time=2026-10-04T11:33:54.575362751Z；不是
+    bid、ask、中間價或收盤價。單次取得 2026-10-04T11:34:02.1193462Z，HTTP Date Sun, 04 Oct 2026
+    11:34:02 GMT。商品 metadata 於 2026-10-04T11:37:54.0960573Z
+    另外取得，base_currency=XLM、quote_currency=USD，不證明先前 tick 的商品狀態或個人投資性。原始 ticker
+    JSON：{"ask":"0.216265","bid":"0.2162","volume":"24574316.88272164","trade_id":169565371,"price":"0.216265","size":"157.2903614","time":"2026-10-04T11:33:54.575362751Z","rfq_volume":"59152.561334"}。保存檔
+    data/research/market-quotes-2026-10-04-v1.json，內容 hash
+    8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b。此價不證明 fair
+    value、跨市場同步估值或持有人價值捕獲。 不自動重新取得或更新。四份完整回應保存於
+    data/research/market-quotes-2026-10-04-v1.json，內容 hash
+    8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b；產品 online
+    不等於使用者地區／帳戶／託管已驗證。 此候選預覽被既有計算期間防線拒絕；沒有使用 research-apply，正式價格仍 null。
