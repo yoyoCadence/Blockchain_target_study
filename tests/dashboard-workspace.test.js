@@ -234,3 +234,12 @@ test('fixed-block research table preserves raw strings and separates block, retr
  assert.match(card.textContent,/原始 request／response/);assert.match(card.textContent,/deployment_source_equivalence/);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
+
+test('token-state event keeps point balance, raw supply and future-funding limits outside financial values',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-token-state-20261004');
+ assert.match(card.textContent,/UNI 固定區塊餘額與供給/);assert.match(card.textContent,/262247996305835021033106178/);
+ assert.match(card.textContent,/totalSupply raw=1000000000000000000000000000/);assert.match(card.textContent,/不是健康論點或付款保證/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),84);
+});
