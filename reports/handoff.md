@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 股本研究手動唯讀驗證
+
+PR #35 已合併（main `ca3ffa5`），push／PR／合併後 main CI 均成功。從最新 origin/main 建立 `feat/manual-capital-review`，開始時工作目錄乾淨，單一 worktree／遠端一致。使用者已授權逐項中文 PR、驗證成功後合併並繼續，未擴充自動化或金融模型。
+
+共用 `replayCapitalReview` 與 v1 schema 校驗先前 artifact 的原始表格、來源 coverage／supersession、UTC 日期／review、point count／安全整數／confidence、分類與 Fixture 排除、七條受限 AST 類別算術／嵌入版本／確切依賴／結果。CLI `capital-review FILE --production` 唯讀輸出繁體中文摘要及完整原文；九個破折號保留 null，選取的未知向下游傳播，signed 調節差額合法。未修改已保存 artifact、來源、事件、快照、25 金融公式或論點。
+
+36 新增回歸與既存轉售研究共 41 項通過；全套 npm test 493 通過、0 失敗；兩模式 validate 84 指標／25 金融公式／0 錯誤與警告，unknown 1／83。重新計算 hash 的錯誤證據仍拒絕；合法時區／新嵌入版本／null、CLI bytes 不變、金融／歷史重播通過。沒有 UI 修改。遠端 CI／PR 狀態以實際結果為準。
+
+驗證不重新認證原始 SEC 全文／人工簽核，也不建立現在或完全稀釋股本。下一子項可把此共享入口接入 hash-pinned 研究目錄及 API；尚未在本次完成。Sponsor 重疊、961,384 差額、83 個金融未知、三項正式 TTM null、現在估值及個人投資性仍保留，父 baseline 未完成。詳見[操作與限制](manual-capital-review.md)。
+
 ## 2026-10-04 — SECZ 轉售登記分類核對
 
 使用者再次授權持續完成。從最新 origin/main `a06d629` 建立 `research/secz-resale-capital-reconciliation`；開始時 main／遠端一致、工作目錄乾淨，單一 worktree 與遠端確認。接續最高優先 baseline 的估值前股本分類子項，未擴充金融模型或自動化。
