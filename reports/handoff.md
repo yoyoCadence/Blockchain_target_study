@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 研究證據單獨重試
+
+PR #42 的 push／PR／合併後 main CI 均成功（main `2e690df`）；從最新 origin/main 建立 `fix/research-load-retry`，開始時 main／遠端同步、單一 worktree 且工作區乾淨。接續入門的必要恢復流程，不新增金融模型／自動化。
+
+實測只讓研究 API 503，金融 84 指標正常但研究無重試入口；工作區完整重載會丟棄未套用輸入。新增中文研究重試只讀取當前研究，不影響金融／時效或試算輸入；匹配 mode 才呈現，只有最新請求可解除 busy／隱藏重試，舊成功與失敗都不覆蓋最新結果。
+
+四項新增回歸與原 13 項狀態／網址回歸通過，使用實際六份研究 API 輸出；兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。Chrome 實測研究 503、輸入 0.3 未套用利潤率、Enter／延遲重試恢復六份研究，84 指標與輸入保留；桌面 CSS 1536×684／窄視窗 312×675，Fixture 重試仍不混入正式研究，無整頁 overflow／console error-warn，截圖及互動通過、viewport 已恢復。
+
+全套 npm test 547 通過、0 失敗。engine／spec／來源／資料／公式／假設／政策／快照不改；83 個金融未知、三項 TTM null 與父 baseline 保留。遠端 CI／PR 狀態以本次實際結果為準；其他瀏覽器／全尺寸／永不回應網路逾時未驗證，不自動重試。詳見[驗收與限制](research-retry.md)，後續仍需現行股本／估值／個人投資性及可比金融 baseline。
+
 ## 2026-10-04 — 中文開始使用與手動啟動
 
 PR #41 的 push／PR／合併後 main CI 均成功（main `2c90238`）；從最新 origin/main 建立 `feat/chinese-getting-started`，開始時 main／遠端同步、單一 worktree 且工作區乾淨。依使用優先授權完善既有 MVP 入口，不把未完成金融 baseline 包裝成已可估值。
