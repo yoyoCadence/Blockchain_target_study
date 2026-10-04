@@ -9,6 +9,7 @@ properties:
     enum:
       - regulation
       - protocol_fee_change
+      - protocol_fee_accrual
       - token_burn
       - dilution
       - issuer_tokenization

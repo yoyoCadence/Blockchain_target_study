@@ -121,7 +121,7 @@ test('capital reconciliation leaves financial results, formal TTM and all previo
   assert.deepEqual(replay.metrics,snapshot.metrics);assert.deepEqual(replay.thesis,snapshot.thesis);
  }
  assert.equal(fingerprint(readSnapshots(project.root,'production')),before);
- assert.equal(history.length,7);assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
+ assert.equal(history.indexOf(review)+1,7);assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
  assert.equal(Object.values(review.metrics).filter(m=>m.value===null).length,83);
  assert.ok(Object.values(review.thesis).every(t=>t.coverage==='insufficient'));
  const ttm=inspectResearch(project).records.find(r=>r.kind==='revenue_ttm');

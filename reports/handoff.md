@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — UNI v2 單筆 LP 費用份額歸集
+
+依持續開發／中文 PR／驗證後合併授權，從最新 origin/main `5a86ca5` 建立 `research/uni-v2-fee-accrual`；開始時 main／遠端一致、單一 worktree 且乾淨。選擇 baseline 的 UNI 捕獲查證子項，以單筆 TokenJar LP 鑄造與原始 Factory 建池 receipt 為明確驗收範圍。
+
+人工逐項核對 2026-10-04 block 26118477／Transfer log 337 與 block 26118333／PairCreated log 413，保留 emitter、raw uint256 字串、UTC、完整地址與 caller LP 贖回順序；固定官方 Pair／ERC20 原始碼和 commit 日期獨立核對。新增 protocol_fee_accrual 手動事件類型，沿用原驗證／重算，追加四來源及完整快照 `729d45b96a313aa128095c53c26d179d75621dc38002ab08ea0b873690ec7135`；parent／既存來源不改。
+
+相關 17 項與日期 32 項、全套 551 項測試通過，0 失敗；兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。全套首輪暴露固定昨日時鐘被今日發布來源遮住；只隔離測試記憶體的未使用今日來源後重跑通過。兩個歷史數量檢查改成指定歷史位置／hash，以保留可合法追加的語意，沒有放寬金融或來源 guard。遠端 CI／PR 以實際結果為準；沒有 UI 修改或新增本機瀏覽器 QA。
+
+LP 不是 UNI，caller underlying 贖回不是 TokenJar 收入；Similar Match 不宣稱部署等價，reserve-product 成長未完成純費用來源歸因。未補年度費用／burn／淨收益、2025-12-29 Firepit 資產來源、跨鏈／全部池現況或估值。八份正式快照仍同一模型期間，金融與三項 TTM null／父 baseline 保留。見[查證與限制](uni-v2-fee-accrual.md)；下一個可獨立工作是讓已存 UNI 事件及證據可從中文研究頁查閱，另仍須查證財務可比性、估值與個人投資管道。
+
 ## 2026-10-04 — 研究證據單獨重試
 
 PR #42 的 push／PR／合併後 main CI 均成功（main `2e690df`）；從最新 origin/main 建立 `fix/research-load-retry`，開始時 main／遠端同步、單一 worktree 且工作區乾淨。接續入門的必要恢復流程，不新增金融模型／自動化。
