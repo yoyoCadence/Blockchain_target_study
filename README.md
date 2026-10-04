@@ -35,6 +35,8 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 
 [已存事件節點範圍](reports/event-scope.md)沿用新事件的起始節點與更新資產限制，依每份快照保存的資產／圖譜核對完整傳播集合；目前圖譜改版不會改寫歷史範圍，金融與未知值不改。
 
+[相鄰快照版本連續性](reports/snapshot-version-continuity.md)也逐對核對保存歷史：舊來源／輸入不得同 ID 改寫或刪除，公式／論點規則變更須升版；目前資料與最新快照相符，仍不能繞過較早的版本約束。
+
 事件內更新的知識日亦[不得晚於事件 as-of](reports/event-update-knowledge.md)；planned／announced／cancelled 的 DTCC 更新不能變成 live／material。新事件與已存載入共用原規則，保留合法的未來 planned 生效日。
 
 ## 資料品質：請先閱讀
