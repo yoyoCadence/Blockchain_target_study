@@ -9,11 +9,12 @@ import {researchFreshness} from './engine/research/research-freshness.js';
 import {reviewRevenues} from './engine/research/revenues.js';
 import {compareRevenueReviews} from './engine/research/revenue-comparison.js';
 import {reviewRevenueTtm} from './engine/research/revenue-ttm.js';
+import {replayCapitalReview} from './engine/research/capital.js';
 const [command='validate',...args]=process.argv.slice(2);
 const mode=args.includes('--production')?'production':'fixture';
 try {
  if(command==='research-freshness'&&mode!=='production') throw new Error('Research freshness requires --production');
- if(['research-preview','research-apply','identity-review','revenue-review','revenue-compare','revenue-ttm'].includes(command)) {
+ if(['research-preview','research-apply','identity-review','revenue-review','revenue-compare','revenue-ttm','capital-review'].includes(command)) {
   if(mode!=='production') throw new Error('Research commands require --production');
   if(!args[0]||args[0].startsWith('--')) throw new Error(`Use node cli.js ${command} path/to/reviewed-research.yaml --production`);
  }
@@ -35,6 +36,8 @@ try {
  } else if(command==='revenue-ttm') {
   if(!args[1]||args[1].startsWith('--')||!args[2]||args[2].startsWith('--')) throw new Error('Use node cli.js revenue-ttm REQUEST ANNUAL_REVIEW INTERIM_REVIEW --production');
   console.log(JSON.stringify(reviewRevenueTtm(project,...args.slice(0,3).map(file=>readYaml(file,process.cwd()))),null,2));
+ } else if(command==='capital-review') {
+  console.log(JSON.stringify(replayCapitalReview(project,readYaml(args[0],process.cwd())),null,2));
  } else if(command==='validate') {
   assertVersionHistory(history.at(-1),project);
   for(const id of Object.keys(result.metrics)) lineage(project,result,id);
@@ -64,5 +67,5 @@ try {
   const {term}=await import('./dashboard/zh-hant.js');
   const lines=['# 目前研究論點', '', `工作區：${mode==='fixture'?'合成示範（FIXTURE）':'正式研究（PRODUCTION）'}${result.fixture?'；合成資料，非市場資料':''}`,`模型期間：${term(result.period.basis)}；${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}：${term(t.state)}`,`證據覆蓋：${term(t.coverage)}。${term(t.interpretation)}`,...t.triggered_rules.map(r=>`- ${r.id}（規則原文）：${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
- } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
+ } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, capital-review FILE --production, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
 } catch(error) {console.error(error.message,error.details||'');process.exitCode=1;}

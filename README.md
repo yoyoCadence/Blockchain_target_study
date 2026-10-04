@@ -139,6 +139,14 @@ sources + observations + assumptions + scenarios (YAML)
 
 ## 手動更新與版本紀錄
 
+已保存的 SECZ 轉售股本研究可用[手動唯讀驗證](reports/manual-capital-review.md)核對來源、原始表格、七條嵌入公式與依賴，取得繁體中文摘要及完整原文：
+
+```powershell
+node cli.js capital-review data/research/capital-reviews/secz-resale-20261004-v1.json --production
+```
+
+此命令不更新金融輸入，也不代表現在或完全稀釋股本已驗證；原始 null、分類差異與來源版本保留。
+
 所有正式更新先查證來源。新增來源版本，包含 URL、publisher、title、date、retrieved_at、tier、covered_metrics。新增 observation 的唯一 ID 與遞增 version，以 `supersedes` 連到舊紀錄，不能刪除舊紀錄。既有來源、輸入或同版本公式被修改時，snapshot / API / validate 會拒絕該變更。
 
 初始 material update：
