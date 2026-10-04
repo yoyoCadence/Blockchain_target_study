@@ -1,0 +1,20 @@
+id: uni_vesting_fixed_block_review
+version: 1
+asset: UNI
+chain_id: '1'
+targets:
+  vesting: '0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2'
+  token: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984'
+source_ids:
+  - uniswap-vesting-source-9dbc671-v1
+  - ethereum-uni-vesting-read-20261004-v1
+interpretation: ABI request/response consistency for saved UNI evidence; not deployment source equivalence or financial period validation
+getters:
+  - [UNI, address, '0x541bcb76', UNI 代幣地址]
+  - [lastUnlockTimestamp, uint48, '0x21226f40', 最後解鎖時間（Unix 秒）]
+  - [owner, address, '0x8da5cb5b', 額度授權者]
+  - [quarterlyVestingAmount, uint256, '0x8627a6b5', 每季名目額度（raw）]
+  - [quartersPassed, uint48, '0x049176a6', 已過季度數]
+  - [recipient, address, '0x66d003ac', 提領接收者]
+  - ['allowance(owner,vesting)', uint256, null, 剩餘授權（raw）]
+  - [UNI decimals, uint8, '0x313ce567', UNI 小數位數]

@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 固定區塊資料包手動唯讀驗證
+
+PR #52 已合併，push／PR／main CI 成功，本機 main `a8c3ade` 乾淨；建立 `feat/manual-fixed-block-review`。建立分支第一次因自動審查用量未完成而未執行；使用者指示繼續後原命令重試成功，限制已解除。
+
+新增 `fixed-block-review FILE --production --digest SHA256`，原 archive hash `cad4aaf3…`／金融／來源／十三份歷史完全不改。schema 與 ABI method v1 放 spec，reader 只讀 raw bytes／canonical source，核對同 blockHash、ID／ABI／calldata／code hash／receipt null／chronology；返回中文精確字串及完整 clone，不連 RPC／不寫入。matching replacement digest 的不合法樣本仍拒絕；合法 response／object key 重排通過。
+
+35 項新增、全套 631 與兩模式 validate 通過，unknown 80／TTM null／stale 年率／Fixture 0.422 不變。沒有 UI 修改或新瀏覽器 QA；實際 CLI 成功與四類拒絕的 exit 1／stdout 空／bytes 保留通過。見[操作與限制](manual-fixed-block-review.md)。PR／CI 最終結果以遠端為準。
+
+下一項將原 hash-pinned RPC archive 接入既有研究目錄／唯讀 API 與中文呈現，使用本 reader 保留原始 bytes hash／request／response 與所有限制，Fixture 不包含正式資料。不自動重採、修改原取得時間或 financial ingest；父 baseline 其餘研究缺口保留。
+
 ## 2026-10-04 — UNI 固定區塊參數與剩餘授權
 
 PR #51 push／PR／main CI 成功，main `8f8b047`。使用者授權逐項繼續、自主中文 PR／合併；建立 `research/uni-vesting-fixed-block`。
