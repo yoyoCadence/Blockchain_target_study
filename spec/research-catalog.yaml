@@ -1,4 +1,4 @@
-version: 2
+version: 3
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -30,3 +30,9 @@ records:
     kind: capital
     file: capital-reviews/secz-resale-20261004-v1.json
     expected_id: f3bce7412757bc8e418b2c6b6afc2066886660a7a636ef78b320a44e59e4d693
+  - id: uni-vesting-fixed-block-20261004
+    label: UNI 固定區塊參數／剩餘授權
+    kind: fixed_block
+    file: uni-vesting-fixed-block-2026-10-04-v1.json
+    expected_id: cad4aaf3fa49cf688bd8dfb54434ab1416c40510150ac03f71b6932bc1571195
+    event_id: uni-vesting-fixed-block-20261004

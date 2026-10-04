@@ -100,6 +100,20 @@ function renderResearch(data) {
  $('research-records').replaceChildren(...data.records.map(report=>{
   const card=el('details',undefined,'research-card');card.dataset.research=report.id;
   card.append(el('summary',term(report.id)),el('p',`知識日 ${report.as_of_date} · 審查者（原文）${report.review.reviewer} · 審查時間 ${report.review.reviewed_at}`,'hint'));
+  if(report.kind==='fixed_block') {
+   const summary=report.summary;
+   const values=freshnessTable(['觀測項目','原始值（完整字串）','ABI 型別','分類','可信程度'],summary.values.map(value=>[value.label,value.value,value.abi_type,term('OBSERVED'),term(report.full_review.confidence)]));
+   values.tabIndex=0;values.setAttribute('aria-label','固定區塊原始值表格，可左右捲動');
+   card.append(el('p',report.notice,'hint'),el('p',`固定區塊 ${summary.block_number} · ${summary.block_hash}`,'event-evidence'),
+    el('p',`區塊時間 ${summary.block_time} · 取得時間 ${summary.retrieved_at}`,'hint'),
+    el('p',`解碼查證方法 v${report.method.version}；部署合約與官方原始碼是否相同尚未查證。`,'hint'),
+    el('p','表格可左右捲動，查看完整原始值與可信程度。','hint'),values,
+    el('p',summary.receipt_state,'hint'));
+   const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
+   const full=el('details');full.append(el('summary','原始 request／response 與查證限制'),
+    el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
+   card.append(researchSources(report.sources),full);return card;
+  }
   if(report.statement)card.append(el('p',`${report.statement.entity_name} · ${term(report.statement.scope)} · ${report.statement.accounting_basis} · ${term(report.statement.audit_status)}`,'hint'),el('p',`報表限制（原文）：${report.statement.limitations}`,'hint'));
   if(report.kind==='capital') {
    card.append(el('p',report.notice,'hint'));
@@ -206,7 +220,7 @@ function renderFreshness(data) {
   const research=el('article',undefined,'freshness-card');research.append(el('h3',`已編目研究・${data.research.artifacts.length} 份審查／${data.research.records.length} 筆紀錄`),el('p',term(data.research.interpretation),'hint'),freshnessSummary(data.research.summary));
   const reviews=el('details');reviews.append(el('summary','截止日的審查可用性'),freshnessTable(['目錄／研究檔案','知識日','審查時間','審查距今天數','審查狀態'],data.research.artifacts.map(row=>[`${row.id} · ${row.artifact_id}`,row.as_of_date,row.review.reviewed_at,row.review_age_days,term(row.review_state)])));
   const records=el('details');records.append(el('summary','原始研究觀測日期與未知值'),freshnessTable(['指標／紀錄','分類／數值','期間','觀測知識日','距今天數','窗口天數','觀測狀態','審查狀態','證據狀態'],data.research.records.map(row=>[
-   `${metricLabel(row.metric_id)} · ${row.record_id}`,`${term(row.record.classification)} · ${row.record.value===null?'未知':row.record.value??'身份識別'}`,periodLabel(row.period),row.record.as_of_date,row.observation_age_days,row.observation_max_age_days,term(row.observation_state),term(row.review_state),term(row.evidence_state)
+   `${row.record.label||metricLabel(row.metric_id)} · ${row.record_id}`,`${term(row.record.classification)} · ${row.record.value===null?'未知':row.record.value??'身份識別'}`,periodLabel(row.period),row.record.as_of_date,row.observation_age_days,row.observation_max_age_days,term(row.observation_state),term(row.review_state),term(row.evidence_state)
   ])));
   research.append(reviews,records,freshnessSources(data.research.source_checks));container.append(research);
  }

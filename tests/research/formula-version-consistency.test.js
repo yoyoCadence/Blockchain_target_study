@@ -63,7 +63,7 @@ for(const reverse of [false,true])test(`explicitly incremented formula versions 
 });
 
 test('the real catalog reuses identical formula definitions across revenue/TTM reviews and retains financial history',()=>{
- const result=inspectResearch(production);assert.equal(result.records.length,6);
+ const result=inspectResearch(production);assert.equal(result.records.length,7);
  assert.equal(result.records.find(r=>r.kind==='capital').full_review.formulas.length,7);
  assert.ok(result.records.find(r=>r.kind==='revenue_ttm').records.every(r=>r.value===null));
  assert.equal(readSnapshots(production.root,'production')[6].id,'0abb51bb8a1c41e592d8e9bd9bc55c8ee7c8a2213b07154aad5217d974dd0a4c');
