@@ -12,6 +12,7 @@ const project=loadProject('production');
 // Isolate the noon clock probes from later real research retrievals. Only this
 // in-memory test input changes; committed history/replay below reloads real data.
 project.sources=project.sources.filter(source=>source.date<='2026-10-03');
+project.inputs=project.inputs.filter(record=>record.as_of_date<='2026-10-03');
 for(const source of project.sources)if(Date.parse(source.retrieved_at)>Date.parse('2026-10-03T12:00:00Z'))
  source.retrieved_at='2026-10-03T12:00:00Z';
 const event=()=>({id:'test-only-event-review',type:'acquisition',status:'completed',fixture:false,

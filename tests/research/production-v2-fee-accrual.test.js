@@ -52,7 +52,7 @@ test('LP shares and caller redemption cannot become canonical fees, UNI burn or 
  assert.match(accrued.event.reason,/不是 TokenJar 已贖回收入/);
  assert.match(accrued.event.reason,/未查證 reserve-product 成長全由交易費用造成/);
  assert.match(accrued.event.reason,/未完成部署 bytecode 等價/);
- assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
+ assert.equal(new Set(history.slice(0,history.indexOf(accrued)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(accrued.thesis).every(t=>t.coverage==='insufficient'));
  const replay=calculate({...project,inputs:accrued.inputs,sources:accrued.sources,
   registry:{...project.registry,formulas:accrued.formulas}},

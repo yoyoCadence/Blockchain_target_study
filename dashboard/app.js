@@ -4,17 +4,17 @@ const requestedModes=new URLSearchParams(location.search).getAll('mode');
 const validRoute=requestedModes.length<=1&&requestedModes.every(value=>['fixture','production'].includes(value));
 let state,mode=validRoute?(requestedModes[0]||'fixture'):null,overrides={},refreshRevision=0,researchRevision=0,freshnessRevision=0;
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;if(className) node.className=className;return node;};
-function format(value,unit) {if(value===null||value===undefined)return '未知';if(unit==='ratio')return new Intl.NumberFormat('zh-TW',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('zh-TW',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
+function format(value,unit,metricId) {if(value===null||value===undefined)return '未知';if(unit==='USD'&&metricId?.endsWith('.price'))return `$${new Intl.NumberFormat('zh-TW',{maximumFractionDigits:8}).format(value)}`;if(unit==='ratio')return new Intl.NumberFormat('zh-TW',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('zh-TW',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
 const definition=id=>{const record=state.dictionary.find(x=>x.id===id);return record?{...record,label:metricLabel(id)}:undefined;};
 function metricCard(metric) {
  const button=el('button',undefined,'metric');button.type='button';button.dataset.metric=metric.metric_id;
- button.append(el('span',definition(metric.metric_id)?.label||metric.metric_id,'metric-label'),el('span',format(metric.value,metric.unit),'metric-value'),el('span',term(metric.unit),'metric-unit'),el('span',term(metric.classification),`badge ${metric.classification}`));
+ button.append(el('span',definition(metric.metric_id)?.label||metric.metric_id,'metric-label'),el('span',format(metric.value,metric.unit,metric.metric_id),'metric-value'),el('span',term(metric.unit),'metric-unit'),el('span',term(metric.classification),`badge ${metric.classification}`));
  if(metric.fixture)button.append(el('span','合成示範資料（Fixture）','fixture-label'));
  button.onclick=()=>inspect(metric.metric_id);return button;
 }
 function renderLineage(tree) {
  const wrap=el('div',undefined,'lineage-node'),m=tree.metric;
- wrap.append(el('h3',`${definition(m.metric_id)?.label||m.metric_id} · ${format(m.value,m.unit)}`));
+ wrap.append(el('h3',`${definition(m.metric_id)?.label||m.metric_id} · ${format(m.value,m.unit,m.metric_id)}`));
  const dl=el('dl',undefined,'metadata');
  for(const [label,value] of Object.entries({'紀錄 ID':m.id,'單位':term(m.unit),'分類':term(m.classification),'知識日':m.as_of_date,'期間':`${term(m.period.basis)} / ${m.period.end}`,'可信程度':term(m.confidence),'版本':m.version,'來源性質':m.fixture?'合成示範資料（Fixture）':'正式研究資料','理由／情境（原文）':m.rationale||m.scenario||'—','錯誤（原始訊息）':m.error||'—'})){dl.append(el('dt',label),el('dd',String(value)));}
  wrap.append(dl);
@@ -45,7 +45,7 @@ function renderComparison() {
  if(!c.available){container.append(el('p','尚無前一快照；請以命令列附上實質更新理由保存快照。'));return;}
  container.append(el('p',`更新原因（原文）：${c.reason}`));const flags=el('div',undefined,'comparison-flags');for(const key of ['source_change','assumption_change','scenario_change','formula_change','rule_change'])flags.append(el('span',`${term(key)}：${c[key]?'是':'否'}`));container.append(flags);
  const table=el('table'),head=el('tr');for(const label of ['指標','前一版本 ↗','目前版本 ↗'])head.append(el('th',label));table.append(head);
- for(const change of c.changes){const row=el('tr');row.append(el('td',definition(change.metric_id)?.label||change.metric_id));for(const side of ['previous','current']){const td=el('td'),button=el('button',format(change[side],change.unit),'evidence-link'),tree=state.comparison_lineage[change.metric_id][side];button.onclick=()=>inspect(change.metric_id,tree);button.disabled=!tree;td.append(button);row.append(td);}table.append(row);}container.append(table);
+ for(const change of c.changes){const row=el('tr');row.append(el('td',definition(change.metric_id)?.label||change.metric_id));for(const side of ['previous','current']){const td=el('td'),button=el('button',format(change[side],change.unit,change.metric_id),'evidence-link'),tree=state.comparison_lineage[change.metric_id][side];button.onclick=()=>inspect(change.metric_id,tree);button.disabled=!tree;td.append(button);row.append(td);}table.append(row);}container.append(table);
 }
 function render(resetInputs=false) {
  $('notice').replaceChildren(el('strong',state.fixture?'合成示範工作區／非即時市場資訊':'正式研究工作區／未查證數據保持未知'),el('span',state.fixture?'全部數字範例均為合成資料；已觀測（OBSERVED）標籤只描述示範紀錄結構，不代表真實查證。':'缺失證據不以虛構數值補齊；取得足夠證據前，投資論點仍標示證據不足。'),el('span',` · 模型期間：${state.period.end}${Object.keys(overrides).length?' · 目前為未儲存的敏感度情境':''}`));

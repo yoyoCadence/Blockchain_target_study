@@ -25,7 +25,8 @@ test('production freshness API preserves stale historical budget and separate ve
  const base=await serve(t),response=await fetch(`${base}/api/freshness?mode=production&as_of=2026-10-03`),data=await response.json();
  assert.equal(response.status,200);assert.deepEqual(data,researchFreshness(loadProject('production'),{as_of_date:'2026-10-03'}));
  assert.equal(data.fixture,false);assert.equal(data.scope,'canonical_and_cataloged_research');
- assert.equal(data.summary.input_states.UNKNOWN_DATA,58);
+ assert.equal(data.summary.input_states.UNKNOWN_DATA,57);
+ assert.equal(data.inputs.find(r=>r.metric_id==='xlm.price').observation_state,'NOT_AVAILABLE_AT_CUTOFF');
  const budget=data.inputs.find(r=>r.metric_id==='uni.growth_budget');
  assert.equal(budget.observation_as_of,'2026-01-01');assert.equal(budget.observation_state,'STALE_FOR_CURRENT_USE');
  assert.ok(data.source_checks.filter(s=>s.used_by.includes('uni.growth_budget')).every(s=>s.retrieval_state==='RECENTLY_RETRIEVED'));

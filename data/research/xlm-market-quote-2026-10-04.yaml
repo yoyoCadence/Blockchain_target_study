@@ -1,0 +1,46 @@
+version: 1
+id: xlm-market-quote-baseline-20261004
+as_of_date: 2026-10-04
+reason: 獨立保存已查證 Coinbase Exchange XLM-USD 的 2026-10-04 point 最後成交價 0.216265
+  USD／1 XLM，trade_id
+  169565371，2026-10-04T11:33:54.575362751Z；不是開頁即時報價或收盤價。重用先前保存的兩份 ticker／product
+  來源與完整 raw 回應，來源日期與 nanosecond 字串保留，不重新採集。以既有人工 preview／digest／append-only
+  流程加入一筆 OBSERVED，再重算全部下游；UNI 價格、年度費用／burn、供給量、市值／FDV、SECZ 股本／估值與三項 TTM
+  仍未知。最新模型參考日由合法 point 觀測推進至 2026-10-04，這是研究參考期間，不宣稱年度／季度收入已查證，也不增加足夠的連續 thesis
+  證據。沒有 fee-only XLM DCF、修改公式／假設／情境、投資性提升或圖譜改變。
+affected_nodes:
+  - XLM
+sources: []
+observations:
+  - id: xlm.price@1-coinbase-20261004
+    metric_id: xlm.price
+    asset: XLM
+    value: 0.216265
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-10-04
+    period:
+      basis: point
+      end: 2026-10-04
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - coinbase-xlm-quote-20261004-v1
+      - coinbase-xlm-product-20261004-v1
+    rationale: USD 是每 1 XLM 的美元價格。Coinbase Exchange XLM-USD 最後成交
+      price=0.216265，trade_id=169565371，time=2026-10-04T11:33:54.575362751Z；不是
+      bid、ask、中間價或收盤價。單次取得 2026-10-04T11:34:02.1193462Z，HTTP Date Sun, 04 Oct
+      2026 11:34:02 GMT。商品 metadata 於 2026-10-04T11:37:54.0960573Z
+      另外取得，base_currency=XLM、quote_currency=USD，不證明先前 tick 的商品狀態或個人投資性。原始 ticker
+      JSON：{"ask":"0.216265","bid":"0.2162","volume":"24574316.88272164","trade_id":169565371,"price":"0.216265","size":"157.2903614","time":"2026-10-04T11:33:54.575362751Z","rfq_volume":"59152.561334"}。保存檔
+      data/research/market-quotes-2026-10-04-v1.json，內容 hash
+      8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b。此價不證明
+      fair value、跨市場同步估值或持有人價值捕獲。
+review:
+  reviewer: Codex 人工公開一手來源查證；非人類簽核
+  reviewed_at: 2026-10-04T12:10:30.613Z
+  rationale: 重用已保存公開 Coinbase ticker／product 與原始內容 hash
+    8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b，沒有重新取得市場報價。將
+    XLM 價格與仍被期間檢查阻擋的 UNI 分開；逐項檢查原始 decimal、最後成交與取得／商品 metadata 時間、USD 每一枚 XLM
+    單位、兩份 Tier 1 來源及完整下游重算。市場價格僅為研究輸入，不證明 fair value、個人交易資格、原生提款／託管或持有人價值捕獲。

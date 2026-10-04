@@ -54,17 +54,19 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
-- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year），其餘 83 個數值仍為 `Unknown`。這不是目前估值或實際支出；不從 fixture 補值。查證與日期衝突見 [研究紀錄](reports/uni-growth-budget-baseline.md)。
+- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year）及 2026-10-04 Coinbase Exchange XLM-USD 單筆最後成交價（0.216265 USD／1 XLM），其餘 82 個數值仍為 `Unknown`。價格保留原成交時間與 point 期間，介面不會即時更新；它不證明合理價值或個人交易資格，預算額度不代表實際支出。查證見[預算研究](reports/uni-growth-budget-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
 - **ASSUMPTION**：分析者設定與理由。原先使用者提供的 20M UNI/year fixture 假設與 production null v1 均保留；正式資料以 OBSERVED v2 明確 supersede 該 null，代表經查證的核准額度。
 - **SCENARIO**：4T TAM 與互動敏感度等反事實情境，不是預測事實。
 - **DERIVED**：25 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
 
+最新研究參考日為 2026-10-04；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。版本比較只有 XLM 價格由未知變成數值，其他未知列可因參考日／血緣 metadata 改變而出現；舊快照日期與數值均保留。UNI 單筆價格仍被三項年度／point 期間依賴阻擋，目前請以 `data/research/uni-market-quote-pending-2026-10-04.yaml` 預覽未完成的 UNI 子項；原雙資產候選保存當時研究，不再當作可直接重複套用的更新。
+
 UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保存為來源事件與快照，財務數值仍不變；實際 fee 收入、UNI burn 與現況查證仍待完成。
 已另存[單筆 Firepit 執行證據](reports/uni-firepit-release.md)：2025-12-29 同一 receipt 的 UNI dead-address payment 與 TokenJar 資產交換。未完成 fee-origin／全期間收入與 burn 查證，沒有年度數值 ingest。
 已另存[單筆 v2 LP 費用份額歸集](reports/uni-v2-fee-accrual.md)：2026-10-04 原始 Factory 建池事件與 TokenJar LP 鑄造流入相符。保留 raw 整數與源碼推論界線；LP／caller 贖回不是 UNI burn 或年度收入，金融輸入仍未知。
 
-已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。研究頁可展開中文來源事件。正式價格匯入被年度／point 期間未對齊防線阻擋，因此來源事件不套用數值，83 個金融未知保留；這不是同步估值、收盤價或個人交易資格確認。
+已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被期間防線阻擋，當時只保存來源事件；後續已[獨立保存 XLM 價格](reports/xlm-quote-baseline.md)，UNI 尚未套用。研究頁可展開十筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
 
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 

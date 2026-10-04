@@ -46,9 +46,11 @@ test('issued, conditional and registered share context cannot change canonical f
 test('capital evidence appends one full snapshot while preserving replay and insufficient consecutive-period evidence',()=>{
  const before=fingerprint(history),index=history.indexOf(review);
  for(const snapshot of history)verifySnapshot(snapshot);
- const replay=calculate(project,{history:history.slice(0,index),previousThesis:previous.thesis});
+ const replay=calculate({...project,inputs:review.inputs,sources:review.sources,
+  registry:{...project.registry,formulas:review.formulas},dictionary:review.dictionary,
+  thesis:{...project.thesis,rules:review.rules}},{history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,review.metrics);assert.deepEqual(replay.thesis,review.thesis);
- assert.equal(new Set(history.map(s=>JSON.stringify(s.period))).size,1);
+ assert.equal(new Set(history.slice(0,history.indexOf(review)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(review.thesis).every(t=>t.coverage==='insufficient'));
  assert.equal(history[0].id,'65e5c2c8adf25d6e0f111e9ff4b63bb83eb098f95951b49376b476a0b7b5fc80');
  assert.equal(history[1].id,'118771fe14a9f79bc23275390bbc95c1d85aacbcf141abe59ac5c1ad51498522');
