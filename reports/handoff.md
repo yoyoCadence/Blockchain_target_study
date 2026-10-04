@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-05（台北）— UNI 餘額／供給資料包唯讀驗證
+
+PR #55 push／PR／main CI 全部成功，main `3447fdc` 同步／原 archive hash `848a20c9…` 保留；從乾淨 main 建立 `feat/manual-token-state-review`。新增 token-state-review 明示 production／digest，只讀本機檔案，沒有 RPC 或寫入。
+
+schema／方法 v1 釘選原 owner dependency，重用 fixed-block reader 及 RPC envelope helper；新四觀測需要同 anchor／token／owner、完整 selector／ABI／uint256 字串／uint8 位寬、原 allowance／decimals、來源／UTC／capture；嵌入比較 v1 與兩確切依賴以 BigInt 重播。回應順序可不同，matching hash 的錯配仍拒絕。45 新增／80 targeted／全套 688、兩模式 validate、實際 CLI 成功／拒絕／不寫入通過；unknown 80／TTM null／stale 年率／十四份正式歷史／0.422 不變。未改 UI，不另做瀏覽器 QA；見[操作與限制](manual-token-state-review.md)。本 PR／CI 最終狀態以遠端為準。
+
+下一項把新四觀測／一個 DERIVED 接入 hash-pinned 研究目錄、既有唯讀 API／手動時效與中文表格，重用本 reader 及原已存 event review；完整 raw、公式版本／依賴、時點與限制保留，Fixture 隔離。不要重新套用事件或重採時間；部署等價、全年 capture／分配、同步估值及 SECZ／個人投資性與父 baseline 保留。
+
 ## 2026-10-05（台北）— UNI 固定區塊 owner 餘額與供給
 
 PR #54 已合併，push／PR／main CI 成功，本機 main `e7f349f`；從乾淨 main 建立 `research/uni-token-state`。沿用 UTC 10 月 4 日同 block／hash，保存四個 canonical UNI 呼叫與原 owner archive 依賴、完整 raw 整數及研究 BigInt gte v1 推導。只支持該點 owner balance >= allowance，不提供完整可轉帳、全年分配或流通／完全稀釋分母。
