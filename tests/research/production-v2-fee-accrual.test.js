@@ -61,7 +61,7 @@ test('LP shares and caller redemption cannot become canonical fees, UNI burn or 
 });
 
 test('manual fee-accrual events retain ordinary evidence and temporal ingestion guards',()=>{
- const base={...project,inputs:previous.inputs,sources:previous.sources};
+ const base={...project,inputs:previous.inputs,sources:previous.sources,registry:{version:1,formulas:previous.formulas}};
  const event=readYaml('data/research/uni-v2-fee-accrual-2026-10-04.yaml');
  assert.deepEqual(prepareEvent(base,event,history.slice(0,history.indexOf(accrued))).result.metrics,previous.metrics);
  const missing=structuredClone(event);missing.source_ids=['missing-fee-receipt'];

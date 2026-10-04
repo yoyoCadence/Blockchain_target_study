@@ -24,6 +24,8 @@ Volume → protocol fee → accrual/burn → distribution/dilution → net holde
 
 Growth distribution = annual UNI growth budget × UNI price. The fixture seed remains the original user-provided assumption. Production now contains a separately verified historical 20M UNI/year authorization rate effective 2026-01-01; the original null assumption is retained and explicitly superseded. The budget-price formula models the authorization's economic burden, not observed realized spending. Net accrual subtracts growth distribution and other dilution; net burn yield divides by market cap. See [budget evidence and limitations](uni-growth-budget-baseline.md).
 
+五條 UNI 公式 v2 明示採用[名目年率折算政策](uni-valuation-period-policy.md)。成長預算負擔為 DERIVED model，`valuation_date` 是單筆價格參考日；原預算知識日保持 2026-01-01。下游明示傳遞此日期，已知跨期實際流量／市值或季度基礎仍拒絕；null 期間占位不能當作會計證據。歷史率按稍後報價折算不證明當日授權仍有效或實際支出，時效與 thesis coverage 獨立保留。原 v1 期間規則與公式繼續嵌在舊快照中重播。
+
 The prompt-specified required-share formula is retained exactly: (required accrual + growth distribution) / (TAM × turnover × onchain share × AMM share × effective fee). It is a conservative standalone tokenized-equity revenue hurdle. It does not offset other accrual and does not include other dilution. A separately labeled full-net formula includes other dilution and subtracts all other accrual streams. A negative full-net required share means those modeled streams already exceed the hurdle; it is not a negative realized market share.
 
 Regression: (242M + 180M) / (4T × 2 × 1 × 1 × 0.000125) = 0.422. Actual protocol activation, enforceable fee capture, token burn behavior and budget execution require future primary-source verification.

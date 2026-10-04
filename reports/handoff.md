@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — UNI 單筆價格與公式 v2
+
+PR #49 push／PR／合併後 main CI 成功，main `8bece98`；從乾淨最新 main 建立 `research/uni-quote-baseline`。使用者授權繼續自主中文 PR／CI／合併；未恢復上一輪停止要求。
+
+五條 UNI 公式升至 v2，明示按單筆價折算年率的 model 日期與下游相容性，原表達式保留。新增 UNI proposal 重用兩份已存 Tier 1 來源，觀測與原 pending 逐欄相同；preview digest `193492a5...` 後 apply 追加完整快照 `98d14672...`，parent `497cec4e...`。9.0556 USD／UNI、原 trade_id／nanosecond／取得時間保留，沒有重採報價；181112000 USD/year 僅是歷史名目率的模型折算，現行額度／支出／收入仍未驗證。此 ID 已套用，不可再次 apply。
+
+只有 UNI 價格與折算模型兩個值改變，unknown 82→80。原來源登錄／假設／情境／規則／圖譜／投資性不改；source_change／formula_change=true。正式十一份及 Fixture 三份歷史各按自己的公式精確重播，Fixture 所有值不變、0.422 保留；舊 v1 三項中文阻擋在隔離 TEMP CLI 工作區重現，不寫入。全套 588 項通過，兩模式 validate 無錯誤及警告。
+
+Browser 實測桌面 CSS 1536×684／窄 CSS 312×675、Enter 開啟血緣與原始事件 JSON、兩個安全來源連結、Fixture 清除與還原；console／stderr 空。窄血緣原 commit 長字串水平溢出已補換行並驗證對話框 clientWidth=scrollWidth。已停止本次驗收服務，截圖在 TEMP。詳見[操作與驗收](uni-quote-baseline.md)，本子項 PR／CI 最終狀態以遠端為準。
+
+下一優先研究：現行 UNI 名目率／供給與同日市值／FDV、實際年度捕獲／分配；SECZ 跨期可比性／六收入映射與母公司完整現行股本。三項正式 TTM null、個人投資性、足夠連續 verified 期間與同步估值／父 baseline 均未完成。缺失證據保持 null，不從單筆價格推 fair value。
+
 ## 2026-10-04 — UNI 名目年率估值期間前置
 
 使用者接續要求：繼續完成其他任務，自主開中文非 Draft PR 並於驗證／CI 成功後合併，解除上一輪停止要求。PR #48 已合併，push／PR／main CI 成功，本機 main `e1ecc42` 乾淨同步；從此建立 `feat/uni-valuation-period-policy`。

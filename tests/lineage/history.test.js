@@ -32,7 +32,7 @@ test('event propagates changes and comparison attributes assumption change',()=>
  const {snapshot,result}=prepareEvent(p,e,[previous]);assert.equal(result.metrics['uni.growth_distribution'].value,90e6);assert.equal(previous.metrics['uni.growth_distribution'].value,180e6);const diff=compareSnapshots(previous,snapshot);assert.equal(diff.assumption_change,true);assert.equal(diff.source_change,false);assert.equal(diff.formula_change,false);assert.ok(diff.changes.some(c=>c.metric_id==='uni.net_accrual'));
 });
 test('persisted baseline and current snapshots replay without formula drift',()=>{
- const p=project(),history=readSnapshots(p.root,'fixture');assert.equal(history.length,2);
+ const p=project(),history=readSnapshots(p.root,'fixture');assert.equal(history.length,3);
  history.forEach((snapshot,index)=>{
   const replayProject={...p,inputs:snapshot.inputs,sources:snapshot.sources,registry:{version:1,formulas:snapshot.formulas},dictionary:snapshot.dictionary,thesis:{...p.thesis,rules:snapshot.rules}};
   const replay=calculate(replayProject,{history:history.slice(0,index),previousThesis:history[index-1]?.thesis||{}});

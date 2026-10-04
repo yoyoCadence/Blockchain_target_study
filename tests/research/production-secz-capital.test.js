@@ -66,7 +66,7 @@ test('parent capital evidence leaves subsidiary TTM comparability unknown and fi
  assert.equal(ttm.comparability.checks.acquisition_treatment.value,null);
  assert.ok(ttm.records.every(r=>r.value===null&&r.status==='COMPARABILITY_UNVERIFIED'));
  assert.equal(fingerprint(readSnapshots(project.root,'production')),before);
- const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,2);
+ const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,3);
  assert.ok(!fixture.sources.some(s=>s.id.startsWith('secz-parent-capital-')));
  assert.deepEqual(inspectResearch(fixture).records,[]);
 });

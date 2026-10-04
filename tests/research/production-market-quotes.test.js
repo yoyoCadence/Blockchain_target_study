@@ -6,6 +6,7 @@ import {loadProject,calculate,readYaml,validateProject} from '../../engine/index
 import {fingerprint,readSnapshots,verifySnapshot,compareSnapshots} from '../../engine/snapshots.js';
 import {prepareResearchRefresh} from '../../engine/research/index.js';
 import {inspectResearch} from '../../engine/research/inspection.js';
+import {historicalQuoteWorkspace} from './historical-quote-workspace.js';
 
 const project=loadProject('production'),history=readSnapshots(project.root,'production');
 const quoteReview=history.find(s=>s.event?.id==='uni-xlm-market-quotes-source-review-20261004');
@@ -59,7 +60,8 @@ test('source-only quote review appends four sources while retaining every financ
  for(const flag of ['formula_change','assumption_change','scenario_change','rule_change'])assert.equal(compared[flag],false);
 });
 
-test('unaligned current quote candidate is refused before persistence without moving historical periods',()=>{
+test('historical v1 quote candidate remains refused without moving its accounting periods',t=>{
+ const project=historicalQuoteWorkspace(t),history=readSnapshots(project.root,'production');
  const before=fingerprint({project,history,economics:calculate(project)});
  const pending=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
  const candidate=calculate({...project,inputs:[...project.inputs,...pending.observations]});

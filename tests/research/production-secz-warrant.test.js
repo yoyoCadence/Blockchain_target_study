@@ -58,7 +58,7 @@ test('warrant source context cannot establish subsidiary TTM or enter the fixtur
  assert.equal(ttm.artifact_id,'6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d');
  assert.equal(ttm.comparability.checks.acquisition_treatment.value,null);
  assert.ok(ttm.records.every(r=>r.value===null&&r.status==='COMPARABILITY_UNVERIFIED'));
- const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,2);
+ const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,3);
  assert.ok(!fixture.sources.some(s=>s.id===review.event.sources[0].id));
  assert.deepEqual(inspectResearch(fixture).records,[]);
 });
