@@ -52,6 +52,7 @@
     - [x] 股本研究目錄／API／中文 Dashboard：目錄 v2 釘選原 artifact，共用重播保留 108 個觀測／7 項推導、九個 null、全部來源版本／point 日期／完整依賴；既有手動時效保留審查可用日與原觀測日。見[操作與驗收](reports/capital-research-inspection.md)。桌面／手機與工作區／截止日切換通過，金融／歷史不改，父 baseline 仍未完成。
     - [x] 共用研究證據 ID 一致性：將時效來源／紀錄 guard 集中到固定目錄讀取，另拒絕重用 canonical 金融輸入 ID；兩個唯讀 API 拒絕有效 hash 的衝突，合法來源新版本與獨立紀錄保留。見[驗證與限制](reports/research-evidence-id-consistency.md)。研究／金融／歷史不改，完整 baseline 仍未完成。
     - [x] 固定研究目錄公式版本一致性：共用 reader 核對相同公式 ID／版本的完整定義，含 TTM 本體及兩份嵌入收入研究；拒絕有效 hash 的同版本改寫，保留合法多版本與嵌入重播。見[重現與驗證](reports/research-formula-version-consistency.md)。沒有公式／金融／歷史變更，父 baseline 未完成。
+    - [x] 固定研究目錄假設版本一致性：共用 reader 拒絕同可比性假設 ID／版本的理由、信心與判斷改寫，以及 canonical 假設衝突；合法升版保留兩份歷史／ASSUMPTION／TTM null。見[重現與驗證](reports/research-assumption-version-consistency.md)。沒有假設／金融／歷史變更，父 baseline 未完成。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
