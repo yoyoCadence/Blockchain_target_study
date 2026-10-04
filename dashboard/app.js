@@ -139,13 +139,17 @@ function renderResearch(data) {
 async function refreshResearch() {
  const revision=++researchRevision,requestMode=mode;
  $('research-records').replaceChildren();$('research-status').textContent='正在載入研究證據…';
+ $('research-records').setAttribute('aria-busy','true');$('retry-research').hidden=true;$('retry-research').disabled=true;
  try {
   const response=await fetch(`/api/research?mode=${requestMode}`),data=await response.json();
   if(revision!==researchRevision)return;
   if(!response.ok)throw new Error(data.error);
+  if(data.mode!==requestMode)throw new Error('研究回應工作區不一致，請重新載入。');
   renderResearch(data);
- } catch(error) {if(revision===researchRevision)$('research-status').textContent=`研究證據無法取得：${term(error.message)}`;}
+ } catch(error) {if(revision===researchRevision){$('research-status').textContent=`研究證據無法取得：${term(error.message)}`;$('retry-research').hidden=false;}}
+ finally{if(revision===researchRevision){$('research-records').setAttribute('aria-busy','false');$('retry-research').disabled=false;}}
 }
+$('retry-research').onclick=()=>refreshResearch();
 function freshnessTable(labels,rows) {
  const wrap=el('div',undefined,'freshness-table-wrap'),table=el('table'),head=el('tr');
  for(const label of labels){const th=el('th',label);th.scope='col';head.append(th);}table.append(head);

@@ -5,12 +5,13 @@ import vm from 'node:vm';
 import {createServer} from '../server.js';
 import {term,metricLabel,periodLabel} from '../dashboard/zh-hant.js';
 
-let fixture,production;
+let fixture,production,productionResearch;
 before(async()=>{
  const server=createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  try {
   const base=`http://127.0.0.1:${server.address().port}`;
   [fixture,production]=await Promise.all(['fixture','production'].map(async mode=>(await fetch(`${base}/api/state?mode=${mode}`)).json()));
+  productionResearch=await (await fetch(`${base}/api/research?mode=production`)).json();
  }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
 
@@ -27,12 +28,13 @@ class Node {
  showModal(){this.open=true;}
 }
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
-function app(search=''){
+function app(search='',{manualResearch=false}={}){
  const nodes=new Map([...fs.readFileSync(new URL('../dashboard/index.html',import.meta.url),'utf8').matchAll(/id="([^"]+)"/g)].map(match=>[match[1],new Node()]));
  const $=id=>nodes.get(id),submit=new Node('button');submit.disabled=true;$('reset').tag='button';$('reset').disabled=true;
  $('scenario-form').append($('parameters'),submit,$('reset'));
- const requests=[];
+ const requests=[],researchRequests=[];
  const fetch=async(url,options)=>{
+  if(url.startsWith('/api/research')&&manualResearch)return new Promise(resolve=>researchRequests.push({url,reply:(data,ok=true)=>resolve({ok,json:async()=>structuredClone(data)})}));
   if(url.startsWith('/api/research'))return {ok:true,json:async()=>({mode:new URL(url,'http://local').searchParams.get('mode'),records:[],notice:'test'})};
   return new Promise(resolve=>requests.push({url,options,reply:(data,ok=true)=>resolve({ok,json:async()=>structuredClone(data)})}));
  };
@@ -43,7 +45,7 @@ function app(search=''){
  vm.runInNewContext(source,{document,fetch,term,metricLabel,periodLabel,Intl,URLSearchParams,URL,location,history});
  const change=mode=>{$('mode').value=mode;$('mode').onchange({target:$('mode')});};
  const count=()=>$('market-cards').querySelectorAll('button').length+$('asset-models').querySelectorAll('button').length;
- return {$,submit,requests,change,count,urls};
+ return {$,submit,requests,researchRequests,change,count,urls};
 }
 async function loaded(){const view=app();view.requests[0].reply(fixture);await tick();assert.equal(view.count(),84);return view;}
 
@@ -115,4 +117,35 @@ for(const search of ['?mode=invalid','?mode=','?mode=fixture&mode=production'])t
 test('workspace selection preserves the anchor and unrelated query while replacing the mode',async()=>{
  const v=app('?mode=fixture&context=review');v.requests[0].reply(fixture);await tick();v.change('production');
  assert.equal(v.urls[0],'http://local/?mode=production&context=review#research');
+});
+
+test('independent research retry preserves loaded financial results and unapplied scenario inputs',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);await tick();
+ const margin=v.$('parameters').querySelectorAll('input').find(input=>input.name==='secz.fcf_margin');margin.value='0.3';
+ v.researchRequests[0].reply({error:'research offline'},false);await tick();
+ assert.equal(v.$('retry-research').hidden,false);assert.equal(v.count(),84);
+ v.$('retry-research').onclick();assert.equal(v.researchRequests[1].url,'/api/research?mode=production');
+ assert.equal(v.requests.length,1);assert.equal(margin.value,'0.3');assert.equal(v.$('research-records').attrs['aria-busy'],'true');
+ v.researchRequests[1].reply(productionResearch);await tick();
+ assert.equal(v.$('research-records').children.length,6);assert.equal(v.$('retry-research').hidden,true);
+ assert.equal(margin.value,'0.3');assert.equal(v.count(),84);assert.equal(v.$('research-records').attrs['aria-busy'],'false');
+});
+test('wrong research workspace is rejected without displaying its records',async()=>{
+ const v=app('',{manualResearch:true});v.researchRequests[0].reply(productionResearch);await tick();
+ assert.equal(v.$('research-records').children.length,0);assert.match(v.$('research-status').textContent,/工作區不一致/);
+ assert.equal(v.$('retry-research').hidden,false);
+});
+test('late research failure cannot enable retry or clear busy state for the latest workspace',async()=>{
+ const v=app('',{manualResearch:true});v.change('production');
+ v.researchRequests[0].reply({error:'old research error'},false);await tick();
+ assert.equal(v.$('retry-research').hidden,true);assert.equal(v.$('retry-research').disabled,true);
+ assert.equal(v.$('research-records').attrs['aria-busy'],'true');assert.doesNotMatch(v.$('research-status').textContent,/old research error/);
+ v.researchRequests[1].reply(productionResearch);await tick();assert.equal(v.$('research-records').children.length,6);
+});
+test('late research success cannot replace the current workspace failure and retry',async()=>{
+ const v=app('',{manualResearch:true});v.change('production');
+ v.researchRequests[1].reply({error:'current research error'},false);await tick();
+ v.researchRequests[0].reply({mode:'fixture',records:[],notice:'stale success'});await tick();
+ assert.equal(v.$('research-records').children.length,0);assert.match(v.$('research-status').textContent,/current research error/);
+ assert.equal(v.$('retry-research').hidden,false);
 });
