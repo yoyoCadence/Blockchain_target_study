@@ -1,6 +1,8 @@
 import {term,metricLabel,periodLabel} from './zh-hant.js';
 const $=id=>document.getElementById(id);
-let state,mode='fixture',overrides={},refreshRevision=0,researchRevision=0,freshnessRevision=0;
+const requestedModes=new URLSearchParams(location.search).getAll('mode');
+const validRoute=requestedModes.length<=1&&requestedModes.every(value=>['fixture','production'].includes(value));
+let state,mode=validRoute?(requestedModes[0]||'fixture'):null,overrides={},refreshRevision=0,researchRevision=0,freshnessRevision=0;
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;if(className) node.className=className;return node;};
 function format(value,unit) {if(value===null||value===undefined)return '未知';if(unit==='ratio')return new Intl.NumberFormat('zh-TW',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('zh-TW',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
 const definition=id=>{const record=state.dictionary.find(x=>x.id===id);return record?{...record,label:metricLabel(id)}:undefined;};
@@ -183,9 +185,10 @@ function renderFreshness(data) {
 }
 function clearFreshness(message) {
  ++freshnessRevision;$('freshness-report').replaceChildren();$('freshness-report').setAttribute('aria-busy','false');
- $('freshness-error').hidden=true;$('check-freshness').disabled=false;$('freshness-status').textContent=message;
+ $('freshness-error').hidden=true;$('check-freshness').disabled=!mode;$('freshness-status').textContent=message;
 }
 async function refreshFreshness() {
+ if(!mode)return;
  const revision=++freshnessRevision,requestMode=mode,query=new URLSearchParams({mode:requestMode});
  if($('freshness-date').value)query.set('as_of',$('freshness-date').value);
  $('freshness-report').replaceChildren();$('freshness-report').setAttribute('aria-busy','true');$('freshness-error').hidden=true;
@@ -203,5 +206,15 @@ $('freshness-date').oninput=()=>clearFreshness('日期已變更，請手動重�
 $('scenario-form').onsubmit=event=>{event.preventDefault();if(!state||state.mode!==mode)return;const next={};for(const input of $('parameters').querySelectorAll('input'))if(input.value!==''&&Number(input.value)!==state.lineage[input.name].metric.value)next[input.name]=Number(input.value);refresh({...overrides,...next});};
 $('reset').onclick=()=>refresh({},true);
 $('retry-workspace').onclick=()=>{refresh({},true);refreshResearch();};
-$('mode').onchange=event=>{mode=event.target.value;clearFreshness('工作區已變更，請手動重新查詢時效。');refresh({},true);refreshResearch();};
-refresh({},true);refreshResearch();
+$('mode').onchange=event=>{
+ if(!['fixture','production'].includes(event.target.value))return;
+ mode=event.target.value;$('route-error').hidden=true;
+ const url=new URL(location.href);url.searchParams.set('mode',mode);history.replaceState(null,'',url);
+ clearFreshness('工作區已變更，請手動重新查詢時效。');refresh({},true);refreshResearch();
+};
+if(mode){$('mode').value=mode;refresh({},true);refreshResearch();}
+else{
+ $('mode').value='';$('route-error').hidden=false;$('notice').textContent='工作區尚未選擇，尚無可顯示的金融結果。';
+ $('load-status').textContent='請選擇資料工作區後開始使用。';$('research-status').textContent='選擇工作區後載入研究證據。';
+ $('check-freshness').disabled=true;
+}

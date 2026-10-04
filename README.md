@@ -10,12 +10,22 @@
 
 需求：Node.js 22 以上（開發及驗證使用 Node.js 24）。不需要 API key、資料庫或 AI SDK。
 
+Windows 第一次先在本專案執行 `npm ci`；之後雙擊 [start-research.cmd](start-research.cmd)，啟動本機服務並顯示中文網址。也可在終端機執行下列命令。啟動檔只檢查需求並啟動既有服務，不會自動安裝依賴、取得來源或套用研究。
+
 ```powershell
 npm ci
 npm start
 ```
 
 開啟 **http://127.0.0.1:4310**。伺服器只監聽本機。終端機按 Ctrl+C 停止；可用 `PORT` 環境變數更換連接埠。
+
+首頁的「開始使用」提供三個入口，可直接開啟或加入書籤：
+
+- [閱讀正式研究證據](http://127.0.0.1:4310/?mode=production#research)：查看身份、原始財報、TTM 未解可比性及股本分類，展開來源與完整證據；研究不會自動補入金融模型。
+- [練習情境試算](http://127.0.0.1:4310/?mode=fixture#sensitivity)：使用明示合成資料調整、重算與還原，點擊數值追蹤血緣；情境不儲存。
+- [手動查詢來源時效](http://127.0.0.1:4310/?mode=production#freshness)：填 UTC 截止日後按查詢，不會在開頁時自動取得報告。
+
+工作區選擇會更新網址並保留頁內位置，重新整理仍載入相同模式。無效、空白或重複的 `mode` 會先停止載入，請明確選擇工作區再繼續。完整操作與驗收見[中文入門](reports/getting-started.md)。
 
 ```powershell
 npm test
@@ -84,7 +94,7 @@ node cli.js revenue-ttm data/research/secz-ttm-20260630-review-v1.yaml data/rese
 
 [母公司認股權證條款](reports/secz-warrant-context.md)保存 Exhibit 4.1 修訂後的母公司權利及歸屬／行使區分，防止沿用舊子公司價格或重複換股；只追加來源，完整登記註腳、現況行使與估值仍未驗證。
 
-[轉售登記分類核對](reports/secz-resale-capital-reconciliation.md)已直接讀取 S-1 選定股數表及 50 列轉售／註腳，保存原始觀察、null 與版本化算術依賴。披露加總對上登記量，仍保留已發行 Sponsor 股重疊、earnout 差額及分類衝突；來源／完整快照追加，83 個金融未知與 TTM null 不改。目前固定介面研究目錄未包含此股本紀錄，可從報告連結閱覽。
+[轉售登記分類核對](reports/secz-resale-capital-reconciliation.md)已直接讀取 S-1 選定股數表及 50 列轉售／註腳，保存原始觀察、null 與版本化算術依賴。披露加總對上登記量，仍保留已發行 Sponsor 股重疊、earnout 差額及分類衝突；來源／完整快照追加，83 個金融未知與 TTM null 不改。固定研究目錄已包含此股本紀錄，可在正式工作區展開中文核對、原始紀錄與完整證據。
 
 手動來源時效檢查分開顯示觀測 age、發布 age 與重新取得 age；門檻是明示分析者假設，不會改動財務值或 thesis。完整說明見 [來源時效](reports/source-freshness.md)。
 
@@ -200,4 +210,4 @@ TTM [可比性假設也須維持同版本定義](reports/research-assumption-ver
 
 目前沒有正式市場資料、完整四期歷史、自動研究、外部事件訂閱或 scheduler。來源衝突保留且阻擋無聲選取，仍需分析者明確處理。Snapshot 使用雜湊與禁止覆寫 API，並非抵抗管理員修改檔案的外部不可變儲存。CLI 使用單一寫入者；不是多人協作資料庫。完整 unit-dimensional algebra 與可配置會計曆尚未實作；目前會檢查宣告單位、basis、期間與明確轉換。
 
-下一步只建議：**建立一手來源的研究 refresh 流程，填入並審核首批 production observations。** 詳見 [task.md](task.md)、[方法說明](reports/methodology.md) 與 [Agent 規範](AGENTS.md)。
+目前可以閱讀已保存研究、操作合成情境與手動查詢時效；人工預覽／明確套用流程及歷史 UNI 核准預算已完成。**完整 production baseline 尚未完成**，後續仍需現行投資性、完整價值捕獲、同步估值與可比財務期間。詳見 [task.md](task.md)、[方法說明](reports/methodology.md) 與 [Agent 規範](AGENTS.md)。

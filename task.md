@@ -54,6 +54,7 @@
     - [x] 固定研究目錄公式版本一致性：共用 reader 核對相同公式 ID／版本的完整定義，含 TTM 本體及兩份嵌入收入研究；拒絕有效 hash 的同版本改寫，保留合法多版本與嵌入重播。見[重現與驗證](reports/research-formula-version-consistency.md)。沒有公式／金融／歷史變更，父 baseline 未完成。
     - [x] 固定研究目錄假設版本一致性：共用 reader 拒絕同可比性假設 ID／版本的理由、信心與判斷改寫，以及 canonical 假設衝突；合法升版保留兩份歷史／ASSUMPTION／TTM null。見[重現與驗證](reports/research-assumption-version-consistency.md)。沒有假設／金融／歷史變更，父 baseline 未完成。
     - [x] 工作區載入隔離與中文重試：切換立即清空舊指標、情境與血緣，失敗前後停用計算，拒絕模式／provenance 不符回應；快速切換不接受較早回應，同工作區重算失敗保留上一個成功結果。見[驗收](reports/workspace-loading.md)。實際延遲／失敗／鍵盤重試／窄視窗通過，金融與父 baseline 缺口保留。
+    - [x] 中文開始使用：三個用途入口、明示／可保留的工作區網址、無效模式先停止並明確選擇恢復、Windows 手動啟動與缺依賴提示；修正過時 README 操作說明。見[操作與驗收](reports/getting-started.md)。實際啟動、桌面／窄視窗／鍵盤及三入口通過；來源、金融與父 baseline 未變。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

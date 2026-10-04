@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 中文開始使用與手動啟動
+
+PR #41 的 push／PR／合併後 main CI 均成功（main `2c90238`）；從最新 origin/main 建立 `feat/chinese-getting-started`，開始時 main／遠端同步、單一 worktree 且工作區乾淨。依使用優先授權完善既有 MVP 入口，不把未完成金融 baseline 包裝成已可估值。
+
+新增三個中文用途入口與導航，分別連到明示模式的研究／合成敏感度／手動時效。首次網址決定請求與選單，切換也更新網址並保留 anchor／其他 query；無效、空或重複模式停止載入，等待明確選擇，不悄悄回到 Fixture。Windows 手動啟動 wrapper 核對 Node 與依賴，再啟動原 server.js，只監聽 loopback；沒有自動安裝、網路採集或金融套用。README 修正股本目錄及 refresh 流程的過時說明。
+
+五項新增網址回歸及原八項載入回歸通過。實際 Unicode 路徑的 launcher preflight、缺依賴中文／exit 1 及正常 4310 服務通過。初次 UTF-8 batch／行尾解析不穩定，改為 ASCII wrapper、固定 CRLF 與 Node 中文輸出後重新實測，中文完整／stderr 空。Chrome 三個入口、Production 六份研究／Fixture 隔離、情境重算／還原 0.422、手動時效不自動查詢、無效模式與 URL 恢復通過；桌面 CSS 1536×684／窄視窗 312×675（要求 390×844）無整頁溢出，Enter 入口／console 空清單／截圖通過，viewport 已恢復。
+
+全套 npm test 543 通過、0 失敗；兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。engine／spec／來源／資料／公式／假設／政策／快照不改；83 個金融未知與三項 TTM null 保留。遠端 CI／PR 狀態以實際結果為準；其他瀏覽器／全尺寸、所有 Node minor 與未裝 Node／檔案總管雙擊尚未驗證。詳見[操作與驗收](getting-started.md)，完整父 baseline 仍待現行股本／估值／投資性等研究。
+
 ## 2026-10-04 — 工作區載入隔離與中文重試
 
 PR #40 的 push／PR／合併後 main CI 均成功（main `8a99a34`）。使用者新增「能開始使用優先，保留必要防線」授權；從最新 origin/main 建立 `fix/workspace-load-isolation`，開始時 main／遠端同步、單一 worktree 且工作區乾淨。選擇既有 MVP 工作區使用問題，不擴大自動化或金融模型。

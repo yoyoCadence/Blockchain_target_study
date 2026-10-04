@@ -27,7 +27,7 @@ class Node {
  showModal(){this.open=true;}
 }
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
-function app(){
+function app(search=''){
  const nodes=new Map([...fs.readFileSync(new URL('../dashboard/index.html',import.meta.url),'utf8').matchAll(/id="([^"]+)"/g)].map(match=>[match[1],new Node()]));
  const $=id=>nodes.get(id),submit=new Node('button');submit.disabled=true;$('reset').tag='button';$('reset').disabled=true;
  $('scenario-form').append($('parameters'),submit,$('reset'));
@@ -38,10 +38,12 @@ function app(){
  };
  const document={getElementById:$,createElement:tag=>new Node(tag),createElementNS:(_,tag)=>new Node(tag)};
  const source=fs.readFileSync(new URL('../dashboard/app.js',import.meta.url),'utf8').replace(/^import[^\n]+\n/,'');
- vm.runInNewContext(source,{document,fetch,term,metricLabel,periodLabel,Intl,URLSearchParams});
+ const location={href:`http://local/${search}#research`,search},urls=[];
+ const history={replaceState:(_,__,url)=>urls.push(String(url))};
+ vm.runInNewContext(source,{document,fetch,term,metricLabel,periodLabel,Intl,URLSearchParams,URL,location,history});
  const change=mode=>{$('mode').value=mode;$('mode').onchange({target:$('mode')});};
  const count=()=>$('market-cards').querySelectorAll('button').length+$('asset-models').querySelectorAll('button').length;
- return {$,submit,requests,change,count};
+ return {$,submit,requests,change,count,urls};
 }
 async function loaded(){const view=app();view.requests[0].reply(fixture);await tick();assert.equal(view.count(),84);return view;}
 
@@ -94,4 +96,23 @@ test('initial load failure remains retryable without dereferencing an absent sta
  v.$('scenario-form').onsubmit({preventDefault(){}});assert.equal(v.requests.length,1);
  assert.equal(v.submit.disabled,true);v.$('retry-workspace').onclick();v.requests[1].reply(fixture);await tick();
  assert.equal(v.submit.disabled,false);assert.equal(v.$('error').hidden,true);assert.equal(v.count(),84);
+});
+
+test('a direct production URL requests production before any data loads and selects its workspace',async()=>{
+ const v=app('?mode=production');assert.equal(v.requests[0].url,'/api/state?mode=production');
+ assert.equal(v.$('mode').value,'production');v.requests[0].reply(production);await tick();
+ assert.match(v.$('notice').textContent,/正式研究工作區/);assert.equal(v.count(),84);
+});
+for(const search of ['?mode=invalid','?mode=','?mode=fixture&mode=production'])test(`invalid route ${search} blocks implicit data loads until an explicit workspace choice`,async()=>{
+ const v=app(search);assert.equal(v.requests.length,0);assert.equal(v.count(),0);assert.equal(v.$('mode').value,'');
+ assert.equal(v.$('route-error').hidden,false);assert.equal(v.$('check-freshness').disabled,true);
+ v.$('freshness-form').onsubmit({preventDefault(){}});assert.equal(v.requests.length,0);
+ v.change('production');assert.equal(v.requests[0].url,'/api/state?mode=production');
+ assert.equal(v.$('route-error').hidden,true);assert.equal(v.$('check-freshness').disabled,false);
+ assert.equal(v.urls[0],'http://local/?mode=production#research');v.requests[0].reply(production);await tick();
+ assert.equal(v.count(),84);
+});
+test('workspace selection preserves the anchor and unrelated query while replacing the mode',async()=>{
+ const v=app('?mode=fixture&context=review');v.requests[0].reply(fixture);await tick();v.change('production');
+ assert.equal(v.urls[0],'http://local/?mode=production&context=review#research');
 });
