@@ -149,3 +149,33 @@ test('late research success cannot replace the current workspace failure and ret
  assert.equal(v.$('research-records').children.length,0);assert.match(v.$('research-status').textContent,/current research error/);
  assert.equal(v.$('retry-research').hidden,false);
 });
+
+test('reviewed event cards preserve exact evidence and separate current event dates from model periods',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const cards=v.$('research-events').querySelectorAll('details').filter(card=>card.dataset.event);
+ assert.equal(cards.length,8);assert.equal(cards[0].dataset.event,'uni-v2-fee-accrual-20261004');
+ assert.match(cards[0].textContent,/6952494133386631432161/);
+ assert.match(cards[0].textContent,/知識日 2026-10-04/);assert.match(cards[0].textContent,/模型期間 年度 · 2026-01-01/);
+ assert.match(cards[0].textContent,/保存時 0 筆數值更新/);assert.match(cards[0].textContent,/來源層級 1 · v1/);
+ assert.equal(v.$('research-events').attrs['aria-busy'],'false');assert.equal(v.count(),84);
+});
+test('switching to fixture immediately clears event evidence and late production success cannot restore it',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.researchRequests[0].reply(productionResearch);await tick();
+ assert.ok(v.$('research-events').children.length>0);v.$('retry-research').onclick();v.change('fixture');
+ assert.equal(v.$('research-events').children.length,0);assert.equal(v.$('research-events').attrs['aria-busy'],'true');
+ v.researchRequests[1].reply(productionResearch);await tick();assert.equal(v.$('research-events').children.length,0);
+ v.researchRequests[2].reply({mode:'fixture',records:[],events:[],notice:'fixture'});await tick();
+ assert.equal(v.$('research-events').children.length,0);assert.equal(v.$('research-events').attrs['aria-busy'],'false');
+});
+test('research failure clears old event cards and independent retry restores them without applying scenario input',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const margin=v.$('parameters').querySelectorAll('input').find(input=>input.name==='secz.fcf_margin');margin.value='0.3';
+ v.$('retry-research').onclick();assert.equal(v.$('research-events').children.length,0);
+ v.researchRequests[1].reply({error:'event research offline'},false);await tick();
+ assert.equal(v.$('research-events').children.length,0);assert.equal(v.$('retry-research').hidden,false);
+ v.$('retry-research').onclick();v.researchRequests[2].reply(productionResearch);await tick();
+ assert.equal(v.$('research-events').querySelectorAll('details').filter(card=>card.dataset.event).length,8);
+ assert.equal(margin.value,'0.3');assert.equal(v.requests.length,1);assert.equal(v.count(),84);
+});
