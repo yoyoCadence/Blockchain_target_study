@@ -23,6 +23,7 @@ function batch(transport,count) {
  }
  return {requests,responses,byId};
 }
+export {parseJson as parseRpcJson,batch as readRpcBatch};
 function decode(observation) {
  const word=observation.response_word,integer=BigInt(word);
  if(observation.abi_type==='address') {

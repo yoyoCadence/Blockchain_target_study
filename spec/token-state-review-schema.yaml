@@ -1,0 +1,194 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [version, id, fixture, captured_at, anchor, token, owner, vesting, owner_identity_dependency, observations, formulas, derived, limitations, transport]
+properties:
+  version: {const: 1}
+  id: &text {type: string, pattern: '\S'}
+  fixture: {const: false}
+  captured_at: &instant {type: string, format: date-time}
+  token: &address {type: string, pattern: '^0x[0-9a-f]{40}$'}
+  owner: *address
+  vesting: *address
+  anchor:
+    type: object
+    additionalProperties: false
+    required: [classification, as_of_date, source_ids, chain_id, selected_tag, number_hex, number, hash, timestamp_hex, effective_at, selector, height_recheck_response_id]
+    properties:
+      classification: {const: OBSERVED}
+      as_of_date: &day {type: string, format: date}
+      source_ids: {type: array, minItems: 2, maxItems: 2, uniqueItems: true, items: *text}
+      chain_id: {const: '1'}
+      selected_tag: {const: previously_observed_finalized}
+      number_hex: &quantity {type: string, pattern: '^0x(0|[1-9a-f][0-9a-f]*)$'}
+      number: &integer {type: string, pattern: '^(0|[1-9][0-9]*)$'}
+      hash: &hash {type: string, pattern: '^0x[0-9a-f]{64}$'}
+      timestamp_hex: *quantity
+      effective_at: *instant
+      selector:
+        type: object
+        additionalProperties: false
+        required: [blockHash, requireCanonical]
+        properties:
+          blockHash: *hash
+          requireCanonical: {const: true}
+      height_recheck_response_id: {const: null}
+  owner_identity_dependency:
+    type: object
+    additionalProperties: false
+    required: [archive_id, archive_sha256, source_id, response_id, block_hash]
+    properties:
+      archive_id: *text
+      archive_sha256: &digest {type: string, pattern: '^[0-9a-f]{64}$'}
+      source_id: *text
+      response_id: &responseId {type: integer, minimum: 1, maximum: 9007199254740991}
+      block_hash: *hash
+  observations:
+    type: array
+    minItems: 4
+    maxItems: 4
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, classification, fixture, as_of_date, source_ids, period, observed_at, response_id, response_word, value, unit, confidence]
+      properties:
+        id: *text
+        version: {const: 1}
+        classification: {const: OBSERVED}
+        fixture: {const: false}
+        as_of_date: *day
+        source_ids: {type: array, minItems: 1, maxItems: 1, items: *text}
+        period: &point
+          type: object
+          additionalProperties: false
+          required: [basis, end]
+          properties:
+            basis: {const: point}
+            end: *day
+        observed_at: *instant
+        response_id: *responseId
+        response_word: {type: string, pattern: '^0x[0-9a-f]{64}$'}
+        value: *integer
+        unit: *text
+        confidence: {const: medium}
+  formulas:
+    type: array
+    minItems: 1
+    maxItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, expression, unit, rationale]
+      properties:
+        id: *text
+        version: {const: 1}
+        expression:
+          type: object
+          additionalProperties: false
+          required: [op, args]
+          properties:
+            op: {const: gte_raw_uint256}
+            args: {type: array, minItems: 2, maxItems: 2, uniqueItems: true, items: *text}
+        unit: {const: ratio}
+        rationale: *text
+  derived:
+    type: array
+    minItems: 1
+    maxItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, classification, fixture, as_of_date, period, value, unit, formula_id, formula_version, dependencies, confidence]
+      properties:
+        id: *text
+        version: {const: 1}
+        classification: {const: DERIVED}
+        fixture: {const: false}
+        as_of_date: *day
+        period: *point
+        value: {type: integer, minimum: 0, maximum: 1}
+        unit: {const: ratio}
+        formula_id: *text
+        formula_version: {const: 1}
+        dependencies: {type: array, minItems: 2, maxItems: 2, uniqueItems: true, items: *text}
+        confidence: {const: medium}
+  limitations: {type: array, minItems: 1, items: *text}
+  transport:
+    type: object
+    additionalProperties: false
+    required: [endpoint, started_at, received_at, http_status, http_date, labels, request_json, response_json]
+    properties:
+      endpoint: {type: string, format: uri}
+      started_at: *instant
+      received_at: *instant
+      http_status: {const: 200}
+      http_date: *text
+      labels:
+        type: array
+        minItems: 6
+        maxItems: 6
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, label]
+          properties:
+            id: *responseId
+            label: *text
+      request_json: *text
+      response_json: *text
+definitions:
+  method:
+    type: object
+    additionalProperties: false
+    required: [id, version, asset, chain_id, source_id, targets, owner_dependency, interpretation, getters, formula]
+    properties:
+      id: {const: uni_token_state_review}
+      version: {const: 1}
+      asset: {const: UNI}
+      chain_id: {const: '1'}
+      source_id: *text
+      targets:
+        type: object
+        additionalProperties: false
+        required: [token, vesting]
+        properties:
+          token: *address
+          vesting: *address
+      owner_dependency:
+        type: object
+        additionalProperties: false
+        required: [file, sha256, archive_id, source_id, response_id]
+        properties:
+          file: {type: string, pattern: '^[a-z0-9-]+\.json$'}
+          sha256: *digest
+          archive_id: *text
+          source_id: *text
+          response_id: *responseId
+      interpretation: *text
+      getters:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          type: array
+          minItems: 7
+          maxItems: 7
+          items:
+            - {enum: [owner_balance, total_supply, decimals, vesting_allowance]}
+            - {enum: [uint256, uint8]}
+            - {type: string, pattern: '^0x[0-9a-f]{8}$'}
+            - *text
+            - {enum: [UNI raw base units, count]}
+            - *text
+            - {enum: [owner, none, owner_vesting]}
+      formula:
+        type: object
+        additionalProperties: false
+        required: [id, version, op, inputs, output, unit]
+        properties:
+          id: {const: research.uni.owner_balance_covers_vesting_allowance}
+          version: {const: 1}
+          op: {const: gte_raw_uint256}
+          inputs: {const: [owner_balance, vesting_allowance]}
+          output: {const: balance_cover}
+          unit: {const: ratio}

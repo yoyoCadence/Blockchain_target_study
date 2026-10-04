@@ -66,15 +66,23 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 已另存[單筆 Firepit 執行證據](reports/uni-firepit-release.md)：2025-12-29 同一 receipt 的 UNI dead-address payment 與 TokenJar 資產交換。未完成 fee-origin／全期間收入與 burn 查證，沒有年度數值 ingest。
 已另存[單筆 v2 LP 費用份額歸集](reports/uni-v2-fee-accrual.md)：2026-10-04 原始 Factory 建池事件與 TokenJar LP 鑄造流入相符。保留 raw 整數與源碼推論界線；LP／caller 贖回不是 UNI burn 或年度收入，金融輸入仍未知。
 
-已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十二筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
+已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十四筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
 
 已另存 [UNI 單筆季度提領](reports/uni-vesting-execution.md)：2026-10-01 成功 receipt 的三 logs，及 10 月 4 日稍後公開 getter 回應。保留 raw 整數、未固定區塊／時間的 null 與 Similar Match 限制；原金融輸入與預算時效不變，單筆提領不當作年度分配或實際下游支出。
 
-已另存 [UNI 固定區塊參數與剩餘授權](reports/uni-vesting-fixed-block.md)：finalized block 26119713，六 getter／allowance／decimals 與 runtime 使用相同 hash；保留原始回應及先前 receipt 查詢 null。研究頁十三筆事件可展開，單點授權不更新原核准年率時效；部署 source 等價、owner 餘額與全年分配仍待查證。
+已另存 [UNI 固定區塊參數與剩餘授權](reports/uni-vesting-fixed-block.md)：finalized block 26119713，六 getter／allowance／decimals 與 runtime 使用相同 hash；保留原始回應及先前 receipt 查詢 null。單點授權不更新原核准年率時效；部署 source 等價、完整可轉帳條件與全年分配仍待查證。
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共七份 review／十三筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共七份 review／十四筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+
+同一區塊的[owner 餘額與 totalSupply](reports/uni-token-state.md)另存四個 OBSERVED raw 值、原 owner getter 依賴及 BigInt 比較 v1。可使用[手動唯讀驗證](reports/manual-token-state-review.md)核對原始呼叫與比較結果：
+
+```powershell
+node cli.js token-state-review data/research/uni-token-state-2026-10-04-v1.json --production --digest 848a20c9897b408960887d8c6dce13d062310d0794a87a7ae8d673e2209a631d
+```
+
+餘額不少於 allowance 只限該時點；totalSupply 尚不足以確認流通／完全稀釋分母。原價格時點不同，市值／FDV 與全年實際分配仍未知。
 
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 

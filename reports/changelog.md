@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-05（台北）— UNI 餘額／供給手動唯讀驗證
+
+新增 token-state-review／共用 reader、schema／ABI 方法 v1；以明示原 SHA-256 重驗原 bytes，沿用原固定區塊 reader 核對 owner 依賴，再驗同 hash／selector／target／raw 整數／來源日期及嵌入 BigInt 比較 v1。45 新增／80 targeted／全套 688 與兩模式 validate 通過，匹配新 digest 仍拒絕錯配；原資料、金融／canonical 公式、來源、歷史／unknown 80 不變。見[操作與限制](manual-token-state-review.md)，無 UI 或自動採集。
+
 ## 2026-10-05（台北）— UNI 固定區塊餘額與供給
 
 沿用 UTC 10 月 4 日 block 26119713／原 hash，新增一次同 hash／canonical RPC capture：owner balance、totalSupply、decimals、allowance 以完整字串保存，明示原 owner getter 依賴。嵌入研究 BigInt 比較公式 v1／DERIVED point flag，不變更 canonical 公式；餘額涵蓋只限該時點，供給／同步估值限制保留。追加一來源與 source-only 完整快照，正式十四份、unknown 80／TTM null／原年率時效不變。四項新增、全套 643、兩模式 validate、桌面／窄鍵盤與 Fixture 隔離通過。見[研究與驗收](uni-token-state.md)。
