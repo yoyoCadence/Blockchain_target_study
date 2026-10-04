@@ -72,6 +72,8 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 已另存 [UNI 固定區塊參數與剩餘授權](reports/uni-vesting-fixed-block.md)：finalized block 26119713，六 getter／allowance／decimals 與 runtime 使用相同 hash；保留原始回應及先前 receipt 查詢 null。研究頁十三筆事件可展開，單點授權不更新原核准年率時效；部署 source 等價、owner 餘額與全年分配仍待查證。
 
+可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
+
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 
 ```powershell

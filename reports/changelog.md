@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-04 — 固定區塊資料包手動唯讀驗證
+
+新增 fixed-block-review CLI／共用 reader、v1 schema 與獨立 ABI 方法定義，要求 production／已審查 SHA-256，核對 request／response／同 hash／canonical／完整 calldata／解碼／來源與 chronology。35 項新增回歸確認匹配重算 digest 仍不能繞過語意；全套 631 項與兩模式 validate 通過，原 archive／金融／來源／歷史／unknown 80 保留。見[操作與限制](manual-fixed-block-review.md)，沒有 UI 變更或自動取得。
+
 ## 2026-10-04 — UNI 固定區塊參數與剩餘授權
 
 追加一份 PublicNode 主網來源與完整 source-only 快照；所有 state query 固定 finalized block 26119713／相同 hash／requireCanonical=true，核對六 getter、UNI allowance raw 20000000000000000000000000／decimals=18 及 runtime。獨立保留既有 receipt 查詢 null，不改寫 Explorer 或未固定 UI 歷史；bytecode source 等價未驗證。596 項測試、兩模式 validate、桌面／窄視窗／Enter／JSON／工作區隔離通過；unknown 80、原年率時效／金融／公式／論點不變。見[查證與限制](uni-vesting-fixed-block.md)。

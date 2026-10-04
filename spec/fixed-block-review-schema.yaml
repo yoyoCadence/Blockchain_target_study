@@ -1,0 +1,148 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [version, id, fixture, capture_method, captured_at, source_ids, confidence, anchor, observations, runtime_bytecode, prior_receipt_check, limitations, transport]
+properties:
+  version: {const: 1}
+  id: &text {type: string, pattern: '\S'}
+  fixture: {const: false}
+  capture_method: *text
+  captured_at: &instant {type: string, format: date-time}
+  source_ids: &sources {type: array, minItems: 1, maxItems: 1, uniqueItems: true, items: *text}
+  confidence: {const: medium}
+  anchor:
+    type: object
+    additionalProperties: false
+    required: [classification, as_of_date, source_ids, chain_id, selected_tag, number_hex, number, hash, timestamp_hex, effective_at, selector, height_recheck_response_id]
+    properties:
+      classification: {const: OBSERVED}
+      as_of_date: &day {type: string, format: date}
+      source_ids: *sources
+      chain_id: {const: '1'}
+      selected_tag: {const: finalized}
+      number_hex: &quantity {type: string, pattern: '^0x(0|[1-9a-f][0-9a-f]*)$'}
+      number: &integer {type: string, pattern: '^(0|[1-9][0-9]*)$'}
+      hash: &hash {type: string, pattern: '^0x[0-9a-f]{64}$'}
+      timestamp_hex: *quantity
+      effective_at: *instant
+      selector:
+        type: object
+        additionalProperties: false
+        required: [blockHash, requireCanonical]
+        properties:
+          blockHash: *hash
+          requireCanonical: {const: true}
+      height_recheck_response_id: &responseId {type: integer, minimum: 1, maximum: 9007199254740991}
+  observations:
+    type: array
+    minItems: 8
+    maxItems: 8
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, classification, as_of_date, source_ids, abi_type, response_id, response_word, value]
+      properties:
+        id: *text
+        classification: {const: OBSERVED}
+        as_of_date: *day
+        source_ids: *sources
+        abi_type: {enum: [address, uint8, uint48, uint256]}
+        response_id: *responseId
+        response_word: {type: string, pattern: '^0x[0-9a-f]{64}$'}
+        value: {type: string, pattern: '^(0x[0-9a-f]{40}|0|[1-9][0-9]*)$'}
+  runtime_bytecode:
+    type: object
+    additionalProperties: false
+    required: [classification, as_of_date, source_ids, response_id, sha256, hash_scope, deployment_source_equivalence]
+    properties:
+      classification: {const: OBSERVED}
+      as_of_date: *day
+      source_ids: *sources
+      response_id: *responseId
+      sha256: {type: string, pattern: '^[0-9a-f]{64}$'}
+      hash_scope: {const: 'SHA-256 of runtime bytes, not Ethereum codeHash/Keccak-256'}
+      deployment_source_equivalence: {const: null}
+  prior_receipt_check:
+    type: object
+    additionalProperties: false
+    required: [classification, as_of_date, source_ids, response_id, transaction_hash, result, interpretation]
+    properties:
+      classification: {const: OBSERVED}
+      as_of_date: *day
+      source_ids: *sources
+      response_id: *responseId
+      transaction_hash: *hash
+      result: {const: null}
+      interpretation: *text
+  limitations: {type: array, minItems: 1, items: *text}
+  transport:
+    type: object
+    additionalProperties: false
+    required: [probe, state, labels]
+    properties:
+      probe:
+        type: object
+        additionalProperties: false
+        required: [endpoint, started_at, received_at, http_status, request_json, response_json]
+        properties:
+          endpoint: &url {type: string, format: uri}
+          started_at: *instant
+          received_at: *instant
+          http_status: {const: 200}
+          request_json: *text
+          response_json: *text
+      state:
+        type: object
+        additionalProperties: false
+        required: [endpoint, started_at, received_at, http_status, http_date, request_json, response_json]
+        properties:
+          endpoint: *url
+          started_at: *instant
+          received_at: *instant
+          http_status: {const: 200}
+          http_date: *text
+          request_json: *text
+          response_json: *text
+      labels:
+        type: array
+        minItems: 11
+        maxItems: 11
+        items:
+          type: object
+          additionalProperties: false
+          required: [label, id]
+          properties:
+            label: *text
+            id: *responseId
+definitions:
+  method:
+    type: object
+    additionalProperties: false
+    required: [id, version, asset, chain_id, targets, source_ids, interpretation, getters]
+    properties:
+      id: {const: uni_vesting_fixed_block_review}
+      version: {const: 1}
+      asset: {const: UNI}
+      chain_id: {const: '1'}
+      targets:
+        type: object
+        additionalProperties: false
+        required: [vesting, token]
+        properties:
+          vesting: {type: string, pattern: '^0x[0-9a-f]{40}$'}
+          token: {type: string, pattern: '^0x[0-9a-f]{40}$'}
+      source_ids: {type: array, minItems: 2, uniqueItems: true, items: *text}
+      interpretation: *text
+      getters:
+        type: array
+        minItems: 8
+        maxItems: 8
+        items:
+          type: array
+          minItems: 4
+          maxItems: 4
+          items:
+            - *text
+            - {enum: [address, uint8, uint48, uint256]}
+            - {anyOf: [{type: string, pattern: '^0x[0-9a-f]{8}$'}, {type: 'null'}]}
+            - *text
