@@ -54,19 +54,19 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
-- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year）及 2026-10-04 Coinbase Exchange XLM-USD 單筆最後成交價（0.216265 USD／1 XLM），其餘 82 個數值仍為 `Unknown`。價格保留原成交時間與 point 期間，介面不會即時更新；它不證明合理價值或個人交易資格，預算額度不代表實際支出。查證見[預算研究](reports/uni-growth-budget-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
+- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year），以及 2026-10-04 Coinbase Exchange UNI／XLM 單筆最後成交價（9.0556 USD／1 UNI、0.216265 USD／1 XLM）。歷史名目年率按 UNI 價格折算為 181,112,000 USD/year 的推導模型負擔，其餘 80 個數值仍為 `Unknown`。模型折算不代表當日額度仍有效或實際支出；價格保留原成交時間與 point 期間，不會即時更新，也不證明合理價值或個人交易資格。查證見[預算研究](reports/uni-growth-budget-baseline.md)、[UNI 價格基準](reports/uni-quote-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
 - **ASSUMPTION**：分析者設定與理由。原先使用者提供的 20M UNI/year fixture 假設與 production null v1 均保留；正式資料以 OBSERVED v2 明確 supersede 該 null，代表經查證的核准額度。
 - **SCENARIO**：4T TAM 與互動敏感度等反事實情境，不是預測事實。
 - **DERIVED**：25 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
 
-最新研究參考日為 2026-10-04；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。版本比較只有 XLM 價格由未知變成數值，其他未知列可因參考日／血緣 metadata 改變而出現；舊快照日期與數值均保留。UNI 單筆價格仍被三項年度／point 期間依賴阻擋，目前請以 `data/research/uni-market-quote-pending-2026-10-04.yaml` 預覽未完成的 UNI 子項；原雙資產候選保存當時研究，不再當作可直接重複套用的更新。
+最新研究參考日為 2026-10-04；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。最新比較的數值變動是 UNI 單筆價格與名目年率折算負擔，來源／公式變更分開呈現，假設／情境未改；舊快照保留原日期、數值與 v1 公式。五條 UNI 公式升至 v2，將折算明示為 model 並傳遞報價日，已知跨期收入／市值仍拒絕。原未套用候選保留當時研究，現在已有同 ID 的觀測，不能再次直接 apply；新的研究需新 ID／版本及重新 preview。
 
 UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保存為來源事件與快照，財務數值仍不變；實際 fee 收入、UNI burn 與現況查證仍待完成。
 已另存[單筆 Firepit 執行證據](reports/uni-firepit-release.md)：2025-12-29 同一 receipt 的 UNI dead-address payment 與 TokenJar 資產交換。未完成 fee-origin／全期間收入與 burn 查證，沒有年度數值 ingest。
 已另存[單筆 v2 LP 費用份額歸集](reports/uni-v2-fee-accrual.md)：2026-10-04 原始 Factory 建池事件與 TokenJar LP 鑄造流入相符。保留 raw 整數與源碼推論界線；LP／caller 贖回不是 UNI burn 或年度收入，金融輸入仍未知。
 
-已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被期間防線阻擋，當時只保存來源事件；後續已[獨立保存 XLM 價格](reports/xlm-quote-baseline.md)，UNI 尚未套用。研究頁可展開十筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
+已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十一筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
 
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 
@@ -200,7 +200,7 @@ node cli.js research-apply path/to/reviewed-research.yaml --production --digest 
 
 事件會先驗證、找出受影響節點、append observations、重算全部公式、評估 thesis，再把 event 與 snapshot 寫成單一 exclusive-create journal。reason 即該更新的持久 changelog。規劃中／已宣布事件只能建立假設或情境；live/completed 必須有 effective date 與來源。假設改變也要新版本、supersedes、reason。互動敏感度不自動寫入。
 
-套件已附兩個 fixture snapshots：1.70 bp baseline → 1.25 bp 假設更新；Required UNI Share 31.03% → 42.2%。這兩個版本屬於同一年度，不會冒充兩期 thesis 證據。`scripts/seed-history.mjs` 僅供沒有歷史的乾淨 workspace 使用，存在歷史時會拒絕執行；不要重跑 bootstrap authoring script 覆寫 spec。
+套件附三個 fixture snapshots：1.70 bp baseline → 1.25 bp 假設更新 → UNI 期間公式 v2。Required UNI Share 31.03% → 42.2% → 42.2%；第三份只升版公式與 metadata，金融數值不變。三份屬於同一年度，不會冒充三期 thesis 證據。`scripts/seed-history.mjs` 僅供沒有歷史的乾淨 workspace 使用，存在歷史時會拒絕執行；不要重跑 bootstrap authoring script 覆寫 spec。
 
 ## API
 
@@ -219,6 +219,6 @@ TTM [可比性假設也須維持同版本定義](reports/research-assumption-ver
 
 ## 邊界與後續
 
-目前沒有正式市場資料、完整四期歷史、自動研究、外部事件訂閱或 scheduler。來源衝突保留且阻擋無聲選取，仍需分析者明確處理。Snapshot 使用雜湊與禁止覆寫 API，並非抵抗管理員修改檔案的外部不可變儲存。CLI 使用單一寫入者；不是多人協作資料庫。完整 unit-dimensional algebra 與可配置會計曆尚未實作；目前會檢查宣告單位、basis、期間與明確轉換。
+目前只有歷史核准預算與單筆交易所價格，缺少完整四期證據、自動研究、外部事件訂閱或 scheduler。來源衝突保留且阻擋無聲選取，仍需分析者明確處理。Snapshot 使用雜湊與禁止覆寫 API，並非抵抗管理員修改檔案的外部不可變儲存。CLI 使用單一寫入者；不是多人協作資料庫。完整 unit-dimensional algebra 與可配置會計曆尚未實作；目前會檢查宣告單位、basis、期間與明確轉換。
 
 目前可以閱讀已保存研究、操作合成情境與手動查詢時效；人工預覽／明確套用流程及歷史 UNI 核准預算已完成。**完整 production baseline 尚未完成**，後續仍需現行投資性、完整價值捕獲、同步估值與可比財務期間。詳見 [task.md](task.md)、[方法說明](reports/methodology.md) 與 [Agent 規範](AGENTS.md)。

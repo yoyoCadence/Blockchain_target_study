@@ -1,0 +1,45 @@
+version: 1
+id: uni-market-quote-baseline-20261004
+as_of_date: 2026-10-04
+reason: 保存已查證 Coinbase UNI-USD 單筆最後成交價 9.0556 USD／1 UNI，
+  保留原成交／取得／商品時間與來源，不重新採集。正式升版五條 UNI 公式，
+  將歷史核准 20M UNI/year 按此價折算為 181112000 USD/year 的 DERIVED model 負擔，
+  不代表當日額度仍有效、實際年度分配或收入。下游明示沿用 valuation_date，
+  舊資料與公式嵌入歷史完整保留；已知跨期流量仍拒絕，未知收入／市值／稀釋保持 null。
+affected_nodes:
+  - UNI
+sources: []
+observations:
+  - id: uni.price@1-coinbase-20261004
+    metric_id: uni.price
+    asset: UNI
+    value: 9.0556
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-10-04
+    period:
+      basis: point
+      end: 2026-10-04
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - coinbase-uni-quote-20261004-v1
+      - coinbase-uni-product-20261004-v1
+    rationale: USD 是每 1 UNI 的美元價格。Coinbase Exchange UNI-USD 最後成交
+      price=9.0556，trade_id=78869651，time=2026-10-04T11:33:36.662371063Z；不是
+      bid、ask、中間價或收盤價。單次取得 2026-10-04T11:34:02.6720093Z，HTTP Date Sun, 04 Oct
+      2026 11:34:02 GMT。商品 metadata 於 2026-10-04T11:37:54.1282550Z
+      另外取得，base_currency=UNI、quote_currency=USD，不證明先前 tick 的商品狀態或個人投資性。原始 ticker
+      JSON：{"ask":"9.0536","bid":"9.052","volume":"515323.859601","trade_id":78869651,"price":"9.0556","size":"0.148381","time":"2026-10-04T11:33:36.662371063Z","rfq_volume":"18797.067791"}。保存檔
+      data/research/market-quotes-2026-10-04-v1.json，內容 hash
+      8bc4c51f704a0d4bbe48dd1ec0d7b7279cb2e0643a75d3b5e7ca9ef7b965977b。此價不證明
+      fair value、跨市場同步估值或持有人價值捕獲。
+review:
+  reviewer: Codex 公開一手來源與期間設計核對；非人類簽核
+  reviewed_at: 2026-10-04T13:08:44Z
+  rationale: 重用已保存的兩份 Tier 1 ticker／product 與原始 raw hash，保留原觀測 ID、
+    decimal、nanosecond 與所有時間；没有重新取得市場報價。採已合併的明示期間政策，
+    五条公式升至 v2，原名目年率／ASSUMPTION／SCENARIO 與歷史均保留。
+    preview 檢查全模型重算、未知傳播與同日估值要求；模型折算不證明現行額度、
+    支出、年度收入或個人交易資格，父 baseline 的市值／FDV／實際捕獲仍待查證。

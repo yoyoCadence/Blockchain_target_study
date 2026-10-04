@@ -189,11 +189,14 @@ test('single venue source review retains its saved scope alongside a later indep
  assert.match(card.textContent,/9\.0556 USD\/UNI/);assert.match(card.textContent,/0\.216265 USD\/XLM/);
  assert.match(card.textContent,/2026-10-04T11:33:36\.662371063Z/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);
- assert.equal(production.metrics['uni.price'].value,null);assert.equal(production.metrics['xlm.price'].value,0.216265);
+ assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(production.metrics['xlm.price'].value,0.216265);
  assert.equal(production.metrics['xlm.price'].classification,'OBSERVED');
  const quote=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='xlm.price');
  assert.match(quote.textContent,/\$0\.216265/);
  quote.onclick();assert.match(v.$('inspector-body').textContent,/\$0\.216265/);
- assert.match(v.$('comparison').textContent,/\$0\.216265/);
+ assert.match(v.$('comparison').textContent,/\$9\.0556/);
+ const cost=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='uni.growth_distribution');
+ assert.match(cost.textContent,/按報價折算的模型 · 2026-10-04/);
+ cost.onclick();assert.match(v.$('inspector-body').textContent,/不代表實際年度支出或收入/);
  assert.equal(v.count(),84);
 });

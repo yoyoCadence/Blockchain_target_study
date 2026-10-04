@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {loadProject,validateProject,calculate} from '../../engine/index.js';
+import {loadProject as loadCanonical,validateProject,calculate} from '../../engine/index.js';
 import {prepareEvent,applyEvent} from '../../engine/propagation/index.js';
 import {readSnapshots,fingerprint} from '../../engine/snapshots.js';
 
 // Synthetic evidence exists only in memory and temporary directories.
+// Isolate these older date probes from the later real UNI quote; never change files.
+function loadProject(mode) {
+ const p=loadCanonical(mode);if(mode==='production')p.inputs=p.inputs.filter(m=>m.metric_id!=='uni.price');return p;
+}
 const source={id:'source-date-test@1',version:1,url:'https://example.invalid/date-test',
  publisher:'Isolated test evidence',title:'Synthetic chronology probe; not production evidence',
  date:'2026-08-01',retrieved_at:'2026-10-01T00:00:00Z',tier:1,covered_metrics:['uni.price'],fixture:false};

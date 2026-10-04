@@ -10,6 +10,7 @@ function metricCard(metric) {
  const button=el('button',undefined,'metric');button.type='button';button.dataset.metric=metric.metric_id;
  button.append(el('span',definition(metric.metric_id)?.label||metric.metric_id,'metric-label'),el('span',format(metric.value,metric.unit,metric.metric_id),'metric-value'),el('span',term(metric.unit),'metric-unit'),el('span',term(metric.classification),`badge ${metric.classification}`));
  if(metric.fixture)button.append(el('span','合成示範資料（Fixture）','fixture-label'));
+ if(metric.valuation_date)button.append(el('span',`按報價折算的模型 · ${metric.valuation_date}`,'fixture-label'));
  button.onclick=()=>inspect(metric.metric_id);return button;
 }
 function renderLineage(tree) {
@@ -18,6 +19,7 @@ function renderLineage(tree) {
  const dl=el('dl',undefined,'metadata');
  for(const [label,value] of Object.entries({'紀錄 ID':m.id,'單位':term(m.unit),'分類':term(m.classification),'知識日':m.as_of_date,'期間':`${term(m.period.basis)} / ${m.period.end}`,'可信程度':term(m.confidence),'版本':m.version,'來源性質':m.fixture?'合成示範資料（Fixture）':'正式研究資料','理由／情境（原文）':m.rationale||m.scenario||'—','錯誤（原始訊息）':m.error||'—'})){dl.append(el('dt',label),el('dd',String(value)));}
  wrap.append(dl);
+ if(m.valuation_date)wrap.append(el('p',`折算參考日：${m.valuation_date}。此為按報價折算的模型，原始年率與價格日期保留於血緣；不代表實際年度支出或收入。`));
  if(tree.formula) {wrap.append(el('p',`${tree.formula.id} / v${tree.formula.version}`),el('p',`公式說明（原文）：${tree.formula.description}`),el('pre',JSON.stringify(tree.formula.expression,null,2)));}
  for(const source of tree.sources||[]) {const p=el('p',`${source.title} · ${source.publisher} · 來源層級 ${source.tier} · v${source.version} · 發布 ${source.date} · 取得 ${source.retrieved_at} `);if(!source.fixture){const a=el('a','開啟來源 ↗');a.href=source.url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);}else p.append(el('span',`[僅為合成示範證據：${source.url}]`));wrap.append(p);}
  if(tree.base_record)wrap.append(el('p',`此反事實情境以基準紀錄 ${tree.base_record.id} 為依據；原始分類為 ${term(tree.base_record.classification)}。`));

@@ -6,13 +6,15 @@ import {readSnapshots,fingerprint} from '../../engine/snapshots.js';
 import {prepareResearchRefresh} from '../../engine/research/index.js';
 import {project,change} from '../helpers.js';
 
-// Opt in only in memory. Production formula adoption is a separate reviewed update.
+// Explicit opt-in remains useful for replaying pre-adoption formula versions.
 function optIn(p) {
  for(const f of p.registry.formulas) {
   if(f.id==='f.uni.growth_distribution') {
+   if(f.period_policy==='annual_rate_valuation')continue;
    f.version++;f.period_policy='annual_rate_valuation';f.rate_input='uni.growth_budget';f.price_input='uni.price';
    f.description='歷史核准名目年率按單筆價格折算的模型負擔，不代表現行授權、實際支出或年度收入。';
   } else if(['f.uni.net_accrual','f.uni.net_burn_yield','f.uni.required_share','f.uni.required_share_net'].includes(f.id)) {
+   if(f.period_policy==='valuation_compatible')continue;
    f.version++;f.period_policy='valuation_compatible';
   }
  }
@@ -21,11 +23,15 @@ function optIn(p) {
 
 test('explicit annual-rate valuation previews the real UNI quote without changing its historical inputs or files',()=>{
  const p=optIn(loadProject('production')),proposal=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
+ // Test-only supersession reuses the same real tick in memory, without pretending
+ // to have fetched a second quote or writing any observation.
+ const existing=p.inputs.find(m=>m.id===proposal.observations[0].id);
+ if(existing)proposal.observations[0]={...proposal.observations[0],id:'test-only-uni-price@2',version:2,supersedes:existing.id};
  const history=readSnapshots(p.root,'production'),before=fingerprint({p,history});
  validateProject(p);const prepared=prepareResearchRefresh(p,proposal),cost=prepared.result.metrics['uni.growth_distribution'];
  assert.equal(cost.value,181112000);assert.equal(cost.classification,'DERIVED');assert.equal(cost.unit,'USD/year');
  assert.deepEqual(cost.period,{basis:'model',end:'2026-10-04'});assert.equal(cost.valuation_date,'2026-10-04');
- assert.match(cost.rationale,/不代表現行授權/);assert.equal(prepared.preview.persisted,false);
+ assert.match(cost.rationale,/不代表/);assert.equal(prepared.preview.persisted,false);
  assert.equal(prepared.result.metrics['uni.growth_budget'].as_of_date,'2026-01-01');
  assert.deepEqual(prepared.result.metrics['uni.price'].period,{basis:'point',end:'2026-10-04'});
  for(const id of ['uni.net_accrual','uni.net_burn_yield','uni.required_share','uni.required_share_net']) {
@@ -34,7 +40,7 @@ test('explicit annual-rate valuation previews the real UNI quote without changin
  }
  assert.ok(!prepared.result.issues.some(i=>i.severity==='ERROR'));
  assert.ok(Object.values(prepared.result.thesis).every(t=>t.coverage==='insufficient'));
- assert.deepEqual(lineage(p,prepared.result,'uni.growth_distribution').inputs.map(n=>n.metric.id),['uni.growth_budget@2-verified-20260101','uni.price@1-coinbase-20261004']);
+ assert.deepEqual(lineage(p,prepared.result,'uni.growth_distribution').inputs.map(n=>n.metric.id),['uni.growth_budget@2-verified-20260101',proposal.observations[0].id]);
  assert.equal(fingerprint({p,history:readSnapshots(p.root,'production')}),before);
 });
 

@@ -60,6 +60,6 @@ test('actual and pro forma amounts remain distinct while formal comparability an
  assert.match(review.event.reason,/not actual realized revenue or a forecast/);
  assert.match(review.event.reason,/not organic like-for-like growth/);
  assert.equal(fingerprint(readSnapshots(project.root,'production')),before);
- const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,2);
+ const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,3);
  assert.ok(!fixture.sources.some(s=>s.id.startsWith('secz-acquisition-')));
 });

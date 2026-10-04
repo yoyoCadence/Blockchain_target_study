@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-04 — UNI 單筆價格與五條公式 v2
+
+formula-registry v2：f.uni.growth_distribution／net_accrual／net_burn_yield／required_share／required_share_net 升至 v2，保留算術，明示 model 折算與下游 valuation_date。重用原 Coinbase 原始回應／兩來源，按 preview digest 保存 UNI point OBSERVED 9.0556 及完整不可變事件；歷史名目率折算為 181112000 USD/year，不代表現行額度或實際支出。source／formula 變更分開，假設／情境／規則不改；正式 unknown 82→80，舊十份快照保留，Fixture 另追加公式快照且所有值不變。中文模型標示與窄血緣長字串換行通過；588 項測試、兩模式驗證、歷史 v1 阻擋診斷與逐份重播通過。完整 baseline 缺口保留。
+
 ## 2026-10-04 — UNI 名目年率估值期間政策前置
 
 新增明示 annual_rate_valuation／valuation_compatible：原生幣年率按 point 價格折算為 DERIVED model 負擔，保留原始日期／血緣，將 valuation_date 傳遞到明示選用的下游。已知跨期會計流量、季度及衝突估值日期仍拒絕；未知占位不提供會計期間證據。舊期間政策、正式 v1 公式、金融輸入與不可變歷史不改用；正式升版及 UNI 價格匯入另行驗收。新增九項期間／唯讀／未知／0.422 回歸。

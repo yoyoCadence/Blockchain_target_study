@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {loadProject,readYaml,calculate,lineage} from '../../engine/index.js';
-import {readSnapshots,verifySnapshot,compareSnapshots,fingerprint} from '../../engine/snapshots.js';
-import {prepareResearchRefresh} from '../../engine/research/index.js';
+import {readSnapshots,verifySnapshot,compareSnapshots,fingerprint,makeSnapshot} from '../../engine/snapshots.js';
 import {sourceFreshness} from '../../engine/research/freshness.js';
 import {inspectResearch} from '../../engine/research/inspection.js';
 
@@ -52,13 +51,14 @@ test('known XLM point quote is unavailable at the earlier cutoff and never repla
  assert.equal(research.events.find(e=>e.id===baseline.event.id).recorded_update_count,1);
 });
 
-test('latest XLM financial snapshot replays and pending UNI still reports three blockers without writes',()=>{
+test('historical XLM snapshot replays and its v1 formulas retain three UNI blockers without writes',()=>{
  const before=fingerprint({project,history,result:calculate(project)});
  const replay=calculate({...project,inputs:baseline.inputs,sources:baseline.sources,registry:{...project.registry,formulas:baseline.formulas}},
   {history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,baseline.metrics);assert.deepEqual(replay.thesis,baseline.thesis);
  const pending=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
- assert.throws(()=>prepareResearchRefresh(project,pending),error=>error.message==='Cannot snapshot calculation errors'&&
+ const historic={...project,inputs:[...baseline.inputs,...pending.observations],sources:baseline.sources,registry:{version:1,formulas:baseline.formulas}};
+ assert.throws(()=>makeSnapshot(historic,calculate(historic),{previous:baseline,reason:'Read-only historical v1 rejection'}),error=>error.message==='Cannot snapshot calculation errors'&&
   fingerprint(error.details.map(d=>d.metric_id))===fingerprint(['uni.net_accrual','uni.required_share','uni.required_share_net']));
  assert.equal(fingerprint({project,history:readSnapshots(project.root,'production'),result:calculate(project)}),before);
 });

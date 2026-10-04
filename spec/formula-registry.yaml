@@ -1,4 +1,4 @@
-version: 1
+version: 2
 formulas:
   - id: f.market.penetration
     version: 1
@@ -14,7 +14,7 @@ formulas:
     period_policy: compatible
     description: Scenario Penetration
   - id: f.uni.growth_distribution
-    version: 1
+    version: 2
     output: uni.growth_distribution
     asset: UNI
     label: Growth Distribution Value
@@ -24,8 +24,12 @@ formulas:
       args:
         - uni.growth_budget
         - uni.price
-    period_policy: compatible
-    description: Growth Distribution Value
+    period_policy: annual_rate_valuation
+    rate_input: uni.growth_budget
+    price_input: uni.price
+    description: 歷史核准名目 UNI 年率按單筆 USD／UNI 價格折算的模型負擔；
+      model／valuation_date 是報價參考日，原預算日期與來源保留。
+      不代表當日額度仍有效、實際年度分配、支出或收入。
   - id: f.uni.equity_revenue
     version: 1
     output: uni.equity_revenue
@@ -61,7 +65,7 @@ formulas:
     period_policy: compatible
     description: Gross UNI Accrual
   - id: f.uni.net_accrual
-    version: 1
+    version: 2
     output: uni.net_accrual
     asset: UNI
     label: Net UNI Accrual
@@ -72,10 +76,11 @@ formulas:
         - uni.gross_accrual
         - uni.growth_distribution
         - uni.other_dilution
-    period_policy: compatible
-    description: Net UNI Accrual
+    period_policy: valuation_compatible
+    description: 模型淨累積扣除年率折算負擔與其他稀釋；沿用明示折算日，
+      已知會計流量必須同日且基礎相容。缺失輸入保持 null，不當作實際年度收入。
   - id: f.uni.net_burn_yield
-    version: 1
+    version: 2
     output: uni.net_burn_yield
     asset: UNI
     label: Net Burn Yield
@@ -85,8 +90,9 @@ formulas:
       args:
         - uni.net_accrual
         - uni.market_cap
-    period_policy: compatible
-    description: Net Burn Yield
+    period_policy: valuation_compatible
+    description: 模型淨累積／市值；沿用明示折算日，已知市值必須同日。
+      不代表已實現收益或投資建議。
   - id: f.uni.required_accrual
     version: 1
     output: uni.required_accrual
@@ -101,7 +107,7 @@ formulas:
     period_policy: compatible
     description: Required UNI Accrual
   - id: f.uni.required_share
-    version: 1
+    version: 2
     output: uni.required_share
     asset: UNI
     label: Required Uniswap Market Share
@@ -120,12 +126,13 @@ formulas:
             - uni.onchain_share
             - uni.amm_share
             - uni.fee
-    period_policy: compatible
+    period_policy: valuation_compatible
     description: Conservative prompt-specified standalone tokenized-equity hurdle;
       does not offset other accrual streams or add other dilution. Not a full
-      net-accrual solve.
+      net-accrual solve. 沿用名目年率折算日；已知流量與庫存需同日且基礎相容，
+      輸出為 model，不代表實際年度收入或合理價值。
   - id: f.uni.required_share_net
-    version: 1
+    version: 2
     output: uni.required_share_net
     asset: UNI
     label: "Required Share: Full Net Economics"
@@ -152,8 +159,10 @@ formulas:
             - uni.onchain_share
             - uni.amm_share
             - uni.fee
-    period_policy: compatible
-    description: "Required Share: Full Net Economics"
+    period_policy: valuation_compatible
+    description: 完整淨經濟所需市占率，包含其他稀釋並扣除其他累積來源；
+      沿用名目年率折算日，已知流量與庫存需同日且基礎相容。
+      缺失輸入保持 null，不代表已實現捕獲或合理價值。
   - id: f.secz.revenue
     version: 1
     output: secz.revenue

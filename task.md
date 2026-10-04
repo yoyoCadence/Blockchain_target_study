@@ -59,8 +59,9 @@
     - [x] UNI v2 單筆 LP 費用份額歸集：核對原始 Factory PairCreated 與後續 TokenJar LP 鑄造、完整 raw 整數／UTC／log 順序，追加四來源與完整快照。見[查證與界線](reports/uni-v2-fee-accrual.md)。LP／caller 贖回不當 UNI burn 或年度收入，成長來源／部署等價未驗證；金融輸入、原歷史及父 baseline 缺口保留。
     - [x] 中文已存事件查閱：唯讀研究 API／介面顯示八筆已審查事件，保留各快照的來源版本、完整事件、raw 整數與四種日期；重用歷史／事件驗證，Fixture 不含正式事件。見[操作與驗收](reports/reviewed-event-inspection.md)。562 項測試與桌面／窄視窗、Enter 展開、503／延遲重試通過，金融輸入與八份同期間歷史不改；父 baseline 仍未完成。
     - [x] UNI／XLM 單次交易所價格資料包：四份公開原始回應、兩筆 point OBSERVED 候選、完整 decimal／nanosecond 與商品幣別，唯讀預覽後追加四來源及 source-only 事件／快照。見[查證與阻擋](reports/manual-market-quotes.md)。研究頁九筆事件與中文卡片可查閱；567 項測試通過，83 個金融未知與三項 TTM null 保留。
-    - [ ] 同步估值與年度／point 依賴明示對齊：新價格候選的 `uni.net_accrual`、`uni.required_share`、`uni.required_share_net` 因期間未對齊而無法保存。原防線保留；先完成可審查的期間設計／必要研究，再重新 preview，不回填價格日期或偽裝 model 期間。供給量／市值／FDV、SECZ 股本／價格與父 baseline 仍未完成。
-      - [x] 名目年率／point 期間政策前置：新增明示折算及下游日期政策，區分模型負擔與實際年度收入；未知占位維持 null，已知跨期／季度／估值日期衝突仍拒絕。見[期間設計](reports/uni-valuation-period-policy.md)。正式公式仍為 v1，UNI 候選仍未套用；升版與匯入另行驗收。
+    - [ ] 同步估值與年度／point 依賴明示對齊：原 UNI 候選的三項期間阻擋已由下列明示政策與公式升版完成價格子項，歷史 v1 拒絕仍可重播；不回填價格日期或偽裝實際會計期間。供給量／市值／FDV、現行預算與年度捕獲、SECZ 股本／價格及父 baseline 仍未完成。
+      - [x] 名目年率／point 期間政策前置：新增明示折算及下游日期政策，區分模型負擔與實際年度收入；未知占位維持 null，已知跨期／季度／估值日期衝突仍拒絕。見[期間設計](reports/uni-valuation-period-policy.md)。此前置完成時正式公式維持 v1，UNI 候選未套用；升版與匯入由下一項獨立驗收。
+      - [x] UNI 單筆價格與公式 v2：明示採用五條期間政策，preview／digest 追加 9.0556 USD／1 UNI 與完整快照，歷史名目率折算為 DERIVED model 181112000 USD/year，正式 unknown 82→80。十一份正式／三份 Fixture 歷史重播、588 項測試與兩模式 validate、桌面／窄視窗／鍵盤／工作區隔離通過。見[價格基準與驗收](reports/uni-quote-baseline.md)。現行預算／同步估值／捕獲／TTM／父 baseline 仍未完成。
     - [x] 中文計算阻擋診斷：共用快照拒絕錯誤保留全部原始 ERROR，CLI 顯示中文說明／指標名與 machine ID／公式原因。實際價格候選 preview／apply 的三項阻擋完整輸出，exit 1、stdout 空與不寫入驗證；相關 60／全套 571 項通過。見[診斷與限制](reports/research-preview-diagnostics.md)。計算、公式、日期及期間拒絕規則不變，父 baseline 保留。
     - [x] XLM 單筆交易所價格基準：重用已保存的兩份 Tier 1 來源，依原 preview／digest 流程獨立追加 0.216265 USD／1 XLM 的 point OBSERVED 與完整不可變快照，重算全部下游。中文卡片／血緣／比較保留價格精度；十份歷史各自重播、Fixture 隔離及截止日驗證通過，全套 575 項與兩模式 validate 通過，正式未知由 83 降為 82。見[價格基準與驗收](reports/xlm-quote-baseline.md)。UNI 候選仍有三項期間阻擋，三項 TTM null、估值／投資性與父 baseline 保留；本次窄視窗實測未驗證。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
