@@ -36,6 +36,7 @@ function projectAtNoon(t) {
  const project=loadProject('production'),instant=Date.parse('2026-10-03T12:00:00Z');
  // Later appended evidence must not mask these isolated observation/source
  // probes. Adjust only the in-memory baseline before freezing its clock.
+ project.sources=project.sources.filter(source=>source.date<='2026-10-03');
  for(const source of project.sources)if(Date.parse(source.retrieved_at)>instant)
   source.retrieved_at='2026-10-03T12:00:00Z';
  t.mock.method(Date,'now',()=>instant);return project;

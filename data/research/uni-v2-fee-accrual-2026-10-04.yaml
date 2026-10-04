@@ -1,0 +1,95 @@
+id: uni-v2-fee-accrual-20261004
+type: protocol_fee_accrual
+status: completed
+as_of_date: 2026-10-04
+effective_date: 2026-10-04
+source_ids:
+  - ethereum-v2-lp-fee-accrual-20261004-v1
+  - ethereum-v2-pair-created-20261004-v1
+  - uniswap-v2-pair-1136544-v1
+  - uniswap-v2-factory-1136544-v1
+  - uniswap-v2-erc20-1136544-v1
+  - uniswap-v2-core-1136544-commit-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  人工核對 Ethereum mainnet 單筆 LP 費用份額歸集執行證據。
+  成功交易 0xd2d2caf01956cfe301c998c39cd6c15831f6eb18f283c229ba86b315eb0925e5，
+  block 26118477，2026-10-04T10:45:47Z，caller
+  0xff8026e53fbafbd36518e233dbc531ceea194dd6 呼叫 Router
+  0x7a250d5630b4cf539739df2c5dacb4c659f2488d。
+  Pair 0xb37f3ab2bb227c0e8b9b5aa837ecbbbac4c3c7da 的 Transfer log 337
+  從 zero address 0x0000000000000000000000000000000000000000 到 TokenJar
+  0xf38521f130fccf29db1961597bc5d2b60f995f85，raw uint256 為
+  6952494133386631432161；這是該 Pair 的 LP 份額，不是 UNI token。
+  log 336 先將 caller 的 raw LP 25331798199101460550857024 移入 Pair，
+  log 338 從 Pair 到 zero address 銷毀同額 caller LP；它不是 UNI burn。
+  log 339／340 將 WETH 2289919090676942734 與另一 token
+  280998934126617543384345378311629 送給 Router；log 341 Sync 與 log 342 Burn
+  在費用份額鑄造之後。這些 underlying transfers 是 caller 移除流動性所得，
+  不是 TokenJar 已贖回收入。此 receipt 沒有 Firepit Released 或 UNI Transfer。
+  建池成功交易 0xf7c2416207169d630ce3476ab9b3483260aa6b0cfea95b43ba61b926bf97d1bf，
+  block 26118333，2026-10-04T10:16:23Z，Factory
+  0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f 的 PairCreated log 413
+  明列同一 Pair、token0 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2、token1
+  0xfdcfc904806230a7277ebc34a19fe1ffdb8314ba 及 pair count 523766。
+  官方固定 commit 1136544ac842ff48ae0b1b939701436598d74075
+  （2020-03-17T22:05:28Z）的 Pair _mintFee／burn 與 ERC20 _mint
+  說明非零 feeTo 下的 reserve-product 成長份額可在 liquidity burn 前鑄給 feeTo；
+  這是源碼解讀，未完成部署 bytecode 等價或區塊固定 storage 驗證。
+  Explorer 的 Similar Match 與 Uniswap／MHM 標籤不作等價或投資性證明。
+  未查證 reserve-product 成長全由交易費用造成；捐贈或特殊 token 行為等影響未排除。
+  此單筆證據不追溯 2025-12-29 Firepit 五項資產來源，不證明年度費用／收入／UNI burn、
+  美元估值、現行全部池／跨鏈設定、totalSupply 減少或淨持有人收益。
+  所有 canonical 金融輸入、公式、情境、模型期間、graph 與 thesis 保留原狀。
+research_review:
+  reviewer: Codex 人工一手來源查證；非人類簽核
+  reviewed_at: 2026-10-04T10:54:49Z
+  rationale: >-
+    逐一閱讀兩筆成功交易 Overview／全部 logs，保留 hash、區塊、UTC 時間、emitter、
+    log index、完整地址與 raw uint256 字串；跨 receipt 核對原始 Factory 的 PairCreated。
+    讀取固定 commit 的 Pair／ERC20 原始碼及 GitHub commit 原始時間 metadata，
+    重用既存 Factory／Pair 來源版本。將已觀察 LP 流向與源碼推論分開，
+    不使用 explorer 即時美元顯示、代幣名稱或目前 main 分支作財務輸入。
+updates: []
+sources:
+  - id: ethereum-v2-lp-fee-accrual-20261004-v1
+    version: 1
+    url: https://etherscan.io/tx/0xd2d2caf01956cfe301c998c39cd6c15831f6eb18f283c229ba86b315eb0925e5#eventlog
+    publisher: Ethereum transaction receipt via Etherscan
+    title: 成功移除流動性 receipt；Pair Transfer log 337 鑄造 LP 至 TokenJar
+    date: 2026-10-04
+    retrieved_at: 2026-10-04T10:54:49Z
+    tier: 1
+    covered_metrics: [uni.v2_lp_fee_accrual]
+    fixture: false
+  - id: ethereum-v2-pair-created-20261004-v1
+    version: 1
+    url: https://etherscan.io/tx/0xf7c2416207169d630ce3476ab9b3483260aa6b0cfea95b43ba61b926bf97d1bf#eventlog
+    publisher: Ethereum transaction receipt via Etherscan
+    title: 原始 v2 Factory PairCreated log 413；同一 Pair 與兩項 underlying 地址
+    date: 2026-10-04
+    retrieved_at: 2026-10-04T10:54:49Z
+    tier: 1
+    covered_metrics: [uni.v2_lp_fee_accrual, uni.v2_pair_identity]
+    fixture: false
+  - id: uniswap-v2-erc20-1136544-v1
+    version: 1
+    url: https://github.com/Uniswap/v2-core/blob/1136544ac842ff48ae0b1b939701436598d74075/contracts/UniswapV2ERC20.sol
+    publisher: Uniswap v2-core repository
+    title: 固定 commit 的 LP ERC20 _mint／_burn 與 Transfer 行為
+    date: 2020-03-17
+    retrieved_at: 2026-10-04T10:54:49Z
+    tier: 2
+    covered_metrics: [uni.v2_lp_fee_accrual]
+    fixture: false
+  - id: uniswap-v2-core-1136544-commit-v1
+    version: 1
+    url: https://github.com/Uniswap/v2-core/commit/1136544ac842ff48ae0b1b939701436598d74075
+    publisher: Uniswap v2-core repository
+    title: 固定 source commit；GitHub authored／committed 時間均為 2020-03-17T22:05:28Z
+    date: 2020-03-17
+    retrieved_at: 2026-10-04T10:54:49Z
+    tier: 2
+    covered_metrics: [uni.v2_lp_fee_accrual]
+    fixture: false

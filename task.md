@@ -56,6 +56,7 @@
     - [x] 工作區載入隔離與中文重試：切換立即清空舊指標、情境與血緣，失敗前後停用計算，拒絕模式／provenance 不符回應；快速切換不接受較早回應，同工作區重算失敗保留上一個成功結果。見[驗收](reports/workspace-loading.md)。實際延遲／失敗／鍵盤重試／窄視窗通過，金融與父 baseline 缺口保留。
     - [x] 中文開始使用：三個用途入口、明示／可保留的工作區網址、無效模式先停止並明確選擇恢復、Windows 手動啟動與缺依賴提示；修正過時 README 操作說明。見[操作與驗收](reports/getting-started.md)。實際啟動、桌面／窄視窗／鍵盤及三入口通過；來源、金融與父 baseline 未變。
     - [x] 研究證據單獨重試：研究失敗後手動恢復所選模式，保留金融／未套用試算輸入；拒絕錯模式與晚到回應，重試狀態／busy 不互相覆蓋。見[驗收](reports/research-retry.md)。實際研究 503、延遲、Enter、窄視窗與 Fixture 隔離通過，不自動重試或更新資料，父 baseline 保留。
+    - [x] UNI v2 單筆 LP 費用份額歸集：核對原始 Factory PairCreated 與後續 TokenJar LP 鑄造、完整 raw 整數／UTC／log 順序，追加四來源與完整快照。見[查證與界線](reports/uni-v2-fee-accrual.md)。LP／caller 贖回不當 UNI burn 或年度收入，成長來源／部署等價未驗證；金融輸入、原歷史及父 baseline 缺口保留。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
