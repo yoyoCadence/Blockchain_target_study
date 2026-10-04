@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-04 — UNI 名目年率估值期間前置
+
+使用者接續要求：繼續完成其他任務，自主開中文非 Draft PR 並於驗證／CI 成功後合併，解除上一輪停止要求。PR #48 已合併，push／PR／main CI 成功，本機 main `e1ecc42` 乾淨同步；從此建立 `feat/uni-valuation-period-policy`。
+
+本子項新增 opt-in 的 `annual_rate_valuation` 與 `valuation_compatible`，保留既有嚴格 compatible／prior_comparison 行為。折算傳遞 model／valuation_date，不把歷史核准率視為現行授權或實際支出。不同日期已知流量／市值、季度與衝突估值日仍拒絕；null 期間占位不能當會計證據。schema 限制角色、乘法與推導 metadata；九項新增測試驗證真實 UNI 候選的唯讀記憶體折算、Fixture 0.422、歷史收入阻擋及未知傳播。
+
+正式公式仍為 v1，原十份 production 歷史、兩模式金融輸入及 UNI 候選不變。下一項是另分支升版五條 UNI 公式，再按 preview／digest 追加 UNI 價格及完整不可變快照；不重複 apply 已存 XLM。詳見[期間設計](uni-valuation-period-policy.md)，PR／CI 狀態以遠端實際結果為準。
+
 ## 2026-10-04 — XLM 單筆交易所價格基準
 
 使用者最新要求：本子項完成中文 PR／CI／合併後停止，以便換帳號接續，不再啟動下一任務。接續時先讀 AGENTS.md、task.md 與本交接，重新核對最新 origin/main／branch／worktree；下列後續項僅為待辦，尚未實作。

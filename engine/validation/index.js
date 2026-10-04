@@ -86,6 +86,33 @@ export function normalize(record, definition) {
  return out;
 }
 export function checkPeriods(formula, dependencies) {
+ if(formula.period_policy==='annual_rate_valuation') {
+  const rate=dependencies.find(m=>m.metric_id===formula.rate_input),price=dependencies.find(m=>m.metric_id===formula.price_input);
+  assert(rate&&price&&dependencies.length===2,'Annual-rate valuation requires its declared rate and price');
+  assert(['UNI/year','XLM/year'].includes(rate.unit)&&price.unit==='USD'&&formula.unit==='USD/year'&&rate.asset===price.asset&&formula.asset===rate.asset,
+   'Annual-rate valuation requires native-token/year and USD/token units');
+  assert(['annual','TTM','model'].includes(rate.period.basis),'Annual-rate valuation requires an annual rate');
+  assert(price.value===null||price.period.basis==='point','Annual-rate valuation requires a point quote');
+  assert(!dependencies.some(m=>m.valuation_date),'Annual-rate valuation cannot reprice a prior valuation');
+  if(price.value!==null&&rate.value!==null) {
+   assert(rate.as_of_date<=price.as_of_date&&rate.period.end<=price.period.end,'Annual-rate valuation cannot use a later rate at an earlier quote');
+   assert(rate.period.basis==='model'||rate.period.end===price.period.end,'Historical accounting flows cannot be repriced at a different endpoint');
+  }
+  return {basis:'model',end:price.value!==null?price.period.end:dependencies.map(m=>m.period.end).sort().at(-1)};
+ }
+ const valuationDates=[...new Set(dependencies.map(m=>m.valuation_date).filter(Boolean))];
+ if(valuationDates.length) {
+  assert(formula.period_policy==='valuation_compatible',`Explicit valuation period policy required: ${formula.id}`);
+  assert(valuationDates.length===1,`Unaligned valuation dates: ${formula.id}`);
+  // Unknown placeholders provide no accounting-period evidence. Known flows
+  // and inventories still require an explicit common valuation endpoint.
+  const known=dependencies.filter(m=>m.value!==null&&m.period.basis!=='model');
+  const flows=known.filter(m=>['annual','quarterly','TTM'].includes(m.period.basis));
+  assert(flows.every(m=>m.period.basis!=='quarterly'),`Incompatible accounting bases: ${formula.id}`);
+  assert(new Set(flows.map(m=>m.period.basis)).size<=1,`Incompatible accounting bases: ${formula.id}`);
+  assert(known.every(m=>m.period.end===valuationDates[0]),`Unaligned accounting periods: ${formula.id}`);
+  return {basis:'model',end:valuationDates[0]};
+ }
  const factual=dependencies.filter(x=>x.period.basis!=='model');
  const flows=factual.filter(x=>['annual','quarterly','TTM'].includes(x.period.basis));
  assert(new Set(flows.map(x=>x.period.basis)).size<=1,`Incompatible accounting bases: ${formula.id}`);

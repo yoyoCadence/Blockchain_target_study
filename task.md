@@ -60,6 +60,7 @@
     - [x] 中文已存事件查閱：唯讀研究 API／介面顯示八筆已審查事件，保留各快照的來源版本、完整事件、raw 整數與四種日期；重用歷史／事件驗證，Fixture 不含正式事件。見[操作與驗收](reports/reviewed-event-inspection.md)。562 項測試與桌面／窄視窗、Enter 展開、503／延遲重試通過，金融輸入與八份同期間歷史不改；父 baseline 仍未完成。
     - [x] UNI／XLM 單次交易所價格資料包：四份公開原始回應、兩筆 point OBSERVED 候選、完整 decimal／nanosecond 與商品幣別，唯讀預覽後追加四來源及 source-only 事件／快照。見[查證與阻擋](reports/manual-market-quotes.md)。研究頁九筆事件與中文卡片可查閱；567 項測試通過，83 個金融未知與三項 TTM null 保留。
     - [ ] 同步估值與年度／point 依賴明示對齊：新價格候選的 `uni.net_accrual`、`uni.required_share`、`uni.required_share_net` 因期間未對齊而無法保存。原防線保留；先完成可審查的期間設計／必要研究，再重新 preview，不回填價格日期或偽裝 model 期間。供給量／市值／FDV、SECZ 股本／價格與父 baseline 仍未完成。
+      - [x] 名目年率／point 期間政策前置：新增明示折算及下游日期政策，區分模型負擔與實際年度收入；未知占位維持 null，已知跨期／季度／估值日期衝突仍拒絕。見[期間設計](reports/uni-valuation-period-policy.md)。正式公式仍為 v1，UNI 候選仍未套用；升版與匯入另行驗收。
     - [x] 中文計算阻擋診斷：共用快照拒絕錯誤保留全部原始 ERROR，CLI 顯示中文說明／指標名與 machine ID／公式原因。實際價格候選 preview／apply 的三項阻擋完整輸出，exit 1、stdout 空與不寫入驗證；相關 60／全套 571 項通過。見[診斷與限制](reports/research-preview-diagnostics.md)。計算、公式、日期及期間拒絕規則不變，父 baseline 保留。
     - [x] XLM 單筆交易所價格基準：重用已保存的兩份 Tier 1 來源，依原 preview／digest 流程獨立追加 0.216265 USD／1 XLM 的 point OBSERVED 與完整不可變快照，重算全部下游。中文卡片／血緣／比較保留價格精度；十份歷史各自重播、Fixture 隔離及截止日驗證通過，全套 575 項與兩模式 validate 通過，正式未知由 83 降為 82。見[價格基準與驗收](reports/xlm-quote-baseline.md)。UNI 候選仍有三項期間阻擋，三項 TTM null、估值／投資性與父 baseline 保留；本次窄視窗實測未驗證。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
@@ -98,3 +99,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-04 使用優先：先處理能開始使用的 MVP 工作與必要防線，再接續完善；不為可用性犧牲來源、分類、未知值、期間或版本驗證。完整 production baseline 仍須獨立完成研究驗收。
 
 2026-10-04 最新停止要求：完成目前 XLM 單筆價格子項的中文 PR、CI 與合併後告一段落，不再啟動下一項；使用者將換帳號接續。接續先閱讀 AGENTS.md 與交接，重新確認遠端／工作區狀態。
+
+2026-10-04 接續授權：使用者已要求繼續完成其他任務，自主開中文非 Draft PR，驗證與 CI 成功後合併；解除上一輪停止要求。先完成 baseline 必要的 UNI 期間語意與價格子項，再依優先順序研究現行估值／可比期間；未授權 unattended 自動化、排程、通知或投資組合模型。

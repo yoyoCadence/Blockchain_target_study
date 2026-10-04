@@ -71,6 +71,7 @@ properties:
   dependencies: *a3
   rationale: *a1
   scenario: *a1
+  valuation_date: *a2
   range:
     type: array
     items:
@@ -91,6 +92,14 @@ required:
   - version
   - fixture
 allOf:
+  - if:
+      required: [valuation_date]
+    then:
+      properties:
+        classification: {const: DERIVED}
+        period:
+          properties:
+            basis: {const: model}
   - if:
       properties:
         classification:

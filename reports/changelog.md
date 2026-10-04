@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-04 — UNI 名目年率估值期間政策前置
+
+新增明示 annual_rate_valuation／valuation_compatible：原生幣年率按 point 價格折算為 DERIVED model 負擔，保留原始日期／血緣，將 valuation_date 傳遞到明示選用的下游。已知跨期會計流量、季度及衝突估值日期仍拒絕；未知占位不提供會計期間證據。舊期間政策、正式 v1 公式、金融輸入與不可變歷史不改用；正式升版及 UNI 價格匯入另行驗收。新增九項期間／唯讀／未知／0.422 回歸。
+
 ## 2026-10-04 — XLM 單筆交易所價格基準
 
 - 依既有人工 research-refresh／digest-bound apply 追加一筆 XLM point OBSERVED 與完整快照；重用原 Coinbase 來源／raw 回應，保留最後成交時間、decimal、知識日、取得與審查日期。其他金融數值不變，正式 unknown 83 → 82。
