@@ -1,0 +1,56 @@
+id: uni-vesting-fixed-block-20261004
+type: governance
+status: completed
+as_of_date: 2026-10-04
+effective_date: 2026-10-04
+source_ids:
+  - ethereum-uni-vesting-fixed-block-20261004-v1
+  - uniswap-vesting-source-9dbc671-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  完成人工固定區塊唯讀查證；不是新治理交易、預算變更或未來付款保證。
+  PublicNode 回報 Ethereum chainId=1，finalized block 26119713，
+  hash 0x8c22223f143699fb4d55710934e86114f9a0379136a5b8539a35a068bbdb4d72，
+  block UTC 2026-10-04T14:53:11Z；取得時間為 2026-10-04T15:08:12.569Z。
+  六個 UNIVesting getter、UNI allowance／decimals 及 runtime bytecode
+  都用相同 blockHash 和 requireCanonical=true；依高度重新讀取 header 的 hash 相符。
+  UNIVesting 0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2 的
+  UNI=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984，
+  owner=0x1a9c8182c09f50c8318d769245bea52c32be35bc，
+  recipient=0xaba63748c4b4def4a3319c3a29fe4829029d926f，
+  quarterlyVestingAmount raw=5000000000000000000000000，
+  lastUnlockTimestamp raw=1790812800，quartersPassed raw=0。
+  UNI allowance(owner,UNIVesting) raw=20000000000000000000000000，decimals=18；
+  這是該區塊剩餘授權，不能視為新增轉帳、年度分配、足額 owner balance 或未來不變的付款保證。
+  先前 2026-10-01 receipt 的 RPC 查詢回傳 null，本次未能 RPC 交叉確認；
+  既有 Explorer receipt／三 logs、未固定區塊的 UI 回應與原來源版本完整保留，不靜默替換。
+  runtime bytes SHA-256 724eedb3a53e4d138de0d09ba55b858673b7a846653d92154bf5797da14f2dc5
+  只供檔案核對，不是 Ethereum Keccak codeHash；未驗證部署 source 等價，Similar Match 限制保留。
+  原始 request／response／HTTP 狀態／取得時間與固定區塊解碼保存於
+  data/research/uni-vesting-fixed-block-2026-10-04-v1.json，
+  SHA-256 cad4aaf3fa49cf688bd8dfb54434ab1416c40510150ac03f71b6932bc1571195。
+  單一公開節點的 finalized／canonical 宣告不是本機 proof 驗證；此區塊晚於先前報價，
+  不形成同步市值／FDV 或 fair value。所有 canonical 金融輸入、歷史核准年率日期與時效、
+  公式、情境、圖譜及論點保持不變；只追加一來源與完整快照。
+research_review:
+  reviewer: Codex 公開一手 RPC 人工查證；非人類簽核
+  reviewed_at: 2026-10-04T15:10:00.682Z
+  rationale: >-
+    先按官方 gateway 文件核對 RPC endpoint，再取得 chainId／finalized header。
+    按已存 getter selector、ERC-20 allowance／decimals 介面與 EIP-1898 blockHash
+    發出有界限的唯讀批次；核對所有整數的完整 32-byte 回應及相同 header hash。
+    原始十六進位／大整數用字串保留，不以浮點轉換 raw uint。
+    明列 receipt null 與 source 等價未驗證，不刷新舊核准率或把單點授權年度化。
+updates: []
+sources:
+  - id: ethereum-uni-vesting-fixed-block-20261004-v1
+    version: 1
+    url: https://ethereum-rpc.publicnode.com
+    publisher: Ethereum mainnet JSON-RPC via PublicNode; single public provider
+    title: UNIVesting 固定 finalized block 26119713 的六 getter、UNI allowance／decimals、runtime 與 receipt null
+    date: 2026-10-04
+    retrieved_at: 2026-10-04T15:08:12.569Z
+    tier: 1
+    covered_metrics: [uni.vesting_parameter_evidence, uni.budget_distribution_evidence]
+    fixture: false

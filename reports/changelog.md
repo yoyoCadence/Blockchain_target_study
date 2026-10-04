@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-04 — UNI 固定區塊參數與剩餘授權
+
+追加一份 PublicNode 主網來源與完整 source-only 快照；所有 state query 固定 finalized block 26119713／相同 hash／requireCanonical=true，核對六 getter、UNI allowance raw 20000000000000000000000000／decimals=18 及 runtime。獨立保留既有 receipt 查詢 null，不改寫 Explorer 或未固定 UI 歷史；bytecode source 等價未驗證。596 項測試、兩模式 validate、桌面／窄視窗／Enter／JSON／工作區隔離通過；unknown 80、原年率時效／金融／公式／論點不變。見[查證與限制](uni-vesting-fixed-block.md)。
+
 ## 2026-10-04 — UNI 單筆季度提領與公開參數
 
 追加兩份來源及完整 source-only 快照，核對 10 月 1 日 UNI Approval 406／Transfer 407／Withdrawn 408 與單季 quartersPaid=1，保留全地址／raw 整數。另保存 10 月 4 日公開 getter 回應，未知 block／hash／timestamp 保持 null，保留 Similar Match／部署等價限制。金融數值與公式不變、unknown 80、歷史預算時效與證據不足不變；十二份正式歷史重播、Fixture 0.422、592 項測試與兩模式 validate、桌面／窄視窗／鍵盤／JSON／工作區隔離通過。詳見[研究與限制](uni-vesting-execution.md)，沒有年度化單筆或完成父 baseline。

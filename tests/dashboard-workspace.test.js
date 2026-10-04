@@ -212,3 +212,13 @@ test('UNI vesting card retains quarterly execution and unpinned current-state li
  assert.match(card.textContent,/"updates": \[\]/);assert.equal(v.count(),84);
  assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');
 });
+
+test('fixed-block UNI card distinguishes canonical state, receipt null and unchanged financial inputs',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(card=>card.dataset.event==='uni-vesting-fixed-block-20261004');
+ assert.match(card.textContent,/UNI 固定區塊參數與剩餘授權/);assert.match(card.textContent,/requireCanonical=true/);
+ assert.match(card.textContent,/20000000000000000000000000/);assert.match(card.textContent,/本次未能 RPC 交叉確認/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
+ assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');assert.equal(v.count(),84);
+});
