@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-05（台北）— UNI 固定區塊餘額與供給
+
+沿用 UTC 10 月 4 日 block 26119713／原 hash，新增一次同 hash／canonical RPC capture：owner balance、totalSupply、decimals、allowance 以完整字串保存，明示原 owner getter 依賴。嵌入研究 BigInt 比較公式 v1／DERIVED point flag，不變更 canonical 公式；餘額涵蓋只限該時點，供給／同步估值限制保留。追加一來源與 source-only 完整快照，正式十四份、unknown 80／TTM null／原年率時效不變。四項新增、全套 643、兩模式 validate、桌面／窄鍵盤與 Fixture 隔離通過。見[研究與驗收](uni-token-state.md)。
+
 ## 2026-10-04 — 固定區塊研究目錄／唯讀 API／中文介面
 
 研究目錄 v3 釘選原 archive bytes SHA-256，新增 fixed_block／原事件 ID 綁定；重用手動 reader、原審查與來源版本，八個 point raw 字串加入研究／時效 API。中文卡片保留 hash／block、完整值、分類／confidence／時間／限制及原 request／response，窄表格可用鍵盤左右捲動。八項新增／全套 639、兩模式 validate、桌面／窄視窗及工作區隔離通過；目前日審查列工具展開限制明示在[驗收](fixed-block-research-inspection.md)。金融／原資料／歷史／unknown 80 不變。

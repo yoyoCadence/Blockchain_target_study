@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-05（台北）— UNI 固定區塊 owner 餘額與供給
+
+PR #54 已合併，push／PR／main CI 成功，本機 main `e7f349f`；從乾淨 main 建立 `research/uni-token-state`。沿用 UTC 10 月 4 日同 block／hash，保存四個 canonical UNI 呼叫與原 owner archive 依賴、完整 raw 整數及研究 BigInt gte v1 推導。只支持該點 owner balance >= allowance，不提供完整可轉帳、全年分配或流通／完全稀釋分母。
+
+新 archive SHA-256 `848a20c9…`，Git 固定 LF；事件 `uni-token-state-20261004` 已保存，完整快照 `e108e8eb…`／parent `09d23d84…`，不可再次套用。僅追加一來源，金融 changes=[]、unknown 80、原名目率 stale／三項 TTM null／Fixture 0.422 不變，十四份正式歷史僅兩個模型截止日。四新回歸／全套 643、兩模式 validate 通過。Chrome CSS 1536×729／312×675：Enter 卡片／JSON、精確 raw／兩安全來源、窄無溢出、Fixture 清空與還原，console 空。啟動服務自動審查一度因用量未完成，使用者繼續後原命令成功；該限制已解除。見[研究與驗收](uni-token-state.md)，本子項 PR／CI 以遠端最終結果為準。
+
+下一項：為新 token-state 格式加入 digest-bound 共用唯讀語意驗證，保存同 token／block 的 ABI／精確整數／原 owner 依賴及嵌入公式，匹配 hash 仍拒絕錯配；再接既有研究目錄／API／中文精確查閱。不要把新格式送入只接受原八觀測的 fixed-block v1 reader。部署等價、全年實際 capture／分配、同步估值、SECZ 期間／六收入／個人投資性及父 baseline 保留。
+
 ## 2026-10-04 — 固定區塊研究目錄／API／中文查閱
 
 PR #53 push／PR／main CI 成功，main `056ac5a`；依持續自主 PR／合併授權建立 `feat/fixed-block-research-inspection`。

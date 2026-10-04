@@ -1,0 +1,53 @@
+id: uni-token-state-20261004
+type: governance
+status: completed
+as_of_date: 2026-10-04
+effective_date: 2026-10-04
+source_ids:
+  - ethereum-uni-token-state-20261004-v1
+  - ethereum-uni-vesting-fixed-block-20261004-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  完成人工固定區塊 UNI 代幣餘額與供給查證，不是新的治理交易或年度分配。
+  依原已審查 finalized anchor 的同一 block 26119713／hash
+  0x8c22223f143699fb4d55710934e86114f9a0379136a5b8539a35a068bbdb4d72，
+  PublicNode 再確認 chainId=1 與 header／UTC 2026-10-04T14:53:11Z；
+  取得時間為 2026-10-04T16:06:27.842Z，沒有改寫原 anchor／報價取得時間。
+  UNI 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984 的
+  balanceOf(owner 0x1a9c8182c09f50c8318d769245bea52c32be35bc) raw=
+  262247996305835021033106178；totalSupply raw=1000000000000000000000000000；decimals=18。
+  allowance(owner,UNIVesting 0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2)
+  raw=20000000000000000000000000，與先前同 hash 讀值相同。
+  四個 eth_call 都以相同 blockHash／requireCanonical=true，完整 uint256 用字串保留。
+  獨立 DERIVED v1 比較同幣別／同區塊 raw owner balance >= raw allowance，結果 1；
+  保存公式 research.uni.owner_balance_covers_vesting_allowance v1 與確切兩觀測 dependencies。
+  這只代表該時點餘額不少於該 allowance，不證明完整可轉帳條件、其他授權無競爭、
+  未來餘額／設定不變、下游支出或全年已分配。不是健康論點或付款保證。
+  totalSupply 只代表合約 getter，不是流通／自由流通供給或完整 FDV denominator；
+  未核對 mint 上限／未來增發，也不把 dead-address Transfer 當作 totalSupply 必定減少。
+  原始 request／response、header、四個 OBSERVED 與一個 DERIVED 研究紀錄保存於
+  data/research/uni-token-state-2026-10-04-v1.json，
+  SHA-256 848a20c9897b408960887d8c6dce13d062310d0794a87a7ae8d673e2209a631d。
+  此歷史區塊與先前 Coinbase trade 時間不同，不推同步市值／FDV、年度捕獲或合理價值。
+  所有 canonical 金融輸入、原核准年率日期／時效、公式、假設、情境與論點不變；只追加一來源與完整快照。
+research_review:
+  reviewer: Codex 公開一手 RPC 人工查證；非人類簽核
+  reviewed_at: 2026-10-04T16:10:51.187Z
+  rationale: >-
+    沿用已保存 owner getter 及原 finalized 區塊依賴，明示其 source ID／hash／原 archive。
+    再讀 chain／同 hash header 與四個帶 canonical selector 的 UNI 呼叫；核對地址 ABI padding、
+    32-byte raw 回應、decimals=18 與 BigInt 比較，不先轉成浮點或挪用 UI 計算。
+    只保存研究層 point 餘額／供給／授權及其明示推導；不更新模型年度金融輸入。
+updates: []
+sources:
+  - id: ethereum-uni-token-state-20261004-v1
+    version: 1
+    url: https://ethereum-rpc.publicnode.com
+    publisher: Ethereum mainnet JSON-RPC via PublicNode; single public provider
+    title: UNI 固定 block 26119713 的 owner balance／totalSupply／decimals／vesting allowance
+    date: 2026-10-04
+    retrieved_at: 2026-10-04T16:06:27.842Z
+    tier: 1
+    covered_metrics: [uni.vesting_funding_evidence, uni.token_supply_evidence]
+    fixture: false
