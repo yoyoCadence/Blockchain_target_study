@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — CI 執行環境維護
+
+PR #33 的 push／PR／合併後 main CI 均通過（main `5aa705f`）。最新 main job 實際 runner 2.337.0／Ubuntu 24.04，平台另提示 v4 actions 的 Node 20 runtime 淘汰與 ubuntu-latest 將換版；不是測試失敗。`chore/current-ci-actions` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。
+
+查閱官方 checkout／setup-node README 與 v7 action.yml，確認兩者使用 Node 24；目前 runner 高於官方最低需求。既有兩個 action 更新至 v7，runner label 固定目前 ubuntu-24.04。原 Node 24、npm cache、push／pull_request、contents: read 及四個安裝／驗證步驟保留，未新增 job／排程／通知或業務自動化。官方來源：[checkout](https://github.com/actions/checkout)、[setup-node](https://github.com/actions/setup-node)、[runner 換版公告](https://github.com/actions/runner-images/issues/14748)。
+
+本機 npm test 452 通過、0 失敗；兩模式 validate 84 指標／25 公式／0 錯誤與警告，未知 1／83。YAML 解析、既有步驟與權限核對、diff 檢查通過。實際 action／cache 相容性與平台 annotation 是否消除，以 push／PR／main CI 結果為準；未將本機測試當遠端環境證明。
+
+未修改 engine／金融／來源／快照／介面／CLI，未新增鏡像配置測試或 UI QA。固定 OS 版本仍會接收 hosted image 更新，v7 major tag 亦隨上游修正；不是全環境鎖定。正式 baseline 的原未知／TTM null 與資料缺口保留。
+
 ## 2026-10-04 — 相鄰快照版本連續性
 
 PR #32 的 push／PR／合併後 main CI 均通過（main `9077aaf`）。`fix/snapshot-version-continuity` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。選擇 baseline 的保存歷史版本缺口：暫存副本中後一快照同 ID 改寫舊 publisher、重算 hash 並維持 parent，既有 assertVersionHistory 拒絕但原 readSnapshots 接受。

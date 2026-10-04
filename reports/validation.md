@@ -1,5 +1,12 @@
 # MVP validation record
 
+## 2026-10-04 CI 執行環境維護
+
+- 本機 `npm test`：**452 通過、0 失敗**；兩模式 validate：84 指標、25 公式、0 錯誤／警告，未知 1／83。
+- Workflow YAML 解析與原 push／pull_request、contents: read、Node 24／npm cache、四步驟核對通過；配置僅改兩個 action major 與 runner label，diff 檢查通過。
+- 官方 v7 action.yml 確認 Node 24 runtime；舊 main 實際 runner 2.337.0／Ubuntu 24.04 支援需求。本機結果不代替 action 相容性，遠端步驟／annotation 以實際 CI 為準。
+- engine／spec／data／sources／介面／CLI／快照無差異，未新增鏡像配置測試或 UI QA；非完整環境鎖定，父 baseline 缺口保留。
+
 ## 2026-10-04 相鄰快照版本連續性
 
 - `npm test`：**452 通過、0 失敗**；20 新增回歸與既存血緣共 26 項針對性測試通過。
