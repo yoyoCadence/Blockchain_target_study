@@ -59,7 +59,9 @@ export function readSnapshots(root,mode) {
  const ordered=[];let parent=null;
  while(ordered.length<snapshots.length) {
   const children=snapshots.filter(s=>s.parent_id===parent);assert(children.length===1,'Snapshot branch or disconnected history; resolve explicitly');
-  ordered.push(children[0]);parent=children[0].id;
+  const current=children[0];
+  assertVersionHistory(ordered.at(-1),{inputs:current.inputs,sources:current.sources,registry:{formulas:current.formulas},thesis:{rules:current.rules}});
+  ordered.push(current);parent=current.id;
  }
  return ordered;
 }

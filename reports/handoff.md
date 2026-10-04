@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 相鄰快照版本連續性
+
+PR #32 的 push／PR／合併後 main CI 均通過（main `9077aaf`）。`fix/snapshot-version-continuity` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。選擇 baseline 的保存歷史版本缺口：暫存副本中後一快照同 ID 改寫舊 publisher、重算 hash 並維持 parent，既有 assertVersionHistory 拒絕但原 readSnapshots 接受。
+
+歷史讀取在 hash／parent／單一路徑檢查後，逐對相鄰快照重用既有 assertVersionHistory。舊來源／輸入須原封保留，公式／論點規則不能刪除、退版或未升版改寫；合法追加與升版保留，版本規則本身不改。
+
+20 新增回歸與既存血緣共 26 項通過；全套 npm test 452 通過、0 失敗，兩模式 validate 84 指標／25 公式／0 錯誤與警告，未知 1／83，diff 檢查通過。API 即使目前資料與最新快照吻合，仍會因較早來源被改寫而 400；檔案 bytes 不變。真實金融／論點重播與全部歷史 hash 保留，未修改 spec／data／sources／介面／CLI，未新增 UI QA。
+
+本項是內部版本連續性，非外部不可變儲存、來源真實性認證或全部快照 schema／商業規則重播。六份正式快照仍同模型期間，83 個金融未知與三項 TTM null、SECZ 登記／現況股本／法律名稱／估值與 UNI 全期間捕獲等原缺口保留，父 baseline 未完成。詳見[相鄰版本驗證](snapshot-version-continuity.md)，CI／合併狀態以 PR 實際結果為準。
+
 ## 2026-10-04 — 繁體中文 CLI 論點報告
 
 PR #31 的兩組 CI 通過後合併（`6122cb8`）。`feat/traditional-chinese-thesis-report` 從最新 origin/main 建立，工作目錄乾淨，單一 worktree 與遠端確認。接續使用者中文版要求，限定修正 CLI report 的呈現文字。

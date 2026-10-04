@@ -1,5 +1,13 @@
 # MVP validation record
 
+## 2026-10-04 相鄰快照版本連續性
+
+- `npm test`：**452 通過、0 失敗**；20 新增回歸與既存血緣共 26 項針對性測試通過。
+- 兩模式 validate：84 指標、25 公式、0 錯誤／警告，未知 1／83；diff 檢查通過。
+- 已重現 matching hash／有效 parent 的舊來源同 ID 改寫可讀取；逐對重用版本 guard 後拒絕來源／輸入改寫與刪除、同版本定義變更及定義刪除／退版，合法追加／升版保留。
+- API 即使目前資料符合最新快照仍拒絕較早來源改寫，所有檔案 bytes 保留；真實金融／論點重播、二份合成與六份正式快照全部 hash 通過。
+- spec／data／sources／介面／CLI 無差異，未新增 UI QA。非外部真實性或全部快照規則重播，正式未知／TTM null 與父 baseline 缺口保留。詳見[版本範圍](snapshot-version-continuity.md)。
+
 ## 2026-10-04 繁體中文 CLI 論點報告
 
 - `npm test`：**432 通過、0 失敗**；兩模式 validate：84 指標、25 公式、0 錯誤／警告，未知 1／83。diff 檢查通過。
