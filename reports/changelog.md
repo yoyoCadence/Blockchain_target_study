@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-04 — UNI 單筆季度提領與公開參數
+
+追加兩份來源及完整 source-only 快照，核對 10 月 1 日 UNI Approval 406／Transfer 407／Withdrawn 408 與單季 quartersPaid=1，保留全地址／raw 整數。另保存 10 月 4 日公開 getter 回應，未知 block／hash／timestamp 保持 null，保留 Similar Match／部署等價限制。金融數值與公式不變、unknown 80、歷史預算時效與證據不足不變；十二份正式歷史重播、Fixture 0.422、592 項測試與兩模式 validate、桌面／窄視窗／鍵盤／JSON／工作區隔離通過。詳見[研究與限制](uni-vesting-execution.md)，沒有年度化單筆或完成父 baseline。
+
 ## 2026-10-04 — UNI 單筆價格與五條公式 v2
 
 formula-registry v2：f.uni.growth_distribution／net_accrual／net_burn_yield／required_share／required_share_net 升至 v2，保留算術，明示 model 折算與下游 valuation_date。重用原 Coinbase 原始回應／兩來源，按 preview digest 保存 UNI point OBSERVED 9.0556 及完整不可變事件；歷史名目率折算為 181112000 USD/year，不代表現行額度或實際支出。source／formula 變更分開，假設／情境／規則不改；正式 unknown 82→80，舊十份快照保留，Fixture 另追加公式快照且所有值不變。中文模型標示與窄血緣長字串換行通過；588 項測試、兩模式驗證、歷史 v1 阻擋診斷與逐份重播通過。完整 baseline 缺口保留。

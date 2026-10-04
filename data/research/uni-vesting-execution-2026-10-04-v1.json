@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "id": "uni-vesting-execution-evidence-20261004-v1",
+  "capture_method": "Manual visible DOM desk review via Chrome; no wallet connection, RPC block pinning or financial ingest",
+  "captured_at": "2026-10-04T14:34:27Z",
+  "fixture": false,
+  "receipt": {
+    "url": "https://etherscan.io/tx/0x596bab92c2d9e3d1a6183b32da053c4feabab5d58ab61009b4800d84beef683a#eventlog",
+    "classification": "OBSERVED",
+    "as_of_date": "2026-10-04",
+    "effective_at": "2026-10-01T16:59:35Z",
+    "status": "Success",
+    "transaction_hash": "0x596bab92c2d9e3d1a6183b32da053c4feabab5d58ab61009b4800d84beef683a",
+    "block": "26098816",
+    "caller": "0x2CF8e5b175aa29C1fDf0e9fe572735C78eacCE43",
+    "contract": "0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2",
+    "logs": [
+      {
+        "index": 406,
+        "emitter": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+        "event": "Approval",
+        "owner": "0x1a9C8182C09F50C8318d769245beA52c32BE35BC",
+        "spender": "0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2",
+        "amount_raw": "20000000000000000000000000"
+      },
+      {
+        "index": 407,
+        "emitter": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+        "event": "Transfer",
+        "from": "0x1a9C8182C09F50C8318d769245beA52c32BE35BC",
+        "to": "0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F",
+        "amount_raw": "5000000000000000000000000"
+      },
+      {
+        "index": 408,
+        "emitter": "0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2",
+        "event": "Withdrawn",
+        "recipient": "0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F",
+        "amount_raw": "5000000000000000000000000",
+        "quarters_paid_raw": "1"
+      }
+    ],
+    "visible_log_text": "Transaction Receipt Event Logs\n406\nAddress\n0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\n(Uniswap Protocol: UNI Token)   \nName\n\nApproval (index_topic_1 address owner, index_topic_2 address spender, uint256 amount)View Source\n\nTopics\n0 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925\n1: owner\nDec\n0x1a9C8182C09F50C8318d769245beA52c32BE35BC\n2: spender\nDec\n0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2\nData\nDec\nHex\namount (uint256) :\n20000000000000000000000000\n407\nAddress\n0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\n(Uniswap Protocol: UNI Token)   \nName\n\nTransfer (index_topic_1 address from, index_topic_2 address to, uint256 amount)View Source\n\nTopics\n0 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef\n1: from\nDec\n0x1a9C8182C09F50C8318d769245beA52c32BE35BC\n2: to\nDec\n0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F\nData\nDec\nHex\namount (uint256) :\n5000000000000000000000000\n408\nAddress\n0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2   \nName\n\nWithdrawn (index_topic_1 address recipient, uint256 amount, uint48 quartersPaid)View Source\n\nTopics\n0 0xe3a7b52bde0e5e2ab4cd91182c9b2a0c7e49183cc039f6d5c3ba738c84e0427b\n1: recipient\nDec\n0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F\nData\nDec\nHex\namount (uint256) :\n5000000000000000000000000\nquartersPaid (uint48) :\n1\n\n",
+    "source_ids": [
+      "ethereum-uni-vesting-withdrawal-20261001-v1"
+    ],
+    "confidence": "high"
+  },
+  "live_reader": {
+    "url": "https://etherscan.io/readContract?m=light&a=0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2&n=mainnet&v=0xf32d53ae98c4d6ab04d4b870ff9a97f37a724f79",
+    "classification": "OBSERVED",
+    "as_of_date": "2026-10-04",
+    "block_number": null,
+    "block_hash": null,
+    "response_timestamp": null,
+    "contract_source_status": "Similar Match",
+    "reference_address": "0xf32d53ae98c4d6ab04d4b870ff9a97f37a724f79",
+    "getters": {
+      "UNI": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+      "lastUnlockTimestamp": "1790812800",
+      "owner": "0x1a9C8182C09F50C8318d769245beA52c32BE35BC",
+      "quarterlyVestingAmount": "5000000000000000000000000",
+      "quartersPassed": "0",
+      "recipient": "0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F"
+    },
+    "visible_text": " Read Contract\n Connect Wallet\nParams\n Collapse All\n Reset\n1. UNI(0x541bcb76)\n\nThe UNI token contract\n\n0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984 address\n2. lastUnlockTimestamp(0x21226f40)\n\nThe timestamp of the last settled quarterly boundary\n\n1790812800 uint48\n3. owner(0x8da5cb5b)\n0x1a9C8182C09F50C8318d769245beA52c32BE35BC address\n4. quarterlyVestingAmount(0x8627a6b5)\n\nThe maximum amount able to be transferred at each vesting period.\n\n5000000000000000000000000 uint256\n5. quartersPassed(0x049176a6)\n\nCalculates the number of complete quarters that have passed since the last withdrawal\n\nUses calendar-based quarters (3 months each) Returns 0 if no quarters have passed since last withdrawal.\n\n0 uint48\nReturn:\n\nNumber of complete quarters available for withdrawal\n\n6. recipient(0x66d003ac)\n\nThe recipient of the vested UNI.\n\n0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F address\nDescriptions included above are taken from the contract source code NatSpec. Etherscan does not provide any guarantees on their safety or accuracy.",
+    "limitations": "Unpinned explorer UI responses may come from different blocks; query response time is unknown. Neither bytecode equivalence nor live UNI allowance was checked. The October 1 Approval log is historical, not a current allowance read.",
+    "source_ids": [
+      "ethereum-uni-vesting-read-20261004-v1"
+    ],
+    "confidence": "low"
+  },
+  "financial_inputs_updated": false,
+  "limitations": [
+    "One successful quarterly transfer is not full-year spending or income.",
+    "No annualization, USD conversion, totalSupply change, market cap/FDV or fair-value inference.",
+    "Keep the January 1 historical authorization input and its stale-for-current-use state unchanged."
+  ]
+}
