@@ -58,6 +58,8 @@
     - [x] 研究證據單獨重試：研究失敗後手動恢復所選模式，保留金融／未套用試算輸入；拒絕錯模式與晚到回應，重試狀態／busy 不互相覆蓋。見[驗收](reports/research-retry.md)。實際研究 503、延遲、Enter、窄視窗與 Fixture 隔離通過，不自動重試或更新資料，父 baseline 保留。
     - [x] UNI v2 單筆 LP 費用份額歸集：核對原始 Factory PairCreated 與後續 TokenJar LP 鑄造、完整 raw 整數／UTC／log 順序，追加四來源與完整快照。見[查證與界線](reports/uni-v2-fee-accrual.md)。LP／caller 贖回不當 UNI burn 或年度收入，成長來源／部署等價未驗證；金融輸入、原歷史及父 baseline 缺口保留。
     - [x] 中文已存事件查閱：唯讀研究 API／介面顯示八筆已審查事件，保留各快照的來源版本、完整事件、raw 整數與四種日期；重用歷史／事件驗證，Fixture 不含正式事件。見[操作與驗收](reports/reviewed-event-inspection.md)。562 項測試與桌面／窄視窗、Enter 展開、503／延遲重試通過，金融輸入與八份同期間歷史不改；父 baseline 仍未完成。
+    - [x] UNI／XLM 單次交易所價格資料包：四份公開原始回應、兩筆 point OBSERVED 候選、完整 decimal／nanosecond 與商品幣別，唯讀預覽後追加四來源及 source-only 事件／快照。見[查證與阻擋](reports/manual-market-quotes.md)。研究頁九筆事件與中文卡片可查閱；567 項測試通過，83 個金融未知與三項 TTM null 保留。
+    - [ ] 同步估值與年度／point 依賴明示對齊：新價格候選的 `uni.net_accrual`、`uni.required_share`、`uni.required_share_net` 因期間未對齊而無法保存。原防線保留；先完成可審查的期間設計／必要研究，再重新 preview，不回填價格日期或偽裝 model 期間。供給量／市值／FDV、SECZ 股本／價格與父 baseline 仍未完成。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

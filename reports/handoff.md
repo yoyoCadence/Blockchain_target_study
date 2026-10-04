@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — UNI／XLM 單次交易所價格資料
+
+PR #45 的 push／PR／合併後 main CI 均成功（main `c31c48e`）；從最新 origin/main 建立 `research/manual-market-quotes`，開始時工作區乾淨、單一 worktree 且遠端同步。接續 baseline 的有日期價格子項，未擴大財務模型或自動取得。
+
+官方文件核對 ticker 為最後成交、bid／ask 與商品 base／quote 定義。web reader 無法開 API、Chrome 回報 blocked-by-client；直接公開唯讀 GET 成功，四回應 HTTP 200，不用金鑰／帳戶。原始回應 artifact `8bc4c51f...` 保留 decimal、nanosecond、trade_id、HTTP Date、request／retrieval 時間；產品狀態取得較晚，未視為先前 tick 狀態／個人資格。兩筆 point OBSERVED 候選原日期保留。
+
+實際 research-preview 被三條 UNI 年度／point 期間依賴拒絕，沒有 financial research-apply；candidate 現在 `sources=[]` 明示重用已保存的四來源，重新預覽仍重現期間阻擋。可獨立完成的來源紀錄以 market_data_review、updates=[] 保存，追加完整快照 `0e4062bd93a2a4d94ca01b2af1bbdc2d38978c89b5169d49bbea6d2a1a99fb14`，parent `729d45b9...`。全部金融／來源舊版本／公式／假設／情境／圖譜／論點與原模型日期逐項一致；價格仍 null，未把歷史額度的候選價格換算當作已發生支出。
+
+四項研究／一項 UI 回歸新增，相關 33 項與全套 npm test 567 項通過，0 失敗；兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。既有事件查閱測試改為核對全部 reviewed history 與指定 LP 卡片，保留精度／日期／唯讀／Fixture 防線，允許合法追加。Chrome 原服務桌面 CSS 1536×684 確認中文標題、九事件／六 review／84 指標、四來源連結、完整 nanosecond、Enter 展開／原始 JSON 及 Fixture 清除，無整頁 overflow；身份／非空白／無框架錯誤／console error-warn 空清單及截圖通過。本次要求 390×844，但尺寸控制未生效，DOM 仍為 1536×684，價格卡片窄視窗實測明示未驗證，沒有沿用先前 LP 卡片的尺寸證據。尺寸設定已重設，已核對的驗收服務停止。
+
+九份正式快照仍同模型期間，不新增 thesis 期數；三項 TTM null、個人投資管道、現行 supply／市值／FDV 與 SECZ 股本／價格、年度捕獲與父 baseline 保留。下一必要工作是把預覽的三個計算阻擋明確報出，並獨立設計年度／point 期間對齊，再完成估值研究；不改公式或資料日期來通過。詳見[查證與限制](manual-market-quotes.md)；遠端 CI／PR 以實際結果為準。
+
 ## 2026-10-04 — 中文已保存事件查閱
 
 PR #44 的 push／PR／合併後 main CI 均成功（main `1cd4654`）；從最新 origin/main 建立 `feat/reviewed-event-inspection`，開始時工作區乾淨、單一 worktree 且遠端同步。依使用優先與持續中文 PR／驗證後合併授權，讓已保存 UNI／SECZ 人工事件可直接從既有研究頁閱讀。
