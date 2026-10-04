@@ -1,5 +1,14 @@
 # MVP validation record
 
+## 2026-10-04 SECZ 轉售登記分類核對
+
+- 全套 `npm test`：**457 通過、0 失敗**；5 新回歸及既存股本／權證共 13 項通過。兩模式 validate：84 指標／25 金融公式／0 錯誤與警告，未知 1／83。
+- 實際 Chrome 讀取 S-1 選定股數表、款項用途、50 列轉售資料／第 7、8 註腳；網頁讀取器全文大小限制仍在，舊 indexed-only source 不改。此為來源閱讀，沒有 UI 修改／UI QA。
+- 108 個 OBSERVED 的 schema／來源日期／coverage、9 個原始破折號 null、7 條嵌入 v1 算術公式與全部遞迴依賴重播通過。加總對上登記量／opinion 類別；已發行 Sponsor 重疊及差額仍未法律調節，未作估值。
+- 唯讀 preparation 未改金融或 journal bytes，CLI 只追加四份來源版本及一份 hash 綁定完整快照。舊六份／來源版本原封保留，七份同模型期間；金融／圖譜／假設／論點重播、正式 TTM null 及 Fixture 隔離通過。
+- 提交前草稿的公司 earnout 觀察因同時引用 8/13 filing 而被日期回歸拒絕；知識日改為 8/13、重算尚未追加的草稿 hash 後 3 項 artifact 驗證通過，才寫入正式 journal。測試 sandbox spawn EPERM 以正常子程序權限執行，正式證據與 guard 未放寬。
+- 未新增金融模型／自動化／catalog 類型。目前股本／同步估值、分類差異／完整分配、法律名稱／TTM 與其他 baseline 缺口保留；[研究與限制](secz-resale-capital-reconciliation.md)。
+
 ## 2026-10-04 CI 執行環境維護
 
 - 本機 `npm test`：**452 通過、0 失敗**；兩模式 validate：84 指標、25 公式、0 錯誤／警告，未知 1／83。

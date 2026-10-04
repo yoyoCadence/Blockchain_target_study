@@ -47,6 +47,7 @@
     - [x] SECZ 母公司認股權證歷史條款：保存 Exhibit 4.1 修訂後母公司股數／價格及歸屬、行使、earnout 區分，追加來源與完整快照並重播歷史。見[權證條款](reports/secz-warrant-context.md)。完整 S-1 登記註腳受讀取／存取限制，類別調節與現況仍待查證；未更新金融輸入或完成父 baseline。
     - [x] 已存事件節點範圍：共用新事件的登記節點／可到達更新限制，依快照資產與圖譜核對完整傳播集合，保留圖譜改版後的歷史判定。見[範圍驗證](reports/event-scope.md)。兩模式、無效／合法範圍、API 不寫入與金融／歷史重播通過；不是全部已存商業規則或外部真實性認證，父 baseline 未完成。
     - [x] 相鄰快照版本連續性：歷史讀取逐對重用既有版本檢查，拒絕舊來源／輸入同 ID 改寫、刪除與未升版／退版定義，保留合法追加及升版。見[版本連續性](reports/snapshot-version-continuity.md)。兩模式、API 檔案保留及真實歷史重播通過；非外部不可變性認證，父 baseline 未完成。
+    - [x] SECZ 轉售登記分類核對：直接讀取 S-1 選定股數表、50 列轉售資料／註腳，保存 108 個 OBSERVED（9 個 null）及 7 條 v1 研究算術公式，與費表／Exhibit 5.1／10-Q 對照；追加來源版本及 hash 綁定完整快照。見[分類研究](reports/secz-resale-capital-reconciliation.md)。Sponsor 已發行重疊與 961,384 差額／原分類衝突保留，未補目前股本／估值或完成父 baseline。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

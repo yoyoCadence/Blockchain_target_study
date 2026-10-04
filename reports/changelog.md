@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-04 — SECZ 轉售登記分類核對
+
+- 直接閱讀 S-1 選定披露，另存 50 列原始欄位、108 個 OBSERVED（9 個 null）及 7 條 v1 研究算術公式／完整依賴；source-only event 釘選不可變研究 hash。
+- 追加 S-1／申報費來源及 opinion／10-Q coverage v2，舊版本保留；對照登記量、權證與已發行類別，保留 Sponsor 重疊及未解 earnout 差額，不建立現在估值。
+- 全套 457 項測試、兩模式驗證與全部金融／歷史重播通過；追加一份完整快照，七份同模型期、83 個金融未知及正式 TTM null 保留，父 baseline 未完成。
+
 ## 2026-10-04 — CI 執行環境維護
 
 - 核對實際 main 平台淘汰提示及官方 action metadata，將 checkout／setup-node 升至 v7（Node 24），runner 固定目前 Ubuntu 24.04。

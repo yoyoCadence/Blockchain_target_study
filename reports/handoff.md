@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — SECZ 轉售登記分類核對
+
+使用者再次授權持續完成。從最新 origin/main `a06d629` 建立 `research/secz-resale-capital-reconciliation`；開始時 main／遠端一致、工作目錄乾淨，單一 worktree 與遠端確認。接續最高優先 baseline 的估值前股本分類子項，未擴充金融模型或自動化。
+
+web reader 對 S-1／424B3 仍回應大於 4 MiB；既有 Chrome 連線此次可用，直接讀取 S-1 第 15 頁、第 49 頁及第 129–135 頁中選定 50 列股數／第 7、8 註腳。舊 indexed-only 證據及限制不改，本次保存新直接閱讀 source。common／earnout 數值合計對上申報費表／Exhibit 5.1；Sponsor 1.8M 已發行條件股重疊及排除後與公司 earnout 上限的 961,384 差額保留，未推導目前股本或判定法律錯誤。
+
+獨立研究 artifact `f3bce741...` 嵌入 108 個 OBSERVED／原始表格、9 個 null、7 條 v1 DERIVED 算術公式與確切依賴、來源版本及未解分類。既有 event source-only review hash 綁定此檔案，追加兩份新 v1 與兩份明示 supersedes 的 coverage v2；唯讀 preparation 確認金融及 journal bytes 不變後，以 CLI exclusive-create 完整 snapshot `0abb51bb...`（parent `ef433299...`）。原六份 hash／來源版本與金融／圖譜／假設／論點全部保留；七份同模型期不增加 thesis 期間。
+
+驗證：5 新增回歸，與既存股本／權證共 13 項通過；全套 npm test 457 通過、0 失敗；兩模式 validate 84 指標／25 金融公式／0 錯誤與警告，未知 1／83。來源 schema／日期／coverage、原始破折號、公式 replay／完整遞迴依賴、null 傳播、journal 綁定與版本保留、全部金融／論點／歷史重播及 Fixture 隔離通過。提交前研究草稿一項跨 filing 知識日被日期回歸拒絕，已改為最晚引用來源 8/13，重算草稿 hash 再通過，才追加正式事件；未改既存歷史。Node 測試 sandbox spawn EPERM 以同一授權命令的正常子程序權限執行。
+
+新增紀錄繁體中文、原持有人名稱／機器代碼保留；未改 engine／spec／UI 或做新的 UI QA。股本 artifact 目前未在固定研究 catalog 顯示，可由報告閱覽及測試重播。完整更正／分配、現在股本／價格／現金負債、SECZ 法律名稱／TTM／六類收入、個人司法管轄區／券商與 UNI 全期間捕獲仍待查證，父 baseline 未完成。詳見[分類研究](secz-resale-capital-reconciliation.md)，遠端 CI／PR 狀態以實際結果為準。
+
 ## 2026-10-04 — CI 執行環境維護
 
 PR #33 的 push／PR／合併後 main CI 均通過（main `5aa705f`）。最新 main job 實際 runner 2.337.0／Ubuntu 24.04，平台另提示 v4 actions 的 Node 20 runtime 淘汰與 ubuntu-latest 將換版；不是測試失敗。`chore/current-ci-actions` 從最新 origin/main 建立，開始時工作目錄乾淨，單一 worktree 與遠端確認。
