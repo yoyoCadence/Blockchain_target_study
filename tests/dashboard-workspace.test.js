@@ -127,7 +127,7 @@ test('independent research retry preserves loaded financial results and unapplie
  v.$('retry-research').onclick();assert.equal(v.researchRequests[1].url,'/api/research?mode=production');
  assert.equal(v.requests.length,1);assert.equal(margin.value,'0.3');assert.equal(v.$('research-records').attrs['aria-busy'],'true');
  v.researchRequests[1].reply(productionResearch);await tick();
- assert.equal(v.$('research-records').children.length,6);assert.equal(v.$('retry-research').hidden,true);
+ assert.equal(v.$('research-records').children.length,productionResearch.records.length);assert.equal(v.$('retry-research').hidden,true);
  assert.equal(margin.value,'0.3');assert.equal(v.count(),84);assert.equal(v.$('research-records').attrs['aria-busy'],'false');
 });
 test('wrong research workspace is rejected without displaying its records',async()=>{
@@ -140,7 +140,7 @@ test('late research failure cannot enable retry or clear busy state for the late
  v.researchRequests[0].reply({error:'old research error'},false);await tick();
  assert.equal(v.$('retry-research').hidden,true);assert.equal(v.$('retry-research').disabled,true);
  assert.equal(v.$('research-records').attrs['aria-busy'],'true');assert.doesNotMatch(v.$('research-status').textContent,/old research error/);
- v.researchRequests[1].reply(productionResearch);await tick();assert.equal(v.$('research-records').children.length,6);
+ v.researchRequests[1].reply(productionResearch);await tick();assert.equal(v.$('research-records').children.length,productionResearch.records.length);
 });
 test('late research success cannot replace the current workspace failure and retry',async()=>{
  const v=app('',{manualResearch:true});v.change('production');
@@ -221,4 +221,16 @@ test('fixed-block UNI card distinguishes canonical state, receipt null and uncha
  assert.match(card.textContent,/20000000000000000000000000/);assert.match(card.textContent,/本次未能 RPC 交叉確認/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
  assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');assert.equal(v.count(),84);
+});
+
+test('fixed-block research table preserves raw strings and separates block, retrieval and review dates',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-records').querySelectorAll('details').find(c=>c.dataset.research==='uni-vesting-fixed-block-20261004');
+ assert.match(card.textContent,/UNI 固定區塊參數與剩餘授權/);assert.match(card.textContent,/固定區塊 26119713/);
+ assert.match(card.textContent,/20000000000000000000000000/);assert.doesNotMatch(card.textContent,/20,000,000,000,000,000,000,000,000/);
+ assert.match(card.textContent,/區塊時間 2026-10-04T14:53:11.000Z/);assert.match(card.textContent,/取得時間 2026-10-04T15:08:12.569Z/);
+ assert.match(card.textContent,/審查時間 2026-10-04T15:10:00.682Z/);assert.match(card.textContent,/RPC 無結果/);
+ assert.match(card.textContent,/原始 request／response/);assert.match(card.textContent,/deployment_source_equivalence/);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });

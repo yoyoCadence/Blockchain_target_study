@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-04 — 固定區塊研究目錄／唯讀 API／中文介面
+
+研究目錄 v3 釘選原 archive bytes SHA-256，新增 fixed_block／原事件 ID 綁定；重用手動 reader、原審查與來源版本，八個 point raw 字串加入研究／時效 API。中文卡片保留 hash／block、完整值、分類／confidence／時間／限制及原 request／response，窄表格可用鍵盤左右捲動。八項新增／全套 639、兩模式 validate、桌面／窄視窗及工作區隔離通過；目前日審查列工具展開限制明示在[驗收](fixed-block-research-inspection.md)。金融／原資料／歷史／unknown 80 不變。
+
 ## 2026-10-04 — 固定區塊資料包手動唯讀驗證
 
 新增 fixed-block-review CLI／共用 reader、v1 schema 與獨立 ABI 方法定義，要求 production／已審查 SHA-256，核對 request／response／同 hash／canonical／完整 calldata／解碼／來源與 chronology。35 項新增回歸確認匹配重算 digest 仍不能繞過語意；全套 631 項與兩模式 validate 通過，原 archive／金融／來源／歷史／unknown 80 保留。見[操作與限制](manual-fixed-block-review.md)，沒有 UI 變更或自動取得。

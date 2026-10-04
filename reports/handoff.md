@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 固定區塊研究目錄／API／中文查閱
+
+PR #53 push／PR／main CI 成功，main `056ac5a`；依持續自主 PR／合併授權建立 `feat/fixed-block-research-inspection`。
+
+目錄 v3 釘選原 `cad4aaf3…` archive exact bytes，要求 `fixed_block` 的 `event_id`；先共用 v1 手動 reader，核對原事件 hash／as-of／來源，再採原 review metadata。研究 ID namespace 和 canonical 金融分開；八 raw 字串、point／observed_at、medium／OBSERVED／原來源版本、receipt null／部署等價 null 保留。API／時效均唯讀，Fixture 空；七 review／153 紀錄／23來源，十三事件不追加。
+
+八新回歸／全套 639、兩模式 validate 通過，unknown 80／TTM null／stale 年率／0.422 不變。Chrome CSS 1536×684／312×675，卡片／raw Enter、表格 ArrowRight scrollLeft 0→32、窄無頁面溢出、Fixture 清空／正式還原通過；console／stderr 空。10 月 3 日實際審查列不可用，10 月 4 日查詢完成／API 確認可用，但目前日審查列展開工具超時未列為通過。詳見[操作與驗收](fixed-block-research-inspection.md)；其他瀏覽器／真實手機未驗證，PR／CI 最終結果以遠端為準。
+
+下一優先回到正式 baseline 的外部研究：固定區塊 owner 餘額／供給、部署 bytecode／官方 source 等價、全年實際分配與 capture；保留同步價格／供給及完整 FDV 定義的限制，不從 totalSupply 直接推市值。SECZ 六收入／股本／TTM 可比性、個人投資性仍待研究；不啟動排程或未授權 NEXT／LATER 模型。
+
 ## 2026-10-04 — 固定區塊資料包手動唯讀驗證
 
 PR #52 已合併，push／PR／main CI 成功，本機 main `a8c3ade` 乾淨；建立 `feat/manual-fixed-block-review`。建立分支第一次因自動審查用量未完成而未執行；使用者指示繼續後原命令重試成功，限制已解除。

@@ -12,7 +12,7 @@ const catalog=()=>readYaml('spec/research-catalog.yaml');
 
 test('research inspection replays cataloged evidence without financial input or journal changes',()=>{
  const before=fingerprint({project,economics:calculate(project),history:readSnapshots(project.root,'production')});
- const result=inspectResearch(project);assert.equal(result.records.length,6);
+ const result=inspectResearch(project);assert.equal(result.records.length,catalog().records.length);
  assert.equal(result.persisted,false);assert.equal(result.financial_inputs_updated,false);
  const quarter=result.records.find(r=>r.id==='secz-quarter-half-2026');
  assert.equal(quarter.records.length,12);assert.equal(quarter.records[0].value,7839139);
