@@ -53,6 +53,7 @@
     - [x] 共用研究證據 ID 一致性：將時效來源／紀錄 guard 集中到固定目錄讀取，另拒絕重用 canonical 金融輸入 ID；兩個唯讀 API 拒絕有效 hash 的衝突，合法來源新版本與獨立紀錄保留。見[驗證與限制](reports/research-evidence-id-consistency.md)。研究／金融／歷史不改，完整 baseline 仍未完成。
     - [x] 固定研究目錄公式版本一致性：共用 reader 核對相同公式 ID／版本的完整定義，含 TTM 本體及兩份嵌入收入研究；拒絕有效 hash 的同版本改寫，保留合法多版本與嵌入重播。見[重現與驗證](reports/research-formula-version-consistency.md)。沒有公式／金融／歷史變更，父 baseline 未完成。
     - [x] 固定研究目錄假設版本一致性：共用 reader 拒絕同可比性假設 ID／版本的理由、信心與判斷改寫，以及 canonical 假設衝突；合法升版保留兩份歷史／ASSUMPTION／TTM null。見[重現與驗證](reports/research-assumption-version-consistency.md)。沒有假設／金融／歷史變更，父 baseline 未完成。
+    - [x] 工作區載入隔離與中文重試：切換立即清空舊指標、情境與血緣，失敗前後停用計算，拒絕模式／provenance 不符回應；快速切換不接受較早回應，同工作區重算失敗保留上一個成功結果。見[驗收](reports/workspace-loading.md)。實際延遲／失敗／鍵盤重試／窄視窗通過，金融與父 baseline 缺口保留。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
@@ -85,3 +86,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-03 baseline research constraints: SECZ quarterly flows and disclosed revenue categories cannot yet be mapped into the annual six-stream model without explicit period/category work; synchronized verified valuations and current access/custody checks are missing. Preserve nulls. Manual source freshness is independent and completed; automated collection, extra models and TAM expansion are deferred while the baseline remains incomplete.
 
 2026-10-04 最新授權：持續完成可獨立驗收的工作，產品介面及新增紀錄使用繁體中文；依既有授權提交中文非 Draft PR，驗證成功後合併並接續。原始來源、歷史紀錄與機器代碼保留，不擴大自動化或金融模型範圍。
+
+2026-10-04 使用優先：先處理能開始使用的 MVP 工作與必要防線，再接續完善；不為可用性犧牲來源、分類、未知值、期間或版本驗證。完整 production baseline 仍須獨立完成研究驗收。
