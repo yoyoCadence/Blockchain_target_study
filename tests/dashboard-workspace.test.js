@@ -194,9 +194,21 @@ test('single venue source review retains its saved scope alongside a later indep
  const quote=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='xlm.price');
  assert.match(quote.textContent,/\$0\.216265/);
  quote.onclick();assert.match(v.$('inspector-body').textContent,/\$0\.216265/);
- assert.match(v.$('comparison').textContent,/\$9\.0556/);
+ const savedQuote=v.$('research-events').querySelectorAll('details').find(card=>card.dataset.event==='uni-market-quote-baseline-20261004');
+ assert.match(savedQuote.textContent,/9\.0556/);
  const cost=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='uni.growth_distribution');
  assert.match(cost.textContent,/按報價折算的模型 · 2026-10-04/);
  cost.onclick();assert.match(v.$('inspector-body').textContent,/不代表實際年度支出或收入/);
  assert.equal(v.count(),84);
+});
+
+test('UNI vesting card retains quarterly execution and unpinned current-state limits without financial ingestion',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);
+ v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(card=>card.dataset.event==='uni-vesting-execution-20261004');
+ assert.match(card.textContent,/UNI 季度提領與公開合約參數/);assert.match(card.textContent,/生效 2026-10-01/);
+ assert.match(card.textContent,/5000000000000000000000000/);assert.match(card.textContent,/quartersPaid=1/);
+ assert.match(card.textContent,/未固定 block number／hash/);assert.match(card.textContent,/保存時 0 筆數值更新/);
+ assert.match(card.textContent,/"updates": \[\]/);assert.equal(v.count(),84);
+ assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');
 });

@@ -51,7 +51,7 @@ test('every production snapshot replays its own formula version and keeps its ha
   assert.deepEqual(replay.metrics,snapshot.metrics);assert.deepEqual(replay.thesis,snapshot.thesis);assert.deepEqual(replay.period,snapshot.period);
  }
  assert.equal(fingerprint(readSnapshots(p.root,'production')),before);
- assert.equal(history.length,11);assert.equal(history.filter(s=>s.period.end==='2026-01-01').length,9);
+ assert.equal(index+1,11);assert.equal(history.filter(s=>s.period.end==='2026-01-01').length,9);
 });
 
 test('fixture records remain synthetic and its separate formula snapshot retains all economic values',()=>{

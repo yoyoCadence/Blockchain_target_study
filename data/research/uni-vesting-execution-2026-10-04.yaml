@@ -1,0 +1,70 @@
+id: uni-vesting-execution-20261004
+type: governance
+status: completed
+as_of_date: 2026-10-04
+effective_date: 2026-10-01
+source_ids:
+  - ethereum-uni-vesting-withdrawal-20261001-v1
+  - ethereum-uni-vesting-read-20261004-v1
+  - uniswap-vesting-source-9dbc671-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  人工核對 UNI 預算合約的一筆實際季度提領及稍後公開唯讀頁參數，保留兩者時間界線。
+  成功 receipt 0x596bab92c2d9e3d1a6183b32da053c4feabab5d58ab61009b4800d84beef683a，
+  block 26098816，2026-10-01T16:59:35Z；caller
+  0x2CF8e5b175aa29C1fDf0e9fe572735C78eacCE43 呼叫 UNIVesting
+  0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2。
+  UNI emitter 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984 的 Approval log 406
+  明列 owner 0x1a9C8182C09F50C8318d769245beA52c32BE35BC、spender 為该 UNIVesting，
+  amount raw 20000000000000000000000000；這是交易內的 allowance 事件，不是新增轉帳或最新 allowance。
+  Transfer log 407 從该 owner 到 0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F，
+  amount raw 5000000000000000000000000，Overview 顯示 5,000,000 UNI。
+  UNIVesting 的 Withdrawn log 408 明列同一 recipient、相同 raw amount 與 quartersPaid=1。
+  可觀察一筆已執行提領，不把 allowance、核准預算與實際下游支出混為同一數值。
+  2026-10-04T14:34:27Z 保存的公開 readContract 可見回應另顯示
+  UNI=0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984，
+  owner=0x1a9C8182C09F50C8318d769245beA52c32BE35BC，
+  recipient=0xaBA63748c4b4DeF4a3319C3A29fE4829029D926F，
+  quarterlyVestingAmount raw=5000000000000000000000000，
+  lastUnlockTimestamp raw=1790812800，quartersPassed raw=0。
+  這些 UI 回應未固定 block number／hash，實際回應時間未知且可能來自不同區塊；
+  不能視為報價時刻的同步合約狀態或足額未來授權。
+  Explorer 顯示 Similar Match，引用地址 0xf32d53ae98c4d6ab04d4b870ff9a97f37a724f79；
+  沿用固定官方 UNIVesting source 的 calendar-quarter／allowance 路徑解讀，未驗證部署 bytecode 等價。
+  原始可見 logs／getters 保存為 data/research/uni-vesting-execution-2026-10-04-v1.json，
+  SHA-256 7f651374e3553eb5625c605c6990633177fd351442b371bb0402d9eccc586cd6。
+  不年度化單笔提領、不採用 explorer 的即時美元估值，不推導年度分配／實際支出／收入、
+  mint／totalSupply 減少、市值／FDV 或合理價值。原 2026-01-01 核准名目年率與其時效狀態保留，
+  所有 canonical 金融輸入、公式、情境、圖譜與論點不變；來源證據另行追加。
+research_review:
+  reviewer: Codex 公開一手來源人工查證；非人類簽核
+  reviewed_at: 2026-10-04T14:35:41Z
+  rationale: >-
+    直接閱讀成功交易 Overview 及三個完整 logs，跨 emitter 核對 recipient／raw amount，
+    區分 Approval 與 Transfer／Withdrawn。閱讀合約頁及其公開 readContract，保留六個 getter
+    原字串與未固定區塊／回應時間的 null，將其和 10 月 1 日 receipt 分開。
+    重讀固定官方 source，沿用既存來源版本及原 retrieved_at，不宣稱再次驗證當年部署或完整現況。
+    只追加 source-only 完整快照；原始檔 hash 供 PR 核對，不把單筆季度金額匯入 /year 模型。
+updates: []
+sources:
+  - id: ethereum-uni-vesting-withdrawal-20261001-v1
+    version: 1
+    url: https://etherscan.io/tx/0x596bab92c2d9e3d1a6183b32da053c4feabab5d58ab61009b4800d84beef683a#eventlog
+    publisher: Ethereum transaction receipt via Etherscan
+    title: UNI 季度提領成功 receipt；block 26098816，Approval 406／Transfer 407／Withdrawn 408
+    date: 2026-10-01
+    retrieved_at: 2026-10-04T14:34:27Z
+    tier: 1
+    covered_metrics: [uni.vesting_execution, uni.budget_distribution_evidence]
+    fixture: false
+  - id: ethereum-uni-vesting-read-20261004-v1
+    version: 1
+    url: https://etherscan.io/readContract?m=light&a=0xCa046A83EDB78F74aE338bb5A291bF6FdAc9e1D2&n=mainnet&v=0xf32d53ae98c4d6ab04d4b870ff9a97f37a724f79
+    publisher: Ethereum contract read interface via Etherscan; unpinned UI response
+    title: UNIVesting 六個公開 getter；日期為人工保存日，未固定回應區塊／時間
+    date: 2026-10-04
+    retrieved_at: 2026-10-04T14:34:27Z
+    tier: 1
+    covered_metrics: [uni.vesting_execution, uni.vesting_parameter_evidence]
+    fixture: false

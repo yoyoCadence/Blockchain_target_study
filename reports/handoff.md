@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-04 — UNI 季度提領與公開參數
+
+PR #50 已合併，push／PR／main CI 成功，main `6c3a7dc`。使用者再次授權自主繼續；建立 `research/uni-vesting-execution`。
+
+直接閱讀 2026-10-01T16:59:35Z 成功 receipt `0x596bab92…`（block 26098816）全部三 logs：UNI Approval 406 不是另筆轉帳，Transfer 407 raw `5000000000000000000000000` 與 UNIVesting Withdrawn 408 相同 recipient／amount、quartersPaid=1。保存稍後 readContract 六個可見回應，未固定區塊／時間的三個 null、low confidence、Similar Match 及 allowance／bytecode 限制分開保留；沿用已存官方 source。
+
+新增 raw archive hash `7f651374…`、人工事件與 source-only 完整快照 `f6580ef3…`，parent `98d14672…`；同 ID 已保存，不重跑 event。只新增兩來源，數值 changes=[]、source_change=true，所有金融紀錄按 ID 保留（loader 的價格陣列排列可不同），原預算時效仍 stale；unknown 80、三項 TTM null、論點證據不足與 Fixture 0.422 不變。十二份正式及三份 Fixture 歷史重播，全套 592 項與兩模式 validate 通過。
+
+Chrome 桌面 CSS 1536×684／窄 CSS 312×675：Enter 展開卡片及原始 JSON、三來源安全連結、Fixture 清空／正式還原通過；無水平溢出、console／stderr 空。分頁失效後從同一 browser 建立新分頁完成窄視窗核對；已還原視窗並停止 PID 14488。報告見[查證與驗收](uni-vesting-execution.md)，截圖在 TEMP，PR／CI 最終狀態以遠端為準。
+
+下一步優先固定區塊 allowance／參數與部署等價、全期間實際分配及捕獲；供給／同步估值、SECZ 六收入／股本／TTM 與個人投資性尚未完成。不能從這筆季度提領刷新年率日期、推年度實際支出或 fair value。保持手動研究，不啟用 NEXT／LATER 自動化。
+
 ## 2026-10-04 — UNI 單筆價格與公式 v2
 
 PR #49 push／PR／合併後 main CI 成功，main `8bece98`；從乾淨最新 main 建立 `research/uni-quote-baseline`。使用者授權繼續自主中文 PR／CI／合併；未恢復上一輪停止要求。
