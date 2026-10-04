@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 固定研究目錄公式版本一致性
+
+PR #38 的 push／PR／合併後 main CI 均成功（main `666b24d`）；從最新 origin/main 建立 `fix/research-formula-version-consistency`，開始時工作目錄乾淨、單一 worktree／遠端一致。接續原公式版本約束在固定研究集合的載入缺口，未擴充金融模型或自動化。
+
+隔離資料包重現：同一 YoY v1 的 expression 改寫產生不同值，或改 null_policy，重新 hash／重播後原 inspection／freshness 都接受；單份 TTM 的兩份嵌入收入研究亦可藏同公式版本不同定義。共用入口現在以 ID／版本釘選完整公式指紋，覆蓋 canonical registry、收入／股本與 TTM 本體／兩份嵌入研究。不同版本可並存，目錄順序不被當成最新版本時間序列；各 reader 仍使用保存定義。
+
+八項新增回歸及相關 44 項通過；全套 npm test 520 通過、0 失敗；兩模式 validate 84 指標／25 金融公式／0 錯誤與警告，unknown 1／83。合法升版正反順序、同版本式子／null policy 衝突、嵌入 TTM、真實六份研究／金融／全部歷史重播通過。
+
+未改原公式定義、假設／政策、資料、研究目錄、artifact、來源、事件、快照或 UI，沒有新增瀏覽器 QA。這是載入集合內的版本指紋，非完整修訂沿革或來源認證；83 個金融未知、三項正式 TTM null 與股本／估值／個人投資性缺口保留，父 baseline 未完成。詳見[重現與驗證](research-formula-version-consistency.md)，遠端 CI／PR 狀態以實際結果為準。
+
 ## 2026-10-04 — 共用研究證據 ID 一致性
 
 PR #37 的 push／PR／合併後 main CI 均成功（main `b7dc54a`）；從最新 origin/main 建立 `fix/research-evidence-id-consistency`，開始時工作目錄乾淨、單一 worktree／遠端一致。接續 baseline 的證據版本防線，未擴充模型或自動化。
