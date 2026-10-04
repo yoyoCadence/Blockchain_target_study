@@ -124,22 +124,45 @@ function renderResearch(data) {
   wrap.append(table);
   if(report.kind==='capital') {const raw=el('details');raw.append(el('summary',`原始觀測與計算紀錄（${report.records.length} 筆／${report.summary.unknown_observations} 筆未知觀測）`),wrap);card.append(raw);}
   else card.append(wrap);
-  const sources=el('div',undefined,'research-sources');sources.append(el('h3','來源與版本'));
-  for(const source of report.sources) {
+  const full=el('details');full.append(el('summary','完整原始證據、公式與依賴'),el('p',`已保存的內容雜湊：${report.artifact_id}`,'hint'),el('pre',JSON.stringify(report.full_review,null,2)));
+  card.append(researchSources(report.sources),full);return card;
+ }));
+ renderReviewedEvents(data.events||[]);
+}
+function researchSources(records) {
+ const sources=el('div',undefined,'research-sources');sources.append(el('h3','來源與版本'));
+ for(const source of records) {
    const p=el('p',`${source.title} · ${source.publisher} · 來源層級 ${source.tier} · v${source.version} · 發布 ${source.date} · 取得 ${source.retrieved_at} `);
    const url=new URL(source.url);
    if(['https:','http:'].includes(url.protocol)) {const link=el('a','開啟來源 ↗');link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';p.append(link);}
    sources.append(p);
-  }
-  const full=el('details');full.append(el('summary','完整原始證據、公式與依賴'),el('p',`已保存的內容雜湊：${report.artifact_id}`,'hint'),el('pre',JSON.stringify(report.full_review,null,2)));
-  card.append(sources,full);return card;
- }));
+ }
+ return sources;
+}
+function renderReviewedEvents(records) {
+ const container=$('research-events');container.replaceChildren();
+ if(!records.length)return;
+ container.append(el('h3',`已保存事件與鏈上證據（${records.length} 筆）`),
+  el('p','事件完成狀態只描述已保存範圍；單筆執行不代表年度收入、完整現況或投資性已確認。知識日、事件生效日、審查時間與模型期間分開保留。','hint'));
+ for(const record of [...records].reverse()) {
+  const {event}=record,card=el('details',undefined,'research-card');card.dataset.event=record.id;
+  card.append(el('summary',`${term(record.id)} · ${term(event.type)} · 生效 ${event.effective_date||'未記錄'}`),
+   el('p',`事件 ${record.id} · ${term(event.status)} · 知識日 ${event.as_of_date}`,'hint'),
+   el('p',`審查者（原文）${event.research_review.reviewer} · 審查 ${event.research_review.reviewed_at}`,'hint'),
+   el('p',`原快照模型期間 ${term(record.model_period.basis)} · ${record.model_period.end} · 保存時 ${record.recorded_update_count} 筆數值更新；本次查閱不套用更新。`,'hint'),
+   el('h3','執行證據與限制（原文）'),el('p',event.reason,'event-evidence'),
+   el('h3','查證方式（原文）'),el('p',event.research_review.rationale,'event-evidence'),researchSources(record.sources));
+  const full=el('details');full.append(el('summary','完整原始事件與來源版本'),
+   el('p',`保存時間 ${record.created_at} · 內容雜湊 ${record.snapshot_id} · parent ${record.parent_id||'首份快照'}`,'hint'),el('pre',JSON.stringify(record,null,2)));
+  card.append(full);container.append(card);
+ }
 }
 
 async function refreshResearch() {
  const revision=++researchRevision,requestMode=mode;
- $('research-records').replaceChildren();$('research-status').textContent='正在載入研究證據…';
- $('research-records').setAttribute('aria-busy','true');$('retry-research').hidden=true;$('retry-research').disabled=true;
+ $('research-records').replaceChildren();$('research-events').replaceChildren();$('research-status').textContent='正在載入研究證據…';
+ for(const id of ['research-records','research-events'])$(id).setAttribute('aria-busy','true');
+ $('retry-research').hidden=true;$('retry-research').disabled=true;
  try {
   const response=await fetch(`/api/research?mode=${requestMode}`),data=await response.json();
   if(revision!==researchRevision)return;
@@ -147,7 +170,7 @@ async function refreshResearch() {
   if(data.mode!==requestMode)throw new Error('研究回應工作區不一致，請重新載入。');
   renderResearch(data);
  } catch(error) {if(revision===researchRevision){$('research-status').textContent=`研究證據無法取得：${term(error.message)}`;$('retry-research').hidden=false;}}
- finally{if(revision===researchRevision){$('research-records').setAttribute('aria-busy','false');$('retry-research').disabled=false;}}
+ finally{if(revision===researchRevision){for(const id of ['research-records','research-events'])$(id).setAttribute('aria-busy','false');$('retry-research').disabled=false;}}
 }
 $('retry-research').onclick=()=>refreshResearch();
 function freshnessTable(labels,rows) {

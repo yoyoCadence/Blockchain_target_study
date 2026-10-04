@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-04 — 中文已保存事件查閱
+
+PR #44 的 push／PR／合併後 main CI 均成功（main `1cd4654`）；從最新 origin/main 建立 `feat/reviewed-event-inspection`，開始時工作區乾淨、單一 worktree 且遠端同步。依使用優先與持續中文 PR／驗證後合併授權，讓已保存 UNI／SECZ 人工事件可直接從既有研究頁閱讀。
+
+研究 API 在原六份固定 review 外另傳八筆已審查事件，重用快照 hash／版本連續性、目前資料與最新歷史一致性及事件證據／review／範圍驗證；journal 一致性仍由原 project load 核對。每筆使用當時快照的來源版本，不讀取外部網路或套用事件。中文卡片保留原始理由／審查者、原始 raw 整數、四種日期、保存時間及完整 JSON；完成狀態僅描述已保存範圍。
+
+八項 engine／API 與三項 UI 回歸新增；相關 30 項、全套 npm test 562 項通過，0 失敗。兩模式 validate 84 指標／25 公式／0 錯誤與警告，unknown 1／83。Chrome 實測桌面 CSS 1536×684／窄視窗 312×675（要求 390×844）、事件及原始 JSON 展開、Enter、來源連結、安全屬性、Fixture 清除，以及研究 503／延遲重試恢復八事件／六 review；84 指標與未套用利潤率 0.3 保留。正常服務與 shim 恢復後 error／warn 均為空清單，503 的中文局部錯誤有如實呈現。無整頁 overflow，截圖通過，viewport 已恢復，驗收程序核對後停止。
+
+未修改金融資料／來源／公式／假設／政策／任何既存事件或快照；八份正式快照仍同一模型期間，不增加 thesis 期數，三項 TTM null 與父 baseline 保留。研究時效仍沿用原六份固定 review，沒有擴大時效政策或新增自動查詢。其他瀏覽器／全尺寸、外部來源真實性重認證、全部當前池配置、年度費用／burn、SECZ 可比性／六類收入、現行估值及個人投資管道未完成。詳見[操作與驗收](reviewed-event-inspection.md)；遠端 CI／PR 結果以實際結果為準。
+
 ## 2026-10-04 — UNI v2 單筆 LP 費用份額歸集
 
 依持續開發／中文 PR／驗證後合併授權，從最新 origin/main `5a86ca5` 建立 `research/uni-v2-fee-accrual`；開始時 main／遠端一致、單一 worktree 且乾淨。選擇 baseline 的 UNI 捕獲查證子項，以單筆 TokenJar LP 鑄造與原始 Factory 建池 receipt 為明確驗收範圍。

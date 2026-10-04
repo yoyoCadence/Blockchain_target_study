@@ -5,11 +5,12 @@ import {reviewIdentities} from './identities.js';
 import {reviewRevenues,verifyRevenueReview} from './revenues.js';
 import {reviewRevenueTtm,verifyRevenueTtm} from './revenue-ttm.js';
 import {replayCapitalReview} from './capital.js';
+import {inspectReviewedEvents} from './event-evidence.js';
 
 // Explicit local catalog only: no discovery, remote fetching, ingestion or writes.
 export function inspectResearch(project,{catalog}={}) {
  assert(['fixture','production'].includes(project.mode),'Invalid research inspection mode');
- const content={mode:project.mode,persisted:false,financial_inputs_updated:false,records:[],
+ const content={mode:project.mode,persisted:false,financial_inputs_updated:false,records:[],events:[],
   notice:project.mode==='fixture'?'Production research is available in the Production workspace; it is not mixed with synthetic fixtures.':'Original research evidence, separate from canonical financial inputs. Same-period filings do not add thesis periods; unverified values remain unknown.'};
  if(project.mode==='fixture') return content;
  catalog??=readYaml('spec/research-catalog.yaml',project.root);
@@ -78,5 +79,6 @@ export function inspectResearch(project,{catalog}={}) {
    as_of_date,review,records,periods,sources,statement,comparability,full_review:saved,
    ...(capital?{context:saved.context,summary:capital.summary,notice:capital.notice}:{})});
  }
+ content.events=inspectReviewedEvents(project);
  return structuredClone(content);
 }
