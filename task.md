@@ -14,6 +14,7 @@
 - [x] README, methodology, current thesis and changelog.
 - [x] 繁體中文介面：導航、84 個指標、操作、血緣、研究及時效狀態中文化，保留原始分類／論點代碼及完整證據。驗收含實際桌面／手機操作、情境重算／還原、TTM 未知與原始 JSON 一致；金融／來源／歷史不變。
 - [x] 繁體中文 CLI 論點報告：沿用介面詞彙，中文化工作區、模型期間、狀態與證據覆蓋；保留全部觸發規則原文、論點代碼、合成標記與證據不足警語。兩工作區實際產生報告並核對引擎輸出，未更新金融／歷史。
+- [x] CI 執行環境維護：既有 checkout／setup-node 升至官方 v7（Node 24 action runtime），固定目前 Ubuntu 24.04，維持既有 Node 24／npm cache／測試步驟與讀取權限；以實際 push／PR CI 驗證相容性，金融 baseline 缺口保留。
 
 ## NEXT
 

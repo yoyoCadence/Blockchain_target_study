@@ -154,6 +154,8 @@ node cli.js report --production
 
 論點報告寫入 `reports/current-thesis.md`，使用繁體中文，保留原始論點代碼與觸發規則原文，另外標示證據不足。未指定 `--production` 時仍使用合成示範工作區；產生報告不會追加或修改金融資料／快照。
 
+既有 GitHub CI 使用 Ubuntu 24.04、Node 24 及官方 v7 checkout／setup-node；安裝後執行完整測試與兩模式驗證。只固定 OS 版本及 action major，hosted image 與上游修正仍會更新，沒有新增業務排程或自動研究。
+
 人工審查的一手來源研究更新可先預覽，再使用預覽 digest 明確套用；完整格式、來源要求與剩餘研究驗收見 [研究更新流程](reports/research-refresh.md)。
 
 ```powershell

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-04 — CI 執行環境維護
+
+- 核對實際 main 平台淘汰提示及官方 action metadata，將 checkout／setup-node 升至 v7（Node 24），runner 固定目前 Ubuntu 24.04。
+- 保留原 Node 24／npm cache／觸發器／讀取權限／安裝與兩模式驗證步驟，未新增工作或業務自動化。
+- 本機 452 項測試與兩模式驗證通過；遠端 action／平台提示結果以實際 CI 為準，金融與歷史保留，完整 baseline 仍未完成。
+
 ## 2026-10-04 — 相鄰快照版本連續性
 
 - 已重現 matching hash／有效 parent 的舊來源同 ID 改寫可讀取；歷史讀取逐對重用既有來源／輸入及公式／規則版本 guard。
