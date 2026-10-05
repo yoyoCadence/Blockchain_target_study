@@ -38,6 +38,7 @@ const terms={
  'uni-vesting-execution-20261004':'UNI 季度提領與公開合約參數',
  'uni-vesting-fixed-block-20261004':'UNI 固定區塊參數與剩餘授權',
  'uni-token-state-20261004':'UNI 固定區塊餘額與供給',
+ 'UNI raw base units':'UNI 原始最小單位',
  'secz-acquisition-context-20261003':'SECZ 收購範圍與名稱衝突','secz-parent-capital-context-20261003':'SECZ 母公司歷史股本','secz-warrant-context-20261003':'SECZ 認股權證歷史條款','secz-resale-capital-review-20261004':'SECZ 轉售登記分類核對',
  direct:'直接',indirect:'間接',none:'無',enables:'支援',supplies:'供應',settles:'清算',tokenizes:'代幣化',provides_liquidity:'提供流動性',provides_oracle:'提供預言機',provides_registry:'提供登記服務',regulates:'監管',increases_addressable_market:'擴大可服務市場',creates_revenue:'產生收入',creates_token_demand:'產生代幣需求',dilutes:'稀釋',competes_with:'競爭',
  UNKNOWN_DATA:'資料未知（UNKNOWN_DATA）',NOT_OBSERVED:'非觀測值（NOT_OBSERVED）',INSUFFICIENT:'證據不足（INSUFFICIENT）',AVAILABLE:'可用（AVAILABLE）',RECHECK_DUE:'需重新查證（RECHECK_DUE）',RECENTLY_RETRIEVED:'近期取得（RECENTLY_RETRIEVED）',NOT_AVAILABLE_AT_CUTOFF:'截止日尚不可用（NOT_AVAILABLE_AT_CUTOFF）',STALE_FOR_CURRENT_USE:'目前使用前需重查（STALE_FOR_CURRENT_USE）',WITHIN_REVIEW_WINDOW:'在查證窗口內（WITHIN_REVIEW_WINDOW）',AVAILABLE_AT_CUTOFF:'截止日可用（AVAILABLE_AT_CUTOFF）',COMPARABILITY_UNVERIFIED:'可比性未查證（COMPARABILITY_UNVERIFIED）',UNKNOWN_INPUT:'輸入未知（UNKNOWN_INPUT）',

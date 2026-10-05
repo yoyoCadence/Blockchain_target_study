@@ -243,3 +243,16 @@ test('token-state event keeps point balance, raw supply and future-funding limit
  assert.match(card.textContent,/totalSupply raw=1000000000000000000000000000/);assert.match(card.textContent,/不是健康論點或付款保證/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),84);
 });
+
+test('token-state research renders exact OBSERVED integers separately from DERIVED comparison and its complete dependencies',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-records').children.find(c=>c.dataset.research==='uni-token-state-20261004');
+ assert.match(card.textContent,/262247996305835021033106178/);assert.match(card.textContent,/1000000000000000000000000000/);
+ assert.match(card.textContent,/UNI 原始最小單位/);assert.match(card.textContent,/已觀測（OBSERVED）/);assert.match(card.textContent,/推導值（DERIVED）/);
+ assert.match(card.textContent,/2026-10-04T14:53:11\.000Z/);assert.match(card.textContent,/2026-10-04T16:06:27\.842Z/);assert.match(card.textContent,/2026-10-04T16:10:51\.187Z/);
+ assert.match(card.textContent,/research\.uni\.owner_balance_covers_vesting_allowance \/ v1/);
+ assert.match(card.textContent,/research\.uni\.token-state\.block26119713\.owner_balance@1/);assert.match(card.textContent,/research\.uni\.token-state\.block26119713\.vesting_allowance@1/);
+ assert.match(card.textContent,/流通／自由流通／完全稀釋供給尚未查證/);assert.match(card.textContent,/付款保證/);
+ assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,2);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
+});

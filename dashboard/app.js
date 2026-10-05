@@ -100,15 +100,24 @@ function renderResearch(data) {
  $('research-records').replaceChildren(...data.records.map(report=>{
   const card=el('details',undefined,'research-card');card.dataset.research=report.id;
   card.append(el('summary',term(report.id)),el('p',`知識日 ${report.as_of_date} · 審查者（原文）${report.review.reviewer} · 審查時間 ${report.review.reviewed_at}`,'hint'));
-  if(report.kind==='fixed_block') {
-   const summary=report.summary;
-   const values=freshnessTable(['觀測項目','原始值（完整字串）','ABI 型別','分類','可信程度'],summary.values.map(value=>[value.label,value.value,value.abi_type,term('OBSERVED'),term(report.full_review.confidence)]));
+  if(report.kind==='fixed_block'||report.kind==='token_state') {
+   const summary=report.summary,tokenState=report.kind==='token_state';
+   const headers=['觀測項目','原始值（完整字串）',...(tokenState?['單位']:[]),'ABI 型別','分類','可信程度'];
+   const values=freshnessTable(headers,summary.values.map(value=>[value.label,value.value,...(tokenState?[term(value.unit)]:[]),value.abi_type,
+    term('OBSERVED'),term(tokenState?report.records.find(r=>r.id===value.id).confidence:report.full_review.confidence)]));
    values.tabIndex=0;values.setAttribute('aria-label','固定區塊原始值表格，可左右捲動');
    card.append(el('p',report.notice,'hint'),el('p',`固定區塊 ${summary.block_number} · ${summary.block_hash}`,'event-evidence'),
     el('p',`區塊時間 ${summary.block_time} · 取得時間 ${summary.retrieved_at}`,'hint'),
-    el('p',`解碼查證方法 v${report.method.version}；部署合約與官方原始碼是否相同尚未查證。`,'hint'),
-    el('p','表格可左右捲動，查看完整原始值與可信程度。','hint'),values,
-    el('p',summary.receipt_state,'hint'));
+    el('p',`解碼查證方法 v${report.method.version}；${tokenState?'只驗證保存證據的內部一致性。':'部署合約與官方原始碼是否相同尚未查證。'}`,'hint'),
+    el('p','表格可左右捲動，查看完整原始值與可信程度。','hint'),values);
+   if(tokenState) {
+    const comparison=summary.balance_cover,record=report.records.find(r=>r.classification==='DERIVED');
+    const derivedTable=freshnessTable(['研究推導','結果（旗標）','單位','分類','可信程度','公式版本'],[
+     [record.label,String(comparison.value),term(comparison.unit),term(comparison.classification),term(record.confidence),`${comparison.formula_id} / v${comparison.formula_version}`]
+    ]);derivedTable.tabIndex=0;derivedTable.setAttribute('aria-label','固定區塊研究推導表格，可左右捲動');
+    card.append(el('h3','研究推導結果'),derivedTable,el('p',`推導依賴：${comparison.dependencies.join(' · ')}`,'event-evidence'),
+    el('p','流通／自由流通／完全稀釋供給尚未查證；結果不代表完整可轉帳或未來付款保證。','hint'));
+   } else card.append(el('p',summary.receipt_state,'hint'));
    const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
    const full=el('details');full.append(el('summary','原始 request／response 與查證限制'),
     el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));

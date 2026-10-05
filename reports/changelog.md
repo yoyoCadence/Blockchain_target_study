@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-05（台北）— UNI 餘額／供給研究目錄與中文表格
+
+目錄 v4 釘選原 token-state bytes／事件，重用唯讀 reader 與原 review；API／時效保留四 raw OBSERVED 與一個 DERIVED point 比較、完整 v1／依賴及原時間。中文兩表格分開顯示，窄版各自鍵盤左右捲動；Fixture 隔離、截止日與原 JSON 保留。八新增／全套 696、兩模式 validate、桌面／窄／工作區及兩個截止日實際審查列通過，補足前次 vesting 目前日展開驗收；見[操作與驗收](token-state-research-inspection.md)。金融／原資料／來源／歷史／unknown 80 不變。
+
 ## 2026-10-05（台北）— UNI 餘額／供給手動唯讀驗證
 
 新增 token-state-review／共用 reader、schema／ABI 方法 v1；以明示原 SHA-256 重驗原 bytes，沿用原固定區塊 reader 核對 owner 依賴，再驗同 hash／selector／target／raw 整數／來源日期及嵌入 BigInt 比較 v1。45 新增／80 targeted／全套 688 與兩模式 validate 通過，匹配新 digest 仍拒絕錯配；原資料、金融／canonical 公式、來源、歷史／unknown 80 不變。見[操作與限制](manual-token-state-review.md)，無 UI 或自動採集。

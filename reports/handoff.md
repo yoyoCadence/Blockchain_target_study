@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-05（台北）— UNI 餘額／供給目錄、API 與中文精確查閱
+
+PR #56 push／PR／main CI 全部成功，main `ce1359b`；從乾淨 main 建立 `feat/token-state-research-inspection`。目錄 v4 以原 `848a20c9…` exact bytes／原已存 event 綁定 token-state reader，原觀測／DERIVED ID 和 v1／兩 dependencies 保留，使用原 review／來源版本，不另加來源、事件、金融更新或模型期間。
+
+八研究／158 紀錄／24來源／十四事件。中文 raw／DERIVED 分表、medium／分類／unit／三種時間／限制／原始 request／response；兩個窄表格可各自以 ArrowRight 捲動 0→32。八新回歸／全套 696、兩模式 validate 通過，unknown 80／三項 TTM null／stale 年率／0.422／原歷史不變。Chrome CSS 1536×729／312×675，Enter／JSON、兩安全來源、窄無溢出、Fixture 清空與還原；兩個截止日審查列實際顯示不可用／可用，前次 vesting 目前日列亦補驗通過。console／stderr 空，視窗已還原，PID 37984 已核對並停止；見[操作與驗收](token-state-research-inspection.md)。本 PR／CI 最終狀態以遠端為準。
+
+接續回到外部 baseline 研究：UNI 部署等價／mint 及未來供給定義、完整年度 capture／分配；SECZ 財務主體／期間／六收入／母公司股本、公開交易與託管資訊。個人資格／管道仍未知，不從 totalSupply 或單筆價格補市值／FDV，不啟用 unattended 或新模型。
+
 ## 2026-10-05（台北）— UNI 餘額／供給資料包唯讀驗證
 
 PR #55 push／PR／main CI 全部成功，main `3447fdc` 同步／原 archive hash `848a20c9…` 保留；從乾淨 main 建立 `feat/manual-token-state-review`。新增 token-state-review 明示 production／digest，只讀本機檔案，沒有 RPC 或寫入。

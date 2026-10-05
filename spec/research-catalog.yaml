@@ -1,4 +1,4 @@
-version: 3
+version: 4
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -36,3 +36,9 @@ records:
     file: uni-vesting-fixed-block-2026-10-04-v1.json
     expected_id: cad4aaf3fa49cf688bd8dfb54434ab1416c40510150ac03f71b6932bc1571195
     event_id: uni-vesting-fixed-block-20261004
+  - id: uni-token-state-20261004
+    label: UNI 固定區塊餘額與供給
+    kind: token_state
+    file: uni-token-state-2026-10-04-v1.json
+    expected_id: 848a20c9897b408960887d8c6dce13d062310d0794a87a7ae8d673e2209a631d
+    event_id: uni-token-state-20261004
