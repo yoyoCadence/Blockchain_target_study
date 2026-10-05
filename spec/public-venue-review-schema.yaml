@@ -1,0 +1,166 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [version, id, fixture, as_of_date, purpose, captures, transport_archive_sha256, observations, formulas, derived, identity_dependency, access_review, limitations]
+properties:
+  version: {const: 1}
+  id: &text {type: string, pattern: '\S'}
+  fixture: {const: false}
+  as_of_date: &day {type: string, format: date}
+  purpose: *text
+  transport_archive_sha256: &digest {type: string, pattern: '^[0-9a-f]{64}$'}
+  captures:
+    type: array
+    minItems: 4
+    maxItems: 4
+    items:
+      type: object
+      additionalProperties: false
+      required: [url, method, started_at, received_at, http_status, http_date, response_json, source_id]
+      properties:
+        url: {type: string, format: uri}
+        method: {const: GET}
+        started_at: &instant {type: string, format: date-time}
+        received_at: *instant
+        http_status: {const: 200}
+        http_date: *text
+        response_json: *text
+        source_id: *text
+  observations:
+    type: array
+    minItems: 26
+    maxItems: 26
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, classification, fixture, as_of_date, period, source_ids, field, value, raw_value, unit, confidence, response_received_at, provider_state_timestamp]
+      properties:
+        id: *text
+        version: {const: 1}
+        asset: {enum: [UNI, XLM]}
+        classification: {const: OBSERVED}
+        fixture: {const: false}
+        as_of_date: *day
+        period: &point
+          type: object
+          additionalProperties: false
+          required: [basis, end]
+          properties:
+            basis: {const: point}
+            end: *day
+        source_ids: {type: array, minItems: 1, maxItems: 1, items: *text}
+        field: *text
+        value: {type: [string, boolean, 'null']}
+        raw_value: {type: [string, boolean]}
+        unit: {enum: [text, address, flag]}
+        confidence: {enum: [medium, unknown]}
+        response_received_at: *instant
+        provider_state_timestamp: {const: null}
+  formulas:
+    type: array
+    minItems: 1
+    maxItems: 1
+    items: {type: object}
+  derived:
+    type: array
+    minItems: 1
+    maxItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, classification, fixture, as_of_date, period, value, unit, confidence, formula_id, formula_version, dependencies]
+      properties:
+        id: *text
+        version: {const: 1}
+        asset: {const: UNI}
+        classification: {const: DERIVED}
+        fixture: {const: false}
+        as_of_date: *day
+        period: *point
+        value: {enum: [0, 1, null]}
+        unit: {const: ratio}
+        confidence: {enum: [medium, unknown]}
+        formula_id: *text
+        formula_version: {const: 1}
+        dependencies: {type: array, minItems: 2, maxItems: 2, uniqueItems: true, items: *text}
+  identity_dependency:
+    type: object
+    additionalProperties: false
+    required: [file, dossier_id, dossier_fingerprint, records, sources]
+    properties:
+      file: {type: string, pattern: '^[a-zA-Z0-9_-]+\.yaml$'}
+      dossier_id: *text
+      dossier_fingerprint: *digest
+      records: {type: array, minItems: 2, maxItems: 2, items: {type: object}}
+      sources: {type: array, minItems: 2, maxItems: 2, items: {type: object}}
+  access_review:
+    type: object
+    additionalProperties: false
+    required: [status, investor_eligibility, jurisdiction_review, custody_review, account_trading_access, withdrawal_access]
+    properties:
+      status: {const: unverified}
+      investor_eligibility: {const: null}
+      jurisdiction_review: {const: null}
+      custody_review: {const: null}
+      account_trading_access: {const: null}
+      withdrawal_access: {const: null}
+  limitations: {type: array, minItems: 1, items: *text}
+definitions:
+  method:
+    type: object
+    additionalProperties: false
+    required: [id, version, archive_id, identity_dependency, captures, fields, formula, output_id]
+    properties:
+      id: {const: public-venue-review}
+      version: {const: 1}
+      archive_id: *text
+      identity_dependency:
+        type: object
+        additionalProperties: false
+        required: [file, dossier_id, dossier_fingerprint]
+        properties:
+          file: {type: string, pattern: '^[a-zA-Z0-9_-]+\.yaml$'}
+          dossier_id: *text
+          dossier_fingerprint: *digest
+      captures:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          type: object
+          additionalProperties: false
+          required: [asset, kind, url, source_id, source_version]
+          properties:
+            asset: {enum: [UNI, XLM]}
+            kind: {enum: [currency, product]}
+            network: *text
+            url: {type: string, pattern: '^https://api\.exchange\.coinbase\.com/(currencies/(UNI|XLM)|products/(UNI|XLM)-USD)$'}
+            source_id: *text
+            source_version: {type: integer, minimum: 1}
+            supersedes: *text
+          allOf:
+            - if: {properties: {kind: {const: currency}}}
+              then: {required: [network]}
+      fields:
+        type: object
+        additionalProperties: false
+        required: [currency, product]
+        properties:
+          currency: {const: [[id, text, 貨幣識別碼], [status, text, 貨幣狀態], [default_network, text, 預設網路], [network.status, text, 預設網路狀態], [network.contract_address, address, 回報合約地址]]}
+          product: {const: [[base_currency, text, 基礎貨幣], [quote_currency, text, 報價貨幣], [status, text, 產品狀態], [trading_disabled, flag, 交易停用旗標], [cancel_only, flag, 僅取消旗標], [limit_only, flag, 僅限價旗標], [post_only, flag, 僅掛單旗標], [auction_mode, flag, 拍賣模式旗標]]}
+      formula:
+        type: object
+        additionalProperties: false
+        required: [id, version, expression, unit, rationale]
+        properties:
+          id: {const: research.uni.coinbase_reported_contract_matches_identity}
+          version: {const: 1}
+          expression:
+            const:
+              op: casefold_evm_address_eq
+              args:
+                - {record_id: research.uni.coinbase.currency.network.contract_address@1-20261005, field: value}
+                - {record_id: UNI.identity@1-20261003, field: identifier.contract_address}
+          unit: {const: ratio}
+          rationale: *text
+      output_id: {const: research.uni.coinbase.contract_match@1-20261005}

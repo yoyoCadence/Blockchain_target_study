@@ -264,3 +264,24 @@ test('public venue event preserves provider flags and personal-access nulls with
  assert.match(card.textContent,/研究觀測保留 null／unknown/);assert.match(card.textContent,/不是個人交易／提款或全球可用性認證/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(v.count(),84);
 });
+
+test('public venue research renders exact typed raw values, original dates, address lineage and unknown access',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-records').children.find(c=>c.dataset.research==='uni-xlm-public-venue-20261005');
+ assert.match(card.textContent,/UNI／XLM 單一公開市場與網路表示/);assert.match(card.textContent,/false/);assert.match(card.textContent,/空字串（""）/);
+ assert.match(card.textContent,/供應者狀態生效時間未知/);assert.match(card.textContent,/0x1f9840a85d5af5bf1d1762f925bdaddc4201f984/);
+ assert.match(card.textContent,/2026-10-05T00:07:10\.660Z/);assert.match(card.textContent,/2026-10-05T00:07:12\.143Z/);assert.match(card.textContent,/2026-10-05T00:13:08\.875Z/);
+ assert.match(card.textContent,/research\.uni\.coinbase_reported_contract_matches_identity \/ v1/);assert.match(card.textContent,/UNI\.identity@1-20261003/);
+ for(const label of ['個人資格','地區資格','託管查證','帳戶交易權限','提款權限'])assert.ok(card.textContent.includes(label+'：未知'));
+ assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,6);
+ const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
+ assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
+});
+
+test('public venue derived null is shown as unknown instead of a healthy or matched flag',async()=>{
+ const data=structuredClone(productionResearch),r=data.records.find(r=>r.kind==='public_venue');r.summary.address_match.value=null;r.summary.address_match.confidence='unknown';
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(data);await tick();
+ const card=v.$('research-records').children.find(c=>c.dataset.research===r.id),derived=card.querySelectorAll('table')[1];
+ assert.match(derived.textContent,/未知/);assert.match(derived.textContent,/推導值（DERIVED）/);assert.equal(derived.textContent.includes('100%'),false);
+});

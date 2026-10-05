@@ -1,4 +1,4 @@
-version: 4
+version: 5
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -42,3 +42,9 @@ records:
     file: uni-token-state-2026-10-04-v1.json
     expected_id: 848a20c9897b408960887d8c6dce13d062310d0794a87a7ae8d673e2209a631d
     event_id: uni-token-state-20261004
+  - id: uni-xlm-public-venue-20261005
+    label: UNI／XLM 單一公開市場與網路表示
+    kind: public_venue
+    file: uni-xlm-public-venue-2026-10-05-v1.json
+    expected_id: 116eca762bb31dbbe9a30a26539e88df98a5a98503e6e489df7ae795e36ce03c
+    event_id: uni-xlm-public-venue-state-20261005

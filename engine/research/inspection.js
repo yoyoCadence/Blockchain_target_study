@@ -11,6 +11,7 @@ import {replayCapitalReview} from './capital.js';
 import {inspectReviewedEvents} from './event-evidence.js';
 import {reviewFixedBlock} from './fixed-block.js';
 import {reviewTokenState} from './token-state.js';
+import {reviewPublicVenue} from './public-venue.js';
 
 // Explicit local catalog only: no discovery, remote fetching, ingestion or writes.
 export function inspectResearch(project,{catalog}={}) {
@@ -31,11 +32,11 @@ export function inspectResearch(project,{catalog}={}) {
  const knownFormulas=new Map(project.registry.formulas.map(formula=>[versionKey(formula),fingerprint(formula)]));
  const knownAssumptions=new Map(project.inputs.filter(record=>record.classification==='ASSUMPTION').map(record=>[versionKey(record),fingerprint(record)]));
  for(const entry of catalog.records) {
-  const bytes=['fixed_block','token_state'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
+  const bytes=['fixed_block','token_state','public_venue'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
   const saved=bytes?JSON.parse(bytes):readYaml(`data/research/${entry.file}`,project.root);
   const actualId=bytes?createHash('sha256').update(bytes).digest('hex'):entry.kind==='identity'?fingerprint(saved):saved.id;
   assert(actualId===entry.expected_id,'Research catalog fingerprint mismatch');
-  let records,periods=[],sources,statement=null,comparability=null,review,as_of_date,capital=null,fixedBlock=null,formulas=[];
+  let records,periods=[],sources,statement=null,comparability=null,review,as_of_date,capital=null,fixedBlock=null,publicVenue=null,formulas=[];
   if(entry.kind==='identity') {
    const result=reviewIdentities(project,saved);
    records=result.identities;sources=saved.sources;review=saved.review;as_of_date=saved.as_of_date;
@@ -50,6 +51,20 @@ export function inspectResearch(project,{catalog}={}) {
    periods=[...new Map(records.map(r=>[fingerprint(r.period),r.period])).values()];
    ({sources,review,as_of_date}=saved);
    formulas=saved.formulas;
+  } else if(entry.kind==='public_venue') {
+   publicVenue=reviewPublicVenue(project,bytes,entry.expected_id);
+   const reviewedEvent=inspectReviewedEvents(project).find(e=>e.id===entry.event_id);
+   assert(reviewedEvent&&reviewedEvent.event.as_of_date===saved.as_of_date&&reviewedEvent.event.reason.includes(entry.expected_id)&&
+    publicVenue.method.source_ids.every(id=>reviewedEvent.event.source_ids.includes(id)), 'Public-venue catalog does not match reviewed event');
+   review=reviewedEvent.event.research_review;as_of_date=saved.as_of_date;
+   assert(saved.captures.every(c=>Date.parse(c.received_at)<=Date.parse(review.reviewed_at)),'Public-venue capture retrieved after review');
+   records=[...saved.observations,...saved.derived].map(o=>{
+    const value=publicVenue.summary.values.find(v=>v.id===o.id);
+    return {...o,metric_id:o.classification==='DERIVED'?o.formula_id:`${o.asset.toLowerCase()}.venue_evidence`,
+     label:value?`${value.asset}／${value.kind==='currency'?'貨幣與網路':'產品'} · ${value.label}`:'UNI 回報地址與原身份文字比較'};
+   });
+   periods=[{basis:'point',end:saved.as_of_date}];formulas=saved.formulas;
+   sources=publicVenue.method.source_ids.map(id=>project.sources.find(s=>s.id===id));
   } else if(['fixed_block','token_state'].includes(entry.kind)) {
    const tokenState=entry.kind==='token_state',inspect=tokenState?reviewTokenState:reviewFixedBlock;
    fixedBlock=inspect(project,bytes,entry.expected_id);
@@ -103,6 +118,8 @@ export function inspectResearch(project,{catalog}={}) {
   content.records.push({id:entry.id,label:entry.label,kind:entry.kind,artifact_id:actualId,
    as_of_date,review,records,periods,sources,statement,comparability,full_review:saved,
    ...(capital?{context:saved.context,summary:capital.summary,notice:capital.notice}:{}),
+   ...(publicVenue?{summary:publicVenue.summary,method:publicVenue.method,event_id:entry.event_id,
+    notice:'單一平台的公開回報；個人／地區／託管／交易／提款仍未驗證，不更新金融或投資性。'}:{}),
    ...(fixedBlock?{summary:fixedBlock.summary,method:fixedBlock.method,event_id:entry.event_id,
     notice:entry.kind==='token_state'?'固定區塊餘額／供給及 point 比較；唯讀查閱不更新金融、年度分配、市值／FDV 或論點。':'固定區塊原始值；唯讀查閱不更新金融、年度預算或論點。'}:{})});
  }
