@@ -1,0 +1,430 @@
+{
+  "id": "xlm-reported-supply-20261005-v1",
+  "version": 1,
+  "fixture": false,
+  "as_of_date": "2026-10-05",
+  "purpose": "官方回報供給與定義的單次研究；不補市值、FDV 或 fee-only DCF。",
+  "captures": [
+    {
+      "url": "https://dashboard.stellar.org/api/v2/lumens/",
+      "method": "GET",
+      "started_at": "2026-10-05T11:22:24.502Z",
+      "received_at": "2026-10-05T11:22:26.166Z",
+      "http_status": 200,
+      "http_date": "Mon, 05 Oct 2026 11:22:26 GMT",
+      "content_type": "application/json; charset=utf-8",
+      "body_sha256": "af89e0d5c20390d666920bf8690ccbecc8903e2a5277f4d3f5d6398900007a12",
+      "response_json": "{\n  \"updatedAt\": \"2026-10-05T11:14:19.137Z\",\n  \"originalSupply\": \"100000000000\",\n  \"inflationLumens\": \"5443902087.3472865\",\n  \"burnedLumens\": \"55442115247.6478151\",\n  \"totalSupply\": \"50001786839.6994714\",\n  \"upgradeReserve\": \"258885847.5135978\",\n  \"feePool\": \"10763671.0740601\",\n  \"sdfMandate\": \"14674425047.8957122\",\n  \"circulatingSupply\": \"35057712273.2161013\",\n  \"_details\": \"https://www.stellar.org/developers/guides/lumen-supply-metrics.html\"\n}"
+    },
+    {
+      "url": "https://developers.stellar.org/docs/learn/fundamentals/lumens",
+      "method": "GET",
+      "started_at": "2026-10-05T11:22:26.167Z",
+      "received_at": "2026-10-05T11:22:28.038Z",
+      "http_status": 200,
+      "http_date": "Mon, 05 Oct 2026 11:22:27 GMT",
+      "content_type": "text/html; charset=utf-8",
+      "body_sha256": "ada4427a234ab13b182bfca0c55317251e329aeb4c50ed8db3f6310f4c63a71a",
+      "last_updated_marker": null
+    }
+  ],
+  "sources": [
+    {
+      "id": "stellar-dashboard-supply-20261005-v1",
+      "version": 1,
+      "url": "https://dashboard.stellar.org/api/v2/lumens/",
+      "publisher": "Stellar Development Foundation",
+      "title": "官方 Dashboard 回報供給；單次回應與原 updatedAt",
+      "date": "2026-10-05",
+      "retrieved_at": "2026-10-05T11:22:26.166Z",
+      "tier": 2,
+      "covered_metrics": [
+        "research.xlm.supply.originalSupply",
+        "research.xlm.supply.inflationLumens",
+        "research.xlm.supply.burnedLumens",
+        "research.xlm.supply.totalSupply",
+        "research.xlm.supply.upgradeReserve",
+        "research.xlm.supply.feePool",
+        "research.xlm.supply.sdfMandate",
+        "research.xlm.supply.circulatingSupply",
+        "research.xlm.supply.updatedAt"
+      ],
+      "fixture": false
+    },
+    {
+      "id": "stellar-lumens-docs-20260928-v2",
+      "version": 2,
+      "supersedes": "stellar-lumens-docs-20260928-v1",
+      "url": "https://developers.stellar.org/docs/learn/fundamentals/lumens",
+      "publisher": "Stellar Development Foundation",
+      "title": "Lumens (XLM)；供給口徑，頁面最後更新 2026-09-28",
+      "date": "2026-09-28",
+      "retrieved_at": "2026-10-05T11:22:28.038Z",
+      "tier": 2,
+      "covered_metrics": [
+        "XLM.identity",
+        "research.xlm.supply.definition"
+      ],
+      "fixture": false
+    }
+  ],
+  "observations": [
+    {
+      "id": "research.xlm.supply.originalSupply@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.originalSupply",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "originalSupply",
+      "value": "100000000000",
+      "raw_value": "100000000000",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.inflationLumens@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.inflationLumens",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "inflationLumens",
+      "value": "5443902087.3472865",
+      "raw_value": "5443902087.3472865",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.burnedLumens@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.burnedLumens",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "burnedLumens",
+      "value": "55442115247.6478151",
+      "raw_value": "55442115247.6478151",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.totalSupply@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.totalSupply",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "totalSupply",
+      "value": "50001786839.6994714",
+      "raw_value": "50001786839.6994714",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.upgradeReserve@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.upgradeReserve",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "upgradeReserve",
+      "value": "258885847.5135978",
+      "raw_value": "258885847.5135978",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.feePool@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.feePool",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "feePool",
+      "value": "10763671.0740601",
+      "raw_value": "10763671.0740601",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.sdfMandate@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.sdfMandate",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "sdfMandate",
+      "value": "14674425047.8957122",
+      "raw_value": "14674425047.8957122",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.circulatingSupply@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.circulatingSupply",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "circulatingSupply",
+      "value": "35057712273.2161013",
+      "raw_value": "35057712273.2161013",
+      "unit": "XLM",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    },
+    {
+      "id": "research.xlm.supply.updatedAt@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.updatedAt",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "field": "updatedAt",
+      "value": "2026-10-05T11:14:19.137Z",
+      "raw_value": "2026-10-05T11:14:19.137Z",
+      "unit": "UTC instant",
+      "confidence": "medium",
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "stellar-dashboard-supply-20261005-v1"
+      ],
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "response_received_at": "2026-10-05T11:22:26.166Z",
+      "measurement_basis": "provider_reported"
+    }
+  ],
+  "formulas": [
+    {
+      "id": "research.xlm.supply.total_residual",
+      "version": 1,
+      "unit": "XLM",
+      "decimals": 7,
+      "expression": {
+        "op": "signed_decimal_sum",
+        "args": [
+          {
+            "record_id": "research.xlm.supply.originalSupply@1-20261005",
+            "sign": 1
+          },
+          {
+            "record_id": "research.xlm.supply.inflationLumens@1-20261005",
+            "sign": 1
+          },
+          {
+            "record_id": "research.xlm.supply.burnedLumens@1-20261005",
+            "sign": -1
+          },
+          {
+            "record_id": "research.xlm.supply.totalSupply@1-20261005",
+            "sign": -1
+          }
+        ]
+      },
+      "method_source_ids": [
+        "stellar-lumens-docs-20260928-v2"
+      ],
+      "rationale": "按官方口徑核對原始加歷史 inflation、扣 inaccessible burned 與回報 total 的精確小數殘差；不獨立驗證帳戶或鏈上狀態。"
+    },
+    {
+      "id": "research.xlm.supply.circulating_residual",
+      "version": 1,
+      "unit": "XLM",
+      "decimals": 7,
+      "expression": {
+        "op": "signed_decimal_sum",
+        "args": [
+          {
+            "record_id": "research.xlm.supply.totalSupply@1-20261005",
+            "sign": 1
+          },
+          {
+            "record_id": "research.xlm.supply.upgradeReserve@1-20261005",
+            "sign": -1
+          },
+          {
+            "record_id": "research.xlm.supply.feePool@1-20261005",
+            "sign": -1
+          },
+          {
+            "record_id": "research.xlm.supply.sdfMandate@1-20261005",
+            "sign": -1
+          },
+          {
+            "record_id": "research.xlm.supply.circulatingSupply@1-20261005",
+            "sign": -1
+          }
+        ]
+      },
+      "method_source_ids": [
+        "stellar-lumens-docs-20260928-v2"
+      ],
+      "rationale": "核對供應者的剩餘分類口徑；其流通概念不等於獨立驗證自由流通、流動性或可交易資格。"
+    }
+  ],
+  "derived": [
+    {
+      "id": "research.xlm.supply.total_residual@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.total_residual",
+      "classification": "DERIVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "value": "0.0000000",
+      "unit": "XLM",
+      "confidence": "medium",
+      "formula_id": "research.xlm.supply.total_residual",
+      "formula_version": 1,
+      "dependencies": [
+        "research.xlm.supply.originalSupply@1-20261005",
+        "research.xlm.supply.inflationLumens@1-20261005",
+        "research.xlm.supply.burnedLumens@1-20261005",
+        "research.xlm.supply.totalSupply@1-20261005"
+      ]
+    },
+    {
+      "id": "research.xlm.supply.circulating_residual@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "metric_id": "research.xlm.supply.circulating_residual",
+      "classification": "DERIVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "observed_at": "2026-10-05T11:14:19.137Z",
+      "value": "0.0000000",
+      "unit": "XLM",
+      "confidence": "medium",
+      "formula_id": "research.xlm.supply.circulating_residual",
+      "formula_version": 1,
+      "dependencies": [
+        "research.xlm.supply.totalSupply@1-20261005",
+        "research.xlm.supply.upgradeReserve@1-20261005",
+        "research.xlm.supply.feePool@1-20261005",
+        "research.xlm.supply.sdfMandate@1-20261005",
+        "research.xlm.supply.circulatingSupply@1-20261005"
+      ]
+    }
+  ],
+  "context": {
+    "provider_updated_at": "2026-10-05T11:14:19.137Z",
+    "received_at": "2026-10-05T11:22:26.166Z",
+    "document_last_updated_date": "2026-09-28",
+    "document_date_basis": "人工閱讀官方頁面 Last updated 日期；HTTP 文件只保存 SHA-256，未保存或重播完整正文。",
+    "circulating_supply_basis": "供應者以總供給扣除 SDF mandate、upgrade reserve、fee pool 後的餘額作為流通口徑；不代表逐地址自由流通、個人可達性或實際交易流動性。",
+    "ledger_sequence": null,
+    "ledger_hash": null,
+    "component_account_balances": null,
+    "independently_verified_circulating_supply": null,
+    "fully_diluted_supply": null,
+    "synchronized_market_cap": null,
+    "synchronized_fdv": null
+  },
+  "limitations": [
+    "九個 OBSERVED 僅觀測 API 回報；保留原更新與收到時間，不把擷取時間當作鏈上同步時點。",
+    "原始、歷史 inflation、inaccessible burned、total 與供應者 circulating 口徑分開；Horizon total_coins 的歷史累積口徑不能直接替代扣除後的供給。",
+    "兩個 DERIVED 零殘差只支持同回應內算術一致；没有獨立核對 ledger、各 SDF 帳戶、地址控制權或自由流通。",
+    "前一天 Coinbase 成交與本次供給時點不同，不計同步市值／FDV、合理價值或費用 DCF；個人資格與完整 baseline 保留。"
+  ]
+}

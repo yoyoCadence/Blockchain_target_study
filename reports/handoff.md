@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-05（台北）— 接手 XLM 官方回報供給
+
+遠端 PR #59 已合併，PR／main CI 成功，無 review／待處理 thread；main `8e9cceb`。接手時已在 `research/xlm-reported-supply`，只有 XLM JSON／YAML 兩個 untracked 檔。已讀本地／全域 AGENTS.md、task 與交接，沿用既有中文非 Draft PR／成功 CI 後合併授權，保持增量研究範圍。
+
+原 archive SHA-256 `790c9763…` 保留，Git 固定 LF；九個供應者回報 OBSERVED 的精確字串／point／更新及取得時間分開，兩個 signed_decimal_sum v1／七位小數 BigInt 重播為零殘差。官方日期／定義再次人工核對；正文原 capture 只有 hash，不能離線重播。ledger／各帳戶／獨立流通／完全稀釋供給與同步市值／FDV 均未知，不以昨日價拼估值，也不從算術相符推健康。
+
+事件 `xlm-reported-supply-20261005` 已套用一次，完整快照 `8bd9f75a…`／parent `f69c8c2d…`，不可重跑。只追加兩來源，文件 v2／supersedes 保留原 v1 身份／價格依賴；changes=[]、source_change=true，金融／公式／假設／情境／圖譜／論點原值重播，unknown 80、三項 TTM null、UNI stale 年率、Fixture 0.422 不變。正式十六份歷史仍兩個模型截止日，最新 10 月 4 日。九份 catalog 保留，新供給僅由已審查事件中文摘要／JSON／來源可查。
+
+五項新增／全套 770、兩模式 validate 通過。Chrome CSS 1536×684／312×675、Enter 事件／JSON、兩來源安全連結、窄無溢出、Fixture 0／0→正式 9／16、console 無 warn／error 通過；尺寸還原、已核對服務 PID 39444 並停止。沙盒端口不可見導致第二次隱藏啟動 EADDRINUSE，原 server 身份已由獲准 CIM 確認，未停止其他程序。見[研究與驗收](xlm-reported-supply.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項完成供給資料包的共用手動唯讀 reader／schema／方法 v1，以 production／原 digest 核對 HTTP body hash、精確小數、更新／取得／來源 chronology、原來源版本、嵌入殘差公式及依賴；matching digest 仍應拒絕錯配。再接既有 catalog／API／時效與逐列查閱，不重新採集／改原 bytes 或再次套用事件。完整 baseline 的 UNI capture／分配／部署等價、SECZ 六收入／可比 TTM、同步估值及個人資格仍未完成，不啟動 unattended 或新模型。
+
 ## 2026-10-05（台北）— 公開市場資料包驗證與逐列中文查閱
 
 PR #58 push／PR／main CI 全部成功，乾淨 main `bd4ed48`，原 archive SHA-256 `116eca76…` Windows checkout 保留；建立 `feat/public-venue-research-review`。共用 reader／CLI 明示 production／digest，schema／方法 v1 核對四 HTTP／26 typed 欄位／來源版本與原身份依賴，地址比較保持受限 v1；offline／true／缺少地址 null 可重播，不提升資格、不連 API 或寫入。

@@ -76,7 +76,9 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共九份 review／十五筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共九份 review／十六筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+
+已保存 [XLM 官方回報供給與口徑](reports/xlm-reported-supply.md)：九個回報觀測及兩個精確小數研究殘差，更新／取得時間分開，中文已審查事件可查看原 hash／來源／限制。算術一致不證明獨立鏈上供給，昨日價格不能與本次供給拼成同步市值／FDV；共用供給 reader／catalog 及完整 baseline 保留。
 
 同一區塊的[owner 餘額與 totalSupply](reports/uni-token-state.md)另存四個 OBSERVED raw 值、原 owner getter 依賴及 BigInt 比較 v1。可使用[手動唯讀驗證](reports/manual-token-state-review.md)核對原始呼叫與比較結果：
 

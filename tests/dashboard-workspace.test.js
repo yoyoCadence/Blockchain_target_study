@@ -285,3 +285,16 @@ test('public venue derived null is shown as unknown instead of a healthy or matc
  const card=v.$('research-records').children.find(c=>c.dataset.research===r.id),derived=card.querySelectorAll('table')[1];
  assert.match(derived.textContent,/未知/);assert.match(derived.textContent,/推導值（DERIVED）/);assert.equal(derived.textContent.includes('100%'),false);
 });
+
+test('XLM supply event shows exact reported decimals and separate timestamps without adding valuation or research records',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='xlm-reported-supply-20261005');
+ assert.match(card.textContent,/XLM 官方回報供給與口徑 · 市場資料查證/);
+ assert.match(card.textContent,/50001786839\.6994714 XLM/);assert.match(card.textContent,/35057712273\.2161013 XLM/);
+ assert.match(card.textContent,/2026-10-05T11:14:19\.137Z/);assert.match(card.textContent,/2026-10-05T11:22:26\.166Z/);
+ assert.match(card.textContent,/零殘差不證明真實供給或健康論點/);assert.match(card.textContent,/前一天價格不能配成本次同步市值／FDV/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
+ assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),84);
+ assert.equal(productionResearch.records.length,9);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
+ v.change('fixture');assert.equal(v.$('research-events').children.length,0);
+});
