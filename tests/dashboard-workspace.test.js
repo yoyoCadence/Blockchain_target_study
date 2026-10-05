@@ -256,3 +256,11 @@ test('token-state research renders exact OBSERVED integers separately from DERIV
  assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,2);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
+
+test('public venue event preserves provider flags and personal-access nulls without updating price or financial inputs',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-xlm-public-venue-state-20261005');
+ assert.match(card.textContent,/UNI／XLM 公開市場與網路表示/);assert.match(card.textContent,/trading_disabled／cancel_only／limit_only／post_only／auction_mode 都為 false/);
+ assert.match(card.textContent,/研究觀測保留 null／unknown/);assert.match(card.textContent,/不是個人交易／提款或全球可用性認證/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(v.count(),84);
+});

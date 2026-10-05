@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-05（台北）— UNI／XLM 單一公開市場與網路表示
+
+PR #57 push／PR／main CI 全部成功，乾淨 main `2703d04`；建立 `research/uni-xlm-public-venue-state`。依未指定個人地區的公開全球資訊範圍，四次 Coinbase currency／product GET 保存原回應及各自 UTC 取得時間。26 OBSERVED／原身份兩依賴／研究地址 casefold 比較 v1／DERIVED 1，XLM 合約空字串保留 raw／null，不據此推原生身份。平台 online／flags 只限公開表示，個人／地區／託管／提款與 SECZ venue 未驗證。
+
+原 archive SHA-256 `116eca76…`／LF，事件已套用為 `f69c8c2d…`／parent `e108e8eb…`，不可重跑。六來源追加，產品 v2 明示 supersedes 昨日 v1，原價格血緣保留；金融 changes=[]／unknown 80／TTM null／年率 stale／0.422／投資性／模型截止日不改，正式十五快照仍兩個 model 端點。四新增／全套 700、兩模式 validate 通過，來源一致性 age 測試同步隔離樣本的 canonical／研究來源，防線保留。Chrome 重連後 CSS 1536×729／312×675、Enter 卡片／JSON、六安全來源、窄無溢出、Fixture 0／0→正式 8／15；console／stderr 空，尺寸還原、服務 PID 1784 已核對並停止。見[研究與驗收](uni-xlm-public-venue.md)，本 PR／CI 最終狀態以遠端為準。
+
+下一項將原資料包加入共用手動唯讀語意驗證／研究目錄，核對完整 HTTP／來源／typed record／原身份／受限公式，保留 null access、個別時間與 point 範圍，再供既有 API／中文精確查閱。不要重採 API、重寫原來源／review 或將 online 推個人投資性。同步估值／全年 capture／SECZ 六收入與可比 TTM／完整 baseline 保留。
+
 ## 2026-10-05（台北）— UNI 餘額／供給目錄、API 與中文精確查閱
 
 PR #56 push／PR／main CI 全部成功，main `ce1359b`；從乾淨 main 建立 `feat/token-state-research-inspection`。目錄 v4 以原 `848a20c9…` exact bytes／原已存 event 綁定 token-state reader，原觀測／DERIVED ID 和 v1／兩 dependencies 保留，使用原 review／來源版本，不另加來源、事件、金融更新或模型期間。

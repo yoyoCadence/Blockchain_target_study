@@ -60,13 +60,15 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 - **DERIVED**：25 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
 
-最新研究參考日為 2026-10-04；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。最近的數值更新是 UNI 單筆價格與名目年率折算負擔；其來源／公式變更分開呈現，假設／情境未改。最新季度提領查證只增加來源，沒有數值變動；舊快照保留原日期、數值與 v1 公式。五條 UNI 公式升至 v2，將折算明示為 model 並傳遞報價日，已知跨期收入／市值仍拒絕。原未套用候選保留當時研究，現在已有同 ID 的觀測，不能再次直接 apply；新的研究需新 ID／版本及重新 preview。
+最新金融模型參考日為 2026-10-04；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。最近的數值更新是 UNI 單筆價格與名目年率折算負擔；其來源／公式變更分開呈現，假設／情境未改。最新季度提領查證只增加來源，沒有數值變動；舊快照保留原日期、數值與 v1 公式。五條 UNI 公式升至 v2，將折算明示為 model 並傳遞報價日，已知跨期收入／市值仍拒絕。原未套用候選保留當時研究，現在已有同 ID 的觀測，不能再次直接 apply；新的研究需新 ID／版本及重新 preview。
+
+已另存 [UNI／XLM 單一公開市場與網路表示](reports/uni-xlm-public-venue.md)：UTC 2026-10-05 四份公開 currency／product 回應、26 個 typed 觀測與原身份地址比較 v1；XLM 空合約 raw 保留為 null，個人／地區／託管／提款未驗證。只追加來源與事件，不刷新前一天價格或提升投資性。
 
 UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保存為來源事件與快照，財務數值仍不變；實際 fee 收入、UNI burn 與現況查證仍待完成。
 已另存[單筆 Firepit 執行證據](reports/uni-firepit-release.md)：2025-12-29 同一 receipt 的 UNI dead-address payment 與 TokenJar 資產交換。未完成 fee-origin／全期間收入與 burn 查證，沒有年度數值 ingest。
 已另存[單筆 v2 LP 費用份額歸集](reports/uni-v2-fee-accrual.md)：2026-10-04 原始 Factory 建池事件與 TokenJar LP 鑄造流入相符。保留 raw 整數與源碼推論界線；LP／caller 贖回不是 UNI burn 或年度收入，金融輸入仍未知。
 
-已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十四筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
+已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十五筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
 
 已另存 [UNI 單筆季度提領](reports/uni-vesting-execution.md)：2026-10-01 成功 receipt 的三 logs，及 10 月 4 日稍後公開 getter 回應。保留 raw 整數、未固定區塊／時間的 null 與 Similar Match 限制；原金融輸入與預算時效不變，單筆提領不當作年度分配或實際下游支出。
 
@@ -74,7 +76,7 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共八份 review／十四筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共八份 review／十五筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
 
 同一區塊的[owner 餘額與 totalSupply](reports/uni-token-state.md)另存四個 OBSERVED raw 值、原 owner getter 依賴及 BigInt 比較 v1。可使用[手動唯讀驗證](reports/manual-token-state-review.md)核對原始呼叫與比較結果：
 
