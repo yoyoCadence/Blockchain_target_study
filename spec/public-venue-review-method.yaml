@@ -1,0 +1,39 @@
+id: public-venue-review
+version: 1
+archive_id: uni-xlm-public-venue-evidence-20261005-v1
+identity_dependency:
+  file: core-identifiers-2026-10-03.yaml
+  dossier_id: core-identifiers-20261003-v1
+  dossier_fingerprint: 831b5b62e0267836a84e5948739f367253b910139134e519282248612988c49c
+captures:
+  - {asset: UNI, kind: currency, network: ethereum, url: 'https://api.exchange.coinbase.com/currencies/UNI', source_id: coinbase-uni-currency-20261005-v1, source_version: 1}
+  - {asset: XLM, kind: currency, network: stellar, url: 'https://api.exchange.coinbase.com/currencies/XLM', source_id: coinbase-xlm-currency-20261005-v1, source_version: 1}
+  - {asset: UNI, kind: product, url: 'https://api.exchange.coinbase.com/products/UNI-USD', source_id: coinbase-uni-product-20261005-v2, source_version: 2, supersedes: coinbase-uni-product-20261004-v1}
+  - {asset: XLM, kind: product, url: 'https://api.exchange.coinbase.com/products/XLM-USD', source_id: coinbase-xlm-product-20261005-v2, source_version: 2, supersedes: coinbase-xlm-product-20261004-v1}
+fields:
+  currency:
+    - [id, text, 貨幣識別碼]
+    - [status, text, 貨幣狀態]
+    - [default_network, text, 預設網路]
+    - [network.status, text, 預設網路狀態]
+    - [network.contract_address, address, 回報合約地址]
+  product:
+    - [base_currency, text, 基礎貨幣]
+    - [quote_currency, text, 報價貨幣]
+    - [status, text, 產品狀態]
+    - [trading_disabled, flag, 交易停用旗標]
+    - [cancel_only, flag, 僅取消旗標]
+    - [limit_only, flag, 僅限價旗標]
+    - [post_only, flag, 僅掛單旗標]
+    - [auction_mode, flag, 拍賣模式旗標]
+formula:
+  id: research.uni.coinbase_reported_contract_matches_identity
+  version: 1
+  expression:
+    op: casefold_evm_address_eq
+    args:
+      - {record_id: research.uni.coinbase.currency.network.contract_address@1-20261005, field: value}
+      - {record_id: UNI.identity@1-20261003, field: identifier.contract_address}
+  unit: ratio
+  rationale: 只比較本次 API 回報的兩個合法 EVM 地址文字，不證明平台實際持倉、鏈上狀態、帳戶提款或個人資格。
+output_id: research.uni.coinbase.contract_match@1-20261005

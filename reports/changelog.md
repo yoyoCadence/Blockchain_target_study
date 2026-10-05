@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-05（台北）— 公開市場資料包驗證、API 與中文逐列查閱
+
+新增 public-venue-review／共用 reader、schema／方法 v1；核對原 HTTP／typed 值／來源／身份 fingerprint 與受限地址公式，保留 null 存取。目錄 v5 綁原 bytes／已存 review，供既有研究／手動時效 API 及中文原值／推導分表，九研究／185 紀錄／28 來源；65 新增／全套 765、兩模式 validate、桌面／窄／鍵盤／Fixture／兩 cutoff 審查列通過。見[操作與驗收](public-venue-research-review.md)。原資料、來源／金融／歷史／unknown 80 不變，沒有 API 重採或投資性提升。
+
 ## 2026-10-05（台北）— UNI／XLM 單一公開市場與網路表示
 
 保存四次公開 currency／product 回應與各自 HTTP／取得時間、26 typed OBSERVED、XLM 空合約 raw／null，以及原身份依賴與研究地址比較 v1／DERIVED。追加六來源與 source-only 全快照；產品 v2 明示 supersedes，原價格／金融／投資性與模型期間不變。四新增／全套 700、兩模式 validate、桌面／窄鍵盤／JSON／六安全連結與 Fixture 隔離通過；見[查證與限制](uni-xlm-public-venue.md)。unknown 80／TTM null／原年率 stale 保留。

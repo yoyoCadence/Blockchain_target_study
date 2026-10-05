@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-05（台北）— 公開市場資料包驗證與逐列中文查閱
+
+PR #58 push／PR／main CI 全部成功，乾淨 main `bd4ed48`，原 archive SHA-256 `116eca76…` Windows checkout 保留；建立 `feat/public-venue-research-review`。共用 reader／CLI 明示 production／digest，schema／方法 v1 核對四 HTTP／26 typed 欄位／來源版本與原身份依賴，地址比較保持受限 v1；offline／true／缺少地址 null 可重播，不提升資格、不連 API 或寫入。
+
+目錄 v5 綁定原 event／hash／review，API／手動時效與中文兩表格顯示原 26 OBSERVED／一 DERIVED／確切兩依賴／五項存取 null，舊截止日不可用／原 null 與 DERIVED 證據不足；九研究／185 紀錄／28 來源，十五事件不追加。65 新增／全套 765、兩模式 validate 通過；金融／原資料／來源／歷史、unknown 80／三項 TTM null／UNI stale 年率／0.422 不變。Chrome CSS 1536×729／312×675，兩表格各 ArrowRight 0→32、Enter／JSON／六安全連結、Fixture 0／0→9／15、兩 cutoff 審查列通過。當日驗收重連後補驗成功；console／stderr 空，尺寸還原，兩服務 PID 26228／22668 已核對停止。見[操作與驗收](public-venue-research-review.md)；本 PR／CI 最終狀態以遠端為準。
+
+接續回到外部 baseline：XLM 官方日期與供給定義／UNI 完整分配與部署等價／SECZ 六收入及可比 TTM。不要將公開 online 或地址相符當成個人／託管／提款資格；不從不同時點供給與原價推同步市值／FDV。所有原 null 與衝突保留，不啟動 unattended／排程或新模型。
+
 ## 2026-10-05（台北）— UNI／XLM 單一公開市場與網路表示
 
 PR #57 push／PR／main CI 全部成功，乾淨 main `2703d04`；建立 `research/uni-xlm-public-venue-state`。依未指定個人地區的公開全球資訊範圍，四次 Coinbase currency／product GET 保存原回應及各自 UTC 取得時間。26 OBSERVED／原身份兩依賴／研究地址 casefold 比較 v1／DERIVED 1，XLM 合約空字串保留 raw／null，不據此推原生身份。平台 online／flags 只限公開表示，個人／地區／託管／提款與 SECZ venue 未驗證。

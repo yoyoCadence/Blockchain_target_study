@@ -100,6 +100,27 @@ function renderResearch(data) {
  $('research-records').replaceChildren(...data.records.map(report=>{
   const card=el('details',undefined,'research-card');card.dataset.research=report.id;
   card.append(el('summary',term(report.id)),el('p',`知識日 ${report.as_of_date} · 審查者（原文）${report.review.reviewer} · 審查時間 ${report.review.reviewed_at}`,'hint'));
+  if(report.kind==='public_venue') {
+   const summary=report.summary,typed=value=>value===null?'未知':String(value),raw=value=>value===''?'空字串（""）':String(value);
+   const values=freshnessTable(['資產／端點','觀測欄位','研究值','原回應值','單位','分類／可信程度','取得時間（UTC）'],summary.values.map(v=>[
+    `${v.asset}／${v.kind==='currency'?'貨幣與網路':'產品'}`,v.label,typed(v.value),raw(v.raw_value),term(v.unit),`${term(v.classification)}／${term(v.confidence)}`,v.received_at
+   ]));values.tabIndex=0;values.setAttribute('aria-label','公開市場原始欄位表格，可左右捲動');
+   const comparison=summary.address_match;
+   const derived=freshnessTable(['研究推導','結果（旗標）','分類／可信程度','公式版本'],[
+    ['UNI 回報地址與原身份文字比較',typed(comparison.value),`${term(comparison.classification)}／${term(comparison.confidence)}`,`${comparison.formula_id} / v${comparison.formula_version}`]
+   ]);derived.tabIndex=0;derived.setAttribute('aria-label','公開市場地址比較表格，可左右捲動');
+   card.append(el('p',report.notice,'hint'),el('p','各回應取得時間不同；供應者狀態生效時間未知。單點日期不代表報價或同步估值時間。','hint'),
+    el('p','表格可左右捲動；false 保留 boolean 原值，空合約欄位的研究值保持未知。','hint'),values,
+    el('h3','研究地址比較'),derived,el('p',`推導依賴：${comparison.dependencies.join(' · ')}`,'event-evidence'));
+   for(const identity of summary.identity_dependencies)card.append(el('p',`原身份依賴 ${identity.id} · ${identity.classification} · 知識日 ${identity.as_of_date} · ${identity.identifier.kind}`,'event-evidence'));
+   card.append(el('h3','尚未查證的存取權限'));
+   const access=el('ul');for(const [field,label] of [['investor_eligibility','個人資格'],['jurisdiction_review','地區資格'],['custody_review','託管查證'],['account_trading_access','帳戶交易權限'],['withdrawal_access','提款權限']])
+    access.append(el('li',`${label}：${typed(summary.access_review[field])}`));card.append(access);
+   const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
+   const full=el('details');full.append(el('summary','原始 HTTP 回應、身份依賴與查證限制'),
+    el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
+   card.append(researchSources(report.sources),full);return card;
+  }
   if(report.kind==='fixed_block'||report.kind==='token_state') {
    const summary=report.summary,tokenState=report.kind==='token_state';
    const headers=['觀測項目','原始值（完整字串）',...(tokenState?['單位']:[]),'ABI 型別','分類','可信程度'];
