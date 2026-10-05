@@ -13,11 +13,11 @@ properties:
       properties:
         id: {type: string, minLength: 1}
         label: {type: string, minLength: 1}
-        kind: {enum: [identity, revenue, revenue_ttm, capital, fixed_block]}
+        kind: {enum: [identity, revenue, revenue_ttm, capital, fixed_block, token_state]}
         file: {type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9/_-]*\.(yaml|json)$'}
         expected_id: {type: string, pattern: '^[a-f0-9]{64}$'}
         event_id: {type: string, pattern: '^[a-zA-Z0-9_-]+$'}
       allOf:
-        - if: {properties: {kind: {const: fixed_block}}}
+        - if: {properties: {kind: {enum: [fixed_block, token_state]}}}
           then: {required: [event_id]}
           else: {not: {required: [event_id]}}

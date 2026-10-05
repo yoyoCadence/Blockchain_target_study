@@ -10,6 +10,7 @@ import {reviewRevenueTtm,verifyRevenueTtm} from './revenue-ttm.js';
 import {replayCapitalReview} from './capital.js';
 import {inspectReviewedEvents} from './event-evidence.js';
 import {reviewFixedBlock} from './fixed-block.js';
+import {reviewTokenState} from './token-state.js';
 
 // Explicit local catalog only: no discovery, remote fetching, ingestion or writes.
 export function inspectResearch(project,{catalog}={}) {
@@ -30,7 +31,7 @@ export function inspectResearch(project,{catalog}={}) {
  const knownFormulas=new Map(project.registry.formulas.map(formula=>[versionKey(formula),fingerprint(formula)]));
  const knownAssumptions=new Map(project.inputs.filter(record=>record.classification==='ASSUMPTION').map(record=>[versionKey(record),fingerprint(record)]));
  for(const entry of catalog.records) {
-  const bytes=entry.kind==='fixed_block'?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
+  const bytes=['fixed_block','token_state'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
   const saved=bytes?JSON.parse(bytes):readYaml(`data/research/${entry.file}`,project.root);
   const actualId=bytes?createHash('sha256').update(bytes).digest('hex'):entry.kind==='identity'?fingerprint(saved):saved.id;
   assert(actualId===entry.expected_id,'Research catalog fingerprint mismatch');
@@ -49,17 +50,24 @@ export function inspectResearch(project,{catalog}={}) {
    periods=[...new Map(records.map(r=>[fingerprint(r.period),r.period])).values()];
    ({sources,review,as_of_date}=saved);
    formulas=saved.formulas;
-  } else if(entry.kind==='fixed_block') {
-   fixedBlock=reviewFixedBlock(project,bytes,entry.expected_id);
+  } else if(['fixed_block','token_state'].includes(entry.kind)) {
+   const tokenState=entry.kind==='token_state',inspect=tokenState?reviewTokenState:reviewFixedBlock;
+   fixedBlock=inspect(project,bytes,entry.expected_id);
+   const originalSourceIds=tokenState?saved.anchor.source_ids:saved.source_ids;
    const reviewedEvent=inspectReviewedEvents(project).find(e=>e.id===entry.event_id);
    assert(reviewedEvent&&reviewedEvent.event.as_of_date===saved.anchor.as_of_date&&
-    reviewedEvent.event.reason.includes(entry.expected_id)&&saved.source_ids.every(id=>reviewedEvent.event.source_ids.includes(id)),
+    reviewedEvent.event.reason.includes(entry.expected_id)&&originalSourceIds.every(id=>reviewedEvent.event.source_ids.includes(id)),
     'Fixed-block catalog does not match reviewed event');
    review=reviewedEvent.event.research_review;as_of_date=saved.anchor.as_of_date;
    periods=[{basis:'point',end:saved.anchor.effective_at.slice(0,10)}];
-   records=saved.observations.map(o=>({...o,id:`${saved.id}:${o.id}`,asset:'UNI',metric_id:`research.uni.vesting.${o.id}`,
+   if(tokenState) {
+    records=[...saved.observations,...saved.derived].map(o=>({...o,asset:'UNI',
+     metric_id:o.classification==='DERIVED'?o.formula_id:`research.uni.token-state.${fixedBlock.summary.values.find(v=>v.id===o.id).key}`,
+     label:o.classification==='DERIVED'?'餘額與剩餘授權比較旗標':fixedBlock.summary.values.find(v=>v.id===o.id).label}));
+    formulas=saved.formulas;
+   } else records=saved.observations.map(o=>({...o,id:`${saved.id}:${o.id}`,asset:'UNI',metric_id:`research.uni.vesting.${o.id}`,
     label:fixedBlock.summary.values.find(v=>v.id===o.id).label,unit:o.abi_type,confidence:saved.confidence,period:periods[0],observed_at:saved.anchor.effective_at}));
-   const sourceIds=[...new Set([...saved.source_ids,...fixedBlock.method.source_ids])];
+   const sourceIds=[...new Set([...originalSourceIds,...fixedBlock.method.source_ids])];
    sources=sourceIds.map(id=>project.sources.find(s=>s.id===id));
   } else {
    verifyRevenueTtm(saved);
@@ -96,7 +104,7 @@ export function inspectResearch(project,{catalog}={}) {
    as_of_date,review,records,periods,sources,statement,comparability,full_review:saved,
    ...(capital?{context:saved.context,summary:capital.summary,notice:capital.notice}:{}),
    ...(fixedBlock?{summary:fixedBlock.summary,method:fixedBlock.method,event_id:entry.event_id,
-    notice:'固定區塊原始值；唯讀查閱不更新金融、年度預算或論點。'}:{})});
+    notice:entry.kind==='token_state'?'固定區塊餘額／供給及 point 比較；唯讀查閱不更新金融、年度分配、市值／FDV 或論點。':'固定區塊原始值；唯讀查閱不更新金融、年度預算或論點。'}:{})});
  }
  content.events=inspectReviewedEvents(project);
  return structuredClone(content);

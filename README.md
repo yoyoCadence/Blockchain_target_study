@@ -74,7 +74,7 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共七份 review／十四筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共八份 review／十四筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
 
 同一區塊的[owner 餘額與 totalSupply](reports/uni-token-state.md)另存四個 OBSERVED raw 值、原 owner getter 依賴及 BigInt 比較 v1。可使用[手動唯讀驗證](reports/manual-token-state-review.md)核對原始呼叫與比較結果：
 
@@ -83,6 +83,8 @@ node cli.js token-state-review data/research/uni-token-state-2026-10-04-v1.json 
 ```
 
 餘額不少於 allowance 只限該時點；totalSupply 尚不足以確認流通／完全稀釋分母。原價格時點不同，市值／FDV 與全年實際分配仍未知。
+
+研究頁也提供[餘額／供給中文表格](reports/token-state-research-inspection.md)：四個 raw 觀測與獨立推導結果分開，完整公式 v1／依賴與三種原時間保留；兩張窄表格可用方向鍵橫向捲動。原已存事件的審查時間不會因查閱或手動時效查詢而更新。
 
 UNI／SECZ／XLM 的[一手來源身份資料包](reports/core-identifiers.md)已獨立查證合約、上市母公司與原生幣身份；asset registry 的投資性仍未提升，身份資料不參與財務計算。檢查命令：
 
