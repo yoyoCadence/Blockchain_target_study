@@ -72,7 +72,11 @@ for(const [days,state] of [[51,'WITHIN_REVIEW_WINDOW'],[50,'STALE_FOR_CURRENT_US
 
 test('old retrieval independently requires recheck without renewing identity observation',t=>{
  const d=identity();d.sources[0].retrieved_at='2026-08-01T12:00:00Z';
- const {project,catalog}=temporaryCatalog(t,[d]),research=researchFreshness(project,{catalog,as_of_date:cutoff}).research;
+ const {project,catalog}=temporaryCatalog(t,[d]);
+ // The identity source is also canonical history now; an isolated age test
+ // must use the same source metadata on both sides of the ID consistency guard.
+ project.sources=project.sources.map(s=>s.id===d.sources[0].id?structuredClone(d.sources[0]):s);
+ const research=researchFreshness(project,{catalog,as_of_date:cutoff}).research;
  const row=research.records.find(r=>r.metric_id==='UNI.identity');
  assert.equal(row.observation_age_days,0);assert.equal(row.observation_state,'WITHIN_REVIEW_WINDOW');assert.equal(row.evidence_state,'RECHECK_DUE');
  assert.equal(row.record.as_of_date,cutoff);

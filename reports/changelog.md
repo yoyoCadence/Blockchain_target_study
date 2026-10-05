@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-05（台北）— UNI／XLM 單一公開市場與網路表示
+
+保存四次公開 currency／product 回應與各自 HTTP／取得時間、26 typed OBSERVED、XLM 空合約 raw／null，以及原身份依賴與研究地址比較 v1／DERIVED。追加六來源與 source-only 全快照；產品 v2 明示 supersedes，原價格／金融／投資性與模型期間不變。四新增／全套 700、兩模式 validate、桌面／窄鍵盤／JSON／六安全連結與 Fixture 隔離通過；見[查證與限制](uni-xlm-public-venue.md)。unknown 80／TTM null／原年率 stale 保留。
+
 ## 2026-10-05（台北）— UNI 餘額／供給研究目錄與中文表格
 
 目錄 v4 釘選原 token-state bytes／事件，重用唯讀 reader 與原 review；API／時效保留四 raw OBSERVED 與一個 DERIVED point 比較、完整 v1／依賴及原時間。中文兩表格分開顯示，窄版各自鍵盤左右捲動；Fixture 隔離、截止日與原 JSON 保留。八新增／全套 696、兩模式 validate、桌面／窄／工作區及兩個截止日實際審查列通過，補足前次 vesting 目前日展開驗收；見[操作與驗收](token-state-research-inspection.md)。金融／原資料／來源／歷史／unknown 80 不變。

@@ -38,6 +38,7 @@ const terms={
  'uni-vesting-execution-20261004':'UNI 季度提領與公開合約參數',
  'uni-vesting-fixed-block-20261004':'UNI 固定區塊參數與剩餘授權',
  'uni-token-state-20261004':'UNI 固定區塊餘額與供給',
+ 'uni-xlm-public-venue-state-20261005':'UNI／XLM 公開市場與網路表示',
  'UNI raw base units':'UNI 原始最小單位',
  'secz-acquisition-context-20261003':'SECZ 收購範圍與名稱衝突','secz-parent-capital-context-20261003':'SECZ 母公司歷史股本','secz-warrant-context-20261003':'SECZ 認股權證歷史條款','secz-resale-capital-review-20261004':'SECZ 轉售登記分類核對',
  direct:'直接',indirect:'間接',none:'無',enables:'支援',supplies:'供應',settles:'清算',tokenizes:'代幣化',provides_liquidity:'提供流動性',provides_oracle:'提供預言機',provides_registry:'提供登記服務',regulates:'監管',increases_addressable_market:'擴大可服務市場',creates_revenue:'產生收入',creates_token_demand:'產生代幣需求',dilutes:'稀釋',competes_with:'競爭',

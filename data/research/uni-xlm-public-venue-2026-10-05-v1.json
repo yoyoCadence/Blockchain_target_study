@@ -1,0 +1,776 @@
+{
+  "version": 1,
+  "id": "uni-xlm-public-venue-evidence-20261005-v1",
+  "fixture": false,
+  "as_of_date": "2026-10-05",
+  "purpose": "人工單次查閱 Coinbase Exchange 兩個公開貨幣／產品回應；公開可讀資訊不代表全球或個人可交易。",
+  "captures": [
+    {
+      "url": "https://api.exchange.coinbase.com/currencies/UNI",
+      "method": "GET",
+      "started_at": "2026-10-05T00:07:10.266Z",
+      "received_at": "2026-10-05T00:07:10.660Z",
+      "http_status": 200,
+      "http_date": "Mon, 05 Oct 2026 00:07:10 GMT",
+      "response_json": "{\"id\":\"UNI\",\"name\":\"Uniswap\",\"min_size\":\"1\",\"status\":\"online\",\"message\":\"\",\"max_precision\":\"0.000001\",\"convertible_to\":[],\"details\":{\"type\":\"crypto\",\"symbol\":null,\"network_confirmations\":14,\"sort_order\":220,\"crypto_address_link\":\"https://etherscan.io/token/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984?a={{address}}\",\"crypto_transaction_link\":\"https://etherscan.io/tx/0x{{txId}}\",\"push_payment_methods\":[\"crypto\"],\"group_types\":[],\"display_name\":null,\"processing_time_seconds\":null,\"min_withdrawal_amount\":1,\"max_withdrawal_amount\":624200},\"default_network\":\"ethereum\",\"supported_networks\":[{\"id\":\"ethereum\",\"name\":\"Ethereum\",\"status\":\"online\",\"contract_address\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"crypto_address_link\":\"https://etherscan.io/token/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984?a={{address}}\",\"crypto_transaction_link\":\"https://etherscan.io/tx/0x{{txId}}\",\"min_withdrawal_amount\":1,\"max_withdrawal_amount\":624200,\"network_confirmations\":14,\"processing_time_seconds\":null,\"destination_tag_regex\":null,\"is_evm_network\":true}],\"display_name\":\"UNI\"}",
+      "source_id": "coinbase-uni-currency-20261005-v1"
+    },
+    {
+      "url": "https://api.exchange.coinbase.com/currencies/XLM",
+      "method": "GET",
+      "started_at": "2026-10-05T00:07:10.660Z",
+      "received_at": "2026-10-05T00:07:10.938Z",
+      "http_status": 200,
+      "http_date": "Mon, 05 Oct 2026 00:07:10 GMT",
+      "response_json": "{\"id\":\"XLM\",\"name\":\"Stellar\",\"min_size\":\"1\",\"status\":\"online\",\"message\":\"\",\"max_precision\":\"0.0000001\",\"convertible_to\":[],\"details\":{\"type\":\"crypto\",\"symbol\":null,\"network_confirmations\":0,\"sort_order\":0,\"crypto_address_link\":\"https://stellar.expert/explorer/public/account/{{address}}\",\"crypto_transaction_link\":\"https://stellar.expert/explorer/public/tx/{{txId}}\",\"push_payment_methods\":[],\"group_types\":[],\"display_name\":null,\"processing_time_seconds\":null,\"min_withdrawal_amount\":2,\"max_withdrawal_amount\":30000000},\"default_network\":\"stellar\",\"supported_networks\":[{\"id\":\"stellar\",\"name\":\"Stellar\",\"status\":\"online\",\"contract_address\":\"\",\"crypto_address_link\":\"https://stellar.expert/explorer/public/account/{{address}}\",\"crypto_transaction_link\":\"https://stellar.expert/explorer/public/tx/{{txId}}\",\"min_withdrawal_amount\":2,\"max_withdrawal_amount\":30000000,\"network_confirmations\":0,\"processing_time_seconds\":null,\"destination_tag_regex\":\"^[ -~]{1,28}$\",\"is_evm_network\":false}],\"display_name\":\"XLM\"}",
+      "source_id": "coinbase-xlm-currency-20261005-v1"
+    },
+    {
+      "url": "https://api.exchange.coinbase.com/products/UNI-USD",
+      "method": "GET",
+      "started_at": "2026-10-05T00:07:10.938Z",
+      "received_at": "2026-10-05T00:07:11.229Z",
+      "http_status": 200,
+      "http_date": "Mon, 05 Oct 2026 00:07:11 GMT",
+      "response_json": "{\"id\":\"UNI-USD\",\"base_currency\":\"UNI\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.0001\",\"base_increment\":\"0.000001\",\"display_name\":\"UNI-USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.03000000\",\"auction_mode\":false,\"high_bid_limit_percentage\":\"\"}",
+      "source_id": "coinbase-uni-product-20261005-v2"
+    },
+    {
+      "url": "https://api.exchange.coinbase.com/products/XLM-USD",
+      "method": "GET",
+      "started_at": "2026-10-05T00:07:11.229Z",
+      "received_at": "2026-10-05T00:07:12.143Z",
+      "http_status": 200,
+      "http_date": "Mon, 05 Oct 2026 00:07:12 GMT",
+      "response_json": "{\"id\":\"XLM-USD\",\"base_currency\":\"XLM\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.000001\",\"base_increment\":\"0.00000001\",\"display_name\":\"XLM-USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.03000000\",\"auction_mode\":false,\"high_bid_limit_percentage\":\"\"}",
+      "source_id": "coinbase-xlm-product-20261005-v2"
+    }
+  ],
+  "transport_archive_sha256": "7d5febbd826049c980c2cca83bcab5585e4306a1b24f2e63c702f13ca374ff65",
+  "observations": [
+    {
+      "id": "research.uni.coinbase.currency.id@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-currency-20261005-v1"
+      ],
+      "field": "id",
+      "value": "UNI",
+      "raw_value": "UNI",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.660Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.currency.status@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-currency-20261005-v1"
+      ],
+      "field": "status",
+      "value": "online",
+      "raw_value": "online",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.660Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.currency.default_network@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-currency-20261005-v1"
+      ],
+      "field": "default_network",
+      "value": "ethereum",
+      "raw_value": "ethereum",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.660Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.currency.network.status@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-currency-20261005-v1"
+      ],
+      "field": "network.status",
+      "value": "online",
+      "raw_value": "online",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.660Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.currency.network.contract_address@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-currency-20261005-v1"
+      ],
+      "field": "network.contract_address",
+      "value": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "raw_value": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "unit": "address",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.660Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.currency.id@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-currency-20261005-v1"
+      ],
+      "field": "id",
+      "value": "XLM",
+      "raw_value": "XLM",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.938Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.currency.status@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-currency-20261005-v1"
+      ],
+      "field": "status",
+      "value": "online",
+      "raw_value": "online",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.938Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.currency.default_network@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-currency-20261005-v1"
+      ],
+      "field": "default_network",
+      "value": "stellar",
+      "raw_value": "stellar",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.938Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.currency.network.status@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-currency-20261005-v1"
+      ],
+      "field": "network.status",
+      "value": "online",
+      "raw_value": "online",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:10.938Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.currency.network.contract_address@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-currency-20261005-v1"
+      ],
+      "field": "network.contract_address",
+      "value": null,
+      "raw_value": "",
+      "unit": "address",
+      "confidence": "unknown",
+      "response_received_at": "2026-10-05T00:07:10.938Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.base_currency@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "base_currency",
+      "value": "UNI",
+      "raw_value": "UNI",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.quote_currency@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "quote_currency",
+      "value": "USD",
+      "raw_value": "USD",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.status@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "status",
+      "value": "online",
+      "raw_value": "online",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.trading_disabled@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "trading_disabled",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.cancel_only@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "cancel_only",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.limit_only@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "limit_only",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.post_only@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "post_only",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.uni.coinbase.product.auction_mode@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-uni-product-20261005-v2"
+      ],
+      "field": "auction_mode",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:11.229Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.base_currency@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "base_currency",
+      "value": "XLM",
+      "raw_value": "XLM",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.quote_currency@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "quote_currency",
+      "value": "USD",
+      "raw_value": "USD",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.status@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "status",
+      "value": "online",
+      "raw_value": "online",
+      "unit": "text",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.trading_disabled@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "trading_disabled",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.cancel_only@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "cancel_only",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.limit_only@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "limit_only",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.post_only@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "post_only",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    },
+    {
+      "id": "research.xlm.coinbase.product.auction_mode@1-20261005",
+      "version": 1,
+      "asset": "XLM",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "source_ids": [
+        "coinbase-xlm-product-20261005-v2"
+      ],
+      "field": "auction_mode",
+      "value": false,
+      "raw_value": false,
+      "unit": "flag",
+      "confidence": "medium",
+      "response_received_at": "2026-10-05T00:07:12.143Z",
+      "provider_state_timestamp": null
+    }
+  ],
+  "formulas": [
+    {
+      "id": "research.uni.coinbase_reported_contract_matches_identity",
+      "version": 1,
+      "expression": {
+        "op": "casefold_evm_address_eq",
+        "args": [
+          {
+            "record_id": "research.uni.coinbase.currency.network.contract_address@1-20261005",
+            "field": "value"
+          },
+          {
+            "record_id": "UNI.identity@1-20261003",
+            "field": "identifier.contract_address"
+          }
+        ]
+      },
+      "unit": "ratio",
+      "rationale": "只比較本次 API 回報的兩個合法 EVM 地址文字，不證明平台實際持倉、鏈上狀態、帳戶提款或個人資格。"
+    }
+  ],
+  "derived": [
+    {
+      "id": "research.uni.coinbase.contract_match@1-20261005",
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "as_of_date": "2026-10-05",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-05"
+      },
+      "value": 1,
+      "unit": "ratio",
+      "confidence": "medium",
+      "formula_id": "research.uni.coinbase_reported_contract_matches_identity",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.coinbase.currency.network.contract_address@1-20261005",
+        "UNI.identity@1-20261003"
+      ]
+    }
+  ],
+  "identity_dependency": {
+    "file": "core-identifiers-2026-10-03.yaml",
+    "dossier_id": "core-identifiers-20261003-v1",
+    "dossier_fingerprint": "831b5b62e0267836a84e5948739f367253b910139134e519282248612988c49c",
+    "records": [
+      {
+        "id": "UNI.identity@1-20261003",
+        "version": 1,
+        "asset": "UNI",
+        "classification": "OBSERVED",
+        "fixture": false,
+        "as_of_date": "2026-10-03",
+        "confidence": "high",
+        "source_ids": [
+          "uniswap-uni-launch-20200916-v1"
+        ],
+        "identifier": {
+          "kind": "erc20",
+          "name": "Uniswap Protocol governance token",
+          "symbol": "UNI",
+          "network": "Ethereum mainnet",
+          "contract_address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+          "exchange": null,
+          "cik": null
+        },
+        "investability": {
+          "status": "unverified",
+          "access_route": null,
+          "investor_eligibility": null,
+          "custody_review": null
+        },
+        "limitations": "Official token identity, not Uniswap Labs equity. Current venue access, jurisdiction, custody and bridged deployments have not been reviewed. Genesis supply and planned inflation are not current observed supply or issuance."
+      },
+      {
+        "id": "XLM.identity@1-20261003",
+        "version": 1,
+        "asset": "XLM",
+        "classification": "OBSERVED",
+        "fixture": false,
+        "as_of_date": "2026-10-03",
+        "confidence": "high",
+        "source_ids": [
+          "stellar-lumens-docs-20260928-v1"
+        ],
+        "identifier": {
+          "kind": "native_asset",
+          "name": "Stellar lumen",
+          "symbol": "XLM",
+          "network": "Stellar public network",
+          "contract_address": null,
+          "exchange": null,
+          "cik": null
+        },
+        "investability": {
+          "status": "unverified",
+          "access_route": null,
+          "investor_eligibility": null,
+          "custody_review": null
+        },
+        "limitations": "Native XLM has no issuer or trustline. Do not assign an ERC-20 address or conflate native XLM with a wrapped/SAC representation, SDF equity or assets issued on Stellar. Venue access, custody and personal eligibility remain unreviewed. Network use does not establish holder value capture."
+      }
+    ],
+    "sources": [
+      {
+        "id": "uniswap-uni-launch-20200916-v1",
+        "version": 1,
+        "url": "https://blog.uniswap.org/uni",
+        "publisher": "Uniswap Labs",
+        "title": "Introducing UNI",
+        "date": "2020-09-16",
+        "retrieved_at": "2026-10-03T05:17:45Z",
+        "tier": 2,
+        "covered_metrics": [
+          "UNI.identity"
+        ],
+        "fixture": false
+      },
+      {
+        "id": "stellar-lumens-docs-20260928-v1",
+        "version": 1,
+        "url": "https://developers.stellar.org/docs/learn/fundamentals/lumens",
+        "publisher": "Stellar Development Foundation",
+        "title": "Lumens (XLM); last updated 2026-09-28",
+        "date": "2026-09-28",
+        "retrieved_at": "2026-10-03T05:17:45Z",
+        "tier": 2,
+        "covered_metrics": [
+          "XLM.identity"
+        ],
+        "fixture": false
+      }
+    ]
+  },
+  "access_review": {
+    "status": "unverified",
+    "investor_eligibility": null,
+    "jurisdiction_review": null,
+    "custody_review": null,
+    "account_trading_access": null,
+    "withdrawal_access": null
+  },
+  "limitations": [
+    "四個回應各自取得，API 沒有提供狀態生效 timestamp；HTTP Date／取得時間不是先前報價成交時間。",
+    "online／trading_disabled=false 只描述回報欄位，不證明帳戶／地區可交易、訂單可成交或完整流動性。",
+    "UNI 只核對回報地址文字；不證明交易所持倉／託管、轉帳條件或個人提款可達性。",
+    "XLM contract_address 原文為空字串，研究值保留 null；原 native identity 另由歷史官方文件支持，不從空欄位推原生幣或不存在任何合約表示。",
+    "不更新原價格／市值／FDV／金融、資產登錄或開放宇宙階段；SECZ 當前 venue 尚未研究。"
+  ]
+}
