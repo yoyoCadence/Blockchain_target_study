@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-05（台北）— XLM 官方回報供給與口徑
+
+接續原兩份未提交資料，保留原 bytes／取得時間／review；九個 provider_reported OBSERVED、兩個七位精確小數研究殘差 v1 保存，ledger／獨立流通與同步估值維持 null。追加兩來源及完整 source-only 快照，文件 v2 明示 supersedes；正式十六份歷史、模型日期／金融／論點與 unknown 80 保留。五項新增／全套 770、兩模式 validate、Chrome 桌面／窄鍵盤／JSON／兩安全連結／Fixture 隔離通過。見[研究與驗收](xlm-reported-supply.md)；唯讀供給 reader／catalog 與完整 baseline 尚未完成。
+
 ## 2026-10-05（台北）— 公開市場資料包驗證、API 與中文逐列查閱
 
 新增 public-venue-review／共用 reader、schema／方法 v1；核對原 HTTP／typed 值／來源／身份 fingerprint 與受限地址公式，保留 null 存取。目錄 v5 綁原 bytes／已存 review，供既有研究／手動時效 API 及中文原值／推導分表，九研究／185 紀錄／28 來源；65 新增／全套 765、兩模式 validate、桌面／窄／鍵盤／Fixture／兩 cutoff 審查列通過。見[操作與驗收](public-venue-research-review.md)。原資料、來源／金融／歷史／unknown 80 不變，沒有 API 重採或投資性提升。

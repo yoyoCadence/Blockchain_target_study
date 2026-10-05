@@ -34,6 +34,7 @@ const terms={
  'uni-growth-budget-baseline-20260101':'UNI 歷史核准成長預算','uni-v2-fee-configuration-20251227':'UNI v2 歷史費用配置','uni-firepit-release-20251229':'UNI 單筆 Firepit 交換','uni-v2-fee-accrual-20261004':'UNI v2 單筆 LP 費用份額歸集',
  'uni-xlm-market-quotes-source-review-20261004':'UNI／XLM 單次交易所價格查證',
  'xlm-market-quote-baseline-20261004':'XLM 單次交易所價格基準',
+ 'xlm-reported-supply-20261005':'XLM 官方回報供給與口徑',
  'uni-market-quote-baseline-20261004':'UNI 單次交易所價格與年率折算',
  'uni-vesting-execution-20261004':'UNI 季度提領與公開合約參數',
  'uni-vesting-fixed-block-20261004':'UNI 固定區塊參數與剩餘授權',

@@ -1,0 +1,61 @@
+id: xlm-reported-supply-20261005
+type: market_data_review
+status: completed
+as_of_date: 2026-10-05
+effective_date: 2026-10-05
+source_ids:
+  - stellar-dashboard-supply-20261005-v1
+  - stellar-lumens-docs-20260928-v2
+affected_nodes:
+  - XLM
+fixture: false
+reason: 人工官方供給研究完成，完成狀態只限保存與算術核對。API updatedAt=2026-10-05T11:14:19.137Z，收到時間
+  2026-10-05T11:22:26.166Z，並非同一瞬間。totalSupply=50001786839.6994714 XLM、供應者
+  circulatingSupply=35057712273.2161013 XLM；原始／歷史 inflation／inaccessible
+  burned／upgrade reserve／fee pool／SDF mandate 全部 raw decimal 保留。九個 OBSERVED 為
+  provider_reported，不當獨立鏈上或自由流通查證；兩個研究 signed_decimal_sum v1 使用 7
+  位精確小數，total／circulating 殘差都是 0.0000000／0.0000000
+  XLM，零殘差不證明真實供給或健康論點。ledger／各組成帳戶／獨立流通／完全稀釋定義均未知；前一天價格不能配成本次同步市值／FDV。官方文件
+  source v2 明示 supersedes v1，原身份／價格仍引用旧版本。原資料
+  data/research/xlm-supply-2026-10-05-v1.json exact bytes SHA-256
+  790c9763971cb01bd8712431ea7207eb4f4418e5a17459cf0df661f1ede5ad51。updates=[]，只追加兩來源與完整快照；金融／公式／假設／情境／論點、unknown
+  80、三項 TTM null、UNI stale 年率與 XLM 原價日期不變。
+research_review:
+  reviewed_at: 2026-10-05T11:25:20.229Z
+  reviewer: Codex 官方文件與公開 API 人工研究；非人類簽核
+  rationale: 單次 GET 保留原 API JSON／HTTP Date／開始與收到時間，官方文件只存 body SHA-256。依官方供給口徑以
+    BigInt 七位小數核對兩個殘差，保留精確字串、原 updatedAt 與確切依賴；供應者流通分類不當成獨立自由流通或個人資格。
+sources:
+  - id: stellar-dashboard-supply-20261005-v1
+    version: 1
+    url: https://dashboard.stellar.org/api/v2/lumens/
+    publisher: Stellar Development Foundation
+    title: 官方 Dashboard 回報供給；單次回應與原 updatedAt
+    date: 2026-10-05
+    retrieved_at: 2026-10-05T11:22:26.166Z
+    tier: 2
+    covered_metrics:
+      - research.xlm.supply.originalSupply
+      - research.xlm.supply.inflationLumens
+      - research.xlm.supply.burnedLumens
+      - research.xlm.supply.totalSupply
+      - research.xlm.supply.upgradeReserve
+      - research.xlm.supply.feePool
+      - research.xlm.supply.sdfMandate
+      - research.xlm.supply.circulatingSupply
+      - research.xlm.supply.updatedAt
+    fixture: false
+  - id: stellar-lumens-docs-20260928-v2
+    version: 2
+    supersedes: stellar-lumens-docs-20260928-v1
+    url: https://developers.stellar.org/docs/learn/fundamentals/lumens
+    publisher: Stellar Development Foundation
+    title: Lumens (XLM)；供給口徑，頁面最後更新 2026-09-28
+    date: 2026-09-28
+    retrieved_at: 2026-10-05T11:22:28.038Z
+    tier: 2
+    covered_metrics:
+      - XLM.identity
+      - research.xlm.supply.definition
+    fixture: false
+updates: []
