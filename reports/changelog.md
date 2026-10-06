@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— XLM 供給研究目錄、API 與中文逐列查閱
+
+研究目錄 v6 新增 `xlm_supply`，以原 bytes SHA-256／已存事件／原 review 綁定共用唯讀 reader；研究／手動時效 API 保留九個原始十進位字串、兩個殘差 v1／依賴及三個來源版本，十研究／196 紀錄／30 來源。中文卡片分表顯示原值與殘差、兩個時間、口徑文件與七項未知，窄版表格可鍵盤捲動。八新增／全套 852、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](xlm-supply-research-inspection.md)。原資料、金融／來源／歷史／unknown 80 不變。
+
 ## 2026-10-06（台北）— XLM 供給資料包手動唯讀驗證
 
 新增 xlm-supply-review／共用 reader、schema／方法 v1；以明示原 SHA-256 重驗 bytes，核對 API body hash、九個 provider_reported 精確字串、七位小數格式、更新／取得／HTTP 時間、已存來源與 supersedes，並以 BigInt 重播兩條 signed_decimal_sum v1 與確切依賴。研究公式定義由方法檔釘選，同版本改寫拒絕；不新增 canonical 公式。74 新增／全套 844、兩模式 validate 通過；原資料、金融／來源／歷史／unknown 80 不變。見[操作與限制](manual-xlm-supply-review.md)，無 UI 或 API 重採。

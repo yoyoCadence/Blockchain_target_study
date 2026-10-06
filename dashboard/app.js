@@ -121,6 +121,34 @@ function renderResearch(data) {
     el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
    card.append(researchSources(report.sources),full);return card;
   }
+  if(report.kind==='xlm_supply') {
+   const summary=report.summary,record=id=>report.records.find(r=>r.id===id);
+   const values=freshnessTable(['回報欄位','原始字串（完整）','單位','分類／可信程度','量測基礎'],summary.values.map(v=>[
+    `${v.label}（${v.field}）`,v.raw_value,term(v.unit),`${term(v.classification)}／${term(v.confidence)}`,term(v.measurement_basis)
+   ]));values.tabIndex=0;values.setAttribute('aria-label','XLM 回報供給原始欄位表格，可左右捲動');
+   const residuals=freshnessTable(['研究推導','結果（XLM，七位小數）','分類／可信程度','公式版本'],summary.residuals.map(r=>[
+    record(r.id).label,r.value,`${term(r.classification)}／${term(r.confidence)}`,`${r.formula_id} / v${r.formula_version}`
+   ]));residuals.tabIndex=0;residuals.setAttribute('aria-label','XLM 供給殘差表格，可左右捲動');
+   card.append(el('p',report.notice,'hint'),
+    el('p',`供應者更新 ${summary.provider_updated_at} · 收到回應 ${summary.received_at}；兩者不是同一時刻。`,'event-evidence'),
+    el('p',`查證方法 v${report.method.version}；回應 body SHA-256 ${summary.body_sha256}`,'hint'),
+    el('p','表格可左右捲動；數值保留原始十進位字串，不經四捨五入。','hint'),values,
+    el('h3','研究殘差（算術一致性）'),residuals);
+   for(const r of summary.residuals)card.append(el('p',`${r.formula_id} 依賴：${r.dependencies.join(' · ')}`,'event-evidence'));
+   card.append(el('p','零或非零殘差只描述同一回應內的算術，不代表真實供給、自由流通或論點健康。','hint'));
+   const d=summary.definition;
+   card.append(el('h3','供給口徑與文件'),el('p',`口徑來源 ${d.source_id}（取代 ${d.supersedes}）· 頁面最後更新 ${d.document_last_updated_date}`,'event-evidence'),
+    el('p',d.document_date_basis,'hint'),el('p',d.circulating_supply_basis,'hint'),
+    el('p',`文件 body SHA-256 ${d.body_sha256}；未保存正文，不能離線重播。`,'hint'));
+   card.append(el('h3','尚未查證的供給與估值'));
+   const unknown=el('ul');for(const [field,label] of [['ledger_sequence','Ledger 序號'],['ledger_hash','Ledger hash'],['component_account_balances','各組成帳戶餘額'],
+    ['independently_verified_circulating_supply','獨立查證流通供給'],['fully_diluted_supply','完全稀釋供給'],['synchronized_market_cap','同步市值'],['synchronized_fdv','同步 FDV']])
+    unknown.append(el('li',`${label}：${term(summary.unknown[field])}`));card.append(unknown);
+   const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
+   const full=el('details');full.append(el('summary','原始 API 回應、公式與查證限制'),
+    el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
+   card.append(researchSources(report.sources),full);return card;
+  }
   if(report.kind==='fixed_block'||report.kind==='token_state') {
    const summary=report.summary,tokenState=report.kind==='token_state';
    const headers=['觀測項目','原始值（完整字串）',...(tokenState?['單位']:[]),'ABI 型別','分類','可信程度'];

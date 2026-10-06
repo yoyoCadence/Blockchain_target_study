@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— XLM 供給研究目錄、API 與中文逐列查閱
+
+PR #61 push／PR CI 成功並合併（`fe412ed`）；從 reader 分支延伸 `feat/xlm-supply-research-inspection`。目錄 v6 新增 `xlm-supply-20261005`／kind `xlm_supply`，綁原 bytes `790c9763…`、事件 `xlm-reported-supply-20261005` 與原 review `2026-10-05T11:25:20.229Z`；inspection 重用 reader，另核對事件 reason 含原 hash、嵌入來源與當時快照來源 fingerprint 相同、capture 早於審查。
+
+十研究／196 紀錄／30 來源，事件仍十六筆；九 OBSERVED 原字串、兩 DERIVED `0.0000000`／v1／依賴、三來源版本（含文件 v1）保留。中文卡片兩表格（原值／殘差）、兩個時間、口徑文件、七項未知與原 JSON。10 月 4 日 cutoff NOT_AVAILABLE、5 日 AVAILABLE，殘差恆 NOT_OBSERVED／INSUFFICIENT。八新增、十個既有測試檔更新 9／185／28→10／196／30，全套 852、兩模式 validate 通過；金融／原資料／來源／歷史、unknown 80 不變。
+
+Chrome headless（本機安裝版，經 npx 快取 playwright-core）桌面 1536×729／窄 312×675：Enter 卡片／JSON、三安全連結、窄無溢出（312／312、卡片 278／278）、兩表格 ArrowRight 0→40、Fixture 0／0→10／16、兩 cutoff 審查列通過。console 只有瀏覽器自動 `/favicon.ico` 404（伺服器本來就無 favicon），無 App 錯誤，stderr 空；服務 PID 33328 已核對後停止。見[操作與驗收](xlm-supply-research-inspection.md)；本 PR／CI 最終狀態以遠端為準。
+
+接續回到外部 baseline 研究：UNI 全年 capture／分配與部署等價、SECZ 六收入／可比 TTM、同步估值與個人資格。不從不同時點供給與價格拼市值／FDV，不啟動 unattended 或新模型。
+
 ## 2026-10-06（台北）— XLM 供給資料包手動唯讀驗證
 
 接手時 PR #60 已合併、PR／main CI 成功，乾淨 main `c133bcc`；已讀 AGENTS.md、全域 Codex 筆記、task 與交接，沿用中文非 Draft PR／CI 成功後自主合併授權，保持增量範圍。建立 `feat/manual-xlm-supply-review`。
