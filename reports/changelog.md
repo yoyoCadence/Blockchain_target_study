@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 供給組成資料包 schema／方法 v1
+
+新增 `spec/uni-supply-composition-schema.yaml` 與 `spec/uni-supply-composition-method.yaml`，供後續唯讀 reader 使用：鎖定結構與 null context，釘選地址、getter selector／參數、文件片段、Uni.sol 行與五條研究公式定義。31 項回歸（重現 calldata、文件／公式對應、28 個竄改拒絕）；全套 888、兩模式 validate 通過。見[規格與驗證](uni-supply-composition-specs.md)。尚無 reader／API／UI，原資料與金融不變。
+
 ## 2026-10-06（台北）— UNI 固定區塊供給組成與鑄造參數
 
 新 finalized block 26133577 保存十個 canonical 釘選 eth_call（totalSupply、decimals、dead／Timelock／UNIVesting 餘額、授權、minter、mintingAllowedAfter、mintCap、最短間隔）與區塊時間，官方文件地址表及 pinned Uni.sol 選定行支撐 Timelock 身份與鑄造語意。五個研究 DERIVED v1（兩個機械扣除、時間條件、單次上限、minter 地址相符）以 BigInt 重播；不定義流通供給或估值。追加三來源與 source-only 完整快照，金融／論點／unknown 80 不變。五項新增／全套 857、兩模式 validate、Chrome 桌面／窄／Fixture 通過；見[研究與驗收](uni-supply-composition.md)。

@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 供給組成資料包 schema／方法 v1
+
+PR #63 合併後 main `32d8ddd` CI 成功。使用者要求把前一輪暫放的規格草稿寫完並上 GitHub；建立 `feat/uni-supply-composition-specs`，只加入兩份規格、31 項規格回歸與文件，沒有 reader／API／UI。
+
+schema v1 鎖定原資料包（`de66eac4…`）結構：finalized＋canonical anchor、小寫地址、文件順序、OBSERVED 二擇一型態（RPC 回應字或文件片段）、DERIVED 值型態、九項 null context、無額外欄位。方法 v1 釘選地址、endpoint／來源 ID、十個 getter（型別／簽章／selector／參數目標／單位／中文 label）、地址表 `dateModified` 與片段對應、Uni.sol commit 與 12 行原文片段、五條公式完整定義與中文推導 label。selector 由 scratch keccak 算出，回歸以已存 calldata 交叉核對（repo 內沒有 keccak 實作）。全套 888、兩模式 validate 通過；原資料、來源、金融、歷史與快照不變。見[規格與驗證](uni-supply-composition-specs.md)。
+
+下一項：依這兩份規格實作 `engine/research/` 共用唯讀 reader 與 CLI（明示 production／digest），重放 probe／state 封裝、同 hash／canonical、32-byte 解碼、文件片段與五個推導；再接研究目錄 v7（kind 需新增）、時效 API 與中文表格。市值／FDV 模型設計仍待使用者決定。
+
 ## 2026-10-06（台北）— UNI 固定區塊供給組成與鑄造參數
 
 PR #62 push／PR CI 成功並合併（main `5c23788`）；建立 `research/uni-supply-composition`。PublicNode 已 prune 10 月 4 日 block 26119713 的狀態（earliest 26123551），所以改用新 finalized block 26133577／`0x301ce0f2…`，不改寫原 anchor。selector 以 scratch keccak 計算並對照已知值；capture 腳本只在 scratch，不入庫。
