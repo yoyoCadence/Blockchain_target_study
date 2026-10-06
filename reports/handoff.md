@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 主網 Firepit 狀態資料包規格與手動唯讀驗證
+
+PR #67 push／PR CI 成功並合併（main `29ecab6`）；建立 `feat/uni-firepit-state-review`。本 PR 把規格與 reader 合在一起（規格由資料包產生並自我核對 selector／calldata／行片段）。
+
+先把供給組成 reader 的共用檢查抽到 `engine/research/finalized-rpc.js`（`reviewFinalizedAnchor`／`decodeAbiWord`／`pinnedCall`／`reviewSavedDocument`／`reviewLineExcerpts`／`researchOperators`／`replayResearchFormulas`，以 label 參數保留原錯誤訊息），供給組成 reader 改用後原 140 項相關測試不變通過。同時把兩個檔案中被工具寫成不可見字元的 non-breaking space 改成明確寫法（engine 用 `String.fromCharCode(0xa0)`，測試用 ` ` 跳脫）——之後寫含 `\uXXXX` 的原始碼要留意工具會先解碼。
+
+新 reader `engine/research/firepit-state.js`／CLI `uni-firepit-state-review`：九個 getter 依方法分 firepit／token 目標合約；`RESOURCE`=UNI 與 `RESOURCE_RECIPIENT`=0xdead 為結構性要求（不符即拒絕），TOKEN_JAR 與門檻設定者則為可為 0 的研究旗標；五個檔案同 commit、來源日期=commit 日、覆蓋指標與行片段；README 兩個部署地址對應行。新增受限運算 `mul_raw_uint256`（count×raw）、`sub_mul_raw_uint256`（raw−count×raw，負值拒絕）。87 新增／全套 1087、兩模式 validate 通過；原 bytes、來源、金融、十八份正式／三份 Fixture 歷史、0.422 不變；無 UI 變更。見[操作與限制](manual-uni-firepit-state-review.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項：研究目錄 v8 新增 kind（綁原 bytes `41c8fcb1…`／事件 `uni-firepit-state-20261006`／原 review `2026-10-06T14:44:07.673Z`），接研究／時效 API 與中文兩表格，更新目錄數量測試（11／214／33 → 12／230／39）並做 Chrome 桌面／窄驗收。之後可研究門檻變更歷史與 Unichain Firepit；`uni.market_cap`／`uni.fdv` 模型設計仍待使用者決定。
+
 ## 2026-10-06（台北）— UNI 主網 Firepit 固定區塊狀態
 
 PR #66 push／PR CI 成功並合併（main `f8f920e`）；建立 `research/uni-firepit-state`。選這項是因為不需要使用者先決定市值／FDV 模型設計，且直接補「實際價值捕獲是否啟動、規模多大」的一手證據。capture 腳本與 keccak 只在 scratch，不入庫。
