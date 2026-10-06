@@ -1,0 +1,119 @@
+id: uni-supply-composition-review
+version: 1
+archive_id: uni-supply-composition-evidence-20261006-v1
+asset: UNI
+chain_id: '1'
+endpoint: https://ethereum-rpc.publicnode.com
+rpc_source_id: ethereum-uni-supply-composition-20261006-v1
+targets:
+  token: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984'
+  timelock: '0x1a9c8182c09f50c8318d769245bea52c32be35bc'
+  vesting: '0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2'
+  dead_sink: '0x000000000000000000000000000000000000dead'
+interpretation: 只核對已保存的同區塊 ABI 讀值、文件片段、來源版本與嵌入推導；不是本地共識 proof、流通供給定義、鑄造預測或估值。
+header_label: 區塊時間（Unix 秒）
+# [key, abi_type, signature, selector, argument targets, unit, label]
+getters:
+  - [total_supply, uint256, totalSupply(), '0x18160ddd', [], UNI raw base units, 合約總供給（raw）]
+  - [decimals, uint8, decimals(), '0x313ce567', [], count, UNI 小數位數]
+  - [dead_sink_balance, uint256, balanceOf(address), '0x70a08231', [dead_sink], UNI raw base units, dead address 餘額（raw）]
+  - [timelock_balance, uint256, balanceOf(address), '0x70a08231', [timelock], UNI raw base units, Timelock 餘額（raw）]
+  - [vesting_balance, uint256, balanceOf(address), '0x70a08231', [vesting], UNI raw base units, UNIVesting 合約餘額（raw）]
+  - [vesting_allowance, uint256, 'allowance(address,address)', '0xdd62ed3e', [timelock, vesting], UNI raw base units, Timelock 對 UNIVesting 剩餘授權（raw）]
+  - [minter, address, minter(), '0x07546172', [], address, minter 地址]
+  - [minting_allowed_after, uint256, mintingAllowedAfter(), '0x30b36cef', [], unix seconds, 可鑄造起始時間（Unix 秒）]
+  - [mint_cap, uint8, mintCap(), '0x76c71ca1', [], percent, 每次鑄造上限（%）]
+  - [minimum_time_between_mints, uint32, minimumTimeBetweenMints(), '0x5c11d62f', [], seconds, 最短鑄造間隔（秒）]
+documents:
+  address_table:
+    url: https://developers.uniswap.org/docs/ecosystem/governance/technical-reference
+    source_id: uniswap-governance-technical-reference-20260409-v1
+    date_modified_marker: '"dateModified":"2026-04-09T14:56:21.000Z"'
+    covered_metric: uni.governance_timelock_identity
+    # [excerpt label, observation key, target, Chinese label]
+    excerpts:
+      - [UNI Token, uni_token_address, token, 官方文件 UNI Token 地址]
+      - [Timelock, timelock_address, timelock, 官方文件 Timelock 地址]
+  source_code:
+    url: https://raw.githubusercontent.com/Uniswap/governance/ab22c084bacb2636a1aebf9759890063eb6e4946/contracts/Uni.sol
+    source_id: uniswap-governance-uni-sol-ab22c08-v1
+    commit: ab22c084bacb2636a1aebf9759890063eb6e4946
+    # [line, required exact fragment]
+    lines:
+      - [17, 'uint public totalSupply = 1_000_000_000e18;']
+      - [20, 'address public minter;']
+      - [23, 'uint public mintingAllowedAfter;']
+      - [26, 'uint32 public constant minimumTimeBetweenMints = 1 days * 365;']
+      - [29, 'uint8 public constant mintCap = 2;']
+      - [110, 'function mint(address dst, uint rawAmount) external {']
+      - [111, 'require(msg.sender == minter,']
+      - [112, 'require(block.timestamp >= mintingAllowedAfter,']
+      - [116, 'mintingAllowedAfter = SafeMath.add(block.timestamp, minimumTimeBetweenMints);']
+      - [120, 'require(amount <= SafeMath.div(SafeMath.mul(totalSupply, mintCap), 100),']
+      - [121, 'totalSupply = safe96(SafeMath.add(totalSupply, amount),']
+      - [329, 'require(dst != address(0),']
+derived_labels:
+  research.uni.supply.excluding_dead_sink: 總供給扣除 dead address（機械減法）
+  research.uni.supply.excluding_dead_sink_and_timelock: 再扣除 Timelock（非流通定義）
+  research.uni.mint.time_permitted_at_block: 區塊時間已滿足鑄造時間條件
+  research.uni.mint.cap_amount_at_block: 單次鑄造上限（raw）
+  research.uni.mint.minter_matches_docs_timelock: minter 與文件 Timelock 地址相符
+formulas:
+  - id: research.uni.supply.excluding_dead_sink
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: sub_raw_uint256
+      args:
+        - research.uni.supply.block26133577.total_supply@1
+        - research.uni.supply.block26133577.dead_sink_balance@1
+    method_source_ids:
+      - uniswap-governance-uni-sol-ab22c08-v1
+    rationale: UNI 合約沒有 burn 函式且禁止轉入零地址，dead address 轉帳不減少 totalSupply；只做同區塊 raw 機械減法，不是流通供給定義。
+  - id: research.uni.supply.excluding_dead_sink_and_timelock
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: sub_raw_uint256
+      args:
+        - research.uni.supply.block26133577.total_supply@1
+        - research.uni.supply.block26133577.dead_sink_balance@1
+        - research.uni.supply.block26133577.timelock_balance@1
+    method_source_ids:
+      - uniswap-governance-uni-sol-ab22c08-v1
+      - uniswap-governance-technical-reference-20260409-v1
+    rationale: 再扣除官方文件列示 Timelock 的同區塊餘額；其他團隊、投資人、合約或交易所持倉未分類，不是流通或自由流通供給。
+  - id: research.uni.mint.time_permitted_at_block
+    version: 1
+    unit: ratio
+    expression:
+      op: gte_uint
+      args:
+        - research.uni.supply.block26133577.block_timestamp@1
+        - research.uni.supply.block26133577.minting_allowed_after@1
+    method_source_ids:
+      - uniswap-governance-uni-sol-ab22c08-v1
+    rationale: 對照 Uni.sol mint 的 block.timestamp >= mintingAllowedAfter 時間條件；只表示該區塊時間條件，不代表治理會鑄造或已鑄造。
+  - id: research.uni.mint.cap_amount_at_block
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: mul_div_floor_uint256
+      args:
+        - research.uni.supply.block26133577.total_supply@1
+        - research.uni.supply.block26133577.mint_cap@1
+      divisor: '100'
+    method_source_ids:
+      - uniswap-governance-uni-sol-ab22c08-v1
+    rationale: 對照 Uni.sol 單次鑄造上限 totalSupply × mintCap / 100（整數除法）；是單次上限，不是年度實際增發或預測。
+  - id: research.uni.mint.minter_matches_docs_timelock
+    version: 1
+    unit: ratio
+    expression:
+      op: casefold_evm_address_eq
+      args:
+        - research.uni.supply.block26133577.minter@1
+        - research.uni.governance.docs.timelock_address@1-20261006
+    method_source_ids:
+      - uniswap-governance-technical-reference-20260409-v1
+    rationale: 只比較同區塊 minter getter 與官方文件 Timelock 地址文字；不驗證治理程序、提案或未來鑄造決定。

@@ -1,0 +1,306 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [version, id, fixture, purpose, capture_method, as_of_date, captured_at, token, addresses, anchor, documents, observations, formulas, derived, context, limitations, transport]
+properties:
+  version: {const: 1}
+  id: &text {type: string, pattern: '\S'}
+  fixture: {const: false}
+  purpose: *text
+  capture_method: *text
+  as_of_date: &day {type: string, format: date}
+  captured_at: &instant {type: string, format: date-time}
+  token: &address {type: string, pattern: '^0x[0-9a-f]{40}$'}
+  addresses:
+    type: object
+    additionalProperties: false
+    required: [timelock, vesting, dead_sink]
+    properties:
+      timelock: *address
+      vesting: *address
+      dead_sink: *address
+  anchor:
+    type: object
+    additionalProperties: false
+    required: [classification, as_of_date, source_ids, chain_id, selected_tag, number_hex, number, hash, timestamp_hex, effective_at, selector, height_recheck_response_id]
+    properties:
+      classification: {const: OBSERVED}
+      as_of_date: *day
+      source_ids: &one_source {type: array, minItems: 1, maxItems: 1, items: *text}
+      chain_id: {const: '1'}
+      selected_tag: {const: finalized}
+      number_hex: &quantity {type: string, pattern: '^0x(0|[1-9a-f][0-9a-f]*)$'}
+      number: {type: string, pattern: '^(0|[1-9][0-9]*)$'}
+      hash: &hash {type: string, pattern: '^0x[0-9a-f]{64}$'}
+      timestamp_hex: *quantity
+      effective_at: *instant
+      selector:
+        type: object
+        additionalProperties: false
+        required: [blockHash, requireCanonical]
+        properties:
+          blockHash: *hash
+          requireCanonical: {const: true}
+      height_recheck_response_id: {type: integer, minimum: 1}
+  documents:
+    type: array
+    minItems: 2
+    maxItems: 2
+    items:
+      - type: object
+        additionalProperties: false
+        required: [url, method, started_at, received_at, http_status, http_date, content_type, body_sha256, body_bytes, source_id, date_modified_marker, body_replayable, excerpts]
+        properties:
+          url: &uri {type: string, format: uri}
+          method: {const: GET}
+          started_at: *instant
+          received_at: *instant
+          http_status: {const: 200}
+          http_date: *text
+          content_type: *text
+          body_sha256: &digest {type: string, pattern: '^[0-9a-f]{64}$'}
+          body_bytes: {type: integer, minimum: 1}
+          source_id: *text
+          date_modified_marker: *text
+          body_replayable: {const: false}
+          excerpts:
+            type: array
+            minItems: 2
+            maxItems: 2
+            items:
+              type: object
+              additionalProperties: false
+              required: [label, start, end, html]
+              properties:
+                label: *text
+                start: {type: integer, minimum: 0}
+                end: {type: integer, minimum: 1}
+                html: *text
+      - type: object
+        additionalProperties: false
+        required: [url, method, started_at, received_at, http_status, http_date, content_type, body_sha256, body_bytes, source_id, commit, body_replayable, line_excerpts]
+        properties:
+          url: *uri
+          method: {const: GET}
+          started_at: *instant
+          received_at: *instant
+          http_status: {const: 200}
+          http_date: *text
+          content_type: *text
+          body_sha256: *digest
+          body_bytes: {type: integer, minimum: 1}
+          source_id: *text
+          commit: {type: string, pattern: '^[0-9a-f]{40}$'}
+          body_replayable: {const: false}
+          line_excerpts:
+            type: array
+            minItems: 1
+            items:
+              type: object
+              additionalProperties: false
+              required: [line, text]
+              properties:
+                line: {type: integer, minimum: 1}
+                text: {type: string}
+  observations:
+    type: array
+    minItems: 13
+    maxItems: 13
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, classification, fixture, confidence, as_of_date, period, metric_id, key, label, value, unit, observed_at, source_ids]
+      properties:
+        id: *text
+        version: {const: 1}
+        asset: {const: UNI}
+        classification: {const: OBSERVED}
+        fixture: {const: false}
+        confidence: {const: medium}
+        as_of_date: *day
+        period: &point
+          type: object
+          additionalProperties: false
+          required: [basis, end]
+          properties:
+            basis: {const: point}
+            end: *day
+        metric_id: *text
+        key: *text
+        label: *text
+        abi_type: {enum: [header.timestamp, uint256, uint32, uint8, address]}
+        response_id: {type: integer, minimum: 1}
+        response_word: {type: string, pattern: '^0x[0-9a-f]+$'}
+        excerpt_label: *text
+        value: *text
+        unit: {enum: [UNI raw base units, count, address, unix seconds, seconds, percent]}
+        observed_at: *instant
+        source_ids: *one_source
+      oneOf:
+        - required: [abi_type, response_id, response_word]
+          not: {required: [excerpt_label]}
+        - required: [excerpt_label]
+          not: {anyOf: [{required: [abi_type]}, {required: [response_id]}, {required: [response_word]}]}
+  formulas:
+    type: array
+    minItems: 5
+    maxItems: 5
+    items: {type: object}
+  derived:
+    type: array
+    minItems: 5
+    maxItems: 5
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, classification, fixture, confidence, as_of_date, period, metric_id, observed_at, value, unit, formula_id, formula_version, dependencies]
+      properties:
+        id: *text
+        version: {const: 1}
+        asset: {const: UNI}
+        classification: {const: DERIVED}
+        fixture: {const: false}
+        confidence: {const: medium}
+        as_of_date: *day
+        period: *point
+        metric_id: *text
+        observed_at: *instant
+        value:
+          oneOf:
+            - {type: string, pattern: '^(0|[1-9][0-9]*)$'}
+            - {enum: [0, 1]}
+        unit: {enum: [UNI raw base units, ratio]}
+        formula_id: *text
+        formula_version: {const: 1}
+        dependencies: {type: array, minItems: 2, uniqueItems: true, items: *text}
+  context:
+    type: object
+    additionalProperties: false
+    required: [circulating_supply, circulating_supply_definition, dead_sink_balance_attribution, timelock_committed_or_spendable, future_mint_decision, synchronized_price, market_cap, fdv, deployment_source_equivalence]
+    properties:
+      circulating_supply: {const: null}
+      circulating_supply_definition: {const: null}
+      dead_sink_balance_attribution: {const: null}
+      timelock_committed_or_spendable: {const: null}
+      future_mint_decision: {const: null}
+      synchronized_price: {const: null}
+      market_cap: {const: null}
+      fdv: {const: null}
+      deployment_source_equivalence: {const: null}
+  limitations: {type: array, minItems: 1, items: *text}
+  transport:
+    type: object
+    additionalProperties: false
+    required: [probe, state, labels]
+    properties:
+      probe: &rpc
+        type: object
+        additionalProperties: false
+        required: [endpoint, started_at, received_at, http_status, http_date, request_json, response_json]
+        properties:
+          endpoint: *uri
+          started_at: *instant
+          received_at: *instant
+          http_status: {const: 200}
+          http_date: *text
+          request_json: *text
+          response_json: *text
+      state: *rpc
+      labels:
+        type: array
+        minItems: 14
+        maxItems: 14
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, label]
+          properties:
+            id: {type: integer, minimum: 1}
+            label: *text
+definitions:
+  method:
+    type: object
+    additionalProperties: false
+    required: [id, version, archive_id, asset, chain_id, endpoint, rpc_source_id, targets, interpretation, header_label, getters, documents, derived_labels, formulas]
+    properties:
+      id: {const: uni-supply-composition-review}
+      version: {const: 1}
+      archive_id: *text
+      asset: {const: UNI}
+      chain_id: {const: '1'}
+      endpoint: *uri
+      rpc_source_id: *text
+      targets:
+        type: object
+        additionalProperties: false
+        required: [token, timelock, vesting, dead_sink]
+        properties:
+          token: *address
+          timelock: *address
+          vesting: *address
+          dead_sink: *address
+      interpretation: *text
+      header_label: *text
+      getters:
+        type: array
+        minItems: 10
+        maxItems: 10
+        items:
+          type: array
+          minItems: 7
+          maxItems: 7
+          items:
+            - *text
+            - {enum: [uint256, uint32, uint8, address]}
+            - *text
+            - {type: string, pattern: '^0x[0-9a-f]{8}$'}
+            - {type: array, maxItems: 2, items: {enum: [timelock, vesting, dead_sink]}}
+            - {enum: [UNI raw base units, count, address, unix seconds, seconds, percent]}
+            - *text
+      documents:
+        type: object
+        additionalProperties: false
+        required: [address_table, source_code]
+        properties:
+          address_table:
+            type: object
+            additionalProperties: false
+            required: [url, source_id, date_modified_marker, covered_metric, excerpts]
+            properties:
+              url: *uri
+              source_id: *text
+              date_modified_marker: {type: string, pattern: '^"dateModified":"[^"]+"$'}
+              covered_metric: *text
+              excerpts:
+                type: array
+                minItems: 2
+                maxItems: 2
+                items:
+                  type: array
+                  minItems: 4
+                  maxItems: 4
+                  items:
+                    - *text
+                    - *text
+                    - {enum: [token, timelock]}
+                    - *text
+          source_code:
+            type: object
+            additionalProperties: false
+            required: [url, source_id, commit, lines]
+            properties:
+              url: *uri
+              source_id: *text
+              commit: {type: string, pattern: '^[0-9a-f]{40}$'}
+              lines:
+                type: array
+                minItems: 1
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    - {type: integer, minimum: 1}
+                    - *text
+      derived_labels: {type: object, additionalProperties: *text}
+      formulas: {type: array, minItems: 5, maxItems: 5, items: {type: object}}
