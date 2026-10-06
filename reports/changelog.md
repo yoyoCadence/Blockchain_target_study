@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 供給組成研究目錄、API 與中文逐列查閱
+
+研究目錄 v7 新增 `uni_supply_composition`，以原 bytes SHA-256／已存事件／原 review 綁定共用唯讀 reader；研究／手動時效 API 保留 13 個 raw 觀測、5 個推導 v1／依賴及三個來源版本，十一研究／214 紀錄／33 來源。中文卡片分表顯示原值與推導、區塊與取得時間、文件依據與九項未知，旗標 0 顯示為 0，窄版表格可鍵盤捲動。九新增／全套 995、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](uni-supply-composition-inspection.md)。原資料、金融／來源／歷史／unknown 80 不變。
+
 ## 2026-10-06（台北）— UNI 供給組成資料包手動唯讀驗證
 
 新增 uni-supply-composition-review／共用 reader：以明示原 SHA-256 重驗 bytes，重放 finalized 錨點、同 hash／同高度 recheck、十個 canonical 釘選 eth_call 的 calldata 與 32-byte 解碼／位寬、文件片段與 Uni.sol 行、已存來源版本，並以四個受限運算重播五個研究推導。研究公式定義由方法檔釘選，不新增 canonical 公式。98 新增／全套 986、兩模式 validate 通過；原資料、金融／來源／歷史／unknown 80 不變。見[操作與限制](manual-uni-supply-composition-review.md)，無 UI 或 RPC 重採。

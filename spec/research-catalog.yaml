@@ -1,4 +1,4 @@
-version: 6
+version: 7
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -54,3 +54,9 @@ records:
     file: xlm-supply-2026-10-05-v1.json
     expected_id: 790c9763971cb01bd8712431ea7207eb4f4418e5a17459cf0df661f1ede5ad51
     event_id: xlm-reported-supply-20261005
+  - id: uni-supply-20261006
+    label: UNI 固定區塊供給組成／鑄造參數
+    kind: uni_supply_composition
+    file: uni-supply-composition-2026-10-06-v1.json
+    expected_id: de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1
+    event_id: uni-supply-composition-20261006
