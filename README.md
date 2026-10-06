@@ -94,7 +94,11 @@ node cli.js token-state-review data/research/uni-token-state-2026-10-04-v1.json 
 
 餘額不少於 allowance 只限該時點；totalSupply 尚不足以確認流通／完全稀釋分母。原價格時點不同，市值／FDV 與全年實際分配仍未知。
 
-新的 finalized block 26133577 另存 [UNI 供給組成與鑄造參數](reports/uni-supply-composition.md)：totalSupply 仍為 1,000,000,000 UNI，dead address 累計約 112.63M、Timelock 約 262.25M UNI；minter 為官方文件列示的 Timelock，2024-01-01 起時間上可鑄造，單次上限 2%（每 365 日）。扣除後餘額只是機械減法，不是流通供給；鑄造條件滿足不代表會鑄造，市值／FDV 仍未知。
+新的 finalized block 26133577 另存 [UNI 供給組成與鑄造參數](reports/uni-supply-composition.md)：totalSupply 仍為 1,000,000,000 UNI，dead address 累計約 112.63M、Timelock 約 262.25M UNI；minter 為官方文件列示的 Timelock，2024-01-01 起時間上可鑄造，單次上限 2%（每 365 日）。扣除後餘額只是機械減法，不是流通供給；鑄造條件滿足不代表會鑄造，市值／FDV 仍未知。可使用[手動唯讀驗證](reports/manual-uni-supply-composition-review.md)重新核對錨點、十個 canonical 釘選讀值、文件片段與五個推導：
+
+```powershell
+node cli.js uni-supply-composition-review data/research/uni-supply-composition-2026-10-06-v1.json --production --digest de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1
+```
 
 研究頁也提供[餘額／供給中文表格](reports/token-state-research-inspection.md)：四個 raw 觀測與獨立推導結果分開，完整公式 v1／依賴與三種原時間保留；兩張窄表格可用方向鍵橫向捲動。原已存事件的審查時間不會因查閱或手動時效查詢而更新。
 
