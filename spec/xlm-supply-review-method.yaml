@@ -1,0 +1,58 @@
+id: xlm-supply-review
+version: 1
+archive_id: xlm-reported-supply-20261005-v1
+asset: XLM
+interpretation: 只核對已保存的官方回報字串、時間、來源版本與嵌入殘差算術；不是獨立 ledger／帳戶查證、自由流通、個人資格或同步估值。
+report_capture:
+  url: https://dashboard.stellar.org/api/v2/lumens/
+  source_id: stellar-dashboard-supply-20261005-v1
+  source_version: 1
+  content_type: application/json; charset=utf-8
+  timestamp_field: updatedAt
+  unmapped_fields: [_details]
+definition_capture:
+  url: https://developers.stellar.org/docs/learn/fundamentals/lumens
+  source_id: stellar-lumens-docs-20260928-v2
+  source_version: 2
+  supersedes: stellar-lumens-docs-20260928-v1
+  content_type: text/html; charset=utf-8
+  covered_metric: research.xlm.supply.definition
+decimals: 7
+fields:
+  - [originalSupply, XLM, 原始供給]
+  - [inflationLumens, XLM, 歷史 inflation 增發]
+  - [burnedLumens, XLM, 不可存取（burned）]
+  - [totalSupply, XLM, 回報總供給]
+  - [upgradeReserve, XLM, 升級準備]
+  - [feePool, XLM, 費用池]
+  - [sdfMandate, XLM, SDF mandate]
+  - [circulatingSupply, XLM, 供應者回報流通]
+  - [updatedAt, UTC instant, 供應者更新時間]
+formulas:
+  - id: research.xlm.supply.total_residual
+    version: 1
+    unit: XLM
+    decimals: 7
+    expression:
+      op: signed_decimal_sum
+      args:
+        - {record_id: research.xlm.supply.originalSupply@1-20261005, sign: 1}
+        - {record_id: research.xlm.supply.inflationLumens@1-20261005, sign: 1}
+        - {record_id: research.xlm.supply.burnedLumens@1-20261005, sign: -1}
+        - {record_id: research.xlm.supply.totalSupply@1-20261005, sign: -1}
+    method_source_ids: [stellar-lumens-docs-20260928-v2]
+    rationale: 按官方口徑核對原始加歷史 inflation、扣 inaccessible burned 與回報 total 的精確小數殘差；不獨立驗證帳戶或鏈上狀態。
+  - id: research.xlm.supply.circulating_residual
+    version: 1
+    unit: XLM
+    decimals: 7
+    expression:
+      op: signed_decimal_sum
+      args:
+        - {record_id: research.xlm.supply.totalSupply@1-20261005, sign: 1}
+        - {record_id: research.xlm.supply.upgradeReserve@1-20261005, sign: -1}
+        - {record_id: research.xlm.supply.feePool@1-20261005, sign: -1}
+        - {record_id: research.xlm.supply.sdfMandate@1-20261005, sign: -1}
+        - {record_id: research.xlm.supply.circulatingSupply@1-20261005, sign: -1}
+    method_source_ids: [stellar-lumens-docs-20260928-v2]
+    rationale: 核對供應者的剩餘分類口徑；其流通概念不等於獨立驗證自由流通、流動性或可交易資格。

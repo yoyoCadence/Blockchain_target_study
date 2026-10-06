@@ -78,7 +78,13 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 [固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共九份 review／十六筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
 
-已保存 [XLM 官方回報供給與口徑](reports/xlm-reported-supply.md)：九個回報觀測及兩個精確小數研究殘差，更新／取得時間分開，中文已審查事件可查看原 hash／來源／限制。算術一致不證明獨立鏈上供給，昨日價格不能與本次供給拼成同步市值／FDV；共用供給 reader／catalog 及完整 baseline 保留。
+已保存 [XLM 官方回報供給與口徑](reports/xlm-reported-supply.md)：九個回報觀測及兩個精確小數研究殘差，更新／取得時間分開，中文已審查事件可查看原 hash／來源／限制。算術一致不證明獨立鏈上供給，昨日價格不能與本次供給拼成同步市值／FDV。可使用[手動唯讀驗證](reports/manual-xlm-supply-review.md)重新核對原回應 hash、精確小數、更新／取得時間、來源版本與兩條殘差公式：
+
+```powershell
+node cli.js xlm-supply-review data/research/xlm-supply-2026-10-05-v1.json --production --digest 790c9763971cb01bd8712431ea7207eb4f4418e5a17459cf0df661f1ede5ad51
+```
+
+研究目錄／逐列中文表格與完整 baseline 尚待完成。
 
 同一區塊的[owner 餘額與 totalSupply](reports/uni-token-state.md)另存四個 OBSERVED raw 值、原 owner getter 依賴及 BigInt 比較 v1。可使用[手動唯讀驗證](reports/manual-token-state-review.md)核對原始呼叫與比較結果：
 

@@ -1,0 +1,196 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+additionalProperties: false
+required: [id, version, fixture, as_of_date, purpose, captures, sources, observations, formulas, derived, context, limitations]
+properties:
+  id: &text {type: string, pattern: '\S'}
+  version: {const: 1}
+  fixture: {const: false}
+  as_of_date: &day {type: string, format: date}
+  purpose: *text
+  captures:
+    type: array
+    minItems: 2
+    maxItems: 2
+    items:
+      - type: object
+        additionalProperties: false
+        required: [url, method, started_at, received_at, http_status, http_date, content_type, body_sha256, response_json]
+        properties:
+          url: &uri {type: string, format: uri}
+          method: {const: GET}
+          started_at: &instant {type: string, format: date-time}
+          received_at: *instant
+          http_status: {const: 200}
+          http_date: *text
+          content_type: *text
+          body_sha256: &digest {type: string, pattern: '^[0-9a-f]{64}$'}
+          response_json: *text
+      - type: object
+        additionalProperties: false
+        required: [url, method, started_at, received_at, http_status, http_date, content_type, body_sha256, last_updated_marker]
+        properties:
+          url: *uri
+          method: {const: GET}
+          started_at: *instant
+          received_at: *instant
+          http_status: {const: 200}
+          http_date: *text
+          content_type: *text
+          body_sha256: *digest
+          last_updated_marker: {const: null}
+  sources:
+    type: array
+    minItems: 2
+    maxItems: 2
+    items:
+      type: object
+      required: [id, version, url, publisher, title, date, retrieved_at, tier, covered_metrics, fixture]
+      properties:
+        id: *text
+        fixture: {const: false}
+  observations:
+    type: array
+    minItems: 9
+    maxItems: 9
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, metric_id, classification, fixture, field, value, raw_value, unit, confidence, as_of_date, period, source_ids, observed_at, response_received_at, measurement_basis]
+      properties:
+        id: *text
+        version: {const: 1}
+        asset: {const: XLM}
+        metric_id: *text
+        classification: {const: OBSERVED}
+        fixture: {const: false}
+        field: *text
+        value: *text
+        raw_value: *text
+        unit: {enum: [XLM, UTC instant]}
+        confidence: {const: medium}
+        as_of_date: *day
+        period: &point
+          type: object
+          additionalProperties: false
+          required: [basis, end]
+          properties:
+            basis: {const: point}
+            end: *day
+        source_ids: {type: array, minItems: 1, maxItems: 1, items: *text}
+        observed_at: *instant
+        response_received_at: *instant
+        measurement_basis: {const: provider_reported}
+  formulas:
+    type: array
+    minItems: 2
+    maxItems: 2
+    items: {type: object}
+  derived:
+    type: array
+    minItems: 2
+    maxItems: 2
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, version, asset, metric_id, classification, fixture, as_of_date, period, observed_at, value, unit, confidence, formula_id, formula_version, dependencies]
+      properties:
+        id: *text
+        version: {const: 1}
+        asset: {const: XLM}
+        metric_id: *text
+        classification: {const: DERIVED}
+        fixture: {const: false}
+        as_of_date: *day
+        period: *point
+        observed_at: *instant
+        value: {type: string, pattern: '^-?(0|[1-9][0-9]*)\.[0-9]{7}$'}
+        unit: {const: XLM}
+        confidence: {const: medium}
+        formula_id: *text
+        formula_version: {const: 1}
+        dependencies: {type: array, minItems: 2, uniqueItems: true, items: *text}
+  context:
+    type: object
+    additionalProperties: false
+    required: [provider_updated_at, received_at, document_last_updated_date, document_date_basis, circulating_supply_basis, ledger_sequence, ledger_hash, component_account_balances, independently_verified_circulating_supply, fully_diluted_supply, synchronized_market_cap, synchronized_fdv]
+    properties:
+      provider_updated_at: *instant
+      received_at: *instant
+      document_last_updated_date: *day
+      document_date_basis: *text
+      circulating_supply_basis: *text
+      ledger_sequence: {const: null}
+      ledger_hash: {const: null}
+      component_account_balances: {const: null}
+      independently_verified_circulating_supply: {const: null}
+      fully_diluted_supply: {const: null}
+      synchronized_market_cap: {const: null}
+      synchronized_fdv: {const: null}
+  limitations: {type: array, minItems: 1, items: *text}
+definitions:
+  method:
+    type: object
+    additionalProperties: false
+    required: [id, version, archive_id, asset, interpretation, report_capture, definition_capture, decimals, fields, formulas]
+    properties:
+      id: {const: xlm-supply-review}
+      version: {const: 1}
+      archive_id: *text
+      asset: {const: XLM}
+      interpretation: *text
+      report_capture:
+        type: object
+        additionalProperties: false
+        required: [url, source_id, source_version, content_type, timestamp_field, unmapped_fields]
+        properties:
+          url: {const: 'https://dashboard.stellar.org/api/v2/lumens/'}
+          source_id: *text
+          source_version: {type: integer, minimum: 1}
+          content_type: *text
+          timestamp_field: {const: updatedAt}
+          unmapped_fields: {const: [_details]}
+      definition_capture:
+        type: object
+        additionalProperties: false
+        required: [url, source_id, source_version, supersedes, content_type, covered_metric]
+        properties:
+          url: {const: 'https://developers.stellar.org/docs/learn/fundamentals/lumens'}
+          source_id: *text
+          source_version: {type: integer, minimum: 2}
+          supersedes: *text
+          content_type: *text
+          covered_metric: {const: research.xlm.supply.definition}
+      decimals: {const: 7}
+      fields: {const: [[originalSupply, XLM, 原始供給], [inflationLumens, XLM, 歷史 inflation 增發], [burnedLumens, XLM, 不可存取（burned）], [totalSupply, XLM, 回報總供給], [upgradeReserve, XLM, 升級準備], [feePool, XLM, 費用池], [sdfMandate, XLM, SDF mandate], [circulatingSupply, XLM, 供應者回報流通], [updatedAt, UTC instant, 供應者更新時間]]}
+      formulas:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, version, unit, decimals, expression, method_source_ids, rationale]
+          properties:
+            id: {enum: [research.xlm.supply.total_residual, research.xlm.supply.circulating_residual]}
+            version: {const: 1}
+            unit: {const: XLM}
+            decimals: {const: 7}
+            expression:
+              type: object
+              additionalProperties: false
+              required: [op, args]
+              properties:
+                op: {const: signed_decimal_sum}
+                args:
+                  type: array
+                  minItems: 2
+                  items:
+                    type: object
+                    additionalProperties: false
+                    required: [record_id, sign]
+                    properties:
+                      record_id: *text
+                      sign: {enum: [1, -1]}
+            method_source_ids: {type: array, minItems: 1, maxItems: 1, items: *text}
+            rationale: *text

@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— XLM 供給資料包手動唯讀驗證
+
+接手時 PR #60 已合併、PR／main CI 成功，乾淨 main `c133bcc`；已讀 AGENTS.md、全域 Codex 筆記、task 與交接，沿用中文非 Draft PR／CI 成功後自主合併授權，保持增量範圍。建立 `feat/manual-xlm-supply-review`。
+
+新增 `xlm-supply-review`／共用 reader `engine/research/xlm-supply.js`、schema／方法 v1。明示 production／原 digest `790c9763…`；核對兩 GET 固定 URL／content type／HTTP／UTC chronology、API body hash `af89e0d5…`、回應欄位集合（九欄＋`_details`）、九個精確字串與七位小數格式、`updatedAt` 原 ISO 字串／早於收到時間，以及嵌入兩來源與已存事件來源逐欄相同、文件 v2 supersedes 原身份 v1。兩條 signed_decimal_sum v1 完整定義由方法檔釘選，BigInt 重播 DERIVED 與確切依賴；非零殘差如實重播，不推健康。文件正文不可離線重播（`body_replayable=false`）；ledger／帳戶／獨立流通／完全稀釋／同步估值仍 null。
+
+74 新增／全套 844、兩模式 validate 通過（84 指標／25 公式、unknown 1／80）。原 bytes、來源、金融／公式／假設／情境／論點、十六份正式／三份 Fixture 歷史、三項 TTM null、UNI stale 年率、0.422 不變；無 UI 變更，未做瀏覽器 QA。見[操作與限制](manual-xlm-supply-review.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項把同一 reader 接入研究目錄 v6（原 bytes／事件 `xlm-reported-supply-20261005` 綁定、原 review 時間）、既有研究／時效 API 與中文逐列表格；不重採、不改原 bytes、不再次套用事件。完整 baseline 的 UNI capture／分配／部署等價、SECZ 六收入／可比 TTM、同步估值及個人資格仍未完成。
+
 ## 2026-10-05（台北）— 接手 XLM 官方回報供給
 
 遠端 PR #59 已合併，PR／main CI 成功，無 review／待處理 thread；main `8e9cceb`。接手時已在 `research/xlm-reported-supply`，只有 XLM JSON／YAML 兩個 untracked 檔。已讀本地／全域 AGENTS.md、task 與交接，沿用既有中文非 Draft PR／成功 CI 後合併授權，保持增量研究範圍。
