@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— XLM 供給資料包手動唯讀驗證
+
+新增 xlm-supply-review／共用 reader、schema／方法 v1；以明示原 SHA-256 重驗 bytes，核對 API body hash、九個 provider_reported 精確字串、七位小數格式、更新／取得／HTTP 時間、已存來源與 supersedes，並以 BigInt 重播兩條 signed_decimal_sum v1 與確切依賴。研究公式定義由方法檔釘選，同版本改寫拒絕；不新增 canonical 公式。74 新增／全套 844、兩模式 validate 通過；原資料、金融／來源／歷史／unknown 80 不變。見[操作與限制](manual-xlm-supply-review.md)，無 UI 或 API 重採。
+
 ## 2026-10-05（台北）— XLM 官方回報供給與口徑
 
 接續原兩份未提交資料，保留原 bytes／取得時間／review；九個 provider_reported OBSERVED、兩個七位精確小數研究殘差 v1 保存，ledger／獨立流通與同步估值維持 null。追加兩來源及完整 source-only 快照，文件 v2 明示 supersedes；正式十六份歷史、模型日期／金融／論點與 unknown 80 保留。五項新增／全套 770、兩模式 validate、Chrome 桌面／窄鍵盤／JSON／兩安全連結／Fixture 隔離通過。見[研究與驗收](xlm-reported-supply.md)；唯讀供給 reader／catalog 與完整 baseline 尚未完成。

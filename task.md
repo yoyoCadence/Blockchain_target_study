@@ -21,6 +21,7 @@
 - [ ] **Recommended next task:** primary-source research refresh workflow and first reviewed production baseline. Verify identifiers/investability, UNI budget and actual value-capture activation; collect dated prices/valuations and comparable financial periods. Keep unavailable values null.
   - [x] Manual reviewed primary-source refresh workflow: preview, digest-bound apply, append-only sources/observations, full recomputation and immutable journal. Acceptance: read-only preview, primary evidence and period validation, stale-preview rejection, historical replay and CLI integration. See [workflow](reports/research-refresh.md) and [handoff](reports/handoff.md).
   - [ ] First reviewed production baseline: identifier/investability checks, UNI budget/capture activation, dated valuations and comparable periods.
+    - [x] XLM 供給資料包手動唯讀驗證：明示 production／digest，schema／方法 v1 核對原回應 body hash、九個精確字串／七位小數格式、更新與取得時間、已存來源版本／supersedes，並以 BigInt 重播兩條殘差 v1 與確切依賴；matching digest 仍拒絕錯配。見[操作與限制](reports/manual-xlm-supply-review.md)。74 新增／全套 844、兩模式 validate 通過；原資料／金融／來源／歷史不變，研究目錄／中文逐列查閱與父 baseline 尚待完成。
     - [x] XLM 官方回報供給與定義：保留原 API／七位精確小數／更新和取得時間，九個 provider_reported OBSERVED、兩個研究殘差 v1，追加兩來源與完整 source-only 快照。見[研究與驗收](reports/xlm-reported-supply.md)。五項新增／全套 770、兩模式 validate、桌面／窄鍵盤與 Fixture 隔離通過；ledger／獨立流通／完全稀釋定義／同步估值保持 null，共用唯讀 reader／catalog 與父 baseline 未完成。
     - [x] 公開市場資料包驗證／研究目錄／API／中文逐列查閱：production／digest 共用 reader、schema／方法 v1 核對四 HTTP、26 typed 欄位、原身份與公式／依賴；v5 目錄綁原 bytes／review，九研究／185 紀錄／28 來源。見[操作與驗收](reports/public-venue-research-review.md)。65 新增／全套 765、兩模式 validate、桌面／窄鍵盤、Fixture 與兩 cutoff 審查列通過；金融／原資料／來源／歷史不變，個人存取與完整 baseline 保留。
     - [x] UNI／XLM 單一公開市場與網路表示：四份原 HTTP／個別 UTC 取得時間、26 typed OBSERVED、XLM 空合約 raw／null、原身份依賴與研究比較 v1，追加六來源與 source-only 完整快照；產品 v2 明示 supersedes，價格／金融／投資性／模型期間不變。見[研究與驗收](reports/uni-xlm-public-venue.md)。700 項／兩模式 validate／桌面與窄鍵盤／JSON／六安全來源／Fixture 隔離通過；個人／託管／提款、資料包共用 reader／目錄及父 baseline 保留。
@@ -112,3 +113,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-04 最新停止要求：完成目前 XLM 單筆價格子項的中文 PR、CI 與合併後告一段落，不再啟動下一項；使用者將換帳號接續。接續先閱讀 AGENTS.md 與交接，重新確認遠端／工作區狀態。
 
 2026-10-04 接續授權：使用者已要求繼續完成其他任務，自主開中文非 Draft PR，驗證與 CI 成功後合併；解除上一輪停止要求。先完成 baseline 必要的 UNI 期間語意與價格子項，再依優先順序研究現行估值／可比期間；未授權 unattended 自動化、排程、通知或投資組合模型。
+
+2026-10-06 接續授權：使用者要求依 AGENTS.md 持續完成任務、自主開中文非 Draft PR、CI 成功後合併並接續；沿用既有增量範圍，未授權 unattended 自動化、排程、通知或投資組合／報酬模型。
