@@ -121,6 +121,36 @@ function renderResearch(data) {
     el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
    card.append(researchSources(report.sources),full);return card;
   }
+  if(report.kind==='uni_firepit_state') {
+   const summary=report.summary,files={readme:'README.md',firepit:'Firepit.sol',exchange_releaser:'ExchangeReleaser.sol',nonce:'Nonce.sol',resource_manager:'ResourceManager.sol'};
+   const values=freshnessTable(['觀測項目','原始值（完整字串）','單位','ABI 型別／來源','分類／可信程度'],summary.values.map(v=>[
+    v.label,v.value,term(v.unit),v.abi_type??'官方 README 行',`${term(v.classification)}／${term(v.confidence)}`
+   ]));values.tabIndex=0;values.setAttribute('aria-label','UNI Firepit 狀態原始值表格，可左右捲動');
+   const derived=freshnessTable(['研究推導','結果','單位','分類／可信程度','公式版本'],summary.derived.map(d=>[
+    d.label,String(d.value),term(d.unit),`${term(d.classification)}／${term(d.confidence)}`,`${d.formula_id} / v${d.formula_version}`
+   ]));derived.tabIndex=0;derived.setAttribute('aria-label','UNI Firepit 狀態研究推導表格，可左右捲動');
+   card.append(el('p',report.notice,'hint'),el('p',`固定區塊 ${summary.block_number} · ${summary.block_hash}`,'event-evidence'),
+    el('p',`區塊時間 ${summary.block_time} · 取得時間 ${summary.retrieved_at}`,'hint'),
+    el('p',`查證方法 v${report.method.version}；只驗證保存證據的內部一致性，部署合約與原始碼等價未驗證。`,'hint'),
+    el('p','表格可左右捲動；raw 整數保留完整字串，不換算成 UNI 或金額。','hint'),values,
+    el('h3','研究推導（機械運算）'),derived);
+   for(const d of summary.derived)card.append(el('p',`${d.formula_id} 依賴：${d.dependencies.join(' · ')}`,'event-evidence'));
+   card.append(el('p','次數乘以現行門檻只有在門檻從未變更時才等於累計支付；扣除後差額未歸因。兩者都不是年度銷毀或收入。','hint'),
+    el('h3','身份與語意依據'),
+    el('p',`官方 protocol-fees repo commit ${summary.commit}（${summary.commit_date}）；各檔只保存 body SHA-256 與選定行，正文不能離線重播。`,'event-evidence'));
+   for(const doc of summary.documents) {
+    card.append(el('p',`${files[doc.key]} · ${doc.source_id} · 取得 ${doc.retrieved_at}`,'hint'));
+    const lines=el('ul');for(const line of doc.lines)lines.append(el('li',`第 ${line.line} 行：${line.text.trim()}`));card.append(lines);
+   }
+   card.append(el('h3','尚未查證的累計、歸因與年化'));
+   const unknown=el('ul');for(const [field,label] of [['threshold_history','門檻變更歷史'],['cumulative_firepit_payment','精確累計支付'],['dead_sink_balance_attribution','dead address 餘額歸因'],
+    ['l2_bridged_burns','L2 橋接銷毀'],['released_asset_values_usd','換出資產 USD 價值'],['fee_origin_attribution','費用來源歸因'],['annualized_burn','年化 burn'],
+    ['synchronized_price','同步價格'],['deployment_source_equivalence','部署原始碼等價']])unknown.append(el('li',`${label}：${term(summary.unknown[field])}`));card.append(unknown);
+   const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
+   const full=el('details');full.append(el('summary','原始 request／response、選定行與查證限制'),
+    el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
+   card.append(researchSources(report.sources),full);return card;
+  }
   if(report.kind==='uni_supply_composition') {
    const summary=report.summary,docs=summary.documents;
    const values=freshnessTable(['觀測項目','原始值（完整字串）','單位','ABI 型別／來源','分類／可信程度'],summary.values.map(v=>[

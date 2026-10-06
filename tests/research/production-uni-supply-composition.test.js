@@ -113,7 +113,7 @@ test('UNI supply composition is a source-only append that keeps finance, thesis,
  assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  for(const snapshot of history)verifySnapshot(snapshot);
  const inspected=inspectResearch(p),entry=inspected.events.find(e=>e.id===event.id);
- assert.equal(entry.recorded_update_count,0);assert.deepEqual(entry.sources,event.sources);assert.equal(inspected.records.length,11);
+ assert.equal(entry.recorded_update_count,0);assert.deepEqual(entry.sources,event.sources);assert.equal(inspected.records.length,12);
  assert.deepEqual(inspectResearch(loadProject('fixture')).events,[]);
  assert.equal(calculate(loadProject('fixture')).metrics['uni.required_share'].value,0.422);
  assert.equal(fingerprint(readSnapshots(p.root,p.mode)),before);

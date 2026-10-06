@@ -104,7 +104,7 @@ test('Firepit state is a source-only append that keeps finance, thesis, history,
  for(const snapshot of history)verifySnapshot(snapshot);
  const inspected=inspectResearch(p),entry=inspected.events.find(e=>e.id===event.id);
  assert.equal(entry.recorded_update_count,0);assert.deepEqual(entry.sources,event.sources);
- assert.ok(!inspected.records.some(r=>r.full_review?.id===a.id));
+ assert.equal(inspected.records.find(r=>r.kind==='uni_firepit_state').artifact_id,hash(raw));
  assert.deepEqual(inspectResearch(loadProject('fixture')).events,[]);
  assert.equal(calculate(loadProject('fixture')).metrics['uni.required_share'].value,0.422);
  assert.equal(fingerprint(readSnapshots(p.root,p.mode)),before);

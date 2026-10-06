@@ -333,6 +333,43 @@ test('UNI supply zero flags render as observed zero instead of unknown or a heal
  assert.equal(row.children[1].textContent,'0');assert.match(row.textContent,/推導值（DERIVED）/);assert.equal(row.textContent.includes('未知'),false);
 });
 
+test('Firepit state research renders exact readings, mechanical products, pinned source lines and unknown annualization',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-records').children.find(c=>c.dataset.research==='uni-firepit-20261006');
+ assert.match(card.textContent,/UNI 主網 Firepit 狀態／release 次數與門檻/);assert.match(card.textContent,/2026-10-06T14:44:07\.673Z/);
+ for(const value of ['1395','4000000000000000000000','5580000000000000000000000','107053581211219518941995199','112633581211219518941995199',
+  '0x000000000000000000000000000000000000dead','0x0D5Cd355e2aBEB8fb1552F56c965B867346d6721','0xf38521f130fcCF29dB1961597bc5d2B60F995f85'])assert.ok(card.textContent.includes(value),value);
+ assert.match(card.textContent,/固定區塊 26133926 · 0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060/);
+ assert.match(card.textContent,/區塊時間 2026-10-06T14:27:35\.000Z · 取得時間 2026-10-06T14:43:40\.447Z/);
+ assert.match(card.textContent,/research\.uni\.firepit\.nonce_times_threshold \/ v1/);assert.match(card.textContent,/research\.uni\.firepit\.block26133926\.threshold@1/);
+ assert.match(card.textContent,/兩者都不是年度銷毀或收入/);assert.match(card.textContent,/commit 8604e4b9aed88bdd6be3a322e19722c40f94be2c（2025-12-18）/);
+ assert.match(card.textContent,/ExchangeReleaser\.sol · uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1/);
+ assert.match(card.textContent,/第 50 行：RESOURCE\.safeTransferFrom\(msg\.sender, RESOURCE_RECIPIENT, threshold\);/);assert.match(card.textContent,/第 24 行：\+\+nonce;/);
+ assert.match(card.textContent,/官方 README 行/);assert.match(card.textContent,/UNI 原始最小單位/);
+ for(const label of ['門檻變更歷史','精確累計支付','dead address 餘額歸因','L2 橋接銷毀','換出資產 USD 價值','費用來源歸因','年化 burn','同步價格','部署原始碼等價'])
+  assert.ok(card.textContent.includes(label+'：未知'),label);
+ assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,6);
+ const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
+ assert.equal(production.metrics['uni.net_burn_yield'].value,null);assert.equal(production.metrics['uni.crypto_fees'].value,null);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
+});
+
+test('research card text, list and raw blocks can break long unspaced evidence on narrow screens',()=>{
+ // README rows carry long unspaced URLs; without this rule the narrow page overflowed (312/509 in Chrome).
+ const css=fs.readFileSync(new URL('../dashboard/style.css',import.meta.url),'utf8');
+ for(const selector of ['.research-card .hint','.research-card li','.event-evidence','.research-sources p,.research-checks p'])
+  assert.match(css,new RegExp(`${selector.replace(/[.,]/g,'\\$&')}\\{[^}]*overflow-wrap:anywhere`),selector);
+});
+
+test('Firepit zero comparison flags render as observed zero instead of unknown',async()=>{
+ const data=structuredClone(productionResearch),r=data.records.find(r=>r.kind==='uni_firepit_state');
+ r.summary.derived.find(d=>d.formula_id==='research.uni.firepit.token_jar_matches_docs').value=0;
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(data);await tick();
+ const table=v.$('research-records').children.find(c=>c.dataset.research===r.id).querySelectorAll('table')[1];
+ const row=table.children.find(tr=>tr.textContent.includes('TOKEN_JAR 與 README 地址相符'));
+ assert.equal(row.children[1].textContent,'0');assert.match(row.textContent,/推導值（DERIVED）/);assert.equal(row.textContent.includes('未知'),false);
+});
+
 test('Firepit state event shows release count, current threshold and unattributed residual without annualizing',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-firepit-state-20261006');
@@ -366,6 +403,6 @@ test('XLM supply event shows exact reported decimals and separate timestamps wit
  assert.match(card.textContent,/零殘差不證明真實供給或健康論點/);assert.match(card.textContent,/前一天價格不能配成本次同步市值／FDV/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
  assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),84);
- assert.equal(productionResearch.records.length,11);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
+ assert.equal(productionResearch.records.length,12);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });
