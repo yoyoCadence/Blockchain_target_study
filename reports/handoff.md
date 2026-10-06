@@ -1,5 +1,23 @@
 # 開發交接
 
+## 2026-10-06（台北）— 後續研究可行性探測與待使用者決定事項
+
+PR #69 push／PR CI 成功並合併（main `8b33dfe`），無未合併 PR。以下是合併後的**探索性**結果，沒有保存成證據、沒有套用事件；只供排優先順序，不可當作已查證事實引用。
+
+- **歷史 Transfer logs（精確累計支付／dead 餘額歸因）**：免費公開節點不可行。PublicNode 對歷史範圍回「Archive requests require a personal token」；Cloudflare 限 800 區塊、1RPC 限 50 區塊、dRPC 免費方案拒絕、Ankr 需 API key、LlamaRPC 回 525。Firepit 部署至今約 210 萬區塊，逐段掃描需數千次請求，不屬於有界人工擷取。需要使用者提供 archive RPC 或 explorer API key 才能做。另外 `ResourceManager.setThreshold` 在 pinned 原始碼中沒有 emit 事件，門檻歷史無法單靠 logs 取得，需要歷史 state 或交易追蹤。
+- **Unichain 橋接 Firepit**（`0xe0A780E9…`，chain 130）：`mainnet.unichain.org` 與 PublicNode Unichain 都支援 `finalized`；探索讀值 nonce=13、threshold=2000 bridged UNI（乘積約 26,000 UNI）。規模遠小於 L1 dead 餘額扣除後的未歸因差額，不值得為它另做一組保存／規格／目錄；差額來源（收購前既有餘額、其他轉入或歷史門檻不同）仍未知。
+- **SEC EDGAR**：以 curl 直接請求回 403（SEC 要求 User-Agent 宣告聯絡資訊）。未經使用者同意不送出其信箱，也不偽造聯絡資訊或假裝瀏覽器。內建 WebFetch 可讀取 EDGAR 頁面，但輸出經模型轉述，不是 byte-exact；引用原文需交叉核對。
+- **SECZ MG Stover 名稱差異**：S-1 索引沒有 Exhibit 21。XBRL R30 兩段都寫「acquisition of all outstanding equity interests of MG Stover」、同為 2025-04-15，但沒有任何公司型態轉換或更名說明。這不是再讀同一批文件就能釐清的事實；TTM 的 `acquisition_treatment` 是否可在保留名稱衝突下確認，是分析者判斷。
+
+**需要使用者決定（任何一項都會解除一條主線）：**
+
+1. `uni.market_cap`／`uni.fdv`：目前是 input 且為 null。是否改為由價格×供給推導；流通供給排除哪些地址（dead、Timelock、其他）作為 ASSUMPTION；FDV 是否採 totalSupply。這是公式／假設變更，需版本升級與 changelog。
+2. Firepit 次數×現行門檻是否可在明示 ASSUMPTION（門檻未變、只計主網）下年化成模型輸入，或維持研究層。
+3. SECZ TTM：是否接受在保留 Inc.／LLC 名稱衝突的前提下，以「同收購日、同配置金額、同 XBRL member、兩段皆稱全部權益」確認 `acquisition_treatment`，用新版本 request 產生 TTM（不改寫原 v1 的 null）。
+4. 是否提供 archive RPC／explorer API key，以及是否同意在 SEC 請求的 User-Agent 帶聯絡信箱。
+
+在使用者決定前可做但價值較低的項目：其他資產或協議的固定區塊狀態、既有 reader 的重構收斂（fixed-block／token-state 也可改用 `finalized-rpc.js`）。不啟動 unattended 或新模型。
+
 ## 2026-10-06（台北）— UNI 主網 Firepit 狀態研究目錄、API 與中文逐列查閱
 
 PR #68 push／PR CI 成功並合併（`19daa6b`）；從 reader 分支延伸 `feat/uni-firepit-state-inspection`。目錄 v8 新增 `uni-firepit-20261006`／kind `uni_firepit_state`，綁原 bytes `41c8fcb1…`、事件 `uni-firepit-state-20261006` 與原 review `2026-10-06T14:44:07.673Z`。inspection 的 UNI 固定區塊分支現在同時服務供給組成與 Firepit（依 kind 選 reader，變數改名 `uniBlock`，錯誤訊息改為 `UNI fixed-block catalog…`）。

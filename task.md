@@ -127,3 +127,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-06 停止要求：完成 UNI 供給組成研究 PR 的 CI 與合併後告一段落，不再啟動下一項。接續先閱讀 AGENTS.md 與交接，重新確認遠端／工作區狀態；下一項為此資料包的共用唯讀 reader 與研究目錄。
 
 2026-10-06 接續授權（第二次）：使用者解除同日停止要求，要求依 AGENTS.md 繼續開發、持續開中文非 Draft PR、CI 成功後自主合併並接續下一項；範圍限制不變。
+
+2026-10-06 待使用者決定：UNI 供給與主網 Firepit 兩條證據鏈已完成至研究目錄。後續主線需要決定 (1) uni.market_cap／uni.fdv 是否改為推導與流通供給 ASSUMPTION、(2) Firepit 次數×門檻是否年化為模型輸入、(3) SECZ TTM 是否在保留 MG Stover 名稱衝突下確認收購處理、(4) 是否提供 archive RPC／API key 與 SEC 聯絡 User-Agent。可行性探測見 reports/handoff.md；探測結果不是已保存證據。
