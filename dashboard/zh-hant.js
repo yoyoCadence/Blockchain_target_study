@@ -41,6 +41,7 @@ const terms={
  'uni-vesting-fixed-block-20261004':'UNI 固定區塊參數與剩餘授權',
  'uni-token-state-20261004':'UNI 固定區塊餘額與供給',
  'uni-supply-composition-20261006':'UNI 固定區塊供給組成與鑄造參數',
+ 'uni-supply-20261006':'UNI 固定區塊供給組成／鑄造參數','unix seconds':'Unix 秒',seconds:'秒',percent:'百分比（%）',
  'uni-xlm-public-venue-state-20261005':'UNI／XLM 公開市場與網路表示',
  'uni-xlm-public-venue-20261005':'UNI／XLM 單一公開市場與網路表示',
  'UNI raw base units':'UNI 原始最小單位',

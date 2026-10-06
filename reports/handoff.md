@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 供給組成研究目錄、API 與中文逐列查閱
+
+PR #65 push／PR CI 成功並合併（`2f644e5`）；從 reader 分支延伸 `feat/uni-supply-composition-inspection`。目錄 v7 新增 `uni-supply-20261006`／kind `uni_supply_composition`，綁原 bytes `de66eac4…`、事件 `uni-supply-composition-20261006` 與原 review `2026-10-06T13:36:06.327Z`；inspection 重用 reader，另核對事件 reason 含原 hash、三來源與當時快照來源 fingerprint 相同、RPC／文件取得皆早於審查。
+
+十一研究／214 紀錄／33 來源，事件仍十七筆；13 OBSERVED raw 字串、5 DERIVED v1／依賴保留，全目錄紀錄 ID 唯一。中文卡片兩表格（原值／推導）、區塊與取得時間、地址表與 Uni.sol 行、九項未知與原 JSON；旗標 0 顯示為 0。10 月 5 日 cutoff NOT_AVAILABLE、6 日 AVAILABLE，推導恆 NOT_OBSERVED／INSUFFICIENT。九新增、十二個既有測試檔更新 10／196／30→11／214／33，全套 995、兩模式 validate 通過；金融／原資料／來源／歷史、unknown 80 不變。
+
+Chrome headless 桌面 1536×729／窄 312×675：31 項檢查通過（Enter 卡片／JSON、三安全連結、窄無溢出、兩表格 ArrowRight 0→40、Fixture 0／0→11／17、兩 cutoff 審查列）；favicon 404 以外 console 空，stderr 空，服務 PID 5448 已核對後停止。見[操作與驗收](uni-supply-composition-inspection.md)；本 PR／CI 最終狀態以遠端為準。
+
+接續：UNI 供給證據鏈（保存→規格→reader→目錄）已完成。`uni.market_cap`／`uni.fdv` 模型設計需要使用者決定（目前為 input；是否改為由價格×供給定義推導、流通供給以哪些地址排除作為 ASSUMPTION）。不需該決定即可進行的外部研究：dead address 餘額逐筆歸因、UNI 全年 capture／分配、SECZ 六收入／可比 TTM。不啟動 unattended 或新模型。
+
 ## 2026-10-06（台北）— UNI 供給組成資料包手動唯讀驗證
 
 PR #64 合併後 main `63e30c8` CI 成功、無未合併 PR；使用者解除同日停止要求並要求持續開 PR／合併／接續（已記於 task.md）。建立 `feat/uni-supply-composition-review`。

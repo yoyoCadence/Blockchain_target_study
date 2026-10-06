@@ -35,8 +35,8 @@ test('research freshness replays cataloged reviews separately from unchanged can
  const {scope,research:ignored,...canonical}=combined;
  assert.deepEqual(canonical,sourceFreshness(production,{as_of_date:cutoff}));
  assert.equal(scope,'canonical_and_cataloged_research');assert.equal(research.persisted,false);assert.equal(research.financial_inputs_updated,false);
- assert.equal(research.artifacts.length,10);assert.equal(research.records.length,196);assert.equal(research.source_checks.length,30);
- assert.deepEqual(research.summary.observation_states,{NOT_AVAILABLE_AT_CUTOFF:46,NOT_OBSERVED:14,UNKNOWN_DATA:10,WITHIN_REVIEW_WINDOW:126});
+ assert.equal(research.artifacts.length,11);assert.equal(research.records.length,214);assert.equal(research.source_checks.length,33);
+ assert.deepEqual(research.summary.observation_states,{NOT_AVAILABLE_AT_CUTOFF:59,NOT_OBSERVED:19,UNKNOWN_DATA:10,WITHIN_REVIEW_WINDOW:126});
  assert.equal(research.calculation.classification,'DERIVED');assert.equal(research.calculation.formula_version,1);
  assert.deepEqual(research.calculation.dependencies.artifact_ids,research.artifacts.map(a=>a.artifact_id));
  assert.ok(research.records.filter(r=>r.catalog_id==='secz-ttm-20260630').every(r=>r.record.value===null&&r.record.status==='COMPARABILITY_UNVERIFIED'&&r.evidence_state==='INSUFFICIENT'));
@@ -145,7 +145,7 @@ test('manual research-freshness CLI requires production/cutoff syntax and never 
  const before=fingerprint(readSnapshots(production.root,'production'));
  const run=(...args)=>spawnSync(process.execPath,['cli.js','research-freshness',...args],{cwd:production.root,encoding:'utf8'});
  const valid=run('--production','--as-of',cutoff);assert.equal(valid.status,0,valid.stderr);
- assert.equal(JSON.parse(valid.stdout).research.artifacts.length,10);assert.equal(JSON.parse(valid.stdout).persisted,false);
+ assert.equal(JSON.parse(valid.stdout).research.artifacts.length,11);assert.equal(JSON.parse(valid.stdout).persisted,false);
  const fixture=run();assert.equal(fixture.status,1);assert.match(fixture.stderr,/requires --production/);
  const missing=run('--production','--as-of');assert.equal(missing.status,1);assert.match(missing.stderr,/Use --as-of/);
  assert.equal(fingerprint(readSnapshots(production.root,'production')),before);

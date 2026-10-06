@@ -121,6 +121,35 @@ function renderResearch(data) {
     el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
    card.append(researchSources(report.sources),full);return card;
   }
+  if(report.kind==='uni_supply_composition') {
+   const summary=report.summary,docs=summary.documents;
+   const values=freshnessTable(['觀測項目','原始值（完整字串）','單位','ABI 型別／來源','分類／可信程度'],summary.values.map(v=>[
+    v.label,v.value,term(v.unit),v.abi_type??'官方文件片段',`${term(v.classification)}／${term(v.confidence)}`
+   ]));values.tabIndex=0;values.setAttribute('aria-label','UNI 供給組成原始值表格，可左右捲動');
+   const derived=freshnessTable(['研究推導','結果','單位','分類／可信程度','公式版本'],summary.derived.map(d=>[
+    d.label,String(d.value),term(d.unit),`${term(d.classification)}／${term(d.confidence)}`,`${d.formula_id} / v${d.formula_version}`
+   ]));derived.tabIndex=0;derived.setAttribute('aria-label','UNI 供給組成研究推導表格，可左右捲動');
+   card.append(el('p',report.notice,'hint'),el('p',`固定區塊 ${summary.block_number} · ${summary.block_hash}`,'event-evidence'),
+    el('p',`區塊時間 ${summary.block_time} · 取得時間 ${summary.retrieved_at}`,'hint'),
+    el('p',`查證方法 v${report.method.version}；只驗證保存證據的內部一致性，部署合約與原始碼等價未驗證。`,'hint'),
+    el('p','表格可左右捲動；raw 整數保留完整字串，不換算成 UNI 或金額。','hint'),values,
+    el('h3','研究推導（機械運算）'),derived);
+   for(const d of summary.derived)card.append(el('p',`${d.formula_id} 依賴：${d.dependencies.join(' · ')}`,'event-evidence'));
+   card.append(el('p','扣除後餘額不是流通或自由流通供給；時間條件與單次上限不代表會鑄造或年度增發。','hint'),
+    el('h3','身份與語意依據'),
+    el('p',`官方地址表 ${docs.address_table.source_id} · dateModified ${docs.address_table.date_modified} · 取得 ${docs.address_table.retrieved_at}`,'event-evidence'),
+    el('p',`地址表 body SHA-256 ${docs.address_table.body_sha256}；只保存兩列片段，正文不能離線重播。`,'hint'),
+    el('p',`Uni.sol ${docs.source_code.source_id} · commit ${docs.source_code.commit} · 取得 ${docs.source_code.retrieved_at}`,'event-evidence'));
+   const lines=el('ul');for(const line of docs.source_code.lines)lines.append(el('li',`第 ${line.line} 行：${line.text.trim()}`));card.append(lines);
+   card.append(el('h3','尚未查證的供給與估值'));
+   const unknown=el('ul');for(const [field,label] of [['circulating_supply','流通供給'],['circulating_supply_definition','流通供給定義'],['dead_sink_balance_attribution','dead address 餘額歸因'],
+    ['timelock_committed_or_spendable','Timelock 已承諾／可支用'],['future_mint_decision','未來鑄造決定'],['synchronized_price','同步價格'],['market_cap','市值'],
+    ['fdv','完全稀釋估值（FDV）'],['deployment_source_equivalence','部署原始碼等價']])unknown.append(el('li',`${label}：${term(summary.unknown[field])}`));card.append(unknown);
+   const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
+   const full=el('details');full.append(el('summary','原始 request／response、文件片段與查證限制'),
+    el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
+   card.append(researchSources(report.sources),full);return card;
+  }
   if(report.kind==='xlm_supply') {
    const summary=report.summary,record=id=>report.records.find(r=>r.id===id);
    const values=freshnessTable(['回報欄位','原始字串（完整）','單位','分類／可信程度','量測基礎'],summary.values.map(v=>[

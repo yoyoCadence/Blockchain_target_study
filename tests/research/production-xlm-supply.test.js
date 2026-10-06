@@ -111,7 +111,7 @@ test('XLM supply preserves all financial, thesis, immutable history and fixture 
  for(const snapshot of history)verifySnapshot(snapshot);
  const inspected=inspectResearch(p),entry=inspected.events.find(e=>e.id===saved.event.id);
  assert.equal(entry.recorded_update_count,0);assert.deepEqual(entry.sources,a.sources);
- assert.equal(inspected.records.length,10);assert.ok(!inspected.records.some(r=>r.id===a.id));
+ assert.equal(inspected.records.length,11);assert.ok(!inspected.records.some(r=>r.id===a.id));
  assert.equal(inspected.records.find(r=>r.kind==='xlm_supply').artifact_id,hash(raw));
  assert.deepEqual(inspectResearch(loadProject('fixture')).events,[]);
  assert.equal(calculate(loadProject('fixture')).metrics['uni.required_share'].value,0.422);

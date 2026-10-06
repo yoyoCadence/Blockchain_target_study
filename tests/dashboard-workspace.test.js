@@ -304,6 +304,35 @@ test('XLM supply research renders exact decimal strings, separate times, residua
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
+test('UNI supply composition research renders exact raw readings, derived checks, document basis and unknown valuation',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-records').children.find(c=>c.dataset.research==='uni-supply-20261006');
+ assert.match(card.textContent,/UNI 固定區塊供給組成／鑄造參數/);assert.match(card.textContent,/2026-10-06T13:36:06\.327Z/);
+ for(const value of ['1000000000000000000000000000','112633581211219518941995199','262247996305835021033106178','20000000000000000000000000','1704067200','31536000',
+  '887366418788780481058004801','625118422482945460024898623','0x1a9C8182C09F50C8318d769245beA52c32BE35BC','0x1a9c8182c09f50c8318d769245bea52c32be35bc'])
+  assert.ok(card.textContent.includes(value),value);
+ assert.match(card.textContent,/固定區塊 26133577 · 0x301ce0f2aed56d73a46cf4e6ac24aebe273892d4fd1e3aa2f19707cee87179f4/);
+ assert.match(card.textContent,/區塊時間 2026-10-06T13:17:11\.000Z · 取得時間 2026-10-06T13:34:54\.065Z/);
+ assert.match(card.textContent,/research\.uni\.mint\.cap_amount_at_block \/ v1/);assert.match(card.textContent,/research\.uni\.supply\.block26133577\.dead_sink_balance@1/);
+ assert.match(card.textContent,/不是流通或自由流通供給/);assert.match(card.textContent,/dateModified 2026-04-09T14:56:21\.000Z/);
+ assert.match(card.textContent,/commit ab22c084bacb2636a1aebf9759890063eb6e4946/);assert.match(card.textContent,/第 29 行：uint8 public constant mintCap = 2;/);
+ assert.match(card.textContent,/UNI 原始最小單位/);assert.match(card.textContent,/Unix 秒/);assert.match(card.textContent,/官方文件片段/);
+ for(const label of ['流通供給','流通供給定義','dead address 餘額歸因','未來鑄造決定','同步價格','市值','完全稀釋估值（FDV）','部署原始碼等價'])assert.ok(card.textContent.includes(label+'：未知'),label);
+ assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,3);
+ const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
+});
+
+test('UNI supply zero flags render as observed zero instead of unknown or a healthy signal',async()=>{
+ const data=structuredClone(productionResearch),r=data.records.find(r=>r.kind==='uni_supply_composition');
+ r.summary.derived.find(d=>d.formula_id==='research.uni.mint.time_permitted_at_block').value=0;
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(data);await tick();
+ const table=v.$('research-records').children.find(c=>c.dataset.research===r.id).querySelectorAll('table')[1];
+ const row=table.children.find(tr=>tr.textContent.includes('區塊時間已滿足鑄造時間條件'));
+ assert.equal(row.children[1].textContent,'0');assert.match(row.textContent,/推導值（DERIVED）/);assert.equal(row.textContent.includes('未知'),false);
+});
+
 test('UNI supply composition event shows exact raw supply and mint parameters without valuation or circulating definition',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-supply-composition-20261006');
@@ -325,6 +354,6 @@ test('XLM supply event shows exact reported decimals and separate timestamps wit
  assert.match(card.textContent,/零殘差不證明真實供給或健康論點/);assert.match(card.textContent,/前一天價格不能配成本次同步市值／FDV/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
  assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),84);
- assert.equal(productionResearch.records.length,10);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
+ assert.equal(productionResearch.records.length,11);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });
