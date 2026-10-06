@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 固定區塊供給組成與鑄造參數
+
+PR #62 push／PR CI 成功並合併（main `5c23788`）；建立 `research/uni-supply-composition`。PublicNode 已 prune 10 月 4 日 block 26119713 的狀態（earliest 26123551），所以改用新 finalized block 26133577／`0x301ce0f2…`，不改寫原 anchor。selector 以 scratch keccak 計算並對照已知值；capture 腳本只在 scratch，不入庫。
+
+原 archive SHA-256 `de66eac4…`／LF；十三 OBSERVED（十個 eth_call、區塊時間、兩個官方文件地址）與五個研究 DERIVED v1。dead address 累計 112633581211219518941995199 raw 未歸因；Timelock 262247996305835021033106178 raw 與 10 月 4 日相同；minter=Timelock、mintingAllowedAfter=2024-01-01、mintCap=2、365 日。官方文件正文 hash 會隨頁面 build 變動（探索時與正式 capture 不同），以正式 capture 為準；表格片段含 U+00A0。事件 `uni-supply-composition-20261006` 已套用一次，快照 `ffd270b9…`／parent `8bd9f75a…`，不可重跑；三來源追加，changes=[]，unknown 80、模型日 10 月 4 日、0.422 不變。
+
+五項新增／全套 857、兩模式 validate 通過；Chrome headless 桌面／窄、Enter／JSON、三安全連結、Fixture 0／0→10／17 通過，favicon 404 以外 console 空，PID 24292 已核對停止。見[研究與驗收](uni-supply-composition.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項為此格式建立 digest-bound 共用唯讀 reader（核對 probe／state 封裝、同 hash／canonical、keccak selector／calldata、32-byte 回應字、文件片段／Uni.sol 行、五個推導），再接研究目錄 v7／中文表格。流通供給（需 ASSUMPTION 定義）、同步價格、`uni.market_cap`／`uni.fdv` 模型設計（目前為 input）仍待決定，不直接補值。
+
 ## 2026-10-06（台北）— XLM 供給研究目錄、API 與中文逐列查閱
 
 PR #61 push／PR CI 成功並合併（`fe412ed`）；從 reader 分支延伸 `feat/xlm-supply-research-inspection`。目錄 v6 新增 `xlm-supply-20261005`／kind `xlm_supply`，綁原 bytes `790c9763…`、事件 `xlm-reported-supply-20261005` 與原 review `2026-10-05T11:25:20.229Z`；inspection 重用 reader，另核對事件 reason 含原 hash、嵌入來源與當時快照來源 fingerprint 相同、capture 早於審查。

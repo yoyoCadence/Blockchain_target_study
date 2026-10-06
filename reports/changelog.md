@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 固定區塊供給組成與鑄造參數
+
+新 finalized block 26133577 保存十個 canonical 釘選 eth_call（totalSupply、decimals、dead／Timelock／UNIVesting 餘額、授權、minter、mintingAllowedAfter、mintCap、最短間隔）與區塊時間，官方文件地址表及 pinned Uni.sol 選定行支撐 Timelock 身份與鑄造語意。五個研究 DERIVED v1（兩個機械扣除、時間條件、單次上限、minter 地址相符）以 BigInt 重播；不定義流通供給或估值。追加三來源與 source-only 完整快照，金融／論點／unknown 80 不變。五項新增／全套 857、兩模式 validate、Chrome 桌面／窄／Fixture 通過；見[研究與驗收](uni-supply-composition.md)。
+
 ## 2026-10-06（台北）— XLM 供給研究目錄、API 與中文逐列查閱
 
 研究目錄 v6 新增 `xlm_supply`，以原 bytes SHA-256／已存事件／原 review 綁定共用唯讀 reader；研究／手動時效 API 保留九個原始十進位字串、兩個殘差 v1／依賴及三個來源版本，十研究／196 紀錄／30 來源。中文卡片分表顯示原值與殘差、兩個時間、口徑文件與七項未知，窄版表格可鍵盤捲動。八新增／全套 852、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](xlm-supply-research-inspection.md)。原資料、金融／來源／歷史／unknown 80 不變。

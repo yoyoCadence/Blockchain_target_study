@@ -1,0 +1,73 @@
+id: uni-supply-composition-20261006
+type: dilution
+status: completed
+as_of_date: 2026-10-06
+effective_date: 2026-10-06
+source_ids:
+  - ethereum-uni-supply-composition-20261006-v1
+  - uniswap-governance-technical-reference-20260409-v1
+  - uniswap-governance-uni-sol-ab22c08-v1
+affected_nodes: [UNI]
+fixture: false
+reason: >-
+  完成人工固定區塊 UNI 供給組成與鑄造參數查證，不是新的治理交易、鑄造或年度分配。
+  PublicNode finalized block 26133577／hash
+  0x301ce0f2aed56d73a46cf4e6ac24aebe273892d4fd1e3aa2f19707cee87179f4，
+  區塊時間 UTC 2026-10-06T13:17:11Z，狀態取得 2026-10-06T13:34:54.065Z；
+  chainId=1、同 hash header 與同高度 recheck 一致，十個 eth_call 都以 blockHash／requireCanonical=true。
+  UNI 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984：totalSupply raw=1000000000000000000000000000、decimals=18；
+  dead address 0x000000000000000000000000000000000000dead 餘額 raw=112633581211219518941995199；
+  Timelock 0x1a9c8182c09f50c8318d769245bea52c32be35bc 餘額 raw=262247996305835021033106178；
+  UNIVesting 0xca046a83edb78f74ae338bb5a291bf6fdac9e1d2 餘額 raw=0、Timelock 對其剩餘授權 raw=20000000000000000000000000；
+  minter=Timelock、mintingAllowedAfter=1704067200（2024-01-01T00:00:00Z）、mintCap=2、minimumTimeBetweenMints=31536000。
+  官方 Governance Technical Reference（dateModified 2026-04-09）列示 UNI Token 與 Timelock 地址；
+  Uni.sol commit ab22c08 保存 mint 時間條件、單次上限 totalSupply×mintCap/100 與禁止轉入零地址的選定行。
+  五個研究 DERIVED v1：扣除 dead sink 後 raw=887366418788780481058004801、再扣除 Timelock 後
+  raw=625118422482945460024898623（皆為機械減法，不是流通供給定義）；區塊時間已滿足鑄造時間條件=1；
+  單次鑄造上限 raw=20000000000000000000000000；minter 與文件 Timelock 地址相符=1。
+  鑄造條件滿足不代表治理會鑄造；dead address 累計餘額未逐筆歸因，Timelock 是否已承諾或可支用未知。
+  流通／自由流通供給、同步價格、市值、FDV 與部署原始碼等價皆維持 null。
+  原始 request／response、文件 hash／片段、十三個 OBSERVED 與五個 DERIVED 保存於
+  data/research/uni-supply-composition-2026-10-06-v1.json，
+  SHA-256 de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1。
+  所有 canonical 金融輸入、公式、假設、情境與論點不變；只追加三來源與完整快照。
+research_review:
+  reviewer: Claude Code 公開一手 RPC／官方文件人工查證；非人類簽核
+  reviewed_at: 2026-10-06T13:36:06.327Z
+  rationale: >-
+    新 finalized anchor 以同 hash header 與同高度 recheck 確認；所有 state 讀值都釘選 blockHash／requireCanonical。
+    以 keccak 選擇器核對 ABI calldata／地址 padding，uint256／uint8／uint32／address 依原 32-byte 回應保存完整字串，
+    不經浮點。官方文件地址表與 Uni.sol 選定行支撐 Timelock 身份與鑄造語意；
+    五個推導只做 BigInt 減法、整數乘除、時間比較與 casefold 地址比較，不定義流通供給或估值。
+updates: []
+sources:
+  - id: ethereum-uni-supply-composition-20261006-v1
+    version: 1
+    url: https://ethereum-rpc.publicnode.com
+    publisher: Ethereum mainnet JSON-RPC via PublicNode; single public provider
+    title: UNI 固定 block 26133577 的 totalSupply／dead／Timelock／UNIVesting 餘額、授權與鑄造參數
+    date: 2026-10-06
+    retrieved_at: 2026-10-06T13:34:54.065Z
+    tier: 1
+    covered_metrics: [uni.token_supply_evidence, uni.mint_policy_evidence]
+    fixture: false
+  - id: uniswap-governance-technical-reference-20260409-v1
+    version: 1
+    url: https://developers.uniswap.org/docs/ecosystem/governance/technical-reference
+    publisher: Uniswap Labs developer documentation
+    title: Governance Technical Reference；UNI Token 與 Timelock 合約地址表（dateModified 2026-04-09）
+    date: 2026-04-09
+    retrieved_at: 2026-10-06T13:34:53.347Z
+    tier: 2
+    covered_metrics: [UNI.identity, uni.governance_timelock_identity]
+    fixture: false
+  - id: uniswap-governance-uni-sol-ab22c08-v1
+    version: 1
+    url: https://raw.githubusercontent.com/Uniswap/governance/ab22c084bacb2636a1aebf9759890063eb6e4946/contracts/Uni.sol
+    publisher: Uniswap governance repository
+    title: Uni.sol 原始碼 commit ab22c08（2020-09-24）；mint 時間條件、單次上限與轉帳限制
+    date: 2020-09-24
+    retrieved_at: 2026-10-06T13:34:53.696Z
+    tier: 2
+    covered_metrics: [uni.token_supply_evidence, uni.mint_policy_evidence]
+    fixture: false
