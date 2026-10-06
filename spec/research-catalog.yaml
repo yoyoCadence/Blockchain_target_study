@@ -1,4 +1,4 @@
-version: 5
+version: 6
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -48,3 +48,9 @@ records:
     file: uni-xlm-public-venue-2026-10-05-v1.json
     expected_id: 116eca762bb31dbbe9a30a26539e88df98a5a98503e6e489df7ae795e36ce03c
     event_id: uni-xlm-public-venue-state-20261005
+  - id: xlm-supply-20261005
+    label: XLM 官方回報供給／精確殘差
+    kind: xlm_supply
+    file: xlm-supply-2026-10-05-v1.json
+    expected_id: 790c9763971cb01bd8712431ea7207eb4f4418e5a17459cf0df661f1ede5ad51
+    event_id: xlm-reported-supply-20261005

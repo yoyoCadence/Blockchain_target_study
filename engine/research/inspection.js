@@ -12,6 +12,7 @@ import {inspectReviewedEvents} from './event-evidence.js';
 import {reviewFixedBlock} from './fixed-block.js';
 import {reviewTokenState} from './token-state.js';
 import {reviewPublicVenue} from './public-venue.js';
+import {reviewXlmSupply} from './xlm-supply.js';
 
 // Explicit local catalog only: no discovery, remote fetching, ingestion or writes.
 export function inspectResearch(project,{catalog}={}) {
@@ -32,11 +33,11 @@ export function inspectResearch(project,{catalog}={}) {
  const knownFormulas=new Map(project.registry.formulas.map(formula=>[versionKey(formula),fingerprint(formula)]));
  const knownAssumptions=new Map(project.inputs.filter(record=>record.classification==='ASSUMPTION').map(record=>[versionKey(record),fingerprint(record)]));
  for(const entry of catalog.records) {
-  const bytes=['fixed_block','token_state','public_venue'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
+  const bytes=['fixed_block','token_state','public_venue','xlm_supply'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
   const saved=bytes?JSON.parse(bytes):readYaml(`data/research/${entry.file}`,project.root);
   const actualId=bytes?createHash('sha256').update(bytes).digest('hex'):entry.kind==='identity'?fingerprint(saved):saved.id;
   assert(actualId===entry.expected_id,'Research catalog fingerprint mismatch');
-  let records,periods=[],sources,statement=null,comparability=null,review,as_of_date,capital=null,fixedBlock=null,publicVenue=null,formulas=[];
+  let records,periods=[],sources,statement=null,comparability=null,review,as_of_date,capital=null,fixedBlock=null,publicVenue=null,xlmSupply=null,formulas=[];
   if(entry.kind==='identity') {
    const result=reviewIdentities(project,saved);
    records=result.identities;sources=saved.sources;review=saved.review;as_of_date=saved.as_of_date;
@@ -65,6 +66,18 @@ export function inspectResearch(project,{catalog}={}) {
    });
    periods=[{basis:'point',end:saved.as_of_date}];formulas=saved.formulas;
    sources=publicVenue.method.source_ids.map(id=>project.sources.find(s=>s.id===id));
+  } else if(entry.kind==='xlm_supply') {
+   xlmSupply=reviewXlmSupply(project,bytes,entry.expected_id);
+   const reviewedEvent=inspectReviewedEvents(project).find(e=>e.id===entry.event_id);
+   assert(reviewedEvent&&reviewedEvent.event.as_of_date===saved.as_of_date&&reviewedEvent.event.reason.includes(entry.expected_id)&&
+    saved.sources.every(source=>reviewedEvent.sources.some(s=>fingerprint(s)===fingerprint(source))),'XLM supply catalog does not match reviewed event');
+   review=reviewedEvent.event.research_review;as_of_date=saved.as_of_date;
+   assert(saved.captures.every(c=>Date.parse(c.received_at)<=Date.parse(review.reviewed_at)),'XLM supply capture retrieved after review');
+   const labels=new Map([...xlmSupply.summary.values.map(v=>[v.id,`XLM 回報 · ${v.label}`]),
+    ...xlmSupply.summary.residuals.map(r=>[r.id,r.formula_id==='research.xlm.supply.total_residual'?'總供給殘差（原始＋inflation－burned－total）':'流通殘差（total－升級準備－費用池－SDF mandate－流通）'])]);
+   records=[...saved.observations,...saved.derived].map(o=>({...o,label:labels.get(o.id)}));
+   periods=[{basis:'point',end:saved.as_of_date}];formulas=saved.formulas;
+   sources=xlmSupply.method.source_ids.map(id=>project.sources.find(s=>s.id===id));
   } else if(['fixed_block','token_state'].includes(entry.kind)) {
    const tokenState=entry.kind==='token_state',inspect=tokenState?reviewTokenState:reviewFixedBlock;
    fixedBlock=inspect(project,bytes,entry.expected_id);
@@ -120,6 +133,8 @@ export function inspectResearch(project,{catalog}={}) {
    ...(capital?{context:saved.context,summary:capital.summary,notice:capital.notice}:{}),
    ...(publicVenue?{summary:publicVenue.summary,method:publicVenue.method,event_id:entry.event_id,
     notice:'單一平台的公開回報；個人／地區／託管／交易／提款仍未驗證，不更新金融或投資性。'}:{}),
+   ...(xlmSupply?{summary:xlmSupply.summary,method:xlmSupply.method,event_id:entry.event_id,
+    notice:'供應者回報的單一時點供給與算術殘差；不是獨立 ledger／帳戶查證、自由流通、同步市值／FDV 或投資性判斷，不更新金融。'}:{}),
    ...(fixedBlock?{summary:fixedBlock.summary,method:fixedBlock.method,event_id:entry.event_id,
     notice:entry.kind==='token_state'?'固定區塊餘額／供給及 point 比較；唯讀查閱不更新金融、年度分配、市值／FDV 或論點。':'固定區塊原始值；唯讀查閱不更新金融、年度預算或論點。'}:{})});
  }
