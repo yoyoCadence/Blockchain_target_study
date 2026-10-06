@@ -304,6 +304,18 @@ test('XLM supply research renders exact decimal strings, separate times, residua
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
+test('UNI supply composition event shows exact raw supply and mint parameters without valuation or circulating definition',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-supply-composition-20261006');
+ assert.match(card.textContent,/UNI 固定區塊供給組成與鑄造參數 · 股本／稀釋研究/);
+ for(const value of ['1000000000000000000000000000','112633581211219518941995199','262247996305835021033106178','887366418788780481058004801','625118422482945460024898623','1704067200'])
+  assert.ok(card.textContent.includes(value),value);
+ assert.match(card.textContent,/不是流通供給定義/);assert.match(card.textContent,/鑄造條件滿足不代表治理會鑄造/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,3);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-events').children.length,0);
+});
+
 test('XLM supply event shows exact reported decimals and separate timestamps without adding valuation',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='xlm-reported-supply-20261005');
