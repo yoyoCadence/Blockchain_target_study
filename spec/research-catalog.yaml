@@ -1,4 +1,4 @@
-version: 7
+version: 8
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -60,3 +60,9 @@ records:
     file: uni-supply-composition-2026-10-06-v1.json
     expected_id: de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1
     event_id: uni-supply-composition-20261006
+  - id: uni-firepit-20261006
+    label: UNI 主網 Firepit 狀態／release 次數與門檻
+    kind: uni_firepit_state
+    file: uni-firepit-state-2026-10-06-v1.json
+    expected_id: 41c8fcb16267e1b068aea59f8675bcd27a913d1a52c3d5ed2602034e71a0e6f9
+    event_id: uni-firepit-state-20261006

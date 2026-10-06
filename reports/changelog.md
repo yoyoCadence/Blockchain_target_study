@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 主網 Firepit 狀態研究目錄、API 與中文逐列查閱
+
+研究目錄 v8 新增 `uni_firepit_state`，以原 bytes SHA-256／已存事件／原 review 綁定共用唯讀 reader（與供給組成共用事件綁定檢查）；研究／手動時效 API 保留 12 個 raw 觀測、4 個推導 v1／依賴及六個來源版本，十二研究／230 紀錄／39 來源。中文卡片分表顯示原值與推導、區塊與取得時間、五個官方檔案選定行與九項未知。修正：卡片清單項目補上斷行規則，解決長網址造成的窄版水平溢出（312／509 → 312／312），並加樣式回歸。十項新增／全套 1097、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](uni-firepit-state-inspection.md)。原資料、金融／來源／歷史／unknown 80 不變。
+
 ## 2026-10-06（台北）— UNI 主網 Firepit 狀態資料包規格與手動唯讀驗證
 
 新增 `spec/uni-firepit-state-schema.yaml`／`spec/uni-firepit-state-method.yaml` v1 與 uni-firepit-state-review／共用 reader：以明示原 SHA-256 重驗 bytes，重放 finalized 錨點、九個 canonical 釘選 eth_call、32-byte 解碼、RESOURCE／收款地址不可變身份、五個 pinned 檔案選定行與已存來源版本，並重播四個研究推導。共用的錨點／解碼／文件／公式重播檢查抽到 `engine/research/finalized-rpc.js`，供給組成 reader 改用同一實作（行為與錯誤訊息不變）；新增研究層受限運算 `mul_raw_uint256`、`sub_mul_raw_uint256`，不新增 canonical 公式。87 新增／全套 1087、兩模式 validate 通過；原資料、金融／來源／歷史／unknown 80 不變。見[操作與限制](manual-uni-firepit-state-review.md)，無 UI 或 RPC 重採。

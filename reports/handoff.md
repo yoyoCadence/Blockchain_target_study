@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 主網 Firepit 狀態研究目錄、API 與中文逐列查閱
+
+PR #68 push／PR CI 成功並合併（`19daa6b`）；從 reader 分支延伸 `feat/uni-firepit-state-inspection`。目錄 v8 新增 `uni-firepit-20261006`／kind `uni_firepit_state`，綁原 bytes `41c8fcb1…`、事件 `uni-firepit-state-20261006` 與原 review `2026-10-06T14:44:07.673Z`。inspection 的 UNI 固定區塊分支現在同時服務供給組成與 Firepit（依 kind 選 reader，變數改名 `uniBlock`，錯誤訊息改為 `UNI fixed-block catalog…`）。
+
+十二研究／230 紀錄／39 來源，事件仍十八筆；12 OBSERVED raw 字串、4 DERIVED v1／依賴保留。中文卡片兩表格、五個官方檔案選定行、九項未知；旗標 0 顯示為 0。10 月 5 日 cutoff NOT_AVAILABLE、6 日 AVAILABLE。Chrome 實測抓到真實問題：README 長網址讓卡片在窄版溢出（312／509），補 `.research-card li{overflow-wrap:anywhere}` 後 30 張卡片全部不溢出，並加樣式回歸（已確認移除規則時會失敗）。十項新增、十三個既有測試檔更新 11／214／33→12／230／39，全套 1097、兩模式 validate 通過；金融／原資料／來源／歷史、unknown 80 不變。
+
+Chrome headless 桌面 1536×729／窄 312×675：29 項檢查通過＋全卡片窄版檢查；favicon 404 以外 console 空，stderr 空，服務 PID 18516 已核對後停止。見[操作與驗收](uni-firepit-state-inspection.md)；本 PR／CI 最終狀態以遠端為準。
+
+接續：UNI 供給與 Firepit 兩條證據鏈（保存→規格→reader→目錄）都完成。可繼續且不需使用者決定的研究：Firepit 門檻變更歷史（`setThreshold`／`ThresholdSet` 事件，需要能查歷史 logs 的來源）、Unichain 橋接 Firepit 狀態（chain 130，需另一個 RPC 與方法）、SECZ 六收入／可比 TTM。需要使用者決定：`uni.market_cap`／`uni.fdv` 是否改為推導、流通供給排除哪些地址（ASSUMPTION），以及是否把 Firepit 次數×門檻年化成模型輸入。不啟動 unattended 或新模型。
+
 ## 2026-10-06（台北）— UNI 主網 Firepit 狀態資料包規格與手動唯讀驗證
 
 PR #67 push／PR CI 成功並合併（main `29ecab6`）；建立 `feat/uni-firepit-state-review`。本 PR 把規格與 reader 合在一起（規格由資料包產生並自我核對 selector／calldata／行片段）。
