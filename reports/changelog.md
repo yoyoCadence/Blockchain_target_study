@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 主網 Firepit 固定區塊狀態
+
+新 finalized block 26133926 保存九個 canonical 釘選 eth_call：Firepit nonce（1395）、現行 threshold（4,000 UNI）、thresholdSetter／owner、RESOURCE／收款地址／TOKEN_JAR、單次上限與同區塊 dead address UNI 餘額；官方 README 部署表與 Firepit／ExchangeReleaser／Nonce／ResourceManager 選定行支撐身份與語意。四個研究 DERIVED v1（次數×現行門檻、dead 餘額扣除乘積、兩個地址比較）以 BigInt 重播；不推門檻歷史、不歸因、不年化。追加六來源與 source-only 完整快照，金融／論點／unknown 80 不變。五項新增／全套 1000、兩模式 validate、Chrome 桌面／窄／Fixture 通過；見[研究與驗收](uni-firepit-state.md)。
+
 ## 2026-10-06（台北）— UNI 供給組成研究目錄、API 與中文逐列查閱
 
 研究目錄 v7 新增 `uni_supply_composition`，以原 bytes SHA-256／已存事件／原 review 綁定共用唯讀 reader；研究／手動時效 API 保留 13 個 raw 觀測、5 個推導 v1／依賴及三個來源版本，十一研究／214 紀錄／33 來源。中文卡片分表顯示原值與推導、區塊與取得時間、文件依據與九項未知，旗標 0 顯示為 0，窄版表格可鍵盤捲動。九新增／全套 995、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](uni-supply-composition-inspection.md)。原資料、金融／來源／歷史／unknown 80 不變。

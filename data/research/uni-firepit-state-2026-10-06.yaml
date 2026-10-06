@@ -1,0 +1,89 @@
+id: uni-firepit-state-20261006
+type: token_burn
+status: completed
+as_of_date: 2026-10-06
+effective_date: 2026-10-06
+source_ids:
+  - ethereum-uni-firepit-state-20261006-v1
+  - uniswap-protocol-fees-readme-8604e4b-v1
+  - uniswap-protocol-fees-firepit-raw-8604e4b-v1
+  - uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1
+  - uniswap-protocol-fees-nonce-raw-8604e4b-v1
+  - uniswap-protocol-fees-resource-manager-raw-8604e4b-v1
+affected_nodes:
+  - UNI
+fixture: false
+reason: 完成人工固定區塊 UNI 主網 Firepit 狀態查證，不是新的銷毀交易、年度 burn 或費用收入。 PublicNode finalized block 26133926／hash 0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060，區塊時間 UTC 2026-10-06T14:27:35.000Z，狀態取得 2026-10-06T14:43:40.447Z； chainId=1、同 hash header 與同高度 recheck 一致，九個 eth_call 都以 blockHash／requireCanonical=true。 Firepit 0x0d5cd355e2abeb8fb1552f56c965b867346d6721：nonce=1395（已執行 release 次數）、threshold raw=4000000000000000000000、 thresholdSetter=0x1a9c8182c09f50c8318d769245bea52c32be35bc、owner=0x1a9c8182c09f50c8318d769245bea52c32be35bc、RESOURCE=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984、 RESOURCE_RECIPIENT=0x000000000000000000000000000000000000dead、TOKEN_JAR=0xf38521f130fccf29db1961597bc5d2b60f995f85、MAX_RELEASE_LENGTH=20； UNI balanceOf(dead) raw=112633581211219518941995199。 官方 protocol-fees README（commit 8604e4b，2025-12-18）部署表列示主網 TokenJar 與 Releaser (Firepit) 地址； Firepit／ExchangeReleaser／Nonce／ResourceManager 四個原始碼檔保存選定行：release 先由呼叫者支付 threshold 至 RESOURCE_RECIPIENT、nonce 每次加一、threshold 可由 thresholdSetter 變更。 四個研究 DERIVED v1：nonce×現行 threshold raw=5580000000000000000000000（只有門檻從未變更時才等於累計支付，門檻歷史未查證）； dead 餘額扣除該乘積 raw=107053581211219518941995199（機械差額，未歸因）；TOKEN_JAR 與 README 地址相符=1；thresholdSetter 與 owner 相同=1。 門檻歷史、精確累計支付、dead 餘額歸因、L2 橋接銷毀、換出資產 USD 價值、費用來源、年化 burn、同步價格與部署原始碼等價皆維持 null；不年化、不計估值。 原始 request／response、文件 hash／選定行、十二個 OBSERVED 與四個 DERIVED 保存於 data/research/uni-firepit-state-2026-10-06-v1.json，SHA-256 41c8fcb16267e1b068aea59f8675bcd27a913d1a52c3d5ed2602034e71a0e6f9。 所有 canonical 金融輸入、公式、假設、情境與論點不變；只追加六來源與完整快照。
+research_review:
+  reviewer: Claude Code 公開一手 RPC／官方原始碼人工查證；非人類簽核
+  reviewed_at: 2026-10-06T14:44:07.673Z
+  rationale: 新 finalized anchor 以同 hash header 與同高度 recheck 確認；所有 state 讀值釘選 blockHash／requireCanonical，selector 以 keccak 計算，回應依 32-byte 字保存完整字串，不經浮點。官方 README 部署表支撐 Firepit／TokenJar 地址，四個原始碼檔的選定行支撐 nonce、threshold 與收款地址語意。四個推導只做 BigInt 乘法、減法與 casefold 地址比較；不推門檻歷史、不歸因 dead 餘額、不年化或估值。
+updates: []
+sources:
+  - id: ethereum-uni-firepit-state-20261006-v1
+    version: 1
+    url: https://ethereum-rpc.publicnode.com
+    publisher: Ethereum mainnet JSON-RPC via PublicNode; single public provider
+    title: UNI 主網 Firepit 固定 block 26133926 的 nonce／threshold／不可變地址與 dead address 餘額
+    date: 2026-10-06
+    retrieved_at: 2026-10-06T14:43:40.447Z
+    tier: 1
+    covered_metrics:
+      - uni.burn_execution_evidence
+      - uni.firepit_state_evidence
+    fixture: false
+  - id: uniswap-protocol-fees-readme-8604e4b-v1
+    version: 1
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/README.md
+    publisher: Uniswap protocol-fees repository
+    title: protocol-fees README commit 8604e4b（2025-12-18）；主網 TokenJar／Firepit 部署地址表
+    date: 2025-12-18
+    retrieved_at: 2026-10-06T14:43:38.898Z
+    tier: 2
+    covered_metrics:
+      - uni.firepit_identity
+    fixture: false
+  - id: uniswap-protocol-fees-firepit-raw-8604e4b-v1
+    version: 1
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/Firepit.sol
+    publisher: Uniswap protocol-fees repository
+    title: Firepit.sol commit 8604e4b；RESOURCE_RECIPIENT 設為 address(0xdead)
+    date: 2025-12-18
+    retrieved_at: 2026-10-06T14:43:39.216Z
+    tier: 2
+    covered_metrics:
+      - uni.firepit_state_evidence
+    fixture: false
+  - id: uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1
+    version: 1
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/ExchangeReleaser.sol
+    publisher: Uniswap protocol-fees repository
+    title: ExchangeReleaser.sol commit 8604e4b；release 先支付 threshold 再釋出 TokenJar 資產
+    date: 2025-12-18
+    retrieved_at: 2026-10-06T14:43:39.459Z
+    tier: 2
+    covered_metrics:
+      - uni.firepit_state_evidence
+    fixture: false
+  - id: uniswap-protocol-fees-nonce-raw-8604e4b-v1
+    version: 1
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/base/Nonce.sol
+    publisher: Uniswap protocol-fees repository
+    title: Nonce.sol commit 8604e4b；每次成功 release 使 nonce 加一
+    date: 2025-12-18
+    retrieved_at: 2026-10-06T14:43:39.700Z
+    tier: 2
+    covered_metrics:
+      - uni.firepit_state_evidence
+    fixture: false
+  - id: uniswap-protocol-fees-resource-manager-raw-8604e4b-v1
+    version: 1
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/base/ResourceManager.sol
+    publisher: Uniswap protocol-fees repository
+    title: ResourceManager.sol commit 8604e4b；threshold 可由 thresholdSetter 變更
+    date: 2025-12-18
+    retrieved_at: 2026-10-06T14:43:39.974Z
+    tier: 2
+    covered_metrics:
+      - uni.firepit_state_evidence
+    fixture: false

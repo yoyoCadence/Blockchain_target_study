@@ -1,0 +1,767 @@
+{
+  "version": 1,
+  "id": "uni-firepit-state-evidence-20261006-v1",
+  "fixture": false,
+  "purpose": "UNI 主網 Firepit 固定區塊狀態：release 次數、現行門檻與 dead address 餘額；不年化、不歸因、不計估值。",
+  "capture_method": "Manual bounded public HTTP GET and Ethereum JSON-RPC reads pinned by blockHash with requireCanonical; no wallet, signing, transactions, polling or financial ingestion",
+  "as_of_date": "2026-10-06",
+  "captured_at": "2026-10-06T14:43:40.447Z",
+  "targets": {
+    "token": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+    "firepit": "0x0d5cd355e2abeb8fb1552f56c965b867346d6721",
+    "token_jar": "0xf38521f130fccf29db1961597bc5d2b60f995f85",
+    "dead_sink": "0x000000000000000000000000000000000000dead"
+  },
+  "anchor": {
+    "classification": "OBSERVED",
+    "as_of_date": "2026-10-06",
+    "source_ids": [
+      "ethereum-uni-firepit-state-20261006-v1"
+    ],
+    "chain_id": "1",
+    "selected_tag": "finalized",
+    "number_hex": "0x18ec5a6",
+    "number": "26133926",
+    "hash": "0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060",
+    "timestamp_hex": "0x6ac50557",
+    "effective_at": "2026-10-06T14:27:35.000Z",
+    "selector": {
+      "blockHash": "0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060",
+      "requireCanonical": true
+    },
+    "height_recheck_response_id": 20
+  },
+  "documents": [
+    {
+      "key": "readme",
+      "url": "https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/README.md",
+      "method": "GET",
+      "started_at": "2026-10-06T14:43:38.504Z",
+      "received_at": "2026-10-06T14:43:38.898Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:38 GMT",
+      "content_type": "text/plain; charset=utf-8",
+      "body_sha256": "1ae14c1f18119a867c2157f62a81cc9114b4e8f6bfe3d608dabd3dcb94104054",
+      "body_bytes": 15702,
+      "source_id": "uniswap-protocol-fees-readme-8604e4b-v1",
+      "commit": "8604e4b9aed88bdd6be3a322e19722c40f94be2c",
+      "body_replayable": false,
+      "line_excerpts": [
+        {
+          "line": 222,
+          "text": "| TokenJar | [`0xf38521f130fcCF29dB1961597bc5d2B60F995f85`](https://etherscan.io/address/0xf38521f130fcCF29dB1961597bc5d2B60F995f85) |"
+        },
+        {
+          "line": 223,
+          "text": "| Releaser (Firepit) | [`0x0D5Cd355e2aBEB8fb1552F56c965B867346d6721`](https://etherscan.io/address/0x0D5Cd355e2aBEB8fb1552F56c965B867346d6721) |"
+        }
+      ]
+    },
+    {
+      "key": "firepit",
+      "url": "https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/Firepit.sol",
+      "method": "GET",
+      "started_at": "2026-10-06T14:43:38.899Z",
+      "received_at": "2026-10-06T14:43:39.216Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:39 GMT",
+      "content_type": "text/plain; charset=utf-8",
+      "body_sha256": "34e0be2a8eb48d008a0eeba7b1615e9a450b1199166a479801d808c81fd42e7d",
+      "body_bytes": 422,
+      "source_id": "uniswap-protocol-fees-firepit-raw-8604e4b-v1",
+      "commit": "8604e4b9aed88bdd6be3a322e19722c40f94be2c",
+      "body_replayable": false,
+      "line_excerpts": [
+        {
+          "line": 7,
+          "text": "/// @notice An ExchangeReleaser with recipient set to the burn address address(0xdead)"
+        },
+        {
+          "line": 8,
+          "text": "contract Firepit is ExchangeReleaser {"
+        },
+        {
+          "line": 10,
+          "text": "    ExchangeReleaser(_resource, _threshold, _tokenJar, address(0xdead))"
+        }
+      ]
+    },
+    {
+      "key": "exchange_releaser",
+      "url": "https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/ExchangeReleaser.sol",
+      "method": "GET",
+      "started_at": "2026-10-06T14:43:39.216Z",
+      "received_at": "2026-10-06T14:43:39.459Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:39 GMT",
+      "content_type": "text/plain; charset=utf-8",
+      "body_sha256": "6fa0a10d2e7a3ec6ee6a6b78149ea74e473fab92dec61a1e257ab72926cea255",
+      "body_bytes": 2930,
+      "source_id": "uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1",
+      "commit": "8604e4b9aed88bdd6be3a322e19722c40f94be2c",
+      "body_replayable": false,
+      "line_excerpts": [
+        {
+          "line": 28,
+          "text": "  uint256 public constant MAX_RELEASE_LENGTH = 20;"
+        },
+        {
+          "line": 31,
+          "text": "  ITokenJar public immutable TOKEN_JAR;"
+        },
+        {
+          "line": 45,
+          "text": "  function release(uint256 _nonce, Currency[] calldata assets, address recipient)"
+        },
+        {
+          "line": 47,
+          "text": "    handleNonce(_nonce)"
+        },
+        {
+          "line": 50,
+          "text": "    RESOURCE.safeTransferFrom(msg.sender, RESOURCE_RECIPIENT, threshold);"
+        },
+        {
+          "line": 51,
+          "text": "    TOKEN_JAR.release(assets, recipient);"
+        },
+        {
+          "line": 52,
+          "text": "    emit Released(_nonce, recipient, assets);"
+        }
+      ]
+    },
+    {
+      "key": "nonce",
+      "url": "https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/base/Nonce.sol",
+      "method": "GET",
+      "started_at": "2026-10-06T14:43:39.459Z",
+      "received_at": "2026-10-06T14:43:39.700Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:39 GMT",
+      "content_type": "text/plain; charset=utf-8",
+      "body_sha256": "e6fcfc227030546d0721e7d2e203681809a4bfb177559113e27e48d820f0e335",
+      "body_bytes": 1202,
+      "source_id": "uniswap-protocol-fees-nonce-raw-8604e4b-v1",
+      "commit": "8604e4b9aed88bdd6be3a322e19722c40f94be2c",
+      "body_replayable": false,
+      "line_excerpts": [
+        {
+          "line": 12,
+          "text": "  uint256 public nonce;"
+        },
+        {
+          "line": 21,
+          "text": "  modifier handleNonce(uint256 _nonce) {"
+        },
+        {
+          "line": 22,
+          "text": "    require(_nonce == nonce, InvalidNonce());"
+        },
+        {
+          "line": 24,
+          "text": "      ++nonce;"
+        }
+      ]
+    },
+    {
+      "key": "resource_manager",
+      "url": "https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/base/ResourceManager.sol",
+      "method": "GET",
+      "started_at": "2026-10-06T14:43:39.700Z",
+      "received_at": "2026-10-06T14:43:39.974Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:39 GMT",
+      "content_type": "text/plain; charset=utf-8",
+      "body_sha256": "9640a937eb4acdb707c9b040589cce9870a8201b2920b6946aa86623d181d82d",
+      "body_bytes": 1605,
+      "source_id": "uniswap-protocol-fees-resource-manager-raw-8604e4b-v1",
+      "commit": "8604e4b9aed88bdd6be3a322e19722c40f94be2c",
+      "body_replayable": false,
+      "line_excerpts": [
+        {
+          "line": 13,
+          "text": "  uint256 public threshold;"
+        },
+        {
+          "line": 16,
+          "text": "  address public thresholdSetter;"
+        },
+        {
+          "line": 19,
+          "text": "  ERC20 public immutable RESOURCE;"
+        },
+        {
+          "line": 22,
+          "text": "  address public immutable RESOURCE_RECIPIENT;"
+        },
+        {
+          "line": 45,
+          "text": "  function setThreshold(uint256 _threshold) external onlyThresholdSetter {"
+        },
+        {
+          "line": 46,
+          "text": "    threshold = _threshold;"
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.block_timestamp@1",
+      "metric_id": "research.uni.firepit.block_timestamp",
+      "key": "block_timestamp",
+      "label": "區塊時間（Unix 秒）",
+      "abi_type": "header.timestamp",
+      "response_id": 10,
+      "response_word": "0x6ac50557",
+      "value": "1791296855",
+      "unit": "unix seconds",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.nonce@1",
+      "metric_id": "research.uni.firepit.nonce",
+      "key": "nonce",
+      "label": "Firepit nonce（已執行 release 次數）",
+      "abi_type": "uint256",
+      "response_id": 11,
+      "response_word": "0x0000000000000000000000000000000000000000000000000000000000000573",
+      "value": "1395",
+      "unit": "count",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.threshold@1",
+      "metric_id": "research.uni.firepit.threshold",
+      "key": "threshold",
+      "label": "現行每次 release 門檻（raw）",
+      "abi_type": "uint256",
+      "response_id": 12,
+      "response_word": "0x0000000000000000000000000000000000000000000000d8d726b7177a800000",
+      "value": "4000000000000000000000",
+      "unit": "UNI raw base units",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.threshold_setter@1",
+      "metric_id": "research.uni.firepit.threshold_setter",
+      "key": "threshold_setter",
+      "label": "門檻設定者地址",
+      "abi_type": "address",
+      "response_id": 13,
+      "response_word": "0x0000000000000000000000001a9c8182c09f50c8318d769245bea52c32be35bc",
+      "value": "0x1a9c8182c09f50c8318d769245bea52c32be35bc",
+      "unit": "address",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.owner@1",
+      "metric_id": "research.uni.firepit.owner",
+      "key": "owner",
+      "label": "Firepit owner 地址",
+      "abi_type": "address",
+      "response_id": 14,
+      "response_word": "0x0000000000000000000000001a9c8182c09f50c8318d769245bea52c32be35bc",
+      "value": "0x1a9c8182c09f50c8318d769245bea52c32be35bc",
+      "unit": "address",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.resource@1",
+      "metric_id": "research.uni.firepit.resource",
+      "key": "resource",
+      "label": "RESOURCE 代幣地址",
+      "abi_type": "address",
+      "response_id": 15,
+      "response_word": "0x0000000000000000000000001f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "value": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "unit": "address",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.resource_recipient@1",
+      "metric_id": "research.uni.firepit.resource_recipient",
+      "key": "resource_recipient",
+      "label": "RESOURCE 收款地址",
+      "abi_type": "address",
+      "response_id": 16,
+      "response_word": "0x000000000000000000000000000000000000000000000000000000000000dead",
+      "value": "0x000000000000000000000000000000000000dead",
+      "unit": "address",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.token_jar@1",
+      "metric_id": "research.uni.firepit.token_jar",
+      "key": "token_jar",
+      "label": "TOKEN_JAR 地址",
+      "abi_type": "address",
+      "response_id": 17,
+      "response_word": "0x000000000000000000000000f38521f130fccf29db1961597bc5d2b60f995f85",
+      "value": "0xf38521f130fccf29db1961597bc5d2b60f995f85",
+      "unit": "address",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.max_release_length@1",
+      "metric_id": "research.uni.firepit.max_release_length",
+      "key": "max_release_length",
+      "label": "單次最多釋出資產種類",
+      "abi_type": "uint256",
+      "response_id": 18,
+      "response_word": "0x0000000000000000000000000000000000000000000000000000000000000014",
+      "value": "20",
+      "unit": "count",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.block26133926.dead_sink_balance@1",
+      "metric_id": "research.uni.firepit.dead_sink_balance",
+      "key": "dead_sink_balance",
+      "label": "dead address UNI 餘額（raw）",
+      "abi_type": "uint256",
+      "response_id": 19,
+      "response_word": "0x0000000000000000000000000000000000000000005d2b16ac1562fd5bbea0bf",
+      "value": "112633581211219518941995199",
+      "unit": "UNI raw base units",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "source_ids": [
+        "ethereum-uni-firepit-state-20261006-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "observed_at": "2026-10-06T14:43:38.898Z",
+      "source_ids": [
+        "uniswap-protocol-fees-readme-8604e4b-v1"
+      ],
+      "unit": "address",
+      "document_key": "readme",
+      "id": "research.uni.firepit.docs.token_jar_address@1-20261006",
+      "metric_id": "research.uni.firepit.docs_token_jar_address",
+      "key": "token_jar_address",
+      "label": "官方 README TokenJar 地址",
+      "value": "0xf38521f130fcCF29dB1961597bc5d2B60F995f85",
+      "excerpt_line": 222
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "observed_at": "2026-10-06T14:43:38.898Z",
+      "source_ids": [
+        "uniswap-protocol-fees-readme-8604e4b-v1"
+      ],
+      "unit": "address",
+      "document_key": "readme",
+      "id": "research.uni.firepit.docs.firepit_address@1-20261006",
+      "metric_id": "research.uni.firepit.docs_firepit_address",
+      "key": "firepit_address",
+      "label": "官方 README Firepit 地址",
+      "value": "0x0D5Cd355e2aBEB8fb1552F56c965B867346d6721",
+      "excerpt_line": 223
+    }
+  ],
+  "formulas": [
+    {
+      "id": "research.uni.firepit.nonce_times_threshold",
+      "version": 1,
+      "unit": "UNI raw base units",
+      "expression": {
+        "op": "mul_raw_uint256",
+        "args": [
+          "research.uni.firepit.block26133926.nonce@1",
+          "research.uni.firepit.block26133926.threshold@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1",
+        "uniswap-protocol-fees-nonce-raw-8604e4b-v1",
+        "uniswap-protocol-fees-resource-manager-raw-8604e4b-v1"
+      ],
+      "rationale": "每次成功 release 使 nonce 加一並由呼叫者支付當時的 threshold；次數乘以現行門檻只有在門檻從未變更時才等於累計支付，門檻歷史未查證。"
+    },
+    {
+      "id": "research.uni.firepit.dead_balance_minus_product",
+      "version": 1,
+      "unit": "UNI raw base units",
+      "expression": {
+        "op": "sub_mul_raw_uint256",
+        "args": [
+          "research.uni.firepit.block26133926.dead_sink_balance@1",
+          "research.uni.firepit.block26133926.nonce@1",
+          "research.uni.firepit.block26133926.threshold@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-protocol-fees-firepit-raw-8604e4b-v1",
+        "uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1"
+      ],
+      "rationale": "同區塊 dead address 餘額扣除上述乘積的機械差額；其餘轉入（金庫轉帳、L2 橋接銷毀或其他）未逐筆歸因，不代表任何單一來源。"
+    },
+    {
+      "id": "research.uni.firepit.token_jar_matches_docs",
+      "version": 1,
+      "unit": "ratio",
+      "expression": {
+        "op": "casefold_evm_address_eq",
+        "args": [
+          "research.uni.firepit.block26133926.token_jar@1",
+          "research.uni.firepit.docs.token_jar_address@1-20261006"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-protocol-fees-readme-8604e4b-v1"
+      ],
+      "rationale": "只比較 TOKEN_JAR getter 與官方 README 部署表的地址文字；不驗證 TokenJar 內資產或費用來源。"
+    },
+    {
+      "id": "research.uni.firepit.threshold_setter_matches_owner",
+      "version": 1,
+      "unit": "ratio",
+      "expression": {
+        "op": "casefold_evm_address_eq",
+        "args": [
+          "research.uni.firepit.block26133926.threshold_setter@1",
+          "research.uni.firepit.block26133926.owner@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-protocol-fees-resource-manager-raw-8604e4b-v1"
+      ],
+      "rationale": "只比較同區塊 thresholdSetter 與 owner getter；門檻可由設定者變更，不代表門檻過去或未來不變。"
+    }
+  ],
+  "derived": [
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.nonce_times_threshold@1-block26133926",
+      "metric_id": "research.uni.firepit.nonce_times_threshold",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "value": "5580000000000000000000000",
+      "unit": "UNI raw base units",
+      "formula_id": "research.uni.firepit.nonce_times_threshold",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.firepit.block26133926.nonce@1",
+        "research.uni.firepit.block26133926.threshold@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.dead_balance_minus_product@1-block26133926",
+      "metric_id": "research.uni.firepit.dead_balance_minus_product",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "value": "107053581211219518941995199",
+      "unit": "UNI raw base units",
+      "formula_id": "research.uni.firepit.dead_balance_minus_product",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.firepit.block26133926.dead_sink_balance@1",
+        "research.uni.firepit.block26133926.nonce@1",
+        "research.uni.firepit.block26133926.threshold@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.token_jar_matches_docs@1-block26133926",
+      "metric_id": "research.uni.firepit.token_jar_matches_docs",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "value": 1,
+      "unit": "ratio",
+      "formula_id": "research.uni.firepit.token_jar_matches_docs",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.firepit.block26133926.token_jar@1",
+        "research.uni.firepit.docs.token_jar_address@1-20261006"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-06",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-06"
+      },
+      "id": "research.uni.firepit.threshold_setter_matches_owner@1-block26133926",
+      "metric_id": "research.uni.firepit.threshold_setter_matches_owner",
+      "observed_at": "2026-10-06T14:27:35.000Z",
+      "value": 1,
+      "unit": "ratio",
+      "formula_id": "research.uni.firepit.threshold_setter_matches_owner",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.firepit.block26133926.threshold_setter@1",
+        "research.uni.firepit.block26133926.owner@1"
+      ]
+    }
+  ],
+  "context": {
+    "threshold_history": null,
+    "cumulative_firepit_payment": null,
+    "dead_sink_balance_attribution": null,
+    "l2_bridged_burns": null,
+    "released_asset_values_usd": null,
+    "fee_origin_attribution": null,
+    "annualized_burn": null,
+    "synchronized_price": null,
+    "deployment_source_equivalence": null
+  },
+  "limitations": [
+    "單一公開 RPC provider 回報的 finalized／canonical 狀態，不是本地共識 proof；部署 bytecode 與 GitHub 原始碼等價未驗證。",
+    "release 次數乘以現行門檻只有在門檻從未變更時才等於累計支付；thresholdSetter 可變更門檻，門檻歷史未查證。",
+    "dead address 餘額另含金庫轉帳、L2 橋接銷毀與其他轉入，未逐筆歸因；扣除乘積後的差額不代表任何單一來源。",
+    "每次 release 換出的 TokenJar 資產價值、費用來源與 USD 金額未查證；不年化，不當作年度收入、burn 率或預測。",
+    "官方 README 與四個原始碼檔只保存 body SHA-256 與選定行；正文不可離線完整重播。",
+    "區塊時間與既有價格時點不同，不計同步估值、合理價值或論點健康。"
+  ],
+  "transport": {
+    "probe": {
+      "endpoint": "https://ethereum-rpc.publicnode.com",
+      "started_at": "2026-10-06T14:43:39.974Z",
+      "received_at": "2026-10-06T14:43:40.212Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:40 GMT",
+      "request_json": "[{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"eth_chainId\",\"params\":[]},{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"eth_getBlockByNumber\",\"params\":[\"finalized\",false]}]",
+      "response_json": "[{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x1\"},{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"hash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"parentHash\":\"0x5568aa79b8cbe63e74541d19d29c87a70636f384aa8471cea3b69870ba0eb917\",\"sha3Uncles\":\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\",\"miner\":\"0xdadb0d80178819f2319190d340ce9a924f783711\",\"stateRoot\":\"0x8d250441907bbdf6d95f4909f8fb63ccd16d7645306c99e9e74abbf95ee27979\",\"transactionsRoot\":\"0x3a4810f1c24501a3db00a6227427bcb5f2f9b7118cf23a73a2bf831c7bb4510b\",\"receiptsRoot\":\"0x23fd8ae5f7d5633cb29793f260c92d4cfa83d1641ec4fe845768aa40216ffc9e\",\"logsBloom\":\"0x1defd1f3ffffb3f3f4ef6affb9beffd75fffffe0f55abdffdefbfb3bfdd1ffefeff9c57fae7ccdffcfb9fbf7e2fa6d7c9f5dfed1ffc3b7bbff9f3ffe52ee5ee253093ffdedddd76df927edfbedd7fffb7dfcbef7cdfd79fcd2f8d81f94b77fcbffdaff9efefeefebff94fbffee96bfffdf7f56b0fff2f7fadfdb5ff77adf7ee5cff8fe7b5bf84feddfdaf7fbe770efaeffe3bffded97ff5bedfb977479fffffe7f74ffeffcdbebff77745df6bdc1ec8226ce7bdfaffff7cf3ffffe7b0e8dff7fc9ff7e3e27de9b69e7cf77ffbfff3e4557fefff7d77efddadffb1ffffbe3ff9ffe7ebdf93edcfd9cadf6f3bfdeee7c7bdd3ff98af7bbeffeff3feffd77fdcff5\",\"difficulty\":\"0x0\",\"number\":\"0x18ec5a6\",\"gasLimit\":\"0x3938700\",\"gasUsed\":\"0x2120acc\",\"timestamp\":\"0x6ac50557\",\"extraData\":\"0x4275696c6465724e6574\",\"mixHash\":\"0x44700b5211cfbbf54e348cdb6ef2e0ca1eb8c9d311577d8bcf483204dc8e8d72\",\"nonce\":\"0x0000000000000000\",\"baseFeePerGas\":\"0x23c6d7e5\",\"withdrawalsRoot\":\"0xeb43612e5002d59c425a0d731bc79f4455831b99d83796f0a5c0300c5dbf2841\",\"blobGasUsed\":\"0x1e0000\",\"excessBlobGas\":\"0xc1276b6\",\"parentBeaconBlockRoot\":\"0xdaceccf6817bbf49e381eaaf171f4f78ba8e8708d3e8e3dacb62400035d07860\",\"requestsHash\":\"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"size\":\"0x41c8a\",\"uncles\":[],\"transactions\":[\"0x348fb4ae3fb215bfdc8d0e1b2ac25506deb686b6c98001eb2c9a5745ec3f9cdb\",\"0xe0862327eb7190b1d3a959c9e6c88fbd6bc2e2e6836ea92987ff2c47d74d9156\",\"0x7eccedfe0dbe722f3187167ec54527f581dad024bf5c553a0c959e1fc0d6ce30\",\"0xdcb2bfccf00c2d985da7cde7faedb7aacabd8075316aa2b573dc3aa24ead7cdc\",\"0x1f836ed97a83261e02a8fa798ace3f3c004fc3ed9f4c6d4d1053eacfbf9737f5\",\"0x66fd30c51e1eff631d76ab1e36fd663c0391571e3522e641381b5d841125298d\",\"0xb1218cdfc453b3a1f12d20aae4b42a155530381599e41e951a3ce125d001f183\",\"0x7215774885051aef71645adcab968151e419bdadf134cff5bac480ad320519d6\",\"0x5c17ded78373e0d657205e2cfac7ba4793ecb8fb8a8bdab3a72f683bb591e82c\",\"0xf9d8944418d71c881f83b285a1ba6472129e345a352a632159af1084f22ca810\",\"0xd3321d9d91c442822bec1dbb2a8bad9f260b4e247540856a6fa5b9e7cd8857f0\",\"0xf674a361ac998b3ca6ec9a1bff226095b9e05fc45a0933993c54a68311aa056c\",\"0xd0d2cf99a0e5f949ab5a73583c27be14b891623f8c90a3513d814f5011bff3ea\",\"0x6502bf4cf1e15238a9e96a372a400b7be8f8e766d63a167b9713876a9e91e92d\",\"0xfce2186a1f66001c86b971eca2c30c0e91cd3184d171668b3b55651c031ae863\",\"0x4f9a630c9904ed2381279fb1da789297322a41e4a770d54f02bea58b5602b3b2\",\"0x796617690aa4893510470687d3912024b9ba1bb9cd326cbf2c28563bda3b50e5\",\"0x0e507f73c4c64d0262df3f287574e6914468fa5958cfa823d479e9b1df1367ad\",\"0x63d7d16ad326ece2c9e00b3c1749655eab2642307e8ab985d133e56e11e89b98\",\"0xda85b7bbf9648a4c3aab9e242344bae114ff48fd084fcfed427e1a2ecf3f6890\",\"0x6c8ef667c3beac602af66e3df3356c76e82d85ceefe538645367b479bc8885ca\",\"0x95f83e4fe26df8418631c7992d82f82af8417750c4424fa1810511066da3df3b\",\"0x05f944e507e085c2b4088d4e8d7740674b02a4a5e5d7fac95e5c197aed95db4b\",\"0xe3065dc956c177790b8036b1a4e287fef543935e40ba344dc6da868823a32cf6\",\"0x21ce064c8cf5cb2a6c79f868e57d91331c7db545205ccc86778b7ed4b9225539\",\"0x64b0e289b976a0a8b4a02f067c48678390ddf572f2fabbbcb545cd6cd07b03bd\",\"0xea7e0829f86d61c28387175c2d080ddb925a1c9dae88e6d0d27c2deafaa396a0\",\"0x8d0092d479448b263807d741b7312e04094ecdc113a5b874ac704fd081c0bd8d\",\"0x12550ff9b4f4d398ed531bd30e5eb2a1ccc94b5eac98a2c5e489b16d484a355f\",\"0xcdf459abe5e7a47c4bb19ef1511f3923d20efde6696ccf51522aa8ae36413945\",\"0x97b754da73165e3a709da7959c93dfc8662696c96935c933886eef9208f87616\",\"0xeffadfee0395f97887647e4e78d549e60d3c42d5d3a77759f15409625d1711f6\",\"0xbf7d86780d24b8aeba78c894ad53c2b3388d1fa2250d13469d6a89622ffcafbf\",\"0x8249047208ad6a7040aac66c01ba2292884db3db191b11bd71b40fea7d861006\",\"0x50be7f314e28a445cb0cde70405f5959ca45e2ce39821f66d4f741442e03c7b1\",\"0xfd79dc8ea4784b3b1ce757f71d597e577a8e4339e0dfd81dd8b3ade916971105\",\"0x0d10616e2fbcf6f0a5e1e09d1a7467d6ff3c4d1cad581e6410f4cf92f6ea3e36\",\"0x7a07ded5a2d7168444d4ba4fd32fe76cb5e619807e018831b1898e0f84f9ca28\",\"0x8518bc6dc743a59b70ac0595d397048ccbe5b4f167badbb895fabba32b2e12c1\",\"0x709daf88e86bda64398fbc4420ef51339f44cb0fd0239083637027c4fe0eaaff\",\"0x8f95a440e45ea9f69b9fe5013a81432095120982645fee08910054a4821008b6\",\"0x969314b4131bb57bd17959875956fe78736f807d64a88b285318ff272474a3ca\",\"0xa11d0c2d5b4c9a23a5d68263c2b37008d620611b3260523c22cbcd7028461f8f\",\"0x0c2dfcf40fe8a57e5d829b39c8b6342229c5c51d730ded37dc9eeb2a8ca45de7\",\"0x3e5e139f0ea056ff82c842558c08922420757d1512a4d2e65305d66672f32c82\",\"0xdfb3a90540441d16c309925dc5f5f61ef44fd2ffcefaf260ac3261605b4aa32d\",\"0x14c365cd0ca57ef45656fdac7f818df6402d12331ac28642e085072b7aaa2960\",\"0x3ae623e2ec348f3b835235ea1dcce9bb897489907001a2d09049f8b2076f4ad6\",\"0x246278e97ed9759b470fc8d4db7c10e52e1a13d4755bf280d492c172192609e3\",\"0x7d1bd100bd6c83ea329f161d9dbf1440b462ae37cc061e2a77262cff599edd5f\",\"0x6c2324207528a0795d5cdfed5929655bafb73297bca6b5262c3978fc1c11a994\",\"0xebcb8412b73316ed9b1c1e115bff2c9effc8faa7c2cad1dfa63f4e411f51a6df\",\"0x4c61f0fdc12c9a93eb3e6a4f3e0000d73af038e9da13b24e7cd02af78b0e4503\",\"0x5aff33f21870a01eb6cdfb30a31961609041c25b9c8c0a11e0ff805c192cfb98\",\"0xcb1928a0be8af0cef03f761c635ccc5a230f2782bcd140eafbcf4fac1125afcd\",\"0xc8bf4e8345d8795276bedb20b6dfdc519bd91c845a88788779ff7bad4184b616\",\"0x3ed7edad7a5865a0ce407b32d2de37ee109d10ae764c1d7c7188f254294bdc9a\",\"0x5f3b925fff666ec5a52f65e1d0092633ca18f0c53afb9b441631900ff67f3166\",\"0x2a057578edee5dc975099bd94829c0531e0b50dfafeac89fdd95bccb000277d7\",\"0xe0daf8f6be0adb8fd4fa0cf66defd0880bbaad4e7a39c27bc1fed73c2c4e5b8f\",\"0xd9e4b89dd789c73b38ba66b9c867c8e26c24d9dae042d539db3697972190233f\",\"0xbb427cd90e489a7239f98655a1ba38f335d65991a9bf46b63918eb4a10fc5c51\",\"0x8b402b752eedcf1a56986b01e3d6998e939cfd85dd041dad846a5af086435f07\",\"0x803e95ac77f3a5b218db50496273d36ed45e8c2b97cec8f156b35606b1401da8\",\"0x1cd19c7b45d4794bcc3ef73548159535f79c2087d707f775a13e2027e1b3acf2\",\"0x4be2183736e677f687e22f75576223fa5ef53786443a95c2e5c44236f8c5d021\",\"0x10328868652c893d6275742d55b0e7f239a54ed953c98965d657ca69c3c19ad7\",\"0xfa6f425e99d25c263a41cbdcdaa8355eb355e91da8baa7e4bb0406256ec168a6\",\"0x1a031ab53d68f35ce78f0420ed041907ef6a2d8ece834d217fb60079fbcab06f\",\"0x16e82a5ab7c1a39f0fea4c5c9c2689dec0fee2741e809c2bd571f8f77817b2ec\",\"0x61de411374e9536dc6269d8daf7856572e6dd2d4f523b841a159537031c69933\",\"0xfb5b9adfb2b2188c8eac5640ca514350009d19b9d923004fcb67d5ce7bd1ee44\",\"0x952d9900553847beaad0f100ac441f634084fbca6d85537e447562d6da2c0b6e\",\"0x4509d60332126e61c3a24ad408f227c1d422898e5432bf272a9f7999ab6c048e\",\"0xc0bddb4c8ce8133292b7bab4257fe1e1526d4f5f07cce7f9e432bdb1afbbecc3\",\"0xcf514108b24f061b6a11b991d8037dacbfcc5a3c917075479af673d165ea6db2\",\"0xa76d5ea2e7d390e287be57d2a872e897b339a7d6f56212ec07bbe2eb7b0da118\",\"0xc0f72bd3fb7423b00af3f69c02b74d4ab96c4aada4d25763ceec385d9ce8dda8\",\"0xb04e94d4cf14f075ffd9c3eff6adf4038afdea51d77ff39d4590d259a339ceb3\",\"0xc21f74600b1f5e17cc5b8540cc53466b430247ee2b46371c292599b2aa176c77\",\"0x920d3e6627341d154b62d47811d27db0f575ca61a70485347f275b66f8291bd2\",\"0x258dab005409f570f9cd8096c0246bc5a33ca548420310f68e7e9c7c9786c84f\",\"0x8b22b187d6bbd225669f5d085d6883a4a23c55f8660dca77295ccda2b3c8c71f\",\"0xebf010f6b5c94f4b81e30ef603d27432f78beb616f51713da73294e7fd83a557\",\"0xa7bc608aab4c183d6a5c6b72dddad6b0ccecf9f7502b078d65c243a51790bd66\",\"0x52b53fd95f645939883492bab4e466170ed7a687e188e9581c48ce8f6f995f4d\",\"0x39cbba9c52b5f22375097f9632c1d561ad3e647455276f4fac0c5b697dadb638\",\"0x33c94bc4f0f1931cdfb719f26b0b70c2a50a2cd4aab075610b31abbe6f29c388\",\"0xc2d34841d611a50d9f3cd938aaa10921527fcafff3d74d64df72febd20b0bc64\",\"0x80d70bdf335be8871cb459d7d6012d941698a7da46613b467f30d46301af4abb\",\"0xa2bc8617a9f2c57454c22193b0dc45dc1ab93e4a45c976a07ffc1dbea7b02ab2\",\"0x96510625931c95fda838290b27fd5ab492e37aca1e109044c94d02ad1c8192c7\",\"0xe0d7519586a9151c29017aebfd70a7e20ec5c7839585d23b9331767c507363f4\",\"0x1e5ab61e7fa9567e3d1775365a374e576eec6a9ffda1ab4a9d75b0711023da09\",\"0xef3ce6835210d05cec3337c71b27c5e56796d317f173ad1e63abef023c0a49eb\",\"0x0be026005520f5e614e38694ecb2edb1a66788063222683331b1311eba970f18\",\"0xba37aaae660969b7aa25a3f39362f243ef52ebe6a23cd465c7907eb7872fe6a7\",\"0x5f0d8812b4cfbcf19a8e600bd46922df3adc354e64b086cdf88d6fb388d4fa03\",\"0x551d9abbb41cf4081740e47c756a58d287f6f8d779fd9bd0bcd8aaca9aa31a4a\",\"0x506f03dd9c1b1d49d9438b0644e030b9b0800348e18d841236c939d4412b0256\",\"0x0a3fd5c58d85da586104d9d5b4ebfb61f2022f9c20e2f458b87f7353b168289c\",\"0x3c8a814c1f7d62c39f8b91dddae9f5c5e5cafe1bdca892540a0b31dcbe5bd95f\",\"0x99658da37b12bcb548465538a9946c5a5a9aeed23624b0ab4f601bc76614c2cc\",\"0x93266b042a97d921f0cb9e845f471d111111575214fd5391c53536e1c7f9b4d0\",\"0xa8b7c8c6e7a2241e0c24400d3abbd8f9997501867ad69da07f97954489e15061\",\"0x5adfba25489fe8b105dc8c88ea4a0394f5f4c4815940f58a433131bbd6d6c762\",\"0x718340798ea56a2e3db22d93306605a003dfa791b19b551532bed005666ae066\",\"0x126f4814e329c10e05db784a3b5c7d6f2625642fd8f6ed8a886792d64b262c68\",\"0x1a5496ff1e12075a131322dad833f3e85cbe46274c549267263fc2dc3860a23b\",\"0x73520fb22a3e09f4cd3087a739a8a8ea253e0ac16e4a58191bee0c812a7d2af6\",\"0x6c620eceebf579357a11edaec5dde9fa248da4929ac4abe775b6b86f5554fe40\",\"0xad3870c8b3f393d7ce8c0d3f329628bb0514df5c628d17a8351cf9df802d5d43\",\"0x137b0eb2fe942360593cc99f91ccda9d7c81a6c69e62087ab680e78f0e47c579\",\"0x28865c85add993d4a052c1e8eea499d4ec615ff6be0d9e690f5f758517799238\",\"0x5d8050f9e88b9a720e65d5549b888c2f7583a1a83255d130c4fc5f5c801a115c\",\"0x2d16377fa96686b88c97efca659fd3dcb24a27c8c27c2af3ba18f49787aaace3\",\"0xc4b9e48e3574458af3d91c3d405eabb772e2436e9a4bc26db9717d21e544c091\",\"0xb794101f65973155891ec210c611cd55a78876f848c01fc1ba52e093535fce3f\",\"0xac4bb0a0437e0de0cb5e2e3e8a7b2927373d8f53e3f609a388a3741aa46598cf\",\"0x49eb7cac889ff7da789b28b1ec96699d3375b71b8489e08ecdb2c913727f5e4c\",\"0xdf0543dc5e45e726ba8dfe3de3f1ba618888065ff5f4a22fce8d462847d57eed\",\"0xb653f3a79299a14f3b0513b70247fc6f6b3af360f89ae1465331da44ce151259\",\"0xaae9591523290b9ec496d670cb7b75d7ba9bef2c19d19ff9f1119757e03933ef\",\"0x9bf8d0e513e29b245bc2f4dbd733b993d63f2239061a2c3d0591019c8840dd7b\",\"0xa8fa4b9fffaea581be72ce76afd8c8170e51243a26f8cbdeaf2dafa5e3702981\",\"0x219b5ab7ec2a490d509a6fb161f4ea4d93c91d7c539c738d62c4deb56359618a\",\"0x8bebb939e65e2912e32849289dabf8f39f730070b7160dd8e21dad03a9b0e18c\",\"0xa60178ceafd643f28b6b485a3d8c664ef60a7ce7339f88274cea2593606c84c9\",\"0x50c59156aae7f3b1208adbcc20922744032d1b7c9bca690d49490e846cea02ed\",\"0xf0d985ee9114604239db5f7fc1875b3b180d112dbc91d0fe0b756202a95ee51d\",\"0x1e565888500038905d1170d89781509df4a9766897ac05ec0fdcb9cea5f083e7\",\"0x5dbb539cc6411278a71bb8e496356bb29cb00ffd39a4a3a0468b2a291fd4160a\",\"0x57beae9c20224e83d15dc230671f0cef7cc97a27cf529bd6c3d4cc69b772ec37\",\"0xee89077723c02455cf4a20057283460dec6c2b1b536d65a7659df95ed6df9088\",\"0xa8038e655e8872f8e0ba0845864326694804d61141d789372928d96c22add06b\",\"0x132108d9a8417961fefac36e46b2ac10913bfcdc9536d2d597318a94eaa752fe\",\"0x385214026fc76c4da864cacb7001967a882f42ddb4a292c35ad12918e28201e6\",\"0xffc2c16244caf6f0e04dea308acf24066b44f6cf9639e66c2061c2af1756887c\",\"0x46d2579bb0feef9391395ef5b9e592528e3f1577d600b95b8fb7d41105839cb9\",\"0xde444620d7e83d41aa590de4cb649d2a3fcfffbf778d3d6c1af05118557bec9c\",\"0x87112a5555c16903bb2a34bd58f8c24c38905a42ae938159a605791c9474e018\",\"0xc483e58c7668e09f92ba13df7d46e6f21e18abba32dc530be9ffec28af4a86b8\",\"0x3ef2bfdb9926601583675bd929b308470ac7b7483503d0d37c822b25f88e0f94\",\"0x09630fa59ae43e1c0f2d6cacf10229f8fdf9d186c6a1aad6d8acef0b205823a4\",\"0x82e264a6a8c2b987394c39f68df2214c11c2d8d9216b87ec08ada550b2cbe040\",\"0x6de4c514aa31f73c242509b0f35c634001c7105dc7823b7640b748aa106fb275\",\"0xbd56aad0a228414c0967fc8031268a609567469e8ae8b445e762d7202092c6aa\",\"0x209654f03fe61f304d3c673f798a9f3ebd57158638479aaf980e878b42e0ae0f\",\"0x6e7d14c0f79d2a5d3b75ed349d5ec774377472363b7a7e7f7cc9df63a0506434\",\"0x575c2d26b1f3c16e318247f783244de85f8b5b6b86d2e0c91bd108f13302b008\",\"0xa7cbd37ddb7bdfc82aac354fbb371a2968cdee6c65c5f93f256a532e92a23413\",\"0x899959901047404e16adab0aac1222933453ad12a7399b89973724b1252028fe\",\"0x053b3a255481bc1f9d6eab440e875a119b7e83af0d88933dd1e3abee0f8ef765\",\"0xb2628d60805447ad58e553bc06b8466ca60be2c1af89116cdf197e334f78b9fc\",\"0x15eaa87fa4ca278c48a1ef5510684621e92276d8f3da981fec18782851d8d080\",\"0x7357803090085a94305234571539f1fb15a0c487c27116acd936c9073c3bb66e\",\"0xc7fc59f309da5cbcdb2016744e84d62b5010c38e2ed788bf3059e4d4b7074227\",\"0xb7e00546c83f6e5c3cbd4a6d51c1f2f19162e0b108ed8611dd2fa0973630c341\",\"0xca8f613e57e55a04424776d67dc824148da24134373e9d9771fc32602ef9b625\",\"0xd044381a76a8b812dc06a5a32462cb4525971eb7b684cfd97e41aab75dfe631a\",\"0xfcd002574aa78812dc2f464e373beb1a51e785cee4fec3f45a67a9b483d11fe2\",\"0xf42833e8a183591d3a64ea7edace6c26beb9b88576bd7222d373e27d515161fc\",\"0xab57d5721516221ffaceee61c3c328388f57a80df7c99bf2448ad7b78e210b7a\",\"0xc89836f3de1081a46b2451aeefb6e50ac166e23281834326cc4ced0c522ffb21\",\"0x96d34316746eb6ce65ba657a8074db5b58ec0426738467bb36cae9b5090072b9\",\"0x1af937365faa31c5f2cc8d68e2c8a10f5b3950014e9eb90c97c5fbe5d3c9655c\",\"0x9f05e9bd04c4917182eb1ec24326666822f42d0015e58c146ce5598bc792a421\",\"0xeab238ac4f3d1050e8245dac8d1f9cca3f268ceed5da2d1ad4c97c39d810e538\",\"0xa888679f625cc8b26cc1a3daac7d3f90a1f43af504e2c02353787e535029b123\",\"0xdf6ed4ba788efed68af8d93fb45136676cbfb9fab590c4efd216c61113dffc5a\",\"0xa11add7ed1a20f67a1b9be06888675efab432f303028ca943cda7951728f1170\",\"0x6ee457e4aca7d6f0669b6459692e8e9e0c2b5461a8077eb17465ebc573360291\",\"0xe76c66b60705fa9a724a48ee10aaccc0d22ba1c9d9a5f8b8842d772ab6c59501\",\"0xf9151185fccd915bfcb3c2786171bf170df6ff58329ba893c58592dfca3ef222\",\"0x290dbfe91a7af2ee2ddb12ba952a7e6ba576242232e9ca681a503f88b4edf8f0\",\"0x1c2fac13c55938d3eda5f50b869c5e74f7befbd65582ec257ff5cd1812eb9adb\",\"0xc2b5ba2878103eaf582228c6aa923d885c832c0acf5d12f8b80c056319a75d01\",\"0x5bf3d2f81479784ae76344e9c44a62f7d8f3c33d2b457b36ce95abfa7877ec55\",\"0x1b4ad56c1d9b002716d056bf5c2b83559a1de2582a28e64a78600868a51daa4b\",\"0xd9978f8d1bd92cdbf0612ebbf6ab87e449cfc4422ea480b6b54a12628b18f909\",\"0x9756d24eeab2c1c77f67cb8853b23e21cf59e89f3005ce906e111dec0dd9118f\",\"0xa7a167385cd033131b94823f7771477ac718e2b972c5ad0fead1b0912bbecabf\",\"0xe6779705355ee313711329ec88946135ddab54b733fe6bc7cd0136d17170df5a\",\"0xebe9a468d1bba44eedd08906a30d4d84e240b59721b2df01ef6523568fe5f855\",\"0x83853e4f2203701071d367525ecf398a345a16f9d5c84de75ca3df82aca7e5d2\",\"0x2ec4cf037060ef3e9f6793d8f8fcae3ef0108a7e1ac51f41ecdd5444b9d8b485\",\"0xa347fb4eaad8c374c318f86373b5faf02295fd9e00313b75257c47281ff28f5a\",\"0xbdab6c21e297c4b43cc98bf67dc95a9b269b9da16b7beeecc59234f44635af5e\",\"0xa5634e53726891879bef748221147250f9de6e4f797f80dd0051f1119533a70d\",\"0x9c4fa3aa31b6ffbc6c800b56b7ac7ccbce1df45431e9017c3e3e8603b818ebf5\",\"0x104664512cd8cfc4fe41e95bc35be48c3145dfd8ceea5ee2e93825458992f226\",\"0xe1b77ac994ee441ceba26d7fb48bd193002db5e04261c5b08404d34242411215\",\"0x9396807b7edff0b394307c20c12c92d6f8f0c94f1edf23e2ff60f1ed8511a544\",\"0x72097dd3000650ccb39dd10bdd71e576bd55954366cdc554764955a4fda12a03\",\"0x8436fde921401af392d9aa26fc2bb24dc29e214bac0eb7c68d5f667e9793da52\",\"0xf89dd0a6cf36338b0075e11556379eb02088a51ae202415024d850a07d878403\",\"0x13a96ead4a811eeaac7143f776d5235210028d81379d2385280204d8eb6fed32\",\"0x98d81348f8f6d8337cd3b21d69c56e5bf768a9f631dcf85f28bf4c494bf0878e\",\"0xac2d9e317d09f5b1c421da68b15991633ae20dd3962a574ac0fada48f29ce92b\",\"0xe662eb30073c0900dde26856147c84f5a8fcd4bdbe2c989456b7c894b7bc8a1c\",\"0x557614be7fbbd6dd3c4c006f929ae7f4f78be920508e9984e9b85dade41e4fa1\",\"0x0024278867c6e961f1168b37a3df2bcf3b10999b97dd68b285b2a277ced1b6a0\",\"0x247d7f78cfc2b0a72e198bee7f088746d5d635e841b806399edf5d65d59cf590\",\"0xc48ae3ae29a39dc08be3bbe95ad131b8aa743a519f1a756c5735d4b9c537791a\",\"0x801943dda1bc087ac9ed70c79a28e45b4e534057806358f2b98a0c0ce1571830\",\"0x8ec87459c095e91be4b8646a735ea4911b535a60a3e4152931d820a21a20efda\",\"0x0214e1ea3e8fc158058a25f6076d4299c1898020488635d6ab93c9a4454f475b\",\"0x6a49d28c233a22761a177f3b25176cd5eee9c79700366a8990372f2970ae889a\",\"0x6ed9501ddcced268d686f4d37fecc4d24a73f1f8ae8accf03e3b06f5820d1dd2\",\"0x1c76ecd7cc2b5f85f3069f15f2dd41a784032b9f50ea7d3e6860dc754af77c4a\",\"0x4f6f50c41923671414cc7d981b5476f3fa8e5544148a2310a9507155b0c86ddc\",\"0xbc963b1e76e4296e5cf70f5a8c45531e02514551f73b09c5aec6a6df68cdd900\",\"0xc058df178c1b202798291230aa99cc76b4e2b6db07eef5cea39acb2afa6b3e75\",\"0xe2aa2499bee24dbb19beb5bb7a4501db5f64855a8c8dcb8ecf9f2d071e3218a5\",\"0xff366234c0d48b876da958e39fcbe410f47052a37694e58b6c862cf4e5de1356\",\"0xee52acd43d72f0493779acc68370da175edd2a7eb6d7ac0baba8f060d2342a17\",\"0x5c3044b12e4815297325ed6784078e877be266b023be0406b942e56a35029aeb\",\"0xb7903d6c6b433f9ef6f2c32e79bde96f7484aec98e261e5a4feb97e6f6094ea9\",\"0x0bbd63d41721a833452c28e55f8767dd682b403eb258e0fe730bd44bc2f69dcc\",\"0x1b632a94a996008ab1ca74cd306ea9775955bd317eaba48f07ca9af66900e063\",\"0xdb0748c74938ae245a89e892a1ef13cd83c3313167df03d864a1732533e085db\",\"0x370dda3465d5e9c0a5d6da4462b1c4ee0d18378aa68bf3a4bd684cf69dabdcbd\",\"0xcbedf35ebbb8d1794fb00343b5dad3a44f78d579a94b798447d71b3f0f0fbffe\",\"0x41707eb2cd4f250f51e35ade39b0973e4e8e47591d18a999bc13d1899557d2b4\",\"0x33d046973616bd1a600fa28967e1128348f9de74c4e3ba5a215b14b7685c288f\",\"0x6642d28524d397b43ae5177ee6d9d2258ef4cdb931dea3f298fdfbe2b1f1a6f4\",\"0x462fe920af7866ffe6138bd5cc1d9b74194dfa576c5fbce93508f98b08d0209d\",\"0xf6f0b54823afce12d38ca75ef1cd667c70bb231171f6e3c33bf5d6600fda4d92\",\"0x7e73cef57fb72b76103d36383148dee79636b38a42cb84e054e161ae76e107ae\",\"0x7a1ae78a9c8bef2f8af776c71d85d528b5ef7c450fcf99e1559a10ccf7900eb3\",\"0x4f1417b384cc623b69e6f84d641183e51dff56be5b1294b01b13141a68bf9d10\",\"0x5a0352f3b989a96337317f5ca704e7995ad5738e436c2e29dfbc466cbbe865a9\",\"0xf292752ae7a336d14cca000a5ab292d36fc037a4e38cfc9e548bba064907f1b6\",\"0xb92e79be1b543ada8a332e14410886ea780adf0503988ca32ffdcd33bcf472ad\",\"0x9c034cbaed4de0ea55205b3952d6207359fc514e4901a42b6183aa8dd65acbc4\",\"0xfc9351e1f05626e75d1b66f16be3c67f0be1a3accfb6db3b201d46c760215280\",\"0x53c3dbc9cb9dfd5e111a086123d0871f0cf7ad950f5ded726d0684b35d08d62e\",\"0xe65e10ef94a5a858ed0dbbc8d99dfc0eebad3c106feb5f57381e7a19b0ab3a0c\",\"0x2fa00a9c9f8f214efabb852d03bc5f6c69f1417b408380bda74c33f806d74910\",\"0x02eccf0d42496567e49d69718526ebf17ed5e852ac036196212a3d95c68f7a3e\",\"0xe3420a108083f559ab3387148ec7eb9bb8738491ddc37733d09cc9715bb1b526\",\"0x96f3f66ba37d02b606bd0b2d7f0f7e6b991af6da5608b5679ec816871fa0e476\",\"0xd9137c44813953b5bb66f8478b9b2cb57c26b9c1671c4cf16b9fd9214df5ec1a\",\"0x24426fa4dbcdedddd5fded149db70f90e2c93d84b8eb77fb44681b842e6c4f71\",\"0x347aef286ec248dd0a27e25b7d276d209e33aaa773036a4b5f27957fb8b91886\",\"0x31d689f7ca6cf572515c188ca13ab99d0e4cddde8c1da5e72b46285532d52561\",\"0x37853c1ee96cc445ed3e9bee914afa28342850f6d8a3a596e133e930dc84cd9d\",\"0x32b1578eeba8d2a7e7ebe9d6116b565556571b632460313356aa33704f8de96d\",\"0x697a8f342e28f86026d2d4093d0bbb66e29155579dbbbb6f8383efd37174a2ae\",\"0x7f8375612f208eb792de5ccafe4fb6ae18aea2863fb981a1ef8233faedf0a578\",\"0x035cc49aef5d7c80f399f7ab75cb25ad7e40b863f340559cf35cf5506a2b09c3\",\"0xd1d13963b4f50dd19c9a0f2b45a168ddc3dc83c995da1e1637deacc2e551e1b9\",\"0x761c27ae0b9d115ce1ecfa64495be3f35032ee9bb72d0db303e07e145c22fe43\",\"0xf6b3b6f30d09495e2d189846960d2adfe3d05d6a0dbdf59c7539f354e3e5744a\",\"0x869ca8b20b78d108addda9215502bd2cfb719016f8830d80530c334e09d00373\",\"0xfeb7ab6d9875be3e35df217b347b667b482a454dc536b18b15ac50061f8973df\",\"0x5dae79d8130671881a4629cbaddb41c88f7f1df19f401877a910249a5da08e0e\",\"0xc876881c5ce96314d7dbb0766ffb64ac3cd633fec7fe70fe1a4189f7912ee435\",\"0xc992b8e511c0fe989b7612f01ec7f299b972e294541a2bc4ff04a911f816864b\",\"0xc39d087fa2f69b06ad4af588ef248454a26438896b34c9e4d770db0b441319e5\",\"0x0487e72a0b5a183ad25fd349568147d9c4fdd77e6c63b365b955cb1d4363de1f\",\"0x25673d598a292c0038b8a04d5b87a07130ab24c7752078c6461fc6b4eca4e004\",\"0xbd37a3d40965a4e4ec77084a86e27d10801b33072f585480aa65654f7653923e\",\"0x50e35099afc4a1f2e54837edb6d3fee91f0a5da7d7085233c4e1f3b38ff6c0c5\",\"0xb95df908a4a0e99006ea2dab0ae29ed5b55fefebe6c6e7c26f532cfef6d6d3a8\",\"0x927f34adfd162b8fe249845f4b1bf0ef02c4b83cdb6dabde8d0e3e5d34fd32ee\",\"0x70f275173d88c572d4295b6b47d2d3f84c3fe16a6714e2c40b3738d00d18c023\",\"0xd82760cf3db00ba0982c4b6ccd87a067e6f08f025143f448cf10d780135d7c8e\",\"0xb60b8ab097f6a545440b03135bff3fa768448f9d7bde9fa06da75b8e7157ac26\",\"0xf201da68bbd8d695a070d2022580eef264241aa48d3d87295aab4e5e5a4318b3\",\"0x1a6c09aec372c36708a28e85cde9e21c6bbc01056b61ed9e06d06bef0ad10fd8\",\"0x29578b466fac3f37a9474bf9c9701e134fa06a688ad5ca4ea988768c54e0f83e\",\"0x6046d882ac80d82ab209f34086de7276200e314e1c44e0a12472242279233a8a\",\"0x2c67fbd8925b4ab184fadb2428ebe3d9c04772e134dd6428efb86680efcc880e\",\"0xdf52e07aba387e63774d3629e7e1f5089b28a19af65b81b4194e1ab8ba509aad\",\"0xf92b30a5c69edd5c719a659a6bcef968232c62285ade137f574d56cfe47b8a8c\",\"0xe171050bc9878e58b1721b100c5c92b9e82ce4c55d555ff7a2f333c335892cf0\",\"0xd959b4f5a5caad19639a5e26bd511e3221acb221eaa9663ed742539bf7d460fa\",\"0x7a4749d4bd8344b623ec13afa58be9a7d6bdac717086eda3ca9a6888915b8c12\",\"0x01eb3a7086033fb3ef2a7272152a933d283e57f95ce3edbfccdd645b5a41a4cc\",\"0x0029e8ac3be9474222bf525c40b9672d30e886387f2bac8f925e8df7810779c6\",\"0x8e02ce18d596daebcb37d8a7ea9f7a7e7005b4d77dccfa89e46992a6399ae1c8\",\"0x81d1f507005fe1560db12cdbaa23a53c59e34110acf4a12acdc65b25172893d9\",\"0xbb490bbe11fb53bc24092707339ad472e013824dff5410f82f0796de3949bb5b\",\"0x356d6fac0b9aa6285dbdc9ca4f72f9a06152201ccae9a12c6f5884cdcca45642\",\"0xbdfeef4c5972c0de9e291f3f87d7ccc29704942206e45f01f67a51c1bfe7cfb4\",\"0x9a40cb52fbdfcb2c9f09e355a43feba6c619dfafbb9be391d82d30f0f4acdeca\",\"0xa9b98fc2a00823578d3f6ae9ac9ca4fb18051c0a33e58cd48fa4bb3568eb0a76\",\"0x0fdda8d3697ea70c5ae6c89be67c10b0f11d8727c77a613a95ea6e522cd6f4ad\",\"0xffd25884be07e34b89019b764e6c77422b495ec5f5ad466bed5abf913c264c59\",\"0x813eb8769152609f855e69af211c87fcdc13e9c25b4d750b9e3e9e3986664b55\",\"0x236016c9c5becbe2b658a4d48b93118112fea62cdd33adb93229a6c76bc4a8f4\",\"0x7d60b0aa366028a6dbe1ff44da49f06b5bc223f83a026fbb0d7954345fed2956\",\"0x7c7e5d51ae3f5a0177ceb71845ef7d0ac30da52bb4aebcd2efd3f4dd12c32d0e\",\"0x85550c64757abb55f20ebd89efbb637c19fb81c5042a871f4ccce0ffdeec8e24\",\"0x4b853bcaacf9c150e303b2679b0a126b8fee633ee5781303c574c567d0796bc2\",\"0x4089b49afedadeafb6610cd7feeb3f6885646731f2eb378ba67e83ef438e53ef\",\"0xcb4fa730894b2d544a7a60856cd50aa05752b2d321802d02e09a85118b933f33\",\"0xa86f6d3df246c1cd3e63ce6513af974757cda0c5bd5bef5be160e567f9a8aeb3\",\"0x506849e1179cab556db2a81bbeac82b7114e84772ceade1ef27d8b9893608f8f\",\"0x1043d77758bf6f34f5c22a969371168f9ed8162f9c9503c03597bcdcfd8c46bd\",\"0xc7801f91641069f844a0433133f80a80a1b0e12b6956a58fe37810af4855437b\",\"0x031a7a804fe0d35434ba53eb1cba9547a3caab281b726a698470efee166562f5\",\"0x35da18b71a9eed6729c9e3e6520391a0fc24bdd28c77c724b1f58ada7eebd96f\",\"0x4e4665cdfcd9104f1c201d0dffa1515fe22f5c48ed7d24a742c727ceff87b692\",\"0x89ecaa051e264a644e89e5ab6e11d1c76af1043de9730ebbc91b7ef5985f19b4\",\"0xb99a5e06133331d801f48775c59a6f2b12892ea2c213164d60acf6a0d7cfd169\",\"0x44138fe886b0f28372b772ac3af0da5876208059263169ebaa7c97317ce2d0ae\",\"0x96eb5995327795581797442d2f34db6968884b84a854567acecb5b5a1144ea4d\",\"0x05c530b6cd559d0c9b6d0162983250a774a3f313d4e2290c44a026ebfd88b147\",\"0x02e765c6816641f9d88a19c99ddd47dfbe039f4396f289ae83901743d93fb461\",\"0x926221835676a2b16bb1d8651901c86d92355136e12ed6fbf05b3c2ce3f10049\",\"0x42d13576ca8ddae53cb20036329a5c8a4f2e9e4359367ddc2e91b7980f0731ae\",\"0x343ed1121cefc530fe70f590b8c4fdfa1f41285546509a171271741b192cd3da\",\"0x1f59f31640b8c03563c2cfd934bfb14d60897b99142f69ad29fffbd83309def3\",\"0x1e3993de9ec164e8b3164e0d58a1990cf95b05bc7001d45ed050d18e1205e5e8\",\"0xa8bca5bc5defdd22573b1311b846e61e4be2c3ab92e5aa6c0abfcbdc3777703e\",\"0xcc7daaa56d482373b04203998fc20c60c79dd0d4e3a5a79c3f185876f3756ca3\",\"0x3567bce4e8cb8c59ccfa0e587d45c3564c9c3eca40e6689e5047699f88dad4fc\",\"0x3dae81f81f5f0a8fca8354a38eee6b3bc35ab20ae907d0db15dc9d82642abf8a\",\"0x0cc4c4ac79ce66c8567acfcffa6851c505e9f1dd1b7f2b8c1ea5892a38456d01\",\"0xe79f8d0b1c9eb50111accb9bc3d45c632e47f9c15d4b3653cef8e196b4e0b248\",\"0x90dbf4ea7d6391f1de7f1b59bfaaaf4f6f8ad26f026433472b13f6db3906caf6\",\"0xb52b811c8fb85825d3964baa2b66160033728fbb6c880d2f8967429ebd19da80\",\"0x303ea4745a281696c34cf9092e44fcfe980f2e7e78e0c77a10d79ef9fecfe6a5\",\"0x2d7401867833003fa52eaf8abad288b00dc6258c15b98e470c0e498814a86a2c\",\"0x534eaab89e9e5c2fe0f12ef5559367190ff86fd772465ca381f9a903956524e4\",\"0x1a4dffb30cbd9171e6b62c439fd8a687cf19b7f770ea45518f72a15c24754f04\",\"0xdad203c02eb7ed2118cf0cba3e455ba0bd7392082fed4cb71c94f05f0c66e85a\",\"0x5a39f74c8ac65e495db909c84da9c417f60b687919a97016743888f20f40c97c\",\"0xce0c73b995163ed7c67c0137b8aa0e7d72505f0549c04b0811ecad281da5d052\"],\"withdrawals\":[{\"index\":\"0x8ad6d4b\",\"validatorIndex\":\"0x5f119\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd59825\"},{\"index\":\"0x8ad6d4c\",\"validatorIndex\":\"0x5f11a\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd5cb7b\"},{\"index\":\"0x8ad6d4d\",\"validatorIndex\":\"0x5f11b\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd584a1\"},{\"index\":\"0x8ad6d4e\",\"validatorIndex\":\"0x5f11c\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd57cb9\"},{\"index\":\"0x8ad6d4f\",\"validatorIndex\":\"0x5f11d\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd5ee3b\"},{\"index\":\"0x8ad6d50\",\"validatorIndex\":\"0x5f11e\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd57208\"},{\"index\":\"0x8ad6d51\",\"validatorIndex\":\"0x5f11f\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd58260\"},{\"index\":\"0x8ad6d52\",\"validatorIndex\":\"0x5f120\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd54359\"},{\"index\":\"0x8ad6d53\",\"validatorIndex\":\"0x5f121\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0x401a12d\"},{\"index\":\"0x8ad6d54\",\"validatorIndex\":\"0x5f122\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd53242\"},{\"index\":\"0x8ad6d55\",\"validatorIndex\":\"0x5f123\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd531da\"},{\"index\":\"0x8ad6d56\",\"validatorIndex\":\"0x5f124\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6eae9\"},{\"index\":\"0x8ad6d57\",\"validatorIndex\":\"0x5f125\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6d2db\"},{\"index\":\"0x8ad6d58\",\"validatorIndex\":\"0x5f126\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6f3a0\"},{\"index\":\"0x8ad6d59\",\"validatorIndex\":\"0x5f127\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6e2a7\"},{\"index\":\"0x8ad6d5a\",\"validatorIndex\":\"0x5f128\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6b576\"}]}}]"
+    },
+    "state": {
+      "endpoint": "https://ethereum-rpc.publicnode.com",
+      "started_at": "2026-10-06T14:43:40.215Z",
+      "received_at": "2026-10-06T14:43:40.447Z",
+      "http_status": 200,
+      "http_date": "Tue, 06 Oct 2026 14:43:40 GMT",
+      "request_json": "[{\"jsonrpc\":\"2.0\",\"id\":10,\"method\":\"eth_getBlockByHash\",\"params\":[\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",false]},{\"jsonrpc\":\"2.0\",\"id\":11,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0xaffed0e0\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":12,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0x42cde4e8\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":13,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0xf2380828\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":14,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0x8da5cb5b\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":15,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0x2b3ed84e\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":16,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0xec0fa86d\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":17,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0xe0ef2b4b\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":18,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x0d5cd355e2abeb8fb1552f56c965b867346d6721\",\"data\":\"0xa71c3fa6\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":19,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"data\":\"0x70a08231000000000000000000000000000000000000000000000000000000000000dead\"},{\"blockHash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":20,\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x18ec5a6\",false]}]",
+      "response_json": "[{\"jsonrpc\":\"2.0\",\"id\":10,\"result\":{\"hash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"parentHash\":\"0x5568aa79b8cbe63e74541d19d29c87a70636f384aa8471cea3b69870ba0eb917\",\"sha3Uncles\":\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\",\"miner\":\"0xdadb0d80178819f2319190d340ce9a924f783711\",\"stateRoot\":\"0x8d250441907bbdf6d95f4909f8fb63ccd16d7645306c99e9e74abbf95ee27979\",\"transactionsRoot\":\"0x3a4810f1c24501a3db00a6227427bcb5f2f9b7118cf23a73a2bf831c7bb4510b\",\"receiptsRoot\":\"0x23fd8ae5f7d5633cb29793f260c92d4cfa83d1641ec4fe845768aa40216ffc9e\",\"logsBloom\":\"0x1defd1f3ffffb3f3f4ef6affb9beffd75fffffe0f55abdffdefbfb3bfdd1ffefeff9c57fae7ccdffcfb9fbf7e2fa6d7c9f5dfed1ffc3b7bbff9f3ffe52ee5ee253093ffdedddd76df927edfbedd7fffb7dfcbef7cdfd79fcd2f8d81f94b77fcbffdaff9efefeefebff94fbffee96bfffdf7f56b0fff2f7fadfdb5ff77adf7ee5cff8fe7b5bf84feddfdaf7fbe770efaeffe3bffded97ff5bedfb977479fffffe7f74ffeffcdbebff77745df6bdc1ec8226ce7bdfaffff7cf3ffffe7b0e8dff7fc9ff7e3e27de9b69e7cf77ffbfff3e4557fefff7d77efddadffb1ffffbe3ff9ffe7ebdf93edcfd9cadf6f3bfdeee7c7bdd3ff98af7bbeffeff3feffd77fdcff5\",\"difficulty\":\"0x0\",\"number\":\"0x18ec5a6\",\"gasLimit\":\"0x3938700\",\"gasUsed\":\"0x2120acc\",\"timestamp\":\"0x6ac50557\",\"extraData\":\"0x4275696c6465724e6574\",\"mixHash\":\"0x44700b5211cfbbf54e348cdb6ef2e0ca1eb8c9d311577d8bcf483204dc8e8d72\",\"nonce\":\"0x0000000000000000\",\"baseFeePerGas\":\"0x23c6d7e5\",\"withdrawalsRoot\":\"0xeb43612e5002d59c425a0d731bc79f4455831b99d83796f0a5c0300c5dbf2841\",\"blobGasUsed\":\"0x1e0000\",\"excessBlobGas\":\"0xc1276b6\",\"parentBeaconBlockRoot\":\"0xdaceccf6817bbf49e381eaaf171f4f78ba8e8708d3e8e3dacb62400035d07860\",\"requestsHash\":\"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"size\":\"0x41c8a\",\"uncles\":[],\"transactions\":[\"0x348fb4ae3fb215bfdc8d0e1b2ac25506deb686b6c98001eb2c9a5745ec3f9cdb\",\"0xe0862327eb7190b1d3a959c9e6c88fbd6bc2e2e6836ea92987ff2c47d74d9156\",\"0x7eccedfe0dbe722f3187167ec54527f581dad024bf5c553a0c959e1fc0d6ce30\",\"0xdcb2bfccf00c2d985da7cde7faedb7aacabd8075316aa2b573dc3aa24ead7cdc\",\"0x1f836ed97a83261e02a8fa798ace3f3c004fc3ed9f4c6d4d1053eacfbf9737f5\",\"0x66fd30c51e1eff631d76ab1e36fd663c0391571e3522e641381b5d841125298d\",\"0xb1218cdfc453b3a1f12d20aae4b42a155530381599e41e951a3ce125d001f183\",\"0x7215774885051aef71645adcab968151e419bdadf134cff5bac480ad320519d6\",\"0x5c17ded78373e0d657205e2cfac7ba4793ecb8fb8a8bdab3a72f683bb591e82c\",\"0xf9d8944418d71c881f83b285a1ba6472129e345a352a632159af1084f22ca810\",\"0xd3321d9d91c442822bec1dbb2a8bad9f260b4e247540856a6fa5b9e7cd8857f0\",\"0xf674a361ac998b3ca6ec9a1bff226095b9e05fc45a0933993c54a68311aa056c\",\"0xd0d2cf99a0e5f949ab5a73583c27be14b891623f8c90a3513d814f5011bff3ea\",\"0x6502bf4cf1e15238a9e96a372a400b7be8f8e766d63a167b9713876a9e91e92d\",\"0xfce2186a1f66001c86b971eca2c30c0e91cd3184d171668b3b55651c031ae863\",\"0x4f9a630c9904ed2381279fb1da789297322a41e4a770d54f02bea58b5602b3b2\",\"0x796617690aa4893510470687d3912024b9ba1bb9cd326cbf2c28563bda3b50e5\",\"0x0e507f73c4c64d0262df3f287574e6914468fa5958cfa823d479e9b1df1367ad\",\"0x63d7d16ad326ece2c9e00b3c1749655eab2642307e8ab985d133e56e11e89b98\",\"0xda85b7bbf9648a4c3aab9e242344bae114ff48fd084fcfed427e1a2ecf3f6890\",\"0x6c8ef667c3beac602af66e3df3356c76e82d85ceefe538645367b479bc8885ca\",\"0x95f83e4fe26df8418631c7992d82f82af8417750c4424fa1810511066da3df3b\",\"0x05f944e507e085c2b4088d4e8d7740674b02a4a5e5d7fac95e5c197aed95db4b\",\"0xe3065dc956c177790b8036b1a4e287fef543935e40ba344dc6da868823a32cf6\",\"0x21ce064c8cf5cb2a6c79f868e57d91331c7db545205ccc86778b7ed4b9225539\",\"0x64b0e289b976a0a8b4a02f067c48678390ddf572f2fabbbcb545cd6cd07b03bd\",\"0xea7e0829f86d61c28387175c2d080ddb925a1c9dae88e6d0d27c2deafaa396a0\",\"0x8d0092d479448b263807d741b7312e04094ecdc113a5b874ac704fd081c0bd8d\",\"0x12550ff9b4f4d398ed531bd30e5eb2a1ccc94b5eac98a2c5e489b16d484a355f\",\"0xcdf459abe5e7a47c4bb19ef1511f3923d20efde6696ccf51522aa8ae36413945\",\"0x97b754da73165e3a709da7959c93dfc8662696c96935c933886eef9208f87616\",\"0xeffadfee0395f97887647e4e78d549e60d3c42d5d3a77759f15409625d1711f6\",\"0xbf7d86780d24b8aeba78c894ad53c2b3388d1fa2250d13469d6a89622ffcafbf\",\"0x8249047208ad6a7040aac66c01ba2292884db3db191b11bd71b40fea7d861006\",\"0x50be7f314e28a445cb0cde70405f5959ca45e2ce39821f66d4f741442e03c7b1\",\"0xfd79dc8ea4784b3b1ce757f71d597e577a8e4339e0dfd81dd8b3ade916971105\",\"0x0d10616e2fbcf6f0a5e1e09d1a7467d6ff3c4d1cad581e6410f4cf92f6ea3e36\",\"0x7a07ded5a2d7168444d4ba4fd32fe76cb5e619807e018831b1898e0f84f9ca28\",\"0x8518bc6dc743a59b70ac0595d397048ccbe5b4f167badbb895fabba32b2e12c1\",\"0x709daf88e86bda64398fbc4420ef51339f44cb0fd0239083637027c4fe0eaaff\",\"0x8f95a440e45ea9f69b9fe5013a81432095120982645fee08910054a4821008b6\",\"0x969314b4131bb57bd17959875956fe78736f807d64a88b285318ff272474a3ca\",\"0xa11d0c2d5b4c9a23a5d68263c2b37008d620611b3260523c22cbcd7028461f8f\",\"0x0c2dfcf40fe8a57e5d829b39c8b6342229c5c51d730ded37dc9eeb2a8ca45de7\",\"0x3e5e139f0ea056ff82c842558c08922420757d1512a4d2e65305d66672f32c82\",\"0xdfb3a90540441d16c309925dc5f5f61ef44fd2ffcefaf260ac3261605b4aa32d\",\"0x14c365cd0ca57ef45656fdac7f818df6402d12331ac28642e085072b7aaa2960\",\"0x3ae623e2ec348f3b835235ea1dcce9bb897489907001a2d09049f8b2076f4ad6\",\"0x246278e97ed9759b470fc8d4db7c10e52e1a13d4755bf280d492c172192609e3\",\"0x7d1bd100bd6c83ea329f161d9dbf1440b462ae37cc061e2a77262cff599edd5f\",\"0x6c2324207528a0795d5cdfed5929655bafb73297bca6b5262c3978fc1c11a994\",\"0xebcb8412b73316ed9b1c1e115bff2c9effc8faa7c2cad1dfa63f4e411f51a6df\",\"0x4c61f0fdc12c9a93eb3e6a4f3e0000d73af038e9da13b24e7cd02af78b0e4503\",\"0x5aff33f21870a01eb6cdfb30a31961609041c25b9c8c0a11e0ff805c192cfb98\",\"0xcb1928a0be8af0cef03f761c635ccc5a230f2782bcd140eafbcf4fac1125afcd\",\"0xc8bf4e8345d8795276bedb20b6dfdc519bd91c845a88788779ff7bad4184b616\",\"0x3ed7edad7a5865a0ce407b32d2de37ee109d10ae764c1d7c7188f254294bdc9a\",\"0x5f3b925fff666ec5a52f65e1d0092633ca18f0c53afb9b441631900ff67f3166\",\"0x2a057578edee5dc975099bd94829c0531e0b50dfafeac89fdd95bccb000277d7\",\"0xe0daf8f6be0adb8fd4fa0cf66defd0880bbaad4e7a39c27bc1fed73c2c4e5b8f\",\"0xd9e4b89dd789c73b38ba66b9c867c8e26c24d9dae042d539db3697972190233f\",\"0xbb427cd90e489a7239f98655a1ba38f335d65991a9bf46b63918eb4a10fc5c51\",\"0x8b402b752eedcf1a56986b01e3d6998e939cfd85dd041dad846a5af086435f07\",\"0x803e95ac77f3a5b218db50496273d36ed45e8c2b97cec8f156b35606b1401da8\",\"0x1cd19c7b45d4794bcc3ef73548159535f79c2087d707f775a13e2027e1b3acf2\",\"0x4be2183736e677f687e22f75576223fa5ef53786443a95c2e5c44236f8c5d021\",\"0x10328868652c893d6275742d55b0e7f239a54ed953c98965d657ca69c3c19ad7\",\"0xfa6f425e99d25c263a41cbdcdaa8355eb355e91da8baa7e4bb0406256ec168a6\",\"0x1a031ab53d68f35ce78f0420ed041907ef6a2d8ece834d217fb60079fbcab06f\",\"0x16e82a5ab7c1a39f0fea4c5c9c2689dec0fee2741e809c2bd571f8f77817b2ec\",\"0x61de411374e9536dc6269d8daf7856572e6dd2d4f523b841a159537031c69933\",\"0xfb5b9adfb2b2188c8eac5640ca514350009d19b9d923004fcb67d5ce7bd1ee44\",\"0x952d9900553847beaad0f100ac441f634084fbca6d85537e447562d6da2c0b6e\",\"0x4509d60332126e61c3a24ad408f227c1d422898e5432bf272a9f7999ab6c048e\",\"0xc0bddb4c8ce8133292b7bab4257fe1e1526d4f5f07cce7f9e432bdb1afbbecc3\",\"0xcf514108b24f061b6a11b991d8037dacbfcc5a3c917075479af673d165ea6db2\",\"0xa76d5ea2e7d390e287be57d2a872e897b339a7d6f56212ec07bbe2eb7b0da118\",\"0xc0f72bd3fb7423b00af3f69c02b74d4ab96c4aada4d25763ceec385d9ce8dda8\",\"0xb04e94d4cf14f075ffd9c3eff6adf4038afdea51d77ff39d4590d259a339ceb3\",\"0xc21f74600b1f5e17cc5b8540cc53466b430247ee2b46371c292599b2aa176c77\",\"0x920d3e6627341d154b62d47811d27db0f575ca61a70485347f275b66f8291bd2\",\"0x258dab005409f570f9cd8096c0246bc5a33ca548420310f68e7e9c7c9786c84f\",\"0x8b22b187d6bbd225669f5d085d6883a4a23c55f8660dca77295ccda2b3c8c71f\",\"0xebf010f6b5c94f4b81e30ef603d27432f78beb616f51713da73294e7fd83a557\",\"0xa7bc608aab4c183d6a5c6b72dddad6b0ccecf9f7502b078d65c243a51790bd66\",\"0x52b53fd95f645939883492bab4e466170ed7a687e188e9581c48ce8f6f995f4d\",\"0x39cbba9c52b5f22375097f9632c1d561ad3e647455276f4fac0c5b697dadb638\",\"0x33c94bc4f0f1931cdfb719f26b0b70c2a50a2cd4aab075610b31abbe6f29c388\",\"0xc2d34841d611a50d9f3cd938aaa10921527fcafff3d74d64df72febd20b0bc64\",\"0x80d70bdf335be8871cb459d7d6012d941698a7da46613b467f30d46301af4abb\",\"0xa2bc8617a9f2c57454c22193b0dc45dc1ab93e4a45c976a07ffc1dbea7b02ab2\",\"0x96510625931c95fda838290b27fd5ab492e37aca1e109044c94d02ad1c8192c7\",\"0xe0d7519586a9151c29017aebfd70a7e20ec5c7839585d23b9331767c507363f4\",\"0x1e5ab61e7fa9567e3d1775365a374e576eec6a9ffda1ab4a9d75b0711023da09\",\"0xef3ce6835210d05cec3337c71b27c5e56796d317f173ad1e63abef023c0a49eb\",\"0x0be026005520f5e614e38694ecb2edb1a66788063222683331b1311eba970f18\",\"0xba37aaae660969b7aa25a3f39362f243ef52ebe6a23cd465c7907eb7872fe6a7\",\"0x5f0d8812b4cfbcf19a8e600bd46922df3adc354e64b086cdf88d6fb388d4fa03\",\"0x551d9abbb41cf4081740e47c756a58d287f6f8d779fd9bd0bcd8aaca9aa31a4a\",\"0x506f03dd9c1b1d49d9438b0644e030b9b0800348e18d841236c939d4412b0256\",\"0x0a3fd5c58d85da586104d9d5b4ebfb61f2022f9c20e2f458b87f7353b168289c\",\"0x3c8a814c1f7d62c39f8b91dddae9f5c5e5cafe1bdca892540a0b31dcbe5bd95f\",\"0x99658da37b12bcb548465538a9946c5a5a9aeed23624b0ab4f601bc76614c2cc\",\"0x93266b042a97d921f0cb9e845f471d111111575214fd5391c53536e1c7f9b4d0\",\"0xa8b7c8c6e7a2241e0c24400d3abbd8f9997501867ad69da07f97954489e15061\",\"0x5adfba25489fe8b105dc8c88ea4a0394f5f4c4815940f58a433131bbd6d6c762\",\"0x718340798ea56a2e3db22d93306605a003dfa791b19b551532bed005666ae066\",\"0x126f4814e329c10e05db784a3b5c7d6f2625642fd8f6ed8a886792d64b262c68\",\"0x1a5496ff1e12075a131322dad833f3e85cbe46274c549267263fc2dc3860a23b\",\"0x73520fb22a3e09f4cd3087a739a8a8ea253e0ac16e4a58191bee0c812a7d2af6\",\"0x6c620eceebf579357a11edaec5dde9fa248da4929ac4abe775b6b86f5554fe40\",\"0xad3870c8b3f393d7ce8c0d3f329628bb0514df5c628d17a8351cf9df802d5d43\",\"0x137b0eb2fe942360593cc99f91ccda9d7c81a6c69e62087ab680e78f0e47c579\",\"0x28865c85add993d4a052c1e8eea499d4ec615ff6be0d9e690f5f758517799238\",\"0x5d8050f9e88b9a720e65d5549b888c2f7583a1a83255d130c4fc5f5c801a115c\",\"0x2d16377fa96686b88c97efca659fd3dcb24a27c8c27c2af3ba18f49787aaace3\",\"0xc4b9e48e3574458af3d91c3d405eabb772e2436e9a4bc26db9717d21e544c091\",\"0xb794101f65973155891ec210c611cd55a78876f848c01fc1ba52e093535fce3f\",\"0xac4bb0a0437e0de0cb5e2e3e8a7b2927373d8f53e3f609a388a3741aa46598cf\",\"0x49eb7cac889ff7da789b28b1ec96699d3375b71b8489e08ecdb2c913727f5e4c\",\"0xdf0543dc5e45e726ba8dfe3de3f1ba618888065ff5f4a22fce8d462847d57eed\",\"0xb653f3a79299a14f3b0513b70247fc6f6b3af360f89ae1465331da44ce151259\",\"0xaae9591523290b9ec496d670cb7b75d7ba9bef2c19d19ff9f1119757e03933ef\",\"0x9bf8d0e513e29b245bc2f4dbd733b993d63f2239061a2c3d0591019c8840dd7b\",\"0xa8fa4b9fffaea581be72ce76afd8c8170e51243a26f8cbdeaf2dafa5e3702981\",\"0x219b5ab7ec2a490d509a6fb161f4ea4d93c91d7c539c738d62c4deb56359618a\",\"0x8bebb939e65e2912e32849289dabf8f39f730070b7160dd8e21dad03a9b0e18c\",\"0xa60178ceafd643f28b6b485a3d8c664ef60a7ce7339f88274cea2593606c84c9\",\"0x50c59156aae7f3b1208adbcc20922744032d1b7c9bca690d49490e846cea02ed\",\"0xf0d985ee9114604239db5f7fc1875b3b180d112dbc91d0fe0b756202a95ee51d\",\"0x1e565888500038905d1170d89781509df4a9766897ac05ec0fdcb9cea5f083e7\",\"0x5dbb539cc6411278a71bb8e496356bb29cb00ffd39a4a3a0468b2a291fd4160a\",\"0x57beae9c20224e83d15dc230671f0cef7cc97a27cf529bd6c3d4cc69b772ec37\",\"0xee89077723c02455cf4a20057283460dec6c2b1b536d65a7659df95ed6df9088\",\"0xa8038e655e8872f8e0ba0845864326694804d61141d789372928d96c22add06b\",\"0x132108d9a8417961fefac36e46b2ac10913bfcdc9536d2d597318a94eaa752fe\",\"0x385214026fc76c4da864cacb7001967a882f42ddb4a292c35ad12918e28201e6\",\"0xffc2c16244caf6f0e04dea308acf24066b44f6cf9639e66c2061c2af1756887c\",\"0x46d2579bb0feef9391395ef5b9e592528e3f1577d600b95b8fb7d41105839cb9\",\"0xde444620d7e83d41aa590de4cb649d2a3fcfffbf778d3d6c1af05118557bec9c\",\"0x87112a5555c16903bb2a34bd58f8c24c38905a42ae938159a605791c9474e018\",\"0xc483e58c7668e09f92ba13df7d46e6f21e18abba32dc530be9ffec28af4a86b8\",\"0x3ef2bfdb9926601583675bd929b308470ac7b7483503d0d37c822b25f88e0f94\",\"0x09630fa59ae43e1c0f2d6cacf10229f8fdf9d186c6a1aad6d8acef0b205823a4\",\"0x82e264a6a8c2b987394c39f68df2214c11c2d8d9216b87ec08ada550b2cbe040\",\"0x6de4c514aa31f73c242509b0f35c634001c7105dc7823b7640b748aa106fb275\",\"0xbd56aad0a228414c0967fc8031268a609567469e8ae8b445e762d7202092c6aa\",\"0x209654f03fe61f304d3c673f798a9f3ebd57158638479aaf980e878b42e0ae0f\",\"0x6e7d14c0f79d2a5d3b75ed349d5ec774377472363b7a7e7f7cc9df63a0506434\",\"0x575c2d26b1f3c16e318247f783244de85f8b5b6b86d2e0c91bd108f13302b008\",\"0xa7cbd37ddb7bdfc82aac354fbb371a2968cdee6c65c5f93f256a532e92a23413\",\"0x899959901047404e16adab0aac1222933453ad12a7399b89973724b1252028fe\",\"0x053b3a255481bc1f9d6eab440e875a119b7e83af0d88933dd1e3abee0f8ef765\",\"0xb2628d60805447ad58e553bc06b8466ca60be2c1af89116cdf197e334f78b9fc\",\"0x15eaa87fa4ca278c48a1ef5510684621e92276d8f3da981fec18782851d8d080\",\"0x7357803090085a94305234571539f1fb15a0c487c27116acd936c9073c3bb66e\",\"0xc7fc59f309da5cbcdb2016744e84d62b5010c38e2ed788bf3059e4d4b7074227\",\"0xb7e00546c83f6e5c3cbd4a6d51c1f2f19162e0b108ed8611dd2fa0973630c341\",\"0xca8f613e57e55a04424776d67dc824148da24134373e9d9771fc32602ef9b625\",\"0xd044381a76a8b812dc06a5a32462cb4525971eb7b684cfd97e41aab75dfe631a\",\"0xfcd002574aa78812dc2f464e373beb1a51e785cee4fec3f45a67a9b483d11fe2\",\"0xf42833e8a183591d3a64ea7edace6c26beb9b88576bd7222d373e27d515161fc\",\"0xab57d5721516221ffaceee61c3c328388f57a80df7c99bf2448ad7b78e210b7a\",\"0xc89836f3de1081a46b2451aeefb6e50ac166e23281834326cc4ced0c522ffb21\",\"0x96d34316746eb6ce65ba657a8074db5b58ec0426738467bb36cae9b5090072b9\",\"0x1af937365faa31c5f2cc8d68e2c8a10f5b3950014e9eb90c97c5fbe5d3c9655c\",\"0x9f05e9bd04c4917182eb1ec24326666822f42d0015e58c146ce5598bc792a421\",\"0xeab238ac4f3d1050e8245dac8d1f9cca3f268ceed5da2d1ad4c97c39d810e538\",\"0xa888679f625cc8b26cc1a3daac7d3f90a1f43af504e2c02353787e535029b123\",\"0xdf6ed4ba788efed68af8d93fb45136676cbfb9fab590c4efd216c61113dffc5a\",\"0xa11add7ed1a20f67a1b9be06888675efab432f303028ca943cda7951728f1170\",\"0x6ee457e4aca7d6f0669b6459692e8e9e0c2b5461a8077eb17465ebc573360291\",\"0xe76c66b60705fa9a724a48ee10aaccc0d22ba1c9d9a5f8b8842d772ab6c59501\",\"0xf9151185fccd915bfcb3c2786171bf170df6ff58329ba893c58592dfca3ef222\",\"0x290dbfe91a7af2ee2ddb12ba952a7e6ba576242232e9ca681a503f88b4edf8f0\",\"0x1c2fac13c55938d3eda5f50b869c5e74f7befbd65582ec257ff5cd1812eb9adb\",\"0xc2b5ba2878103eaf582228c6aa923d885c832c0acf5d12f8b80c056319a75d01\",\"0x5bf3d2f81479784ae76344e9c44a62f7d8f3c33d2b457b36ce95abfa7877ec55\",\"0x1b4ad56c1d9b002716d056bf5c2b83559a1de2582a28e64a78600868a51daa4b\",\"0xd9978f8d1bd92cdbf0612ebbf6ab87e449cfc4422ea480b6b54a12628b18f909\",\"0x9756d24eeab2c1c77f67cb8853b23e21cf59e89f3005ce906e111dec0dd9118f\",\"0xa7a167385cd033131b94823f7771477ac718e2b972c5ad0fead1b0912bbecabf\",\"0xe6779705355ee313711329ec88946135ddab54b733fe6bc7cd0136d17170df5a\",\"0xebe9a468d1bba44eedd08906a30d4d84e240b59721b2df01ef6523568fe5f855\",\"0x83853e4f2203701071d367525ecf398a345a16f9d5c84de75ca3df82aca7e5d2\",\"0x2ec4cf037060ef3e9f6793d8f8fcae3ef0108a7e1ac51f41ecdd5444b9d8b485\",\"0xa347fb4eaad8c374c318f86373b5faf02295fd9e00313b75257c47281ff28f5a\",\"0xbdab6c21e297c4b43cc98bf67dc95a9b269b9da16b7beeecc59234f44635af5e\",\"0xa5634e53726891879bef748221147250f9de6e4f797f80dd0051f1119533a70d\",\"0x9c4fa3aa31b6ffbc6c800b56b7ac7ccbce1df45431e9017c3e3e8603b818ebf5\",\"0x104664512cd8cfc4fe41e95bc35be48c3145dfd8ceea5ee2e93825458992f226\",\"0xe1b77ac994ee441ceba26d7fb48bd193002db5e04261c5b08404d34242411215\",\"0x9396807b7edff0b394307c20c12c92d6f8f0c94f1edf23e2ff60f1ed8511a544\",\"0x72097dd3000650ccb39dd10bdd71e576bd55954366cdc554764955a4fda12a03\",\"0x8436fde921401af392d9aa26fc2bb24dc29e214bac0eb7c68d5f667e9793da52\",\"0xf89dd0a6cf36338b0075e11556379eb02088a51ae202415024d850a07d878403\",\"0x13a96ead4a811eeaac7143f776d5235210028d81379d2385280204d8eb6fed32\",\"0x98d81348f8f6d8337cd3b21d69c56e5bf768a9f631dcf85f28bf4c494bf0878e\",\"0xac2d9e317d09f5b1c421da68b15991633ae20dd3962a574ac0fada48f29ce92b\",\"0xe662eb30073c0900dde26856147c84f5a8fcd4bdbe2c989456b7c894b7bc8a1c\",\"0x557614be7fbbd6dd3c4c006f929ae7f4f78be920508e9984e9b85dade41e4fa1\",\"0x0024278867c6e961f1168b37a3df2bcf3b10999b97dd68b285b2a277ced1b6a0\",\"0x247d7f78cfc2b0a72e198bee7f088746d5d635e841b806399edf5d65d59cf590\",\"0xc48ae3ae29a39dc08be3bbe95ad131b8aa743a519f1a756c5735d4b9c537791a\",\"0x801943dda1bc087ac9ed70c79a28e45b4e534057806358f2b98a0c0ce1571830\",\"0x8ec87459c095e91be4b8646a735ea4911b535a60a3e4152931d820a21a20efda\",\"0x0214e1ea3e8fc158058a25f6076d4299c1898020488635d6ab93c9a4454f475b\",\"0x6a49d28c233a22761a177f3b25176cd5eee9c79700366a8990372f2970ae889a\",\"0x6ed9501ddcced268d686f4d37fecc4d24a73f1f8ae8accf03e3b06f5820d1dd2\",\"0x1c76ecd7cc2b5f85f3069f15f2dd41a784032b9f50ea7d3e6860dc754af77c4a\",\"0x4f6f50c41923671414cc7d981b5476f3fa8e5544148a2310a9507155b0c86ddc\",\"0xbc963b1e76e4296e5cf70f5a8c45531e02514551f73b09c5aec6a6df68cdd900\",\"0xc058df178c1b202798291230aa99cc76b4e2b6db07eef5cea39acb2afa6b3e75\",\"0xe2aa2499bee24dbb19beb5bb7a4501db5f64855a8c8dcb8ecf9f2d071e3218a5\",\"0xff366234c0d48b876da958e39fcbe410f47052a37694e58b6c862cf4e5de1356\",\"0xee52acd43d72f0493779acc68370da175edd2a7eb6d7ac0baba8f060d2342a17\",\"0x5c3044b12e4815297325ed6784078e877be266b023be0406b942e56a35029aeb\",\"0xb7903d6c6b433f9ef6f2c32e79bde96f7484aec98e261e5a4feb97e6f6094ea9\",\"0x0bbd63d41721a833452c28e55f8767dd682b403eb258e0fe730bd44bc2f69dcc\",\"0x1b632a94a996008ab1ca74cd306ea9775955bd317eaba48f07ca9af66900e063\",\"0xdb0748c74938ae245a89e892a1ef13cd83c3313167df03d864a1732533e085db\",\"0x370dda3465d5e9c0a5d6da4462b1c4ee0d18378aa68bf3a4bd684cf69dabdcbd\",\"0xcbedf35ebbb8d1794fb00343b5dad3a44f78d579a94b798447d71b3f0f0fbffe\",\"0x41707eb2cd4f250f51e35ade39b0973e4e8e47591d18a999bc13d1899557d2b4\",\"0x33d046973616bd1a600fa28967e1128348f9de74c4e3ba5a215b14b7685c288f\",\"0x6642d28524d397b43ae5177ee6d9d2258ef4cdb931dea3f298fdfbe2b1f1a6f4\",\"0x462fe920af7866ffe6138bd5cc1d9b74194dfa576c5fbce93508f98b08d0209d\",\"0xf6f0b54823afce12d38ca75ef1cd667c70bb231171f6e3c33bf5d6600fda4d92\",\"0x7e73cef57fb72b76103d36383148dee79636b38a42cb84e054e161ae76e107ae\",\"0x7a1ae78a9c8bef2f8af776c71d85d528b5ef7c450fcf99e1559a10ccf7900eb3\",\"0x4f1417b384cc623b69e6f84d641183e51dff56be5b1294b01b13141a68bf9d10\",\"0x5a0352f3b989a96337317f5ca704e7995ad5738e436c2e29dfbc466cbbe865a9\",\"0xf292752ae7a336d14cca000a5ab292d36fc037a4e38cfc9e548bba064907f1b6\",\"0xb92e79be1b543ada8a332e14410886ea780adf0503988ca32ffdcd33bcf472ad\",\"0x9c034cbaed4de0ea55205b3952d6207359fc514e4901a42b6183aa8dd65acbc4\",\"0xfc9351e1f05626e75d1b66f16be3c67f0be1a3accfb6db3b201d46c760215280\",\"0x53c3dbc9cb9dfd5e111a086123d0871f0cf7ad950f5ded726d0684b35d08d62e\",\"0xe65e10ef94a5a858ed0dbbc8d99dfc0eebad3c106feb5f57381e7a19b0ab3a0c\",\"0x2fa00a9c9f8f214efabb852d03bc5f6c69f1417b408380bda74c33f806d74910\",\"0x02eccf0d42496567e49d69718526ebf17ed5e852ac036196212a3d95c68f7a3e\",\"0xe3420a108083f559ab3387148ec7eb9bb8738491ddc37733d09cc9715bb1b526\",\"0x96f3f66ba37d02b606bd0b2d7f0f7e6b991af6da5608b5679ec816871fa0e476\",\"0xd9137c44813953b5bb66f8478b9b2cb57c26b9c1671c4cf16b9fd9214df5ec1a\",\"0x24426fa4dbcdedddd5fded149db70f90e2c93d84b8eb77fb44681b842e6c4f71\",\"0x347aef286ec248dd0a27e25b7d276d209e33aaa773036a4b5f27957fb8b91886\",\"0x31d689f7ca6cf572515c188ca13ab99d0e4cddde8c1da5e72b46285532d52561\",\"0x37853c1ee96cc445ed3e9bee914afa28342850f6d8a3a596e133e930dc84cd9d\",\"0x32b1578eeba8d2a7e7ebe9d6116b565556571b632460313356aa33704f8de96d\",\"0x697a8f342e28f86026d2d4093d0bbb66e29155579dbbbb6f8383efd37174a2ae\",\"0x7f8375612f208eb792de5ccafe4fb6ae18aea2863fb981a1ef8233faedf0a578\",\"0x035cc49aef5d7c80f399f7ab75cb25ad7e40b863f340559cf35cf5506a2b09c3\",\"0xd1d13963b4f50dd19c9a0f2b45a168ddc3dc83c995da1e1637deacc2e551e1b9\",\"0x761c27ae0b9d115ce1ecfa64495be3f35032ee9bb72d0db303e07e145c22fe43\",\"0xf6b3b6f30d09495e2d189846960d2adfe3d05d6a0dbdf59c7539f354e3e5744a\",\"0x869ca8b20b78d108addda9215502bd2cfb719016f8830d80530c334e09d00373\",\"0xfeb7ab6d9875be3e35df217b347b667b482a454dc536b18b15ac50061f8973df\",\"0x5dae79d8130671881a4629cbaddb41c88f7f1df19f401877a910249a5da08e0e\",\"0xc876881c5ce96314d7dbb0766ffb64ac3cd633fec7fe70fe1a4189f7912ee435\",\"0xc992b8e511c0fe989b7612f01ec7f299b972e294541a2bc4ff04a911f816864b\",\"0xc39d087fa2f69b06ad4af588ef248454a26438896b34c9e4d770db0b441319e5\",\"0x0487e72a0b5a183ad25fd349568147d9c4fdd77e6c63b365b955cb1d4363de1f\",\"0x25673d598a292c0038b8a04d5b87a07130ab24c7752078c6461fc6b4eca4e004\",\"0xbd37a3d40965a4e4ec77084a86e27d10801b33072f585480aa65654f7653923e\",\"0x50e35099afc4a1f2e54837edb6d3fee91f0a5da7d7085233c4e1f3b38ff6c0c5\",\"0xb95df908a4a0e99006ea2dab0ae29ed5b55fefebe6c6e7c26f532cfef6d6d3a8\",\"0x927f34adfd162b8fe249845f4b1bf0ef02c4b83cdb6dabde8d0e3e5d34fd32ee\",\"0x70f275173d88c572d4295b6b47d2d3f84c3fe16a6714e2c40b3738d00d18c023\",\"0xd82760cf3db00ba0982c4b6ccd87a067e6f08f025143f448cf10d780135d7c8e\",\"0xb60b8ab097f6a545440b03135bff3fa768448f9d7bde9fa06da75b8e7157ac26\",\"0xf201da68bbd8d695a070d2022580eef264241aa48d3d87295aab4e5e5a4318b3\",\"0x1a6c09aec372c36708a28e85cde9e21c6bbc01056b61ed9e06d06bef0ad10fd8\",\"0x29578b466fac3f37a9474bf9c9701e134fa06a688ad5ca4ea988768c54e0f83e\",\"0x6046d882ac80d82ab209f34086de7276200e314e1c44e0a12472242279233a8a\",\"0x2c67fbd8925b4ab184fadb2428ebe3d9c04772e134dd6428efb86680efcc880e\",\"0xdf52e07aba387e63774d3629e7e1f5089b28a19af65b81b4194e1ab8ba509aad\",\"0xf92b30a5c69edd5c719a659a6bcef968232c62285ade137f574d56cfe47b8a8c\",\"0xe171050bc9878e58b1721b100c5c92b9e82ce4c55d555ff7a2f333c335892cf0\",\"0xd959b4f5a5caad19639a5e26bd511e3221acb221eaa9663ed742539bf7d460fa\",\"0x7a4749d4bd8344b623ec13afa58be9a7d6bdac717086eda3ca9a6888915b8c12\",\"0x01eb3a7086033fb3ef2a7272152a933d283e57f95ce3edbfccdd645b5a41a4cc\",\"0x0029e8ac3be9474222bf525c40b9672d30e886387f2bac8f925e8df7810779c6\",\"0x8e02ce18d596daebcb37d8a7ea9f7a7e7005b4d77dccfa89e46992a6399ae1c8\",\"0x81d1f507005fe1560db12cdbaa23a53c59e34110acf4a12acdc65b25172893d9\",\"0xbb490bbe11fb53bc24092707339ad472e013824dff5410f82f0796de3949bb5b\",\"0x356d6fac0b9aa6285dbdc9ca4f72f9a06152201ccae9a12c6f5884cdcca45642\",\"0xbdfeef4c5972c0de9e291f3f87d7ccc29704942206e45f01f67a51c1bfe7cfb4\",\"0x9a40cb52fbdfcb2c9f09e355a43feba6c619dfafbb9be391d82d30f0f4acdeca\",\"0xa9b98fc2a00823578d3f6ae9ac9ca4fb18051c0a33e58cd48fa4bb3568eb0a76\",\"0x0fdda8d3697ea70c5ae6c89be67c10b0f11d8727c77a613a95ea6e522cd6f4ad\",\"0xffd25884be07e34b89019b764e6c77422b495ec5f5ad466bed5abf913c264c59\",\"0x813eb8769152609f855e69af211c87fcdc13e9c25b4d750b9e3e9e3986664b55\",\"0x236016c9c5becbe2b658a4d48b93118112fea62cdd33adb93229a6c76bc4a8f4\",\"0x7d60b0aa366028a6dbe1ff44da49f06b5bc223f83a026fbb0d7954345fed2956\",\"0x7c7e5d51ae3f5a0177ceb71845ef7d0ac30da52bb4aebcd2efd3f4dd12c32d0e\",\"0x85550c64757abb55f20ebd89efbb637c19fb81c5042a871f4ccce0ffdeec8e24\",\"0x4b853bcaacf9c150e303b2679b0a126b8fee633ee5781303c574c567d0796bc2\",\"0x4089b49afedadeafb6610cd7feeb3f6885646731f2eb378ba67e83ef438e53ef\",\"0xcb4fa730894b2d544a7a60856cd50aa05752b2d321802d02e09a85118b933f33\",\"0xa86f6d3df246c1cd3e63ce6513af974757cda0c5bd5bef5be160e567f9a8aeb3\",\"0x506849e1179cab556db2a81bbeac82b7114e84772ceade1ef27d8b9893608f8f\",\"0x1043d77758bf6f34f5c22a969371168f9ed8162f9c9503c03597bcdcfd8c46bd\",\"0xc7801f91641069f844a0433133f80a80a1b0e12b6956a58fe37810af4855437b\",\"0x031a7a804fe0d35434ba53eb1cba9547a3caab281b726a698470efee166562f5\",\"0x35da18b71a9eed6729c9e3e6520391a0fc24bdd28c77c724b1f58ada7eebd96f\",\"0x4e4665cdfcd9104f1c201d0dffa1515fe22f5c48ed7d24a742c727ceff87b692\",\"0x89ecaa051e264a644e89e5ab6e11d1c76af1043de9730ebbc91b7ef5985f19b4\",\"0xb99a5e06133331d801f48775c59a6f2b12892ea2c213164d60acf6a0d7cfd169\",\"0x44138fe886b0f28372b772ac3af0da5876208059263169ebaa7c97317ce2d0ae\",\"0x96eb5995327795581797442d2f34db6968884b84a854567acecb5b5a1144ea4d\",\"0x05c530b6cd559d0c9b6d0162983250a774a3f313d4e2290c44a026ebfd88b147\",\"0x02e765c6816641f9d88a19c99ddd47dfbe039f4396f289ae83901743d93fb461\",\"0x926221835676a2b16bb1d8651901c86d92355136e12ed6fbf05b3c2ce3f10049\",\"0x42d13576ca8ddae53cb20036329a5c8a4f2e9e4359367ddc2e91b7980f0731ae\",\"0x343ed1121cefc530fe70f590b8c4fdfa1f41285546509a171271741b192cd3da\",\"0x1f59f31640b8c03563c2cfd934bfb14d60897b99142f69ad29fffbd83309def3\",\"0x1e3993de9ec164e8b3164e0d58a1990cf95b05bc7001d45ed050d18e1205e5e8\",\"0xa8bca5bc5defdd22573b1311b846e61e4be2c3ab92e5aa6c0abfcbdc3777703e\",\"0xcc7daaa56d482373b04203998fc20c60c79dd0d4e3a5a79c3f185876f3756ca3\",\"0x3567bce4e8cb8c59ccfa0e587d45c3564c9c3eca40e6689e5047699f88dad4fc\",\"0x3dae81f81f5f0a8fca8354a38eee6b3bc35ab20ae907d0db15dc9d82642abf8a\",\"0x0cc4c4ac79ce66c8567acfcffa6851c505e9f1dd1b7f2b8c1ea5892a38456d01\",\"0xe79f8d0b1c9eb50111accb9bc3d45c632e47f9c15d4b3653cef8e196b4e0b248\",\"0x90dbf4ea7d6391f1de7f1b59bfaaaf4f6f8ad26f026433472b13f6db3906caf6\",\"0xb52b811c8fb85825d3964baa2b66160033728fbb6c880d2f8967429ebd19da80\",\"0x303ea4745a281696c34cf9092e44fcfe980f2e7e78e0c77a10d79ef9fecfe6a5\",\"0x2d7401867833003fa52eaf8abad288b00dc6258c15b98e470c0e498814a86a2c\",\"0x534eaab89e9e5c2fe0f12ef5559367190ff86fd772465ca381f9a903956524e4\",\"0x1a4dffb30cbd9171e6b62c439fd8a687cf19b7f770ea45518f72a15c24754f04\",\"0xdad203c02eb7ed2118cf0cba3e455ba0bd7392082fed4cb71c94f05f0c66e85a\",\"0x5a39f74c8ac65e495db909c84da9c417f60b687919a97016743888f20f40c97c\",\"0xce0c73b995163ed7c67c0137b8aa0e7d72505f0549c04b0811ecad281da5d052\"],\"withdrawals\":[{\"index\":\"0x8ad6d4b\",\"validatorIndex\":\"0x5f119\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd59825\"},{\"index\":\"0x8ad6d4c\",\"validatorIndex\":\"0x5f11a\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd5cb7b\"},{\"index\":\"0x8ad6d4d\",\"validatorIndex\":\"0x5f11b\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd584a1\"},{\"index\":\"0x8ad6d4e\",\"validatorIndex\":\"0x5f11c\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd57cb9\"},{\"index\":\"0x8ad6d4f\",\"validatorIndex\":\"0x5f11d\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd5ee3b\"},{\"index\":\"0x8ad6d50\",\"validatorIndex\":\"0x5f11e\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd57208\"},{\"index\":\"0x8ad6d51\",\"validatorIndex\":\"0x5f11f\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd58260\"},{\"index\":\"0x8ad6d52\",\"validatorIndex\":\"0x5f120\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd54359\"},{\"index\":\"0x8ad6d53\",\"validatorIndex\":\"0x5f121\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0x401a12d\"},{\"index\":\"0x8ad6d54\",\"validatorIndex\":\"0x5f122\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd53242\"},{\"index\":\"0x8ad6d55\",\"validatorIndex\":\"0x5f123\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd531da\"},{\"index\":\"0x8ad6d56\",\"validatorIndex\":\"0x5f124\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6eae9\"},{\"index\":\"0x8ad6d57\",\"validatorIndex\":\"0x5f125\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6d2db\"},{\"index\":\"0x8ad6d58\",\"validatorIndex\":\"0x5f126\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6f3a0\"},{\"index\":\"0x8ad6d59\",\"validatorIndex\":\"0x5f127\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6e2a7\"},{\"index\":\"0x8ad6d5a\",\"validatorIndex\":\"0x5f128\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6b576\"}]}},{\"jsonrpc\":\"2.0\",\"id\":11,\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000573\"},{\"jsonrpc\":\"2.0\",\"id\":12,\"result\":\"0x0000000000000000000000000000000000000000000000d8d726b7177a800000\"},{\"jsonrpc\":\"2.0\",\"id\":13,\"result\":\"0x0000000000000000000000001a9c8182c09f50c8318d769245bea52c32be35bc\"},{\"jsonrpc\":\"2.0\",\"id\":14,\"result\":\"0x0000000000000000000000001a9c8182c09f50c8318d769245bea52c32be35bc\"},{\"jsonrpc\":\"2.0\",\"id\":15,\"result\":\"0x0000000000000000000000001f9840a85d5af5bf1d1762f925bdaddc4201f984\"},{\"jsonrpc\":\"2.0\",\"id\":16,\"result\":\"0x000000000000000000000000000000000000000000000000000000000000dead\"},{\"jsonrpc\":\"2.0\",\"id\":17,\"result\":\"0x000000000000000000000000f38521f130fccf29db1961597bc5d2b60f995f85\"},{\"jsonrpc\":\"2.0\",\"id\":18,\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000014\"},{\"jsonrpc\":\"2.0\",\"id\":19,\"result\":\"0x0000000000000000000000000000000000000000005d2b16ac1562fd5bbea0bf\"},{\"jsonrpc\":\"2.0\",\"id\":20,\"result\":{\"hash\":\"0xf00aa9e42de56c422eebd891c319a2dd6837f531100c1ee957779a599b644060\",\"parentHash\":\"0x5568aa79b8cbe63e74541d19d29c87a70636f384aa8471cea3b69870ba0eb917\",\"sha3Uncles\":\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\",\"miner\":\"0xdadb0d80178819f2319190d340ce9a924f783711\",\"stateRoot\":\"0x8d250441907bbdf6d95f4909f8fb63ccd16d7645306c99e9e74abbf95ee27979\",\"transactionsRoot\":\"0x3a4810f1c24501a3db00a6227427bcb5f2f9b7118cf23a73a2bf831c7bb4510b\",\"receiptsRoot\":\"0x23fd8ae5f7d5633cb29793f260c92d4cfa83d1641ec4fe845768aa40216ffc9e\",\"logsBloom\":\"0x1defd1f3ffffb3f3f4ef6affb9beffd75fffffe0f55abdffdefbfb3bfdd1ffefeff9c57fae7ccdffcfb9fbf7e2fa6d7c9f5dfed1ffc3b7bbff9f3ffe52ee5ee253093ffdedddd76df927edfbedd7fffb7dfcbef7cdfd79fcd2f8d81f94b77fcbffdaff9efefeefebff94fbffee96bfffdf7f56b0fff2f7fadfdb5ff77adf7ee5cff8fe7b5bf84feddfdaf7fbe770efaeffe3bffded97ff5bedfb977479fffffe7f74ffeffcdbebff77745df6bdc1ec8226ce7bdfaffff7cf3ffffe7b0e8dff7fc9ff7e3e27de9b69e7cf77ffbfff3e4557fefff7d77efddadffb1ffffbe3ff9ffe7ebdf93edcfd9cadf6f3bfdeee7c7bdd3ff98af7bbeffeff3feffd77fdcff5\",\"difficulty\":\"0x0\",\"number\":\"0x18ec5a6\",\"gasLimit\":\"0x3938700\",\"gasUsed\":\"0x2120acc\",\"timestamp\":\"0x6ac50557\",\"extraData\":\"0x4275696c6465724e6574\",\"mixHash\":\"0x44700b5211cfbbf54e348cdb6ef2e0ca1eb8c9d311577d8bcf483204dc8e8d72\",\"nonce\":\"0x0000000000000000\",\"baseFeePerGas\":\"0x23c6d7e5\",\"withdrawalsRoot\":\"0xeb43612e5002d59c425a0d731bc79f4455831b99d83796f0a5c0300c5dbf2841\",\"blobGasUsed\":\"0x1e0000\",\"excessBlobGas\":\"0xc1276b6\",\"parentBeaconBlockRoot\":\"0xdaceccf6817bbf49e381eaaf171f4f78ba8e8708d3e8e3dacb62400035d07860\",\"requestsHash\":\"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"size\":\"0x41c8a\",\"uncles\":[],\"transactions\":[\"0x348fb4ae3fb215bfdc8d0e1b2ac25506deb686b6c98001eb2c9a5745ec3f9cdb\",\"0xe0862327eb7190b1d3a959c9e6c88fbd6bc2e2e6836ea92987ff2c47d74d9156\",\"0x7eccedfe0dbe722f3187167ec54527f581dad024bf5c553a0c959e1fc0d6ce30\",\"0xdcb2bfccf00c2d985da7cde7faedb7aacabd8075316aa2b573dc3aa24ead7cdc\",\"0x1f836ed97a83261e02a8fa798ace3f3c004fc3ed9f4c6d4d1053eacfbf9737f5\",\"0x66fd30c51e1eff631d76ab1e36fd663c0391571e3522e641381b5d841125298d\",\"0xb1218cdfc453b3a1f12d20aae4b42a155530381599e41e951a3ce125d001f183\",\"0x7215774885051aef71645adcab968151e419bdadf134cff5bac480ad320519d6\",\"0x5c17ded78373e0d657205e2cfac7ba4793ecb8fb8a8bdab3a72f683bb591e82c\",\"0xf9d8944418d71c881f83b285a1ba6472129e345a352a632159af1084f22ca810\",\"0xd3321d9d91c442822bec1dbb2a8bad9f260b4e247540856a6fa5b9e7cd8857f0\",\"0xf674a361ac998b3ca6ec9a1bff226095b9e05fc45a0933993c54a68311aa056c\",\"0xd0d2cf99a0e5f949ab5a73583c27be14b891623f8c90a3513d814f5011bff3ea\",\"0x6502bf4cf1e15238a9e96a372a400b7be8f8e766d63a167b9713876a9e91e92d\",\"0xfce2186a1f66001c86b971eca2c30c0e91cd3184d171668b3b55651c031ae863\",\"0x4f9a630c9904ed2381279fb1da789297322a41e4a770d54f02bea58b5602b3b2\",\"0x796617690aa4893510470687d3912024b9ba1bb9cd326cbf2c28563bda3b50e5\",\"0x0e507f73c4c64d0262df3f287574e6914468fa5958cfa823d479e9b1df1367ad\",\"0x63d7d16ad326ece2c9e00b3c1749655eab2642307e8ab985d133e56e11e89b98\",\"0xda85b7bbf9648a4c3aab9e242344bae114ff48fd084fcfed427e1a2ecf3f6890\",\"0x6c8ef667c3beac602af66e3df3356c76e82d85ceefe538645367b479bc8885ca\",\"0x95f83e4fe26df8418631c7992d82f82af8417750c4424fa1810511066da3df3b\",\"0x05f944e507e085c2b4088d4e8d7740674b02a4a5e5d7fac95e5c197aed95db4b\",\"0xe3065dc956c177790b8036b1a4e287fef543935e40ba344dc6da868823a32cf6\",\"0x21ce064c8cf5cb2a6c79f868e57d91331c7db545205ccc86778b7ed4b9225539\",\"0x64b0e289b976a0a8b4a02f067c48678390ddf572f2fabbbcb545cd6cd07b03bd\",\"0xea7e0829f86d61c28387175c2d080ddb925a1c9dae88e6d0d27c2deafaa396a0\",\"0x8d0092d479448b263807d741b7312e04094ecdc113a5b874ac704fd081c0bd8d\",\"0x12550ff9b4f4d398ed531bd30e5eb2a1ccc94b5eac98a2c5e489b16d484a355f\",\"0xcdf459abe5e7a47c4bb19ef1511f3923d20efde6696ccf51522aa8ae36413945\",\"0x97b754da73165e3a709da7959c93dfc8662696c96935c933886eef9208f87616\",\"0xeffadfee0395f97887647e4e78d549e60d3c42d5d3a77759f15409625d1711f6\",\"0xbf7d86780d24b8aeba78c894ad53c2b3388d1fa2250d13469d6a89622ffcafbf\",\"0x8249047208ad6a7040aac66c01ba2292884db3db191b11bd71b40fea7d861006\",\"0x50be7f314e28a445cb0cde70405f5959ca45e2ce39821f66d4f741442e03c7b1\",\"0xfd79dc8ea4784b3b1ce757f71d597e577a8e4339e0dfd81dd8b3ade916971105\",\"0x0d10616e2fbcf6f0a5e1e09d1a7467d6ff3c4d1cad581e6410f4cf92f6ea3e36\",\"0x7a07ded5a2d7168444d4ba4fd32fe76cb5e619807e018831b1898e0f84f9ca28\",\"0x8518bc6dc743a59b70ac0595d397048ccbe5b4f167badbb895fabba32b2e12c1\",\"0x709daf88e86bda64398fbc4420ef51339f44cb0fd0239083637027c4fe0eaaff\",\"0x8f95a440e45ea9f69b9fe5013a81432095120982645fee08910054a4821008b6\",\"0x969314b4131bb57bd17959875956fe78736f807d64a88b285318ff272474a3ca\",\"0xa11d0c2d5b4c9a23a5d68263c2b37008d620611b3260523c22cbcd7028461f8f\",\"0x0c2dfcf40fe8a57e5d829b39c8b6342229c5c51d730ded37dc9eeb2a8ca45de7\",\"0x3e5e139f0ea056ff82c842558c08922420757d1512a4d2e65305d66672f32c82\",\"0xdfb3a90540441d16c309925dc5f5f61ef44fd2ffcefaf260ac3261605b4aa32d\",\"0x14c365cd0ca57ef45656fdac7f818df6402d12331ac28642e085072b7aaa2960\",\"0x3ae623e2ec348f3b835235ea1dcce9bb897489907001a2d09049f8b2076f4ad6\",\"0x246278e97ed9759b470fc8d4db7c10e52e1a13d4755bf280d492c172192609e3\",\"0x7d1bd100bd6c83ea329f161d9dbf1440b462ae37cc061e2a77262cff599edd5f\",\"0x6c2324207528a0795d5cdfed5929655bafb73297bca6b5262c3978fc1c11a994\",\"0xebcb8412b73316ed9b1c1e115bff2c9effc8faa7c2cad1dfa63f4e411f51a6df\",\"0x4c61f0fdc12c9a93eb3e6a4f3e0000d73af038e9da13b24e7cd02af78b0e4503\",\"0x5aff33f21870a01eb6cdfb30a31961609041c25b9c8c0a11e0ff805c192cfb98\",\"0xcb1928a0be8af0cef03f761c635ccc5a230f2782bcd140eafbcf4fac1125afcd\",\"0xc8bf4e8345d8795276bedb20b6dfdc519bd91c845a88788779ff7bad4184b616\",\"0x3ed7edad7a5865a0ce407b32d2de37ee109d10ae764c1d7c7188f254294bdc9a\",\"0x5f3b925fff666ec5a52f65e1d0092633ca18f0c53afb9b441631900ff67f3166\",\"0x2a057578edee5dc975099bd94829c0531e0b50dfafeac89fdd95bccb000277d7\",\"0xe0daf8f6be0adb8fd4fa0cf66defd0880bbaad4e7a39c27bc1fed73c2c4e5b8f\",\"0xd9e4b89dd789c73b38ba66b9c867c8e26c24d9dae042d539db3697972190233f\",\"0xbb427cd90e489a7239f98655a1ba38f335d65991a9bf46b63918eb4a10fc5c51\",\"0x8b402b752eedcf1a56986b01e3d6998e939cfd85dd041dad846a5af086435f07\",\"0x803e95ac77f3a5b218db50496273d36ed45e8c2b97cec8f156b35606b1401da8\",\"0x1cd19c7b45d4794bcc3ef73548159535f79c2087d707f775a13e2027e1b3acf2\",\"0x4be2183736e677f687e22f75576223fa5ef53786443a95c2e5c44236f8c5d021\",\"0x10328868652c893d6275742d55b0e7f239a54ed953c98965d657ca69c3c19ad7\",\"0xfa6f425e99d25c263a41cbdcdaa8355eb355e91da8baa7e4bb0406256ec168a6\",\"0x1a031ab53d68f35ce78f0420ed041907ef6a2d8ece834d217fb60079fbcab06f\",\"0x16e82a5ab7c1a39f0fea4c5c9c2689dec0fee2741e809c2bd571f8f77817b2ec\",\"0x61de411374e9536dc6269d8daf7856572e6dd2d4f523b841a159537031c69933\",\"0xfb5b9adfb2b2188c8eac5640ca514350009d19b9d923004fcb67d5ce7bd1ee44\",\"0x952d9900553847beaad0f100ac441f634084fbca6d85537e447562d6da2c0b6e\",\"0x4509d60332126e61c3a24ad408f227c1d422898e5432bf272a9f7999ab6c048e\",\"0xc0bddb4c8ce8133292b7bab4257fe1e1526d4f5f07cce7f9e432bdb1afbbecc3\",\"0xcf514108b24f061b6a11b991d8037dacbfcc5a3c917075479af673d165ea6db2\",\"0xa76d5ea2e7d390e287be57d2a872e897b339a7d6f56212ec07bbe2eb7b0da118\",\"0xc0f72bd3fb7423b00af3f69c02b74d4ab96c4aada4d25763ceec385d9ce8dda8\",\"0xb04e94d4cf14f075ffd9c3eff6adf4038afdea51d77ff39d4590d259a339ceb3\",\"0xc21f74600b1f5e17cc5b8540cc53466b430247ee2b46371c292599b2aa176c77\",\"0x920d3e6627341d154b62d47811d27db0f575ca61a70485347f275b66f8291bd2\",\"0x258dab005409f570f9cd8096c0246bc5a33ca548420310f68e7e9c7c9786c84f\",\"0x8b22b187d6bbd225669f5d085d6883a4a23c55f8660dca77295ccda2b3c8c71f\",\"0xebf010f6b5c94f4b81e30ef603d27432f78beb616f51713da73294e7fd83a557\",\"0xa7bc608aab4c183d6a5c6b72dddad6b0ccecf9f7502b078d65c243a51790bd66\",\"0x52b53fd95f645939883492bab4e466170ed7a687e188e9581c48ce8f6f995f4d\",\"0x39cbba9c52b5f22375097f9632c1d561ad3e647455276f4fac0c5b697dadb638\",\"0x33c94bc4f0f1931cdfb719f26b0b70c2a50a2cd4aab075610b31abbe6f29c388\",\"0xc2d34841d611a50d9f3cd938aaa10921527fcafff3d74d64df72febd20b0bc64\",\"0x80d70bdf335be8871cb459d7d6012d941698a7da46613b467f30d46301af4abb\",\"0xa2bc8617a9f2c57454c22193b0dc45dc1ab93e4a45c976a07ffc1dbea7b02ab2\",\"0x96510625931c95fda838290b27fd5ab492e37aca1e109044c94d02ad1c8192c7\",\"0xe0d7519586a9151c29017aebfd70a7e20ec5c7839585d23b9331767c507363f4\",\"0x1e5ab61e7fa9567e3d1775365a374e576eec6a9ffda1ab4a9d75b0711023da09\",\"0xef3ce6835210d05cec3337c71b27c5e56796d317f173ad1e63abef023c0a49eb\",\"0x0be026005520f5e614e38694ecb2edb1a66788063222683331b1311eba970f18\",\"0xba37aaae660969b7aa25a3f39362f243ef52ebe6a23cd465c7907eb7872fe6a7\",\"0x5f0d8812b4cfbcf19a8e600bd46922df3adc354e64b086cdf88d6fb388d4fa03\",\"0x551d9abbb41cf4081740e47c756a58d287f6f8d779fd9bd0bcd8aaca9aa31a4a\",\"0x506f03dd9c1b1d49d9438b0644e030b9b0800348e18d841236c939d4412b0256\",\"0x0a3fd5c58d85da586104d9d5b4ebfb61f2022f9c20e2f458b87f7353b168289c\",\"0x3c8a814c1f7d62c39f8b91dddae9f5c5e5cafe1bdca892540a0b31dcbe5bd95f\",\"0x99658da37b12bcb548465538a9946c5a5a9aeed23624b0ab4f601bc76614c2cc\",\"0x93266b042a97d921f0cb9e845f471d111111575214fd5391c53536e1c7f9b4d0\",\"0xa8b7c8c6e7a2241e0c24400d3abbd8f9997501867ad69da07f97954489e15061\",\"0x5adfba25489fe8b105dc8c88ea4a0394f5f4c4815940f58a433131bbd6d6c762\",\"0x718340798ea56a2e3db22d93306605a003dfa791b19b551532bed005666ae066\",\"0x126f4814e329c10e05db784a3b5c7d6f2625642fd8f6ed8a886792d64b262c68\",\"0x1a5496ff1e12075a131322dad833f3e85cbe46274c549267263fc2dc3860a23b\",\"0x73520fb22a3e09f4cd3087a739a8a8ea253e0ac16e4a58191bee0c812a7d2af6\",\"0x6c620eceebf579357a11edaec5dde9fa248da4929ac4abe775b6b86f5554fe40\",\"0xad3870c8b3f393d7ce8c0d3f329628bb0514df5c628d17a8351cf9df802d5d43\",\"0x137b0eb2fe942360593cc99f91ccda9d7c81a6c69e62087ab680e78f0e47c579\",\"0x28865c85add993d4a052c1e8eea499d4ec615ff6be0d9e690f5f758517799238\",\"0x5d8050f9e88b9a720e65d5549b888c2f7583a1a83255d130c4fc5f5c801a115c\",\"0x2d16377fa96686b88c97efca659fd3dcb24a27c8c27c2af3ba18f49787aaace3\",\"0xc4b9e48e3574458af3d91c3d405eabb772e2436e9a4bc26db9717d21e544c091\",\"0xb794101f65973155891ec210c611cd55a78876f848c01fc1ba52e093535fce3f\",\"0xac4bb0a0437e0de0cb5e2e3e8a7b2927373d8f53e3f609a388a3741aa46598cf\",\"0x49eb7cac889ff7da789b28b1ec96699d3375b71b8489e08ecdb2c913727f5e4c\",\"0xdf0543dc5e45e726ba8dfe3de3f1ba618888065ff5f4a22fce8d462847d57eed\",\"0xb653f3a79299a14f3b0513b70247fc6f6b3af360f89ae1465331da44ce151259\",\"0xaae9591523290b9ec496d670cb7b75d7ba9bef2c19d19ff9f1119757e03933ef\",\"0x9bf8d0e513e29b245bc2f4dbd733b993d63f2239061a2c3d0591019c8840dd7b\",\"0xa8fa4b9fffaea581be72ce76afd8c8170e51243a26f8cbdeaf2dafa5e3702981\",\"0x219b5ab7ec2a490d509a6fb161f4ea4d93c91d7c539c738d62c4deb56359618a\",\"0x8bebb939e65e2912e32849289dabf8f39f730070b7160dd8e21dad03a9b0e18c\",\"0xa60178ceafd643f28b6b485a3d8c664ef60a7ce7339f88274cea2593606c84c9\",\"0x50c59156aae7f3b1208adbcc20922744032d1b7c9bca690d49490e846cea02ed\",\"0xf0d985ee9114604239db5f7fc1875b3b180d112dbc91d0fe0b756202a95ee51d\",\"0x1e565888500038905d1170d89781509df4a9766897ac05ec0fdcb9cea5f083e7\",\"0x5dbb539cc6411278a71bb8e496356bb29cb00ffd39a4a3a0468b2a291fd4160a\",\"0x57beae9c20224e83d15dc230671f0cef7cc97a27cf529bd6c3d4cc69b772ec37\",\"0xee89077723c02455cf4a20057283460dec6c2b1b536d65a7659df95ed6df9088\",\"0xa8038e655e8872f8e0ba0845864326694804d61141d789372928d96c22add06b\",\"0x132108d9a8417961fefac36e46b2ac10913bfcdc9536d2d597318a94eaa752fe\",\"0x385214026fc76c4da864cacb7001967a882f42ddb4a292c35ad12918e28201e6\",\"0xffc2c16244caf6f0e04dea308acf24066b44f6cf9639e66c2061c2af1756887c\",\"0x46d2579bb0feef9391395ef5b9e592528e3f1577d600b95b8fb7d41105839cb9\",\"0xde444620d7e83d41aa590de4cb649d2a3fcfffbf778d3d6c1af05118557bec9c\",\"0x87112a5555c16903bb2a34bd58f8c24c38905a42ae938159a605791c9474e018\",\"0xc483e58c7668e09f92ba13df7d46e6f21e18abba32dc530be9ffec28af4a86b8\",\"0x3ef2bfdb9926601583675bd929b308470ac7b7483503d0d37c822b25f88e0f94\",\"0x09630fa59ae43e1c0f2d6cacf10229f8fdf9d186c6a1aad6d8acef0b205823a4\",\"0x82e264a6a8c2b987394c39f68df2214c11c2d8d9216b87ec08ada550b2cbe040\",\"0x6de4c514aa31f73c242509b0f35c634001c7105dc7823b7640b748aa106fb275\",\"0xbd56aad0a228414c0967fc8031268a609567469e8ae8b445e762d7202092c6aa\",\"0x209654f03fe61f304d3c673f798a9f3ebd57158638479aaf980e878b42e0ae0f\",\"0x6e7d14c0f79d2a5d3b75ed349d5ec774377472363b7a7e7f7cc9df63a0506434\",\"0x575c2d26b1f3c16e318247f783244de85f8b5b6b86d2e0c91bd108f13302b008\",\"0xa7cbd37ddb7bdfc82aac354fbb371a2968cdee6c65c5f93f256a532e92a23413\",\"0x899959901047404e16adab0aac1222933453ad12a7399b89973724b1252028fe\",\"0x053b3a255481bc1f9d6eab440e875a119b7e83af0d88933dd1e3abee0f8ef765\",\"0xb2628d60805447ad58e553bc06b8466ca60be2c1af89116cdf197e334f78b9fc\",\"0x15eaa87fa4ca278c48a1ef5510684621e92276d8f3da981fec18782851d8d080\",\"0x7357803090085a94305234571539f1fb15a0c487c27116acd936c9073c3bb66e\",\"0xc7fc59f309da5cbcdb2016744e84d62b5010c38e2ed788bf3059e4d4b7074227\",\"0xb7e00546c83f6e5c3cbd4a6d51c1f2f19162e0b108ed8611dd2fa0973630c341\",\"0xca8f613e57e55a04424776d67dc824148da24134373e9d9771fc32602ef9b625\",\"0xd044381a76a8b812dc06a5a32462cb4525971eb7b684cfd97e41aab75dfe631a\",\"0xfcd002574aa78812dc2f464e373beb1a51e785cee4fec3f45a67a9b483d11fe2\",\"0xf42833e8a183591d3a64ea7edace6c26beb9b88576bd7222d373e27d515161fc\",\"0xab57d5721516221ffaceee61c3c328388f57a80df7c99bf2448ad7b78e210b7a\",\"0xc89836f3de1081a46b2451aeefb6e50ac166e23281834326cc4ced0c522ffb21\",\"0x96d34316746eb6ce65ba657a8074db5b58ec0426738467bb36cae9b5090072b9\",\"0x1af937365faa31c5f2cc8d68e2c8a10f5b3950014e9eb90c97c5fbe5d3c9655c\",\"0x9f05e9bd04c4917182eb1ec24326666822f42d0015e58c146ce5598bc792a421\",\"0xeab238ac4f3d1050e8245dac8d1f9cca3f268ceed5da2d1ad4c97c39d810e538\",\"0xa888679f625cc8b26cc1a3daac7d3f90a1f43af504e2c02353787e535029b123\",\"0xdf6ed4ba788efed68af8d93fb45136676cbfb9fab590c4efd216c61113dffc5a\",\"0xa11add7ed1a20f67a1b9be06888675efab432f303028ca943cda7951728f1170\",\"0x6ee457e4aca7d6f0669b6459692e8e9e0c2b5461a8077eb17465ebc573360291\",\"0xe76c66b60705fa9a724a48ee10aaccc0d22ba1c9d9a5f8b8842d772ab6c59501\",\"0xf9151185fccd915bfcb3c2786171bf170df6ff58329ba893c58592dfca3ef222\",\"0x290dbfe91a7af2ee2ddb12ba952a7e6ba576242232e9ca681a503f88b4edf8f0\",\"0x1c2fac13c55938d3eda5f50b869c5e74f7befbd65582ec257ff5cd1812eb9adb\",\"0xc2b5ba2878103eaf582228c6aa923d885c832c0acf5d12f8b80c056319a75d01\",\"0x5bf3d2f81479784ae76344e9c44a62f7d8f3c33d2b457b36ce95abfa7877ec55\",\"0x1b4ad56c1d9b002716d056bf5c2b83559a1de2582a28e64a78600868a51daa4b\",\"0xd9978f8d1bd92cdbf0612ebbf6ab87e449cfc4422ea480b6b54a12628b18f909\",\"0x9756d24eeab2c1c77f67cb8853b23e21cf59e89f3005ce906e111dec0dd9118f\",\"0xa7a167385cd033131b94823f7771477ac718e2b972c5ad0fead1b0912bbecabf\",\"0xe6779705355ee313711329ec88946135ddab54b733fe6bc7cd0136d17170df5a\",\"0xebe9a468d1bba44eedd08906a30d4d84e240b59721b2df01ef6523568fe5f855\",\"0x83853e4f2203701071d367525ecf398a345a16f9d5c84de75ca3df82aca7e5d2\",\"0x2ec4cf037060ef3e9f6793d8f8fcae3ef0108a7e1ac51f41ecdd5444b9d8b485\",\"0xa347fb4eaad8c374c318f86373b5faf02295fd9e00313b75257c47281ff28f5a\",\"0xbdab6c21e297c4b43cc98bf67dc95a9b269b9da16b7beeecc59234f44635af5e\",\"0xa5634e53726891879bef748221147250f9de6e4f797f80dd0051f1119533a70d\",\"0x9c4fa3aa31b6ffbc6c800b56b7ac7ccbce1df45431e9017c3e3e8603b818ebf5\",\"0x104664512cd8cfc4fe41e95bc35be48c3145dfd8ceea5ee2e93825458992f226\",\"0xe1b77ac994ee441ceba26d7fb48bd193002db5e04261c5b08404d34242411215\",\"0x9396807b7edff0b394307c20c12c92d6f8f0c94f1edf23e2ff60f1ed8511a544\",\"0x72097dd3000650ccb39dd10bdd71e576bd55954366cdc554764955a4fda12a03\",\"0x8436fde921401af392d9aa26fc2bb24dc29e214bac0eb7c68d5f667e9793da52\",\"0xf89dd0a6cf36338b0075e11556379eb02088a51ae202415024d850a07d878403\",\"0x13a96ead4a811eeaac7143f776d5235210028d81379d2385280204d8eb6fed32\",\"0x98d81348f8f6d8337cd3b21d69c56e5bf768a9f631dcf85f28bf4c494bf0878e\",\"0xac2d9e317d09f5b1c421da68b15991633ae20dd3962a574ac0fada48f29ce92b\",\"0xe662eb30073c0900dde26856147c84f5a8fcd4bdbe2c989456b7c894b7bc8a1c\",\"0x557614be7fbbd6dd3c4c006f929ae7f4f78be920508e9984e9b85dade41e4fa1\",\"0x0024278867c6e961f1168b37a3df2bcf3b10999b97dd68b285b2a277ced1b6a0\",\"0x247d7f78cfc2b0a72e198bee7f088746d5d635e841b806399edf5d65d59cf590\",\"0xc48ae3ae29a39dc08be3bbe95ad131b8aa743a519f1a756c5735d4b9c537791a\",\"0x801943dda1bc087ac9ed70c79a28e45b4e534057806358f2b98a0c0ce1571830\",\"0x8ec87459c095e91be4b8646a735ea4911b535a60a3e4152931d820a21a20efda\",\"0x0214e1ea3e8fc158058a25f6076d4299c1898020488635d6ab93c9a4454f475b\",\"0x6a49d28c233a22761a177f3b25176cd5eee9c79700366a8990372f2970ae889a\",\"0x6ed9501ddcced268d686f4d37fecc4d24a73f1f8ae8accf03e3b06f5820d1dd2\",\"0x1c76ecd7cc2b5f85f3069f15f2dd41a784032b9f50ea7d3e6860dc754af77c4a\",\"0x4f6f50c41923671414cc7d981b5476f3fa8e5544148a2310a9507155b0c86ddc\",\"0xbc963b1e76e4296e5cf70f5a8c45531e02514551f73b09c5aec6a6df68cdd900\",\"0xc058df178c1b202798291230aa99cc76b4e2b6db07eef5cea39acb2afa6b3e75\",\"0xe2aa2499bee24dbb19beb5bb7a4501db5f64855a8c8dcb8ecf9f2d071e3218a5\",\"0xff366234c0d48b876da958e39fcbe410f47052a37694e58b6c862cf4e5de1356\",\"0xee52acd43d72f0493779acc68370da175edd2a7eb6d7ac0baba8f060d2342a17\",\"0x5c3044b12e4815297325ed6784078e877be266b023be0406b942e56a35029aeb\",\"0xb7903d6c6b433f9ef6f2c32e79bde96f7484aec98e261e5a4feb97e6f6094ea9\",\"0x0bbd63d41721a833452c28e55f8767dd682b403eb258e0fe730bd44bc2f69dcc\",\"0x1b632a94a996008ab1ca74cd306ea9775955bd317eaba48f07ca9af66900e063\",\"0xdb0748c74938ae245a89e892a1ef13cd83c3313167df03d864a1732533e085db\",\"0x370dda3465d5e9c0a5d6da4462b1c4ee0d18378aa68bf3a4bd684cf69dabdcbd\",\"0xcbedf35ebbb8d1794fb00343b5dad3a44f78d579a94b798447d71b3f0f0fbffe\",\"0x41707eb2cd4f250f51e35ade39b0973e4e8e47591d18a999bc13d1899557d2b4\",\"0x33d046973616bd1a600fa28967e1128348f9de74c4e3ba5a215b14b7685c288f\",\"0x6642d28524d397b43ae5177ee6d9d2258ef4cdb931dea3f298fdfbe2b1f1a6f4\",\"0x462fe920af7866ffe6138bd5cc1d9b74194dfa576c5fbce93508f98b08d0209d\",\"0xf6f0b54823afce12d38ca75ef1cd667c70bb231171f6e3c33bf5d6600fda4d92\",\"0x7e73cef57fb72b76103d36383148dee79636b38a42cb84e054e161ae76e107ae\",\"0x7a1ae78a9c8bef2f8af776c71d85d528b5ef7c450fcf99e1559a10ccf7900eb3\",\"0x4f1417b384cc623b69e6f84d641183e51dff56be5b1294b01b13141a68bf9d10\",\"0x5a0352f3b989a96337317f5ca704e7995ad5738e436c2e29dfbc466cbbe865a9\",\"0xf292752ae7a336d14cca000a5ab292d36fc037a4e38cfc9e548bba064907f1b6\",\"0xb92e79be1b543ada8a332e14410886ea780adf0503988ca32ffdcd33bcf472ad\",\"0x9c034cbaed4de0ea55205b3952d6207359fc514e4901a42b6183aa8dd65acbc4\",\"0xfc9351e1f05626e75d1b66f16be3c67f0be1a3accfb6db3b201d46c760215280\",\"0x53c3dbc9cb9dfd5e111a086123d0871f0cf7ad950f5ded726d0684b35d08d62e\",\"0xe65e10ef94a5a858ed0dbbc8d99dfc0eebad3c106feb5f57381e7a19b0ab3a0c\",\"0x2fa00a9c9f8f214efabb852d03bc5f6c69f1417b408380bda74c33f806d74910\",\"0x02eccf0d42496567e49d69718526ebf17ed5e852ac036196212a3d95c68f7a3e\",\"0xe3420a108083f559ab3387148ec7eb9bb8738491ddc37733d09cc9715bb1b526\",\"0x96f3f66ba37d02b606bd0b2d7f0f7e6b991af6da5608b5679ec816871fa0e476\",\"0xd9137c44813953b5bb66f8478b9b2cb57c26b9c1671c4cf16b9fd9214df5ec1a\",\"0x24426fa4dbcdedddd5fded149db70f90e2c93d84b8eb77fb44681b842e6c4f71\",\"0x347aef286ec248dd0a27e25b7d276d209e33aaa773036a4b5f27957fb8b91886\",\"0x31d689f7ca6cf572515c188ca13ab99d0e4cddde8c1da5e72b46285532d52561\",\"0x37853c1ee96cc445ed3e9bee914afa28342850f6d8a3a596e133e930dc84cd9d\",\"0x32b1578eeba8d2a7e7ebe9d6116b565556571b632460313356aa33704f8de96d\",\"0x697a8f342e28f86026d2d4093d0bbb66e29155579dbbbb6f8383efd37174a2ae\",\"0x7f8375612f208eb792de5ccafe4fb6ae18aea2863fb981a1ef8233faedf0a578\",\"0x035cc49aef5d7c80f399f7ab75cb25ad7e40b863f340559cf35cf5506a2b09c3\",\"0xd1d13963b4f50dd19c9a0f2b45a168ddc3dc83c995da1e1637deacc2e551e1b9\",\"0x761c27ae0b9d115ce1ecfa64495be3f35032ee9bb72d0db303e07e145c22fe43\",\"0xf6b3b6f30d09495e2d189846960d2adfe3d05d6a0dbdf59c7539f354e3e5744a\",\"0x869ca8b20b78d108addda9215502bd2cfb719016f8830d80530c334e09d00373\",\"0xfeb7ab6d9875be3e35df217b347b667b482a454dc536b18b15ac50061f8973df\",\"0x5dae79d8130671881a4629cbaddb41c88f7f1df19f401877a910249a5da08e0e\",\"0xc876881c5ce96314d7dbb0766ffb64ac3cd633fec7fe70fe1a4189f7912ee435\",\"0xc992b8e511c0fe989b7612f01ec7f299b972e294541a2bc4ff04a911f816864b\",\"0xc39d087fa2f69b06ad4af588ef248454a26438896b34c9e4d770db0b441319e5\",\"0x0487e72a0b5a183ad25fd349568147d9c4fdd77e6c63b365b955cb1d4363de1f\",\"0x25673d598a292c0038b8a04d5b87a07130ab24c7752078c6461fc6b4eca4e004\",\"0xbd37a3d40965a4e4ec77084a86e27d10801b33072f585480aa65654f7653923e\",\"0x50e35099afc4a1f2e54837edb6d3fee91f0a5da7d7085233c4e1f3b38ff6c0c5\",\"0xb95df908a4a0e99006ea2dab0ae29ed5b55fefebe6c6e7c26f532cfef6d6d3a8\",\"0x927f34adfd162b8fe249845f4b1bf0ef02c4b83cdb6dabde8d0e3e5d34fd32ee\",\"0x70f275173d88c572d4295b6b47d2d3f84c3fe16a6714e2c40b3738d00d18c023\",\"0xd82760cf3db00ba0982c4b6ccd87a067e6f08f025143f448cf10d780135d7c8e\",\"0xb60b8ab097f6a545440b03135bff3fa768448f9d7bde9fa06da75b8e7157ac26\",\"0xf201da68bbd8d695a070d2022580eef264241aa48d3d87295aab4e5e5a4318b3\",\"0x1a6c09aec372c36708a28e85cde9e21c6bbc01056b61ed9e06d06bef0ad10fd8\",\"0x29578b466fac3f37a9474bf9c9701e134fa06a688ad5ca4ea988768c54e0f83e\",\"0x6046d882ac80d82ab209f34086de7276200e314e1c44e0a12472242279233a8a\",\"0x2c67fbd8925b4ab184fadb2428ebe3d9c04772e134dd6428efb86680efcc880e\",\"0xdf52e07aba387e63774d3629e7e1f5089b28a19af65b81b4194e1ab8ba509aad\",\"0xf92b30a5c69edd5c719a659a6bcef968232c62285ade137f574d56cfe47b8a8c\",\"0xe171050bc9878e58b1721b100c5c92b9e82ce4c55d555ff7a2f333c335892cf0\",\"0xd959b4f5a5caad19639a5e26bd511e3221acb221eaa9663ed742539bf7d460fa\",\"0x7a4749d4bd8344b623ec13afa58be9a7d6bdac717086eda3ca9a6888915b8c12\",\"0x01eb3a7086033fb3ef2a7272152a933d283e57f95ce3edbfccdd645b5a41a4cc\",\"0x0029e8ac3be9474222bf525c40b9672d30e886387f2bac8f925e8df7810779c6\",\"0x8e02ce18d596daebcb37d8a7ea9f7a7e7005b4d77dccfa89e46992a6399ae1c8\",\"0x81d1f507005fe1560db12cdbaa23a53c59e34110acf4a12acdc65b25172893d9\",\"0xbb490bbe11fb53bc24092707339ad472e013824dff5410f82f0796de3949bb5b\",\"0x356d6fac0b9aa6285dbdc9ca4f72f9a06152201ccae9a12c6f5884cdcca45642\",\"0xbdfeef4c5972c0de9e291f3f87d7ccc29704942206e45f01f67a51c1bfe7cfb4\",\"0x9a40cb52fbdfcb2c9f09e355a43feba6c619dfafbb9be391d82d30f0f4acdeca\",\"0xa9b98fc2a00823578d3f6ae9ac9ca4fb18051c0a33e58cd48fa4bb3568eb0a76\",\"0x0fdda8d3697ea70c5ae6c89be67c10b0f11d8727c77a613a95ea6e522cd6f4ad\",\"0xffd25884be07e34b89019b764e6c77422b495ec5f5ad466bed5abf913c264c59\",\"0x813eb8769152609f855e69af211c87fcdc13e9c25b4d750b9e3e9e3986664b55\",\"0x236016c9c5becbe2b658a4d48b93118112fea62cdd33adb93229a6c76bc4a8f4\",\"0x7d60b0aa366028a6dbe1ff44da49f06b5bc223f83a026fbb0d7954345fed2956\",\"0x7c7e5d51ae3f5a0177ceb71845ef7d0ac30da52bb4aebcd2efd3f4dd12c32d0e\",\"0x85550c64757abb55f20ebd89efbb637c19fb81c5042a871f4ccce0ffdeec8e24\",\"0x4b853bcaacf9c150e303b2679b0a126b8fee633ee5781303c574c567d0796bc2\",\"0x4089b49afedadeafb6610cd7feeb3f6885646731f2eb378ba67e83ef438e53ef\",\"0xcb4fa730894b2d544a7a60856cd50aa05752b2d321802d02e09a85118b933f33\",\"0xa86f6d3df246c1cd3e63ce6513af974757cda0c5bd5bef5be160e567f9a8aeb3\",\"0x506849e1179cab556db2a81bbeac82b7114e84772ceade1ef27d8b9893608f8f\",\"0x1043d77758bf6f34f5c22a969371168f9ed8162f9c9503c03597bcdcfd8c46bd\",\"0xc7801f91641069f844a0433133f80a80a1b0e12b6956a58fe37810af4855437b\",\"0x031a7a804fe0d35434ba53eb1cba9547a3caab281b726a698470efee166562f5\",\"0x35da18b71a9eed6729c9e3e6520391a0fc24bdd28c77c724b1f58ada7eebd96f\",\"0x4e4665cdfcd9104f1c201d0dffa1515fe22f5c48ed7d24a742c727ceff87b692\",\"0x89ecaa051e264a644e89e5ab6e11d1c76af1043de9730ebbc91b7ef5985f19b4\",\"0xb99a5e06133331d801f48775c59a6f2b12892ea2c213164d60acf6a0d7cfd169\",\"0x44138fe886b0f28372b772ac3af0da5876208059263169ebaa7c97317ce2d0ae\",\"0x96eb5995327795581797442d2f34db6968884b84a854567acecb5b5a1144ea4d\",\"0x05c530b6cd559d0c9b6d0162983250a774a3f313d4e2290c44a026ebfd88b147\",\"0x02e765c6816641f9d88a19c99ddd47dfbe039f4396f289ae83901743d93fb461\",\"0x926221835676a2b16bb1d8651901c86d92355136e12ed6fbf05b3c2ce3f10049\",\"0x42d13576ca8ddae53cb20036329a5c8a4f2e9e4359367ddc2e91b7980f0731ae\",\"0x343ed1121cefc530fe70f590b8c4fdfa1f41285546509a171271741b192cd3da\",\"0x1f59f31640b8c03563c2cfd934bfb14d60897b99142f69ad29fffbd83309def3\",\"0x1e3993de9ec164e8b3164e0d58a1990cf95b05bc7001d45ed050d18e1205e5e8\",\"0xa8bca5bc5defdd22573b1311b846e61e4be2c3ab92e5aa6c0abfcbdc3777703e\",\"0xcc7daaa56d482373b04203998fc20c60c79dd0d4e3a5a79c3f185876f3756ca3\",\"0x3567bce4e8cb8c59ccfa0e587d45c3564c9c3eca40e6689e5047699f88dad4fc\",\"0x3dae81f81f5f0a8fca8354a38eee6b3bc35ab20ae907d0db15dc9d82642abf8a\",\"0x0cc4c4ac79ce66c8567acfcffa6851c505e9f1dd1b7f2b8c1ea5892a38456d01\",\"0xe79f8d0b1c9eb50111accb9bc3d45c632e47f9c15d4b3653cef8e196b4e0b248\",\"0x90dbf4ea7d6391f1de7f1b59bfaaaf4f6f8ad26f026433472b13f6db3906caf6\",\"0xb52b811c8fb85825d3964baa2b66160033728fbb6c880d2f8967429ebd19da80\",\"0x303ea4745a281696c34cf9092e44fcfe980f2e7e78e0c77a10d79ef9fecfe6a5\",\"0x2d7401867833003fa52eaf8abad288b00dc6258c15b98e470c0e498814a86a2c\",\"0x534eaab89e9e5c2fe0f12ef5559367190ff86fd772465ca381f9a903956524e4\",\"0x1a4dffb30cbd9171e6b62c439fd8a687cf19b7f770ea45518f72a15c24754f04\",\"0xdad203c02eb7ed2118cf0cba3e455ba0bd7392082fed4cb71c94f05f0c66e85a\",\"0x5a39f74c8ac65e495db909c84da9c417f60b687919a97016743888f20f40c97c\",\"0xce0c73b995163ed7c67c0137b8aa0e7d72505f0549c04b0811ecad281da5d052\"],\"withdrawals\":[{\"index\":\"0x8ad6d4b\",\"validatorIndex\":\"0x5f119\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd59825\"},{\"index\":\"0x8ad6d4c\",\"validatorIndex\":\"0x5f11a\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd5cb7b\"},{\"index\":\"0x8ad6d4d\",\"validatorIndex\":\"0x5f11b\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd584a1\"},{\"index\":\"0x8ad6d4e\",\"validatorIndex\":\"0x5f11c\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd57cb9\"},{\"index\":\"0x8ad6d4f\",\"validatorIndex\":\"0x5f11d\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd5ee3b\"},{\"index\":\"0x8ad6d50\",\"validatorIndex\":\"0x5f11e\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd57208\"},{\"index\":\"0x8ad6d51\",\"validatorIndex\":\"0x5f11f\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd58260\"},{\"index\":\"0x8ad6d52\",\"validatorIndex\":\"0x5f120\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd54359\"},{\"index\":\"0x8ad6d53\",\"validatorIndex\":\"0x5f121\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0x401a12d\"},{\"index\":\"0x8ad6d54\",\"validatorIndex\":\"0x5f122\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd53242\"},{\"index\":\"0x8ad6d55\",\"validatorIndex\":\"0x5f123\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd531da\"},{\"index\":\"0x8ad6d56\",\"validatorIndex\":\"0x5f124\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6eae9\"},{\"index\":\"0x8ad6d57\",\"validatorIndex\":\"0x5f125\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6d2db\"},{\"index\":\"0x8ad6d58\",\"validatorIndex\":\"0x5f126\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6f3a0\"},{\"index\":\"0x8ad6d59\",\"validatorIndex\":\"0x5f127\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6e2a7\"},{\"index\":\"0x8ad6d5a\",\"validatorIndex\":\"0x5f128\",\"address\":\"0xb9d7934878b5fb9610b3fe8a5e441e8fad7e293f\",\"amount\":\"0xd6b576\"}]}}]"
+    },
+    "labels": [
+      {
+        "id": 1,
+        "label": "chain"
+      },
+      {
+        "id": 2,
+        "label": "finalized"
+      },
+      {
+        "id": 10,
+        "label": "fixed header"
+      },
+      {
+        "id": 11,
+        "label": "nonce"
+      },
+      {
+        "id": 12,
+        "label": "threshold"
+      },
+      {
+        "id": 13,
+        "label": "threshold_setter"
+      },
+      {
+        "id": 14,
+        "label": "owner"
+      },
+      {
+        "id": 15,
+        "label": "resource"
+      },
+      {
+        "id": 16,
+        "label": "resource_recipient"
+      },
+      {
+        "id": 17,
+        "label": "token_jar"
+      },
+      {
+        "id": 18,
+        "label": "max_release_length"
+      },
+      {
+        "id": 19,
+        "label": "dead_sink_balance"
+      },
+      {
+        "id": 20,
+        "label": "height recheck"
+      }
+    ]
+  }
+}
