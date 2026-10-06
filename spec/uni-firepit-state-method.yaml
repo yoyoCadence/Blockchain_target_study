@@ -1,0 +1,118 @@
+id: uni-firepit-state-review
+version: 1
+archive_id: uni-firepit-state-evidence-20261006-v1
+asset: UNI
+chain_id: "1"
+endpoint: https://ethereum-rpc.publicnode.com
+rpc_source_id: ethereum-uni-firepit-state-20261006-v1
+targets:
+  token: "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+  firepit: "0x0d5cd355e2abeb8fb1552f56c965b867346d6721"
+  token_jar: "0xf38521f130fccf29db1961597bc5d2b60f995f85"
+  dead_sink: "0x000000000000000000000000000000000000dead"
+interpretation: 只核對已保存的同區塊 ABI 讀值、官方檔案選定行、來源版本與嵌入推導；不是本地共識 proof、門檻歷史、dead 餘額歸因、年化 burn 或估值。
+header_label: 區塊時間（Unix 秒）
+getters:
+  - [ nonce, uint256, nonce(), "0xaffed0e0", firepit, [], count, Firepit nonce（已執行 release 次數） ]
+  - [ threshold, uint256, threshold(), "0x42cde4e8", firepit, [], UNI raw base units, 現行每次 release 門檻（raw） ]
+  - [ threshold_setter, address, thresholdSetter(), "0xf2380828", firepit, [], address, 門檻設定者地址 ]
+  - [ owner, address, owner(), "0x8da5cb5b", firepit, [], address, Firepit owner 地址 ]
+  - [ resource, address, RESOURCE(), "0x2b3ed84e", firepit, [], address, RESOURCE 代幣地址 ]
+  - [ resource_recipient, address, RESOURCE_RECIPIENT(), "0xec0fa86d", firepit, [], address, RESOURCE 收款地址 ]
+  - [ token_jar, address, TOKEN_JAR(), "0xe0ef2b4b", firepit, [], address, TOKEN_JAR 地址 ]
+  - [ max_release_length, uint256, MAX_RELEASE_LENGTH(), "0xa71c3fa6", firepit, [], count, 單次最多釋出資產種類 ]
+  - [ dead_sink_balance, uint256, balanceOf(address), "0x70a08231", token, [ dead_sink ], UNI raw base units, dead address UNI 餘額（raw） ]
+required_identities:
+  - [ resource, token ]
+  - [ resource_recipient, dead_sink ]
+commit: 8604e4b9aed88bdd6be3a322e19722c40f94be2c
+commit_date: 2025-12-18
+documents:
+  - key: readme
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/README.md
+    source_id: uniswap-protocol-fees-readme-8604e4b-v1
+    covered_metric: uni.firepit_identity
+    lines:
+      - [ 222, "| TokenJar | [`0xf38521f130fcCF29dB1961597bc5d2B60F995f85`]" ]
+      - [ 223, "| Releaser (Firepit) | [`0x0D5Cd355e2aBEB8fb1552F56c965B867346d6721`]" ]
+  - key: firepit
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/Firepit.sol
+    source_id: uniswap-protocol-fees-firepit-raw-8604e4b-v1
+    covered_metric: uni.firepit_state_evidence
+    lines:
+      - [ 7, recipient set to the burn address address(0xdead) ]
+      - [ 8, "contract Firepit is ExchangeReleaser {" ]
+      - [ 10, "ExchangeReleaser(_resource, _threshold, _tokenJar, address(0xdead))" ]
+  - key: exchange_releaser
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/releasers/ExchangeReleaser.sol
+    source_id: uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1
+    covered_metric: uni.firepit_state_evidence
+    lines:
+      - [ 28, uint256 public constant MAX_RELEASE_LENGTH = 20; ]
+      - [ 31, ITokenJar public immutable TOKEN_JAR; ]
+      - [ 45, "function release(uint256 _nonce, Currency[] calldata assets, address recipient)" ]
+      - [ 47, handleNonce(_nonce) ]
+      - [ 50, "RESOURCE.safeTransferFrom(msg.sender, RESOURCE_RECIPIENT, threshold);" ]
+      - [ 51, "TOKEN_JAR.release(assets, recipient);" ]
+      - [ 52, "emit Released(_nonce, recipient, assets);" ]
+  - key: nonce
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/base/Nonce.sol
+    source_id: uniswap-protocol-fees-nonce-raw-8604e4b-v1
+    covered_metric: uni.firepit_state_evidence
+    lines:
+      - [ 12, uint256 public nonce; ]
+      - [ 21, "modifier handleNonce(uint256 _nonce) {" ]
+      - [ 22, "require(_nonce == nonce, InvalidNonce());" ]
+      - [ 24, ++nonce; ]
+  - key: resource_manager
+    url: https://raw.githubusercontent.com/Uniswap/protocol-fees/8604e4b9aed88bdd6be3a322e19722c40f94be2c/src/base/ResourceManager.sol
+    source_id: uniswap-protocol-fees-resource-manager-raw-8604e4b-v1
+    covered_metric: uni.firepit_state_evidence
+    lines:
+      - [ 13, uint256 public threshold; ]
+      - [ 16, address public thresholdSetter; ]
+      - [ 19, ERC20 public immutable RESOURCE; ]
+      - [ 22, address public immutable RESOURCE_RECIPIENT; ]
+      - [ 45, "function setThreshold(uint256 _threshold) external onlyThresholdSetter {" ]
+      - [ 46, threshold = _threshold; ]
+document_observations:
+  - [ token_jar_address, readme, 222, token_jar, 官方 README TokenJar 地址 ]
+  - [ firepit_address, readme, 223, firepit, 官方 README Firepit 地址 ]
+derived_labels:
+  research.uni.firepit.nonce_times_threshold: release 次數 × 現行門檻（raw）
+  research.uni.firepit.dead_balance_minus_product: dead 餘額扣除上述乘積（未歸因差額）
+  research.uni.firepit.token_jar_matches_docs: TOKEN_JAR 與 README 地址相符
+  research.uni.firepit.threshold_setter_matches_owner: 門檻設定者與 owner 相同
+formulas:
+  - id: research.uni.firepit.nonce_times_threshold
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: mul_raw_uint256
+      args: [ research.uni.firepit.block26133926.nonce@1, research.uni.firepit.block26133926.threshold@1 ]
+    method_source_ids: [ uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1, uniswap-protocol-fees-nonce-raw-8604e4b-v1, uniswap-protocol-fees-resource-manager-raw-8604e4b-v1 ]
+    rationale: 每次成功 release 使 nonce 加一並由呼叫者支付當時的 threshold；次數乘以現行門檻只有在門檻從未變更時才等於累計支付，門檻歷史未查證。
+  - id: research.uni.firepit.dead_balance_minus_product
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: sub_mul_raw_uint256
+      args: [ research.uni.firepit.block26133926.dead_sink_balance@1, research.uni.firepit.block26133926.nonce@1, research.uni.firepit.block26133926.threshold@1 ]
+    method_source_ids: [ uniswap-protocol-fees-firepit-raw-8604e4b-v1, uniswap-protocol-fees-exchange-releaser-raw-8604e4b-v1 ]
+    rationale: 同區塊 dead address 餘額扣除上述乘積的機械差額；其餘轉入（金庫轉帳、L2 橋接銷毀或其他）未逐筆歸因，不代表任何單一來源。
+  - id: research.uni.firepit.token_jar_matches_docs
+    version: 1
+    unit: ratio
+    expression:
+      op: casefold_evm_address_eq
+      args: [ research.uni.firepit.block26133926.token_jar@1, research.uni.firepit.docs.token_jar_address@1-20261006 ]
+    method_source_ids: [ uniswap-protocol-fees-readme-8604e4b-v1 ]
+    rationale: 只比較 TOKEN_JAR getter 與官方 README 部署表的地址文字；不驗證 TokenJar 內資產或費用來源。
+  - id: research.uni.firepit.threshold_setter_matches_owner
+    version: 1
+    unit: ratio
+    expression:
+      op: casefold_evm_address_eq
+      args: [ research.uni.firepit.block26133926.threshold_setter@1, research.uni.firepit.block26133926.owner@1 ]
+    method_source_ids: [ uniswap-protocol-fees-resource-manager-raw-8604e4b-v1 ]
+    rationale: 只比較同區塊 thresholdSetter 與 owner getter；門檻可由設定者變更，不代表門檻過去或未來不變。

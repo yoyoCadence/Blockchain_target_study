@@ -65,7 +65,7 @@ test('official address table and pinned Uni.sol lines support Timelock identity 
   const excerpt=docs.excerpts.find(e=>e.label===label),o=record(key);
   assert.equal(excerpt.end-excerpt.start,excerpt.html.length);assert.ok(excerpt.html.startsWith('<tr>')&&excerpt.html.endsWith('</tr>'));
   // The page renders "UNI Token" with U+00A0; the saved excerpt keeps that exact character.
-  assert.ok(excerpt.html.includes(`>${label.replace(' ',' ')}</a>`));assert.ok(excerpt.html.includes(`<code>${o.value}</code>`));
+  assert.ok(excerpt.html.includes(`>${label.replace(' ','\u00a0')}</a>`));assert.ok(excerpt.html.includes(`<code>${o.value}</code>`));
   assert.equal(o.excerpt_label,label);assert.deepEqual(o.source_ids,[docs.source_id]);assert.equal(o.observed_at,docs.received_at);
  }
  assert.equal(record('uni_token_address').value.toLowerCase(),a.token);assert.equal(record('timelock_address').value.toLowerCase(),a.addresses.timelock);

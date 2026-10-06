@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 主網 Firepit 狀態資料包規格與手動唯讀驗證
+
+新增 `spec/uni-firepit-state-schema.yaml`／`spec/uni-firepit-state-method.yaml` v1 與 uni-firepit-state-review／共用 reader：以明示原 SHA-256 重驗 bytes，重放 finalized 錨點、九個 canonical 釘選 eth_call、32-byte 解碼、RESOURCE／收款地址不可變身份、五個 pinned 檔案選定行與已存來源版本，並重播四個研究推導。共用的錨點／解碼／文件／公式重播檢查抽到 `engine/research/finalized-rpc.js`，供給組成 reader 改用同一實作（行為與錯誤訊息不變）；新增研究層受限運算 `mul_raw_uint256`、`sub_mul_raw_uint256`，不新增 canonical 公式。87 新增／全套 1087、兩模式 validate 通過；原資料、金融／來源／歷史／unknown 80 不變。見[操作與限制](manual-uni-firepit-state-review.md)，無 UI 或 RPC 重採。
+
 ## 2026-10-06（台北）— UNI 主網 Firepit 固定區塊狀態
 
 新 finalized block 26133926 保存九個 canonical 釘選 eth_call：Firepit nonce（1395）、現行 threshold（4,000 UNI）、thresholdSetter／owner、RESOURCE／收款地址／TOKEN_JAR、單次上限與同區塊 dead address UNI 餘額；官方 README 部署表與 Firepit／ExchangeReleaser／Nonce／ResourceManager 選定行支撐身份與語意。四個研究 DERIVED v1（次數×現行門檻、dead 餘額扣除乘積、兩個地址比較）以 BigInt 重播；不推門檻歷史、不歸因、不年化。追加六來源與 source-only 完整快照，金融／論點／unknown 80 不變。五項新增／全套 1000、兩模式 validate、Chrome 桌面／窄／Fixture 通過；見[研究與驗收](uni-firepit-state.md)。
