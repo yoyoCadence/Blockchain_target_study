@@ -21,6 +21,7 @@
 - [ ] **Recommended next task:** primary-source research refresh workflow and first reviewed production baseline. Verify identifiers/investability, UNI budget and actual value-capture activation; collect dated prices/valuations and comparable financial periods. Keep unavailable values null.
   - [x] Manual reviewed primary-source refresh workflow: preview, digest-bound apply, append-only sources/observations, full recomputation and immutable journal. Acceptance: read-only preview, primary evidence and period validation, stale-preview rejection, historical replay and CLI integration. See [workflow](reports/research-refresh.md) and [handoff](reports/handoff.md).
   - [ ] First reviewed production baseline: identifier/investability checks, UNI budget/capture activation, dated valuations and comparable periods.
+    - [x] UNI 供給組成資料包手動唯讀驗證：明示 production／digest，依 schema／方法 v1 重放 finalized 錨點與兩次 recheck、十個 canonical 釘選 eth_call 的 calldata／32-byte 解碼／位寬、文件片段與 Uni.sol 行、已存來源版本，並以 BigInt 重播五個受限推導；matching digest 仍拒絕錯配。見[操作與限制](reports/manual-uni-supply-composition-review.md)。98 新增／全套 986、兩模式 validate 通過；原資料／金融／來源／歷史不變，研究目錄／中文表格尚待完成。
     - [x] UNI 供給組成資料包 schema／方法 v1：鎖定原資料包結構與九項 null context，釘選地址、getter selector／參數、文件片段、Uni.sol 行與五條公式完整定義；31 項回歸確認重現全部 calldata 並拒絕竄改。見[規格與驗證](reports/uni-supply-composition-specs.md)。全套 888、兩模式 validate 通過；reader／研究目錄／中文表格尚待實作，原資料與金融不變。
     - [x] UNI 固定區塊供給組成與鑄造參數：新 finalized block 26133577 以 blockHash／requireCanonical 保存 totalSupply、dead／Timelock／UNIVesting 餘額、授權與 minter／mintingAllowedAfter／mintCap／間隔，官方文件地址表與 pinned Uni.sol 行支撐身份與語意；五個 BigInt 研究推導 v1，追加三來源與 source-only 完整快照。見[研究與驗收](reports/uni-supply-composition.md)。五項新增／全套 857、兩模式 validate、Chrome 桌面／窄鍵盤與 Fixture 隔離通過；流通定義、同步價格、市值／FDV、dead 餘額歸因與共用 reader／目錄尚待完成。
     - [x] XLM 供給研究目錄／唯讀 API／中文逐列查閱：v6 目錄綁原 bytes／事件 `xlm-reported-supply-20261005`／原 review，共用 reader 保留九個 provider_reported 字串、兩個殘差 v1／依賴、三個來源版本；十研究／196 紀錄／30 來源。見[操作與驗收](reports/xlm-supply-research-inspection.md)。八新增／全套 852、兩模式 validate、Chrome 桌面／窄鍵盤、Fixture 與兩 cutoff 審查列通過；金融／原資料／來源／歷史不變，同步估值與父 baseline 保留。
@@ -120,3 +121,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-06 接續授權：使用者要求依 AGENTS.md 持續完成任務、自主開中文非 Draft PR、CI 成功後合併並接續；沿用既有增量範圍，未授權 unattended 自動化、排程、通知或投資組合／報酬模型。
 
 2026-10-06 停止要求：完成 UNI 供給組成研究 PR 的 CI 與合併後告一段落，不再啟動下一項。接續先閱讀 AGENTS.md 與交接，重新確認遠端／工作區狀態；下一項為此資料包的共用唯讀 reader 與研究目錄。
+
+2026-10-06 接續授權（第二次）：使用者解除同日停止要求，要求依 AGENTS.md 繼續開發、持續開中文非 Draft PR、CI 成功後自主合併並接續下一項；範圍限制不變。

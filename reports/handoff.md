@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 供給組成資料包手動唯讀驗證
+
+PR #64 合併後 main `63e30c8` CI 成功、無未合併 PR；使用者解除同日停止要求並要求持續開 PR／合併／接續（已記於 task.md）。建立 `feat/uni-supply-composition-review`。
+
+新增 `uni-supply-composition-review`／`engine/research/supply-composition.js`，重用 fixed-block 的 RPC 封裝 helper。依方法 v1 重放：mainnet chainId、finalized 錨點與時間解碼、同 hash header 及同高度 recheck、十個 `eth_call`（`{to,data}`／selector＋參數 padding／`{blockHash, requireCanonical:true}`）、32-byte 回應字解碼與位寬、每個 request 只用一次；probe→state→capture 與文件取得順序、HTTP Date、三個已存來源的 URL／取得時刻／日期；地址表片段與 Uni.sol 行；五條公式定義與四個受限運算的 BigInt 重播。一致但不同的讀值（0 旗標、不同餘額）如實重播，dead 大於總供給則拒絕。九項 context 仍 null。
+
+98 新增／全套 986、兩模式 validate 通過（unknown 1／80）；原 bytes、來源、金融、十七份正式／三份 Fixture 歷史、0.422 不變；無 UI 變更，未做瀏覽器 QA。見[操作與限制](manual-uni-supply-composition-review.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項：研究目錄 v7 新增 kind（綁原 bytes `de66eac4…`／事件 `uni-supply-composition-20261006`／原 review），接研究／時效 API 與中文兩表格，更新目錄數量測試（10／196／30 → 11／214／33）並做 Chrome 桌面／窄驗收。之後 `uni.market_cap`／`uni.fdv` 模型設計需使用者決定，不直接補值。
+
 ## 2026-10-06（台北）— UNI 供給組成資料包 schema／方法 v1
 
 PR #63 合併後 main `32d8ddd` CI 成功。使用者要求把前一輪暫放的規格草稿寫完並上 GitHub；建立 `feat/uni-supply-composition-specs`，只加入兩份規格、31 項規格回歸與文件，沒有 reader／API／UI。

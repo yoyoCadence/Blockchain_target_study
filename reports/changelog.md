@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-06（台北）— UNI 供給組成資料包手動唯讀驗證
+
+新增 uni-supply-composition-review／共用 reader：以明示原 SHA-256 重驗 bytes，重放 finalized 錨點、同 hash／同高度 recheck、十個 canonical 釘選 eth_call 的 calldata 與 32-byte 解碼／位寬、文件片段與 Uni.sol 行、已存來源版本，並以四個受限運算重播五個研究推導。研究公式定義由方法檔釘選，不新增 canonical 公式。98 新增／全套 986、兩模式 validate 通過；原資料、金融／來源／歷史／unknown 80 不變。見[操作與限制](manual-uni-supply-composition-review.md)，無 UI 或 RPC 重採。
+
 ## 2026-10-06（台北）— UNI 供給組成資料包 schema／方法 v1
 
 新增 `spec/uni-supply-composition-schema.yaml` 與 `spec/uni-supply-composition-method.yaml`，供後續唯讀 reader 使用：鎖定結構與 null context，釘選地址、getter selector／參數、文件片段、Uni.sol 行與五條研究公式定義。31 項回歸（重現 calldata、文件／公式對應、28 個竄改拒絕）；全套 888、兩模式 validate 通過。見[規格與驗證](uni-supply-composition-specs.md)。尚無 reader／API／UI，原資料與金融不變。
