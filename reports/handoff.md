@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-06（台北）— UNI 主網 Firepit 固定區塊狀態
+
+PR #66 push／PR CI 成功並合併（main `f8f920e`）；建立 `research/uni-firepit-state`。選這項是因為不需要使用者先決定市值／FDV 模型設計，且直接補「實際價值捕獲是否啟動、規模多大」的一手證據。capture 腳本與 keccak 只在 scratch，不入庫。
+
+新 finalized block 26133926／`0xf00aa9e4…`（UTC 14:27:35Z，取得 14:43:40.447Z）。原 archive SHA-256 `41c8fcb1…`／LF；十二 OBSERVED（九個 eth_call、區塊時間、README 兩個部署地址）與四個研究 DERIVED v1。Firepit nonce=1395、threshold=4000 UNI、thresholdSetter=owner=Timelock、RESOURCE=UNI、收款=0xdead、TOKEN_JAR 與 README 相符；nonce×threshold=5,580,000 UNI（只有門檻未變時才等於累計支付）、dead 餘額扣除後 107053581211219518941995199 raw 未歸因。README 說明 Unichain 橋接 Firepit 最後也轉到 L1 0xdead，本次未讀 Unichain。事件 `uni-firepit-state-20261006`（token_burn／completed，描述狀態查證）已套用一次，快照 `b97d7644…`／parent `ffd270b9…`，不可重跑；六來源追加，changes=[]，unknown 80、模型日 10 月 4 日、0.422 不變。事件 YAML 的來源欄位由資料包產生，避免手抄。
+
+五項新增／全套 1000、兩模式 validate 通過；Chrome headless 桌面／窄 21 項檢查通過（Enter／JSON、六安全連結、Fixture 0／0→11／18），favicon 404 以外 console 空，PID 43012 已核對停止。見[研究與驗收](uni-firepit-state.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項：為此格式建立 schema／方法 v1 與 digest-bound 唯讀 reader（可大量沿用 `supply-composition.js` 的錨點／calldata／解碼／文件行檢查；差異在 getter 目標合約分 firepit／token、文件為五個同形檔、運算為 mul／sub_mul／地址比較），再接研究目錄 v8／中文表格。要得到年度捕獲仍需門檻變更歷史、Unichain Firepit 與橋接、換出資產價值。`uni.market_cap`／`uni.fdv` 模型設計仍待使用者決定。
+
 ## 2026-10-06（台北）— UNI 供給組成研究目錄、API 與中文逐列查閱
 
 PR #65 push／PR CI 成功並合併（`2f644e5`）；從 reader 分支延伸 `feat/uni-supply-composition-inspection`。目錄 v7 新增 `uni-supply-20261006`／kind `uni_supply_composition`，綁原 bytes `de66eac4…`、事件 `uni-supply-composition-20261006` 與原 review `2026-10-06T13:36:06.327Z`；inspection 重用 reader，另核對事件 reason 含原 hash、三來源與當時快照來源 fingerprint 相同、RPC／文件取得皆早於審查。

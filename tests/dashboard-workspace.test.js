@@ -333,6 +333,18 @@ test('UNI supply zero flags render as observed zero instead of unknown or a heal
  assert.equal(row.children[1].textContent,'0');assert.match(row.textContent,/推導值（DERIVED）/);assert.equal(row.textContent.includes('未知'),false);
 });
 
+test('Firepit state event shows release count, current threshold and unattributed residual without annualizing',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-firepit-state-20261006');
+ assert.match(card.textContent,/UNI 主網 Firepit 累計 release 次數與現行門檻 · 代幣銷毀事件/);
+ for(const value of ['nonce=1395','4000000000000000000000','5580000000000000000000000','107053581211219518941995199','112633581211219518941995199'])
+  assert.ok(card.textContent.includes(value),value);
+ assert.match(card.textContent,/門檻歷史未查證/);assert.match(card.textContent,/不年化、不計估值/);assert.match(card.textContent,/不是新的銷毀交易、年度 burn 或費用收入/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,6);
+ assert.equal(production.metrics['uni.net_burn_yield'].value,null);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-events').children.length,0);
+});
+
 test('UNI supply composition event shows exact raw supply and mint parameters without valuation or circulating definition',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-supply-composition-20261006');

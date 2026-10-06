@@ -65,10 +65,10 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 已另存 [UNI／XLM 單一公開市場與網路表示](reports/uni-xlm-public-venue.md)：UTC 2026-10-05 四份公開 currency／product 回應、26 個 typed 觀測與原身份地址比較 v1；XLM 空合約 raw 保留為 null，個人／地區／託管／提款未驗證。只追加來源與事件，不刷新前一天價格或提升投資性。原 26 個觀測、地址比較及五項未知存取權限亦可逐列查閱，並以[手動唯讀命令](reports/public-venue-research-review.md)重新驗證原 HTTP／身份／公式依賴；既有研究與時效 API 共用同一個 reader。
 
 UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保存為來源事件與快照，財務數值仍不變；實際 fee 收入、UNI burn 與現況查證仍待完成。
-已另存[單筆 Firepit 執行證據](reports/uni-firepit-release.md)：2025-12-29 同一 receipt 的 UNI dead-address payment 與 TokenJar 資產交換。未完成 fee-origin／全期間收入與 burn 查證，沒有年度數值 ingest。
+已另存[單筆 Firepit 執行證據](reports/uni-firepit-release.md)：2025-12-29 同一 receipt 的 UNI dead-address payment 與 TokenJar 資產交換。未完成 fee-origin／全期間收入與 burn 查證，沒有年度數值 ingest。另存 2026-10-06 finalized block 26133926 的[主網 Firepit 狀態](reports/uni-firepit-state.md)：已執行 1,395 次 release、現行門檻 4,000 UNI（乘積 5,580,000 UNI，只有門檻從未變更時才等於累計支付）；dead address 餘額扣除該乘積後的差額未歸因，不年化、不計估值。
 已另存[單筆 v2 LP 費用份額歸集](reports/uni-v2-fee-accrual.md)：2026-10-04 原始 Factory 建池事件與 TokenJar LP 鑄造流入相符。保留 raw 整數與源碼推論界線；LP／caller 贖回不是 UNI burn 或年度收入，金融輸入仍未知。
 
-已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十七筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
+已另存 [UNI／XLM 單次交易所價格資料](reports/manual-market-quotes.md)：兩筆 Coinbase Exchange 最後成交與四份完整原始回應，保留 decimal／nanosecond、取得及商品幣別時間。原雙資產預覽被 v1 期間防線阻擋，當時只保存來源事件；後續分別保存[XLM](reports/xlm-quote-baseline.md)與[UNI](reports/uni-quote-baseline.md)。研究頁可展開十八筆中文事件；這不是同步估值、收盤價或個人交易資格確認。
 
 已另存 [UNI 單筆季度提領](reports/uni-vesting-execution.md)：2026-10-01 成功 receipt 的三 logs，及 10 月 4 日稍後公開 getter 回應。保留 raw 整數、未固定區塊／時間的 null 與 Similar Match 限制；原金融輸入與預算時效不變，單筆提領不當作年度分配或實際下游支出。
 
@@ -76,7 +76,7 @@ UNI v2 的[歷史 feeTo 配置證據](reports/uni-v2-fee-configuration.md)已保
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共十一份 review／十七筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共十一份 review／十八筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
 
 已保存 [XLM 官方回報供給與口徑](reports/xlm-reported-supply.md)：九個回報觀測及兩個精確小數研究殘差，更新／取得時間分開，中文已審查事件可查看原 hash／來源／限制。算術一致不證明獨立鏈上供給，昨日價格不能與本次供給拼成同步市值／FDV。可使用[手動唯讀驗證](reports/manual-xlm-supply-review.md)重新核對原回應 hash、精確小數、更新／取得時間、來源版本與兩條殘差公式：
 
