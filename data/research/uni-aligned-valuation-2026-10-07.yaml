@@ -1,0 +1,44 @@
+id: uni-aligned-valuation-20261007
+type: market_data_review
+status: completed
+as_of_date: 2026-10-07
+effective_date: 2026-10-07
+source_ids:
+  - ethereum-uni-valuation-supply-20261007-v1
+  - coinbase-uni-usd-candle-20261007-v1
+  - uniswap-governance-uni-sol-ab22c08-v1
+  - uniswap-governance-technical-reference-20260409-v1
+affected_nodes:
+  - UNI
+fixture: false
+reason: 完成人工 UNI 同區塊供給口徑與同分鐘價格的研究層估值，不是 canonical 市值／FDV 更新，也不是合理價值判斷。 依使用者 2026-10-07 指示：先定義供給口徑、價格與供給日期對齊；扣除 dead 的供給標為研究口徑而非已驗證流通量；治理金庫排除列為情境；以 totalSupply 計算者揭露未涵蓋未來增發。 PublicNode finalized block 26140081／hash 0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2，區塊時間 UTC 2026-10-07T11:02:47.000Z，狀態取得 2026-10-07T11:16:26.017Z；chainId=1、同 hash header 與同高度 recheck 一致，五個 eth_call 都以 blockHash／requireCanonical=true。 totalSupply raw=1000000000000000000000000000；dead address 餘額 raw=112675581211219518941995199；Timelock 餘額 raw=262247996305835021033106178；mintCap=2、mintingAllowedAfter=1704067200。 Coinbase Exchange UNI-USD 一分鐘 K 線（起始 1791370920，包含區塊時間 1791370967）：low=7.9914、high=7.9946、open=7.9946、close=7.9914、volume=97.581852；回應取得 2026-10-07T11:16:25.947Z。價格是同一分鐘的收盤，不是同一瞬間成交。 研究口徑供給：扣除 dead raw=887324418788780481058004801（DERIVED，非已驗證流通量）；情境 timelock_excluded 再扣除 Timelock raw=625076422482945460024898623（SCENARIO）。 研究層估值（收盤價×供給÷10^18，捨去到美分）：totalSupply 口徑 7991400000.00 USD（未涵蓋未來增發；鑄造時間條件已滿足=1）、扣除 dead 口徑 7090964360.30 USD、情境 timelock_excluded 4995235722.63 USD。 Timelock 身份與鑄造語意沿用已保存的 UNI 供給組成研究（archive SHA-256 de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1）的官方地址表與 Uni.sol 來源。 已驗證流通量、canonical 市值／FDV、其他非流通持倉、Timelock 承諾／可支用、未來鑄造決定、成交量加權或跨交易所價格、部署原始碼等價皆維持 null。 原始 request／response、K 線回應、十二個 OBSERVED、四個 DERIVED 與兩個 SCENARIO 保存於 data/research/uni-aligned-valuation-2026-10-07-v1.json，SHA-256 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356。 所有 canonical 金融輸入（含 uni.price、uni.market_cap、uni.fdv）、公式、假設、情境與論點不變；只追加兩來源與完整快照。
+research_review:
+  reviewer: Claude Code 公開一手 RPC／交易所 API 人工查證；依使用者（分析者）指示定義研究口徑；非獨立人類簽核
+  reviewed_at: 2026-10-07T11:17:00.029Z
+  rationale: 先取得 finalized 錨點，再取包含該區塊時間的一分鐘 K 線，最後以同 hash／requireCanonical 讀取供給與鑄造參數；同 hash header 與同高度 recheck 一致。K 線數值由原回應文字逐字擷取，不經浮點；估值以 BigInt 計算並捨去到美分。扣除 dead 的供給標為研究口徑，Timelock 排除標為 SCENARIO，totalSupply 口徑揭露未涵蓋未來增發；不更新 canonical 市值／FDV。
+updates: []
+sources:
+  - id: ethereum-uni-valuation-supply-20261007-v1
+    version: 1
+    url: https://ethereum-rpc.publicnode.com
+    publisher: Ethereum mainnet JSON-RPC via PublicNode; single public provider
+    title: UNI 固定 block 26140081 的 totalSupply／dead／Timelock 餘額與鑄造參數（估值供給口徑）
+    date: 2026-10-07
+    retrieved_at: 2026-10-07T11:16:26.017Z
+    tier: 1
+    covered_metrics:
+      - uni.token_supply_evidence
+      - uni.valuation_basis_evidence
+    fixture: false
+  - id: coinbase-uni-usd-candle-20261007-v1
+    version: 1
+    url: https://api.exchange.coinbase.com/products/UNI-USD/candles?granularity=60&start=2026-10-07T11:01:00.000Z&end=2026-10-07T11:03:00.000Z
+    publisher: Coinbase Exchange public market data API
+    title: UNI-USD 一分鐘 K 線（包含 block 26140081 時間的分鐘；單一交易所）
+    date: 2026-10-07
+    retrieved_at: 2026-10-07T11:16:25.947Z
+    tier: 1
+    covered_metrics:
+      - uni.price_evidence
+      - uni.valuation_basis_evidence
+    fixture: false

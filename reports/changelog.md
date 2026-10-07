@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-07（台北）— UNI 供給口徑定義與日期對齊的研究層估值（第一階段）
+
+新 finalized block 26140081 以同 hash／requireCanonical 保存 totalSupply、dead／Timelock 餘額與鑄造參數，並保存包含該區塊時間的 Coinbase UNI-USD 一分鐘 K 線（完整原回應、逐字 token）。定義三個研究口徑並分開標示：totalSupply（FDV 研究值，揭露未涵蓋未來增發）、扣除 dead（研究口徑，非已驗證流通量）、再扣除 Timelock（**SCENARIO** `timelock_excluded`）；美元值以 BigInt 計算並捨去到美分。研究層公式 v1，不新增或修改 canonical 公式、假設或情境。追加兩來源與 source-only 完整快照；canonical `uni.price`（10/4）／`uni.market_cap`／`uni.fdv`、論點與 unknown 80 不變。六項新增／全套 1113、兩模式 validate、Chrome 桌面／窄／Fixture 通過；見[研究與驗收](uni-aligned-valuation.md)。第二階段的模型版本升級設計列於報告，待確認。
+
 ## 2026-10-07（台北）— SECZ TTM 保留衝突的附條件研究 v2（假設版本升級）
 
 **假設變更**：新增研究層可比性假設 `secz-ttm-20260630-comparability@2`／v2（ASSUMPTION，信心 low），`acquisition_treatment` 由 null 改為依財務呈現一致性成立（兩份 Note 3 同收購日、同購買價格分配）；MG Stover Inc.／LLC 法律名稱衝突原樣保留，未宣稱法律主體等價。其餘四項判斷逐字沿用 v1。原 `@1`／v1 與其三項 null 結果保留不改；公式 `research.revenue_ttm_bridge` 仍為 v1，沒有 canonical 公式或假設變更。
