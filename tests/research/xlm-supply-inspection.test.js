@@ -24,7 +24,7 @@ function isolated(t,fn,{repin=false}={}){
 
 test('XLM supply catalog preserves original bytes, exact strings, residual lineage, source versions and review outside finance',()=>{
  const before=fingerprint({p,economics:calculate(p),history:readSnapshots(p.root,p.mode)}),result=inspectResearch(p),r=result.records.find(r=>r.id===entry.id);
- assert.ok(catalog.version>=6);assert.equal(result.records.length,13);assert.equal(r.records.length,11);
+ assert.ok(catalog.version>=6);assert.equal(result.records.length,14);assert.equal(r.records.length,11);
  assert.equal(r.artifact_id,'790c9763971cb01bd8712431ea7207eb4f4418e5a17459cf0df661f1ede5ad51');assert.deepEqual(r.full_review,a);
  assert.ok(r.records.every(r=>typeof r.label==='string'&&/[一-鿿]/u.test(r.label)));
  assert.deepEqual(r.review,result.events.find(e=>e.id===entry.event_id).event.research_review);assert.equal(r.event_id,'xlm-reported-supply-20261005');
@@ -59,7 +59,7 @@ test('valid replacement XLM supply semantics still require the original event di
 test('XLM supply is unavailable before its review day and residuals never become observed facts',()=>{
  for(const [cutoff,available] of [['2026-10-04',false],['2026-10-05',true]]){
   const research=researchFreshness(p,{as_of_date:cutoff}).research,artifact=research.artifacts.find(r=>r.id===entry.id),rows=research.records.filter(r=>r.catalog_id===entry.id);
-  assert.equal(research.artifacts.length,13);assert.equal(research.records.length,233);assert.equal(research.source_checks.length,39);
+  assert.equal(research.artifacts.length,14);assert.equal(research.records.length,251);assert.equal(research.source_checks.length,41);
   assert.equal(artifact.review_state,available?'AVAILABLE_AT_CUTOFF':'NOT_AVAILABLE_AT_CUTOFF');assert.equal(rows.length,11);
   const observed=rows.filter(r=>r.record.classification==='OBSERVED');assert.equal(observed.length,9);
   assert.ok(observed.every(r=>r.evidence_state===(available?'AVAILABLE':'INSUFFICIENT')));

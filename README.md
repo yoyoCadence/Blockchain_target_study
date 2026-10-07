@@ -80,7 +80,7 @@ node cli.js uni-firepit-state-review data/research/uni-firepit-state-2026-10-06-
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共十三份 review／十九筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共十四份 review／十九筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
 
 已保存 [XLM 官方回報供給與口徑](reports/xlm-reported-supply.md)：九個回報觀測及兩個精確小數研究殘差，更新／取得時間分開，中文已審查事件可查看原 hash／來源／限制。算術一致不證明獨立鏈上供給，昨日價格不能與本次供給拼成同步市值／FDV。可使用[手動唯讀驗證](reports/manual-xlm-supply-review.md)重新核對原回應 hash、精確小數、更新／取得時間、來源版本與兩條殘差公式：
 
@@ -98,7 +98,11 @@ node cli.js token-state-review data/research/uni-token-state-2026-10-04-v1.json 
 
 餘額不少於 allowance 只限該時點；totalSupply 尚不足以確認流通／完全稀釋分母。原價格時點不同，市值／FDV 與全年實際分配仍未知。
 
-2026-10-07 另存[供給口徑與日期對齊的研究層估值](reports/uni-aligned-valuation.md)（第一階段）：finalized block 26140081 的供給配上包含該區塊時間的 Coinbase 一分鐘 K 線收盤價 7.9914 USD。三個口徑分開標示——現行 totalSupply 約 79.91 億 USD（FDV 研究值，未涵蓋未來增發）、扣除 dead address 約 70.91 億 USD（研究口徑，不是已驗證流通量）、再扣除 Timelock 約 49.95 億 USD（SCENARIO `timelock_excluded`）。這些是研究層數字，canonical `uni.market_cap`／`uni.fdv` 仍為未知；模型版本升級待口徑確認。
+2026-10-07 另存[供給口徑與日期對齊的研究層估值](reports/uni-aligned-valuation.md)（第一階段）：finalized block 26140081 的供給配上包含該區塊時間的 Coinbase 一分鐘 K 線收盤價 7.9914 USD。三個口徑分開標示——現行 totalSupply 約 79.91 億 USD（FDV 研究值，未涵蓋未來增發）、扣除 dead address 約 70.91 億 USD（研究口徑，不是已驗證流通量）、再扣除 Timelock 約 49.95 億 USD（SCENARIO `timelock_excluded`）。這些是研究層數字，canonical `uni.market_cap`／`uni.fdv` 仍為未知；模型版本升級待口徑確認。研究頁的[估值卡片](reports/uni-aligned-valuation-review.md)把三個口徑、分類與界線並列顯示，並可用唯讀命令重新核對價格對齊與每個數值：
+
+```powershell
+node cli.js uni-aligned-valuation-review data/research/uni-aligned-valuation-2026-10-07-v1.json --production --digest 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356
+```
 
 新的 finalized block 26133577 另存 [UNI 供給組成與鑄造參數](reports/uni-supply-composition.md)：totalSupply 仍為 1,000,000,000 UNI，dead address 累計約 112.63M、Timelock 約 262.25M UNI；minter 為官方文件列示的 Timelock，2024-01-01 起時間上可鑄造，單次上限 2%（每 365 日）。扣除後餘額只是機械減法，不是流通供給；鑄造條件滿足不代表會鑄造，市值／FDV 仍未知。研究頁提供[供給組成中文表格](reports/uni-supply-composition-inspection.md)：13 列原始讀值與 5 列研究推導分開，官方地址表、Uni.sol 原文行與九項未知保留；旗標 0 顯示為 0，不當成未知或健康訊號。可使用[手動唯讀驗證](reports/manual-uni-supply-composition-review.md)重新核對錨點、十個 canonical 釘選讀值、文件片段與五個推導：
 

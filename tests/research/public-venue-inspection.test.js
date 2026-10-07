@@ -24,7 +24,7 @@ function isolated(t,fn,{repin=false}={}){
 
 test('public-venue catalog preserves original bytes, typed records, identity lineage, source versions and review outside finance',()=>{
  const before=fingerprint({p,economics:calculate(p),history:readSnapshots(p.root,p.mode)}),result=inspectResearch(p),r=result.records.find(r=>r.id===entry.id);
- assert.equal(result.records.length,13);assert.equal(r.records.length,27);assert.equal(r.artifact_id,entry.expected_id);assert.deepEqual(r.full_review,a);
+ assert.equal(result.records.length,14);assert.equal(r.records.length,27);assert.equal(r.artifact_id,entry.expected_id);assert.deepEqual(r.full_review,a);
  assert.ok(r.records.every(r=>typeof r.label==='string'&&/[一-鿿]/u.test(r.label)));
  assert.deepEqual(r.review,result.events.find(e=>e.id===entry.event_id).event.research_review);assert.equal(r.event_id,entry.event_id);
  for(const original of [...a.observations,...a.derived]){const row=r.records.find(r=>r.id===original.id);for(const key of Object.keys(original))assert.deepEqual(row[key],original[key]);}

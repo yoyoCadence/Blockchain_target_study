@@ -60,7 +60,7 @@ test('capital evidence appends one full snapshot while preserving replay and ins
 
 test('parent capital evidence leaves subsidiary TTM comparability unknown and fixture research isolated',()=>{
  const before=fingerprint(history),research=inspectResearch(project);
- assert.equal(research.records.length,13);
+ assert.equal(research.records.length,14);
  const ttm=research.records.find(r=>r.kind==='revenue_ttm');
  assert.equal(ttm.artifact_id,'6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d');
  assert.equal(ttm.comparability.checks.acquisition_treatment.value,null);

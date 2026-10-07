@@ -1,0 +1,102 @@
+id: uni-aligned-valuation-review
+version: 1
+archive_id: uni-aligned-valuation-evidence-20261007-v1
+asset: UNI
+chain_id: "1"
+endpoint: https://ethereum-rpc.publicnode.com
+rpc_source_id: ethereum-uni-valuation-supply-20261007-v1
+targets:
+  token: "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+  timelock: "0x1a9c8182c09f50c8318d769245bea52c32be35bc"
+  dead_sink: "0x000000000000000000000000000000000000dead"
+interpretation: 只核對已保存的同區塊供給讀值、同分鐘 K 線逐字數值、來源版本與嵌入推導；研究口徑與情境不是已驗證流通量、canonical 市值／FDV、合理價值或鑄造預測。
+header_label: 區塊時間（Unix 秒）
+getters:
+  - [ total_supply, uint256, totalSupply(), "0x18160ddd", [], UNI raw base units, 合約總供給（raw） ]
+  - [ dead_sink_balance, uint256, balanceOf(address), "0x70a08231", [ dead_sink ], UNI raw base units, dead address 餘額（raw） ]
+  - [ timelock_balance, uint256, balanceOf(address), "0x70a08231", [ timelock ], UNI raw base units, Timelock 餘額（raw） ]
+  - [ mint_cap, uint8, mintCap(), "0x76c71ca1", [], percent, 每次鑄造上限（%） ]
+  - [ minting_allowed_after, uint256, mintingAllowedAfter(), "0x30b36cef", [], unix seconds, 可鑄造起始時間（Unix 秒） ]
+price:
+  url: https://api.exchange.coinbase.com/products/UNI-USD/candles?granularity=60&start=2026-10-07T11:01:00.000Z&end=2026-10-07T11:03:00.000Z
+  source_id: coinbase-uni-usd-candle-20261007-v1
+  product: UNI-USD
+  venue: Coinbase Exchange
+  granularity_seconds: 60
+  covered_metric: uni.price_evidence
+  fields:
+    - [ candle_start, 0, unix seconds, K 線起始時間（Unix 秒） ]
+    - [ candle_low, 1, USD/UNI, 同分鐘最低價 ]
+    - [ candle_high, 2, USD/UNI, 同分鐘最高價 ]
+    - [ candle_open, 3, USD/UNI, 同分鐘開盤價 ]
+    - [ candle_close, 4, USD/UNI, 同分鐘收盤價 ]
+    - [ candle_volume, 5, UNI, 同分鐘成交量 ]
+basis_dependency:
+  file: uni-supply-composition-2026-10-06-v1.json
+  archive_id: uni-supply-composition-evidence-20261006-v1
+  sha256: de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1
+  source_ids: [ uniswap-governance-uni-sol-ab22c08-v1, uniswap-governance-technical-reference-20260409-v1 ]
+scenario:
+  name: timelock_excluded
+  rationale: 治理 Timelock 餘額全部排除的情境；是否排除由分析者決定，未查證其承諾或可支用狀態。
+scenario_formula_ids: [ research.uni.valuation.supply_excluding_dead_sink_and_timelock, research.uni.valuation.excluding_dead_sink_and_timelock_value_usd ]
+bases:
+  - [ 現行 totalSupply, total_supply, research.uni.valuation.total_supply_value_usd, FDV 研究值；未涵蓋未來增發，不是 canonical FDV ]
+  - [ 扣除 dead address, research.uni.valuation.supply_excluding_dead_sink, research.uni.valuation.excluding_dead_sink_value_usd, 研究口徑；不是已驗證流通量，不是 canonical 市值 ]
+  - [ 再扣除 Timelock, research.uni.valuation.supply_excluding_dead_sink_and_timelock, research.uni.valuation.excluding_dead_sink_and_timelock_value_usd, 只在情境 timelock_excluded（治理金庫全部排除）下成立 ]
+derived_labels:
+  research.uni.valuation.supply_excluding_dead_sink: 扣除 dead address 的供給（研究口徑，非已驗證流通量）
+  research.uni.valuation.supply_excluding_dead_sink_and_timelock: 再扣除 Timelock 的供給（情境）
+  research.uni.valuation.mint_time_permitted_at_block: 區塊時間已滿足鑄造時間條件（未來增發揭露）
+  research.uni.valuation.total_supply_value_usd: totalSupply 口徑美元值（FDV 研究值）
+  research.uni.valuation.excluding_dead_sink_value_usd: 扣除 dead 口徑美元值（研究值）
+  research.uni.valuation.excluding_dead_sink_and_timelock_value_usd: 扣除 dead 與 Timelock 美元值（情境）
+formulas:
+  - id: research.uni.valuation.supply_excluding_dead_sink
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: sub_raw_uint256
+      args: [ research.uni.valuation.block26140081.total_supply@1, research.uni.valuation.block26140081.dead_sink_balance@1 ]
+    method_source_ids: [ uniswap-governance-uni-sol-ab22c08-v1 ]
+    rationale: 研究口徑：UNI 合約沒有 burn 函式，轉入 dead address 的代幣仍計入 totalSupply，因此另列扣除後的供給。這是同區塊機械減法，不是已驗證的流通量；其他非流通持倉未分類。
+  - id: research.uni.valuation.supply_excluding_dead_sink_and_timelock
+    version: 1
+    unit: UNI raw base units
+    expression:
+      op: sub_raw_uint256
+      args: [ research.uni.valuation.block26140081.total_supply@1, research.uni.valuation.block26140081.dead_sink_balance@1, research.uni.valuation.block26140081.timelock_balance@1 ]
+    method_source_ids: [ uniswap-governance-uni-sol-ab22c08-v1, uniswap-governance-technical-reference-20260409-v1 ]
+    rationale: 情境 timelock_excluded：假設治理 Timelock 持有的 UNI 全部不計入供給。Timelock 是否已承諾、可支用或應排除是分析者情境，不是觀測事實。
+  - id: research.uni.valuation.mint_time_permitted_at_block
+    version: 1
+    unit: ratio
+    expression:
+      op: gte_uint
+      args: [ research.uni.valuation.block26140081.block_timestamp@1, research.uni.valuation.block26140081.minting_allowed_after@1 ]
+    method_source_ids: [ uniswap-governance-uni-sol-ab22c08-v1 ]
+    rationale: 揭露用：對照 Uni.sol 的鑄造時間條件。條件滿足代表以 totalSupply 計算的值沒有涵蓋治理未來可能的增發；不代表會鑄造。
+  - id: research.uni.valuation.total_supply_value_usd
+    version: 1
+    unit: USD
+    expression:
+      op: mul_decimal_sub_raw18_floor2
+      args: [ research.uni.valuation.block26140081.candle_close@1, research.uni.valuation.block26140081.total_supply@1 ]
+    method_source_ids: [ uniswap-governance-uni-sol-ab22c08-v1 ]
+    rationale: FDV 研究值：同分鐘 K 線收盤價 × 現行 totalSupply ÷ 10^18，無條件捨去到美分。未涵蓋未來增發（每 365 日單次上限為 totalSupply 的 mintCap%），不是 canonical FDV。
+  - id: research.uni.valuation.excluding_dead_sink_value_usd
+    version: 1
+    unit: USD
+    expression:
+      op: mul_decimal_sub_raw18_floor2
+      args: [ research.uni.valuation.block26140081.candle_close@1, research.uni.valuation.block26140081.total_supply@1, research.uni.valuation.block26140081.dead_sink_balance@1 ]
+    method_source_ids: [ uniswap-governance-uni-sol-ab22c08-v1 ]
+    rationale: 研究口徑估值：同分鐘 K 線收盤價 ×（totalSupply − dead address 餘額）÷ 10^18，無條件捨去到美分。供給是研究口徑而非已驗證流通量，因此不是 canonical 市值。
+  - id: research.uni.valuation.excluding_dead_sink_and_timelock_value_usd
+    version: 1
+    unit: USD
+    expression:
+      op: mul_decimal_sub_raw18_floor2
+      args: [ research.uni.valuation.block26140081.candle_close@1, research.uni.valuation.block26140081.total_supply@1, research.uni.valuation.block26140081.dead_sink_balance@1, research.uni.valuation.block26140081.timelock_balance@1 ]
+    method_source_ids: [ uniswap-governance-uni-sol-ab22c08-v1, uniswap-governance-technical-reference-20260409-v1 ]
+    rationale: 情境 timelock_excluded 的估值：同分鐘 K 線收盤價 ×（totalSupply − dead − Timelock 餘額）÷ 10^18，無條件捨去到美分。只在該情境下成立。

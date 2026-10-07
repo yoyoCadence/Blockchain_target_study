@@ -27,7 +27,7 @@ test('reviewed event inspection retains historical dates, source versions and ra
  assert.equal(records.find(r=>r.id==='uni-growth-budget-baseline-20260101').recorded_update_count,1);
  accrued.event.reason='in-memory presentation change';accrued.sources[0].title='in-memory title';
  assert.equal(fingerprint({project,history:readSnapshots(project.root,'production'),economics:calculate(project)}),before);
- assert.equal(inspectResearch(project).records.length,13);
+ assert.equal(inspectResearch(project).records.length,14);
 });
 
 test('fixture event inspection returns no production evidence and invalid mode is rejected',()=>{
@@ -42,7 +42,7 @@ test('read-only research API includes every reviewed event, keeps original catal
  const url=`http://127.0.0.1:${server.address().port}/api/research`;
  try {
   const response=await fetch(`${url}?mode=production`),data=await response.json();
-  assert.equal(response.status,200);assert.equal(data.records.length,13);assert.equal(data.events.length,history.filter(s=>s.event?.research_review).length);
+  assert.equal(response.status,200);assert.equal(data.records.length,14);assert.equal(data.events.length,history.filter(s=>s.event?.research_review).length);
   assert.equal(data.persisted,false);assert.equal(data.financial_inputs_updated,false);
   assert.equal(data.events.at(-1).snapshot_id,history.at(-1).id);
   assert.deepEqual((await (await fetch(`${url}?mode=fixture`)).json()).events,[]);

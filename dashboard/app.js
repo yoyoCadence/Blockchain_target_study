@@ -121,6 +121,39 @@ function renderResearch(data) {
     el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
    card.append(researchSources(report.sources),full);return card;
   }
+  if(report.kind==='uni_aligned_valuation') {
+   // Group digits of an exact decimal string for reading; no numeric conversion.
+   const summary=report.summary,price=summary.price,usd=value=>{const [whole,cents]=String(value).split('.');return `${whole.replace(/\B(?=(\d{3})+(?!\d))/g,',')}${cents?'.'+cents:''}`;};
+   const kind=row=>row.scenario_name?`${term(row.classification)}：${row.scenario_name}`:term(row.classification);
+   const bases=freshnessTable(['供給口徑','供給（raw）','分類','美元值（捨去到美分）','界線'],summary.bases.map(b=>[b.label,b.supply_raw,kind(b),usd(b.value_usd),b.boundary]));
+   bases.tabIndex=0;bases.setAttribute('aria-label','UNI 研究口徑估值表格，可左右捲動');
+   const values=freshnessTable(['觀測項目','原始值（完整字串）','單位','來源欄位','分類／可信程度'],summary.values.map(v=>[
+    v.label,v.value,term(v.unit),v.origin,`${term(v.classification)}／${term(v.confidence)}`
+   ]));values.tabIndex=0;values.setAttribute('aria-label','UNI 估值原始值表格，可左右捲動');
+   const derived=freshnessTable(['研究推導','結果','單位','分類','公式版本'],summary.derived.map(d=>[
+    d.label,String(d.value),term(d.unit),kind(d),`${d.formula_id} / v${d.formula_version}`
+   ]));derived.tabIndex=0;derived.setAttribute('aria-label','UNI 估值研究推導表格，可左右捲動');
+   card.append(el('p',report.notice,'hint'),el('p',`固定區塊 ${summary.block_number} · ${summary.block_hash}`,'event-evidence'),
+    el('p',`區塊時間 ${summary.block_time} · K 線分鐘 ${price.candle_start_at} → ${price.candle_end_at}（區塊在第 ${price.seconds_into_candle} 秒）`,'event-evidence'),
+    el('p',`價格：${price.venue} ${price.product} 同分鐘收盤 ${price.candle_close} USD/UNI（最低 ${price.candle_low}／最高 ${price.candle_high}）· 取得 ${price.retrieved_at}`,'hint'),
+    el('p','價格是同一分鐘的收盤價，不是同一瞬間成交、成交量加權或跨交易所價格。','hint'),
+    el('h3','三個供給口徑的研究值'),bases,
+    el('p',`情境 ${summary.scenario.name}：${summary.scenario.rationale}`,'hint'),
+    el('p','這些數值沒有寫入金融模型；正式的 UNI 市值與 FDV 仍為未知。','hint'),
+    el('h3','原始觀測'),el('p','表格可左右捲動；raw 整數與 K 線數值保留完整原始字串。','hint'),values,
+    el('h3','研究推導與情境'),derived);
+   for(const d of summary.derived)card.append(el('p',`${d.formula_id} 依賴：${d.dependencies.join(' · ')}`,'event-evidence'));
+   card.append(el('p',`身份與鑄造語意沿用已審查資料包 ${report.method.basis_dependency.archive_id}（SHA-256 ${report.method.basis_dependency.sha256}）。`,'hint'),
+    el('h3','尚未查證的供給與估值'));
+   const unknown=el('ul');for(const [field,label] of [['verified_circulating_supply','已驗證流通量'],['canonical_market_cap','正式市值'],['canonical_fdv','正式完全稀釋估值（FDV）'],
+    ['other_non_circulating_holdings','其他非流通持倉'],['timelock_committed_or_spendable','Timelock 已承諾／可支用'],['future_mint_decision','未來鑄造決定'],
+    ['volume_weighted_price','成交量加權價格'],['cross_venue_price','跨交易所價格'],['deployment_source_equivalence','部署原始碼等價']])
+    unknown.append(el('li',`${label}：${term(summary.unknown[field])}`));card.append(unknown);
+   const limits=el('ul');for(const text of summary.limitations)limits.append(el('li',text));card.append(limits);
+   const full=el('details');full.append(el('summary','原始 request／response、K 線回應與查證限制'),
+    el('p',`已審查原始檔 SHA-256：${report.artifact_id}`,'event-evidence'),el('pre',JSON.stringify(report.full_review,null,2)));
+   card.append(researchSources(report.sources),full);return card;
+  }
   if(report.kind==='uni_firepit_state') {
    const summary=report.summary,files={readme:'README.md',firepit:'Firepit.sol',exchange_releaser:'ExchangeReleaser.sol',nonce:'Nonce.sol',resource_manager:'ResourceManager.sol'};
    const values=freshnessTable(['觀測項目','原始值（完整字串）','單位','ABI 型別／來源','分類／可信程度'],summary.values.map(v=>[
