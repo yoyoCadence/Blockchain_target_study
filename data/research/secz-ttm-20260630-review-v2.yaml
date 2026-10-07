@@ -1,0 +1,45 @@
+id: secz-ttm-20260630-review@2
+version: 2
+fixture: false
+as_of_date: 2026-10-07
+annual_review_id: f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7
+interim_review_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+annual_period_id: secz-2025-fy
+prior_ytd_period_id: secz-2025-h1
+current_ytd_period_id: secz-2026-h1
+comparability:
+  id: secz-ttm-20260630-comparability@2
+  version: 2
+  classification: ASSUMPTION
+  fixture: false
+  confidence: low
+  rationale: v2 附條件假設：只用於所選報表口徑的子公司收入銜接。除 acquisition_treatment 外，四項判斷逐字沿用 v1 的理由與結論。acquisition_treatment 由 null 改為「依財務呈現一致性成立的假設」；MG Stover Inc.／LLC 法律名稱衝突原樣保留、未解，因此信心定為 low。不含完整歷史更正查證、有機成長推論、pro forma 替代、母公司估值或六類收入對應。v1 request 與其 null 結果保留不改。
+  checks:
+    revenue_definitions:
+      value: true
+      rationale: Reviewed annual Note 19 and interim Note 18 definitions for Tokenization and Asset Servicing; the selected descriptions agree.
+      source_ids: &a1
+        - secz-424b3-20260807-annual-statements-v1
+        - secz-q22026-financial-exhibit-v1
+    continuing_operations:
+      value: true
+      rationale: Annual and interim statements reconcile to the selected revenue totals; both Note 4 disclosures separately present Securitize for Advisors as discontinued operations after the November 26, 2025 sale. Do not add discontinued revenue.
+      source_ids: *a1
+    acquisition_treatment:
+      value: true
+      rationale: 依使用者（分析者）2026-10-07 指示，採「保留衝突、附條件」的財務可比性假設。年度 Note 3 與期中 Note 3 都敘述自 2025-04-15 收購日起合併 MG Stover 的營運結果；已保存的收購查證事件 secz-acquisition-context-20261003 記錄兩者的購買價格分配逐項相同（對價 21090525 USD、可辨認淨資產 8055524 USD、商譽 13035001 USD），S-1 XBRL 的收購 member 為 secz_MGStoverLLCMember。據此假設兩份報表對這筆收購的收入合併處理一致，可做 FY2025 − H1 2025 + H1 2026 的銜接。這不是法律主體等價的查證：年度標題 MG Stover, Inc. 與期中標題 MG Stover LLC 的差異沒有任何已讀文件解釋，衝突原樣保留；若日後查明兩者不是同一筆被收購業務，本假設與依賴它的三個 TTM 結果即失效。收購 pro forma 表不採用。
+      source_ids:
+        - secz-424b3-20260807-annual-statements-v1
+        - secz-q22026-financial-exhibit-v1
+    selected_presentation:
+      value: true
+      rationale: Use the specific saved August prospectus FY2025 and August interim comparative H1 2025 presentations, not earlier quarterly releases or pro forma values. Fiscal windows align mechanically; this is not a full correction-history review.
+      source_ids: *a1
+    audit_difference:
+      value: true
+      rationale: Annual audited and interim unaudited status are retained independently. A derived bridge would not be an audited TTM statement. Analyst acknowledges this difference without upgrading interim evidence.
+      source_ids: *a1
+review:
+  reviewer: Claude Code 桌面查證；依使用者（分析者）指示採附條件假設；非獨立人類簽核
+  reviewed_at: 2026-10-07T10:55:59.700Z
+  rationale: 重讀已保存的年度／期中收入研究與收購查證事件，確認兩份 Note 3 的收購日與購買價格分配記錄一致。2026-10-06 另以網頁讀取工具再讀 S-1 XBRL R30（非 byte-exact，未另存為證據）：兩段皆稱收購 MG Stover 全部已發行權益、同為 2025-04-15，未見公司型態轉換或更名說明。依使用者指示以新版本記錄附條件假設並計算研究層 TTM；不改寫 v1 的 null，不更新 canonical 金融輸入。

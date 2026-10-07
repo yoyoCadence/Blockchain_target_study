@@ -241,7 +241,10 @@ function renderResearch(data) {
    ])));
   }
   if(report.comparability) {
-   card.append(el('span',`${term(report.comparability.classification)} · 可信程度 ${term(report.comparability.confidence)}`,'badge ASSUMPTION'),el('p',`可比性理由（原文）：${report.comparability.rationale}`,'hint'));
+   card.append(el('span',`${term(report.comparability.classification)} · 可信程度 ${term(report.comparability.confidence)}`,'badge ASSUMPTION'),
+    el('p',`假設 ${report.comparability.id} / v${report.comparability.version}`,'event-evidence'),el('p',`可比性理由（原文）：${report.comparability.rationale}`,'hint'));
+   if(report.kind==='revenue_ttm')card.append(el('p',term(report.full_review.limitations),'hint'),
+    el('p',report.records.some(r=>r.value!==null)?'下列數值只在上列假設成立時有效，是研究層推導，不是已審計的 TTM 報表，也沒有寫入金融模型。':'可比性未全部確認，三項結果維持未知。','hint'));
    const checks=el('div',undefined,'research-checks');
    for(const [name,check] of Object.entries(report.comparability.checks))checks.append(el('p',`${term(name)}：${check.value===null?'尚未確認':check.value?'分析者判斷已確認':'未確認'} · ${check.rationale}`));
    card.append(checks);

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-07（台北）— SECZ TTM 保留衝突的附條件研究 v2（假設版本升級）
+
+**假設變更**：新增研究層可比性假設 `secz-ttm-20260630-comparability@2`／v2（ASSUMPTION，信心 low），`acquisition_treatment` 由 null 改為依財務呈現一致性成立（兩份 Note 3 同收購日、同購買價格分配）；MG Stover Inc.／LLC 法律名稱衝突原樣保留，未宣稱法律主體等價。其餘四項判斷逐字沿用 v1。原 `@1`／v1 與其三項 null 結果保留不改；公式 `research.revenue_ttm_bridge` 仍為 v1，沒有 canonical 公式或假設變更。
+
+**結果**：新 request `secz-ttm-20260630-review@2` 推導 2025-07-01 至 2026-06-30 報表口徑收入 Tokenization 36,249,459／Asset Servicing 30,520,797／合計 66,770,256 USD（DERIVED、low、非已審計 TTM、未用 pro forma）。研究目錄 v9 追加 `secz-ttm-20260630-v2`，十三研究／233 紀錄／39 來源；TTM 卡片顯示假設 ID／版本與條件提示，三個報表口徑指標加中文名稱。未寫入 canonical 金融輸入、無新事件或快照；unknown 80 與論點不變。十項新增／全套 1107、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[研究與驗收](secz-revenue-ttm-v2.md)。
+
 ## 2026-10-06（台北）— UNI 主網 Firepit 狀態研究目錄、API 與中文逐列查閱
 
 研究目錄 v8 新增 `uni_firepit_state`，以原 bytes SHA-256／已存事件／原 review 綁定共用唯讀 reader（與供給組成共用事件綁定檢查）；研究／手動時效 API 保留 12 個 raw 觀測、4 個推導 v1／依賴及六個來源版本，十二研究／230 紀錄／39 來源。中文卡片分表顯示原值與推導、區塊與取得時間、五個官方檔案選定行與九項未知。修正：卡片清單項目補上斷行規則，解決長網址造成的窄版水平溢出（312／509 → 312／312），並加樣式回歸。十項新增／全套 1097、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](uni-firepit-state-inspection.md)。原資料、金融／來源／歷史／unknown 80 不變。
