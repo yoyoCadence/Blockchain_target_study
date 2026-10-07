@@ -387,6 +387,18 @@ test('Firepit zero comparison flags render as observed zero instead of unknown',
  assert.equal(row.children[1].textContent,'0');assert.match(row.textContent,/推導值（DERIVED）/);assert.equal(row.textContent.includes('未知'),false);
 });
 
+test('aligned valuation event shows research bases, scenario and disclosure without updating canonical valuation',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-aligned-valuation-20261007');
+ assert.match(card.textContent,/UNI 同區塊供給口徑與同分鐘價格的研究層估值 · 市場資料查證/);
+ for(const value of ['close=7.9914','7991400000.00','7090964360.30','4995235722.63','887324418788780481058004801','112675581211219518941995199'])assert.ok(card.textContent.includes(value),value);
+ assert.match(card.textContent,/非已驗證流通量/);assert.match(card.textContent,/情境 timelock_excluded/);assert.match(card.textContent,/未涵蓋未來增發/);
+ assert.match(card.textContent,/不是 canonical 市值／FDV 更新/);assert.match(card.textContent,/不是同一瞬間成交/);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,4);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-events').children.length,0);
+});
+
 test('Firepit state event shows release count, current threshold and unattributed residual without annualizing',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-firepit-state-20261006');

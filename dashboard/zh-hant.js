@@ -44,6 +44,7 @@ const terms={
  'uni-token-state-20261004':'UNI 固定區塊餘額與供給',
  'uni-supply-composition-20261006':'UNI 固定區塊供給組成與鑄造參數',
  'uni-firepit-state-20261006':'UNI 主網 Firepit 累計 release 次數與現行門檻',
+ 'uni-aligned-valuation-20261007':'UNI 同區塊供給口徑與同分鐘價格的研究層估值',
  'uni-firepit-20261006':'UNI 主網 Firepit 狀態／release 次數與門檻',
  'uni-supply-20261006':'UNI 固定區塊供給組成／鑄造參數','unix seconds':'Unix 秒',seconds:'秒',percent:'百分比（%）',
  'uni-xlm-public-venue-state-20261005':'UNI／XLM 公開市場與網路表示',

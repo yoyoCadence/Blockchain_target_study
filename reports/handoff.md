@@ -1,5 +1,15 @@
 # 開發交接
 
+## 2026-10-07（台北）— UNI 供給口徑與日期對齊的研究層估值（第一階段）
+
+PR #71 push／PR CI 成功並合併（main `fcd45f6`）；建立 `research/uni-aligned-valuation`。依使用者第 1 項指示的第一階段：只做研究層，不改 canonical。
+
+擷取順序：probe（finalized block 26140081／`0xaced3a9b…`，UTC 11:02:47Z）→ Coinbase `products/UNI-USD/candles?granularity=60`（取包含區塊時間的分鐘 1791370920，前後各一分鐘作脈絡）→ 同 hash 狀態批次。K 線 API 回傳 JSON 數字，資料包以正則從原回應文字逐字擷取 token（不 `JSON.parse`，避免浮點），原回應完整保存。原 archive SHA-256 `227008fc…`／LF；十二 OBSERVED（區塊時間、五個 eth_call、六個 K 線欄位）、四個 DERIVED、兩個 SCENARIO（`timelock_excluded`，紀錄帶 `scenario_name`）。美元值＝收盤 7.9914 × 供給 ÷ 10^18、捨去到美分：totalSupply 7,991,400,000.00、扣除 dead 7,090,964,360.30、情境 4,995,235,722.63。`basis_dependency` 指向供給組成 archive `de66eac4…` 的官方地址表與 Uni.sol 來源。dead 餘額比 10/6 block 26133577 多 42,000 UNI，未歸因。
+
+事件 `uni-aligned-valuation-20261007`（market_data_review／completed）已套用一次，快照 `92da521b…`／parent `b97d7644…`，不可重跑；兩個 tier 1 來源追加，changes=[]，canonical `uni.price` 仍 9.0556（10/4）、`uni.market_cap`／`uni.fdv` null、unknown 80、模型日 10 月 4 日、0.422 不變。六項新增／全套 1113、兩模式 validate 通過；Chrome headless 22 項檢查通過（Fixture 0／0→13／19），favicon 404 以外 console 空，PID 17476 已核對停止。見[研究與驗收](uni-aligned-valuation.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項：(a) 為此格式建立 schema／方法 v1 與唯讀 reader——可沿用 `finalized-rpc.js`，需新增受限運算 `mul_decimal_sub_raw18_floor2`、K 線逐字 token 與「區塊時間落在該分鐘」的結構性檢查、SCENARIO 紀錄的分類／情境名稱檢查，以及對 `basis_dependency` archive 的重新驗證；再接研究目錄與中文表格。(b) 第二階段 canonical 推導的設計已列在報告末段（新增 `uni.total_supply`／`uni.dead_balance` 輸入、`uni.fdv`＝價格×totalSupply、`uni.market_cap`＝價格×(totalSupply−dead) 並標研究口徑、Timelock 排除為 SCENARIO 參數、同日且同分鐘的期間政策），**需使用者明確確認後才做**，因為會讓市值與下游 required-share 等由 null 變成有值。Firepit 年化仍不進正式模型。
+
 ## 2026-10-07（台北）— 使用者決定與 SECZ TTM 附條件研究 v2
 
 main `4f516b3` CI 成功、無未合併 PR。使用者 2026-10-07 對四項待決定事項的指示（**後續以此為準**）：

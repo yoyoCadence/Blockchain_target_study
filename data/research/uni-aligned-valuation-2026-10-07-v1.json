@@ -1,0 +1,690 @@
+{
+  "version": 1,
+  "id": "uni-aligned-valuation-evidence-20261007-v1",
+  "fixture": false,
+  "purpose": "UNI 同區塊供給口徑與同分鐘價格的研究層估值；定義研究口徑與情境，不更新 canonical 市值／FDV。",
+  "capture_method": "Manual bounded public HTTP GET and Ethereum JSON-RPC reads pinned by blockHash with requireCanonical; no wallet, signing, transactions, polling or financial ingestion",
+  "as_of_date": "2026-10-07",
+  "captured_at": "2026-10-07T11:16:26.017Z",
+  "targets": {
+    "token": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+    "timelock": "0x1a9c8182c09f50c8318d769245bea52c32be35bc",
+    "dead_sink": "0x000000000000000000000000000000000000dead"
+  },
+  "anchor": {
+    "classification": "OBSERVED",
+    "as_of_date": "2026-10-07",
+    "source_ids": [
+      "ethereum-uni-valuation-supply-20261007-v1"
+    ],
+    "chain_id": "1",
+    "selected_tag": "finalized",
+    "number_hex": "0x18eddb1",
+    "number": "26140081",
+    "hash": "0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2",
+    "timestamp_hex": "0x6ac626d7",
+    "effective_at": "2026-10-07T11:02:47.000Z",
+    "selector": {
+      "blockHash": "0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2",
+      "requireCanonical": true
+    },
+    "height_recheck_response_id": 16
+  },
+  "price_capture": {
+    "url": "https://api.exchange.coinbase.com/products/UNI-USD/candles?granularity=60&start=2026-10-07T11:01:00.000Z&end=2026-10-07T11:03:00.000Z",
+    "method": "GET",
+    "started_at": "2026-10-07T11:16:25.633Z",
+    "received_at": "2026-10-07T11:16:25.947Z",
+    "http_status": 200,
+    "http_date": "Wed, 07 Oct 2026 11:16:25 GMT",
+    "content_type": "application/json; charset=utf-8",
+    "body_sha256": "05e742594836d54dbdd97614c10edc02ac32bad21ea3fecad913256f0d7b94aa",
+    "response_json": "[[1791370980,7.9902,7.9956,7.994,7.9953,94.526345],[1791370920,7.9914,7.9946,7.9946,7.9914,97.581852],[1791370860,7.9853,7.995,7.9853,7.9948,5039.959793]]",
+    "granularity_seconds": 60,
+    "bucket_start": "1791370920",
+    "source_id": "coinbase-uni-usd-candle-20261007-v1",
+    "product": "UNI-USD",
+    "venue": "Coinbase Exchange"
+  },
+  "basis_dependency": {
+    "archive_id": "uni-supply-composition-evidence-20261006-v1",
+    "archive_sha256": "de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1",
+    "source_ids": [
+      "uniswap-governance-uni-sol-ab22c08-v1",
+      "uniswap-governance-technical-reference-20260409-v1"
+    ]
+  },
+  "scenario": {
+    "name": "timelock_excluded",
+    "rationale": "治理 Timelock 餘額全部排除的情境；是否排除由分析者決定，未查證其承諾或可支用狀態。"
+  },
+  "observations": [
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.block_timestamp@1",
+      "metric_id": "research.uni.valuation.block_timestamp",
+      "key": "block_timestamp",
+      "label": "區塊時間（Unix 秒）",
+      "abi_type": "header.timestamp",
+      "response_id": 10,
+      "response_word": "0x6ac626d7",
+      "value": "1791370967",
+      "unit": "unix seconds",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "source_ids": [
+        "ethereum-uni-valuation-supply-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.total_supply@1",
+      "metric_id": "research.uni.valuation.total_supply",
+      "key": "total_supply",
+      "label": "合約總供給（raw）",
+      "abi_type": "uint256",
+      "response_id": 11,
+      "response_word": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+      "value": "1000000000000000000000000000",
+      "unit": "UNI raw base units",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "source_ids": [
+        "ethereum-uni-valuation-supply-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.dead_sink_balance@1",
+      "metric_id": "research.uni.valuation.dead_sink_balance",
+      "key": "dead_sink_balance",
+      "label": "dead address 餘額（raw）",
+      "abi_type": "uint256",
+      "response_id": 12,
+      "response_word": "0x0000000000000000000000000000000000000000005d33fb7f2be573e1fea0bf",
+      "value": "112675581211219518941995199",
+      "unit": "UNI raw base units",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "source_ids": [
+        "ethereum-uni-valuation-supply-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.timelock_balance@1",
+      "metric_id": "research.uni.valuation.timelock_balance",
+      "key": "timelock_balance",
+      "label": "Timelock 餘額（raw）",
+      "abi_type": "uint256",
+      "response_id": 13,
+      "response_word": "0x000000000000000000000000000000000000000000d8ed2c5dc1c3689ffd6b02",
+      "value": "262247996305835021033106178",
+      "unit": "UNI raw base units",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "source_ids": [
+        "ethereum-uni-valuation-supply-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.mint_cap@1",
+      "metric_id": "research.uni.valuation.mint_cap",
+      "key": "mint_cap",
+      "label": "每次鑄造上限（%）",
+      "abi_type": "uint8",
+      "response_id": 14,
+      "response_word": "0x0000000000000000000000000000000000000000000000000000000000000002",
+      "value": "2",
+      "unit": "percent",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "source_ids": [
+        "ethereum-uni-valuation-supply-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.minting_allowed_after@1",
+      "metric_id": "research.uni.valuation.minting_allowed_after",
+      "key": "minting_allowed_after",
+      "label": "可鑄造起始時間（Unix 秒）",
+      "abi_type": "uint256",
+      "response_id": 15,
+      "response_word": "0x0000000000000000000000000000000000000000000000000000000065920080",
+      "value": "1704067200",
+      "unit": "unix seconds",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "source_ids": [
+        "ethereum-uni-valuation-supply-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.candle_start@1",
+      "metric_id": "research.uni.valuation.candle_start",
+      "key": "candle_start",
+      "label": "K 線起始時間（Unix 秒）",
+      "candle_field_index": 0,
+      "value": "1791370920",
+      "raw_value": "1791370920",
+      "unit": "unix seconds",
+      "observed_at": "2026-10-07T11:02:00.000Z",
+      "response_received_at": "2026-10-07T11:16:25.947Z",
+      "source_ids": [
+        "coinbase-uni-usd-candle-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.candle_low@1",
+      "metric_id": "research.uni.valuation.candle_low",
+      "key": "candle_low",
+      "label": "同分鐘最低價",
+      "candle_field_index": 1,
+      "value": "7.9914",
+      "raw_value": "7.9914",
+      "unit": "USD/UNI",
+      "observed_at": "2026-10-07T11:02:00.000Z",
+      "response_received_at": "2026-10-07T11:16:25.947Z",
+      "source_ids": [
+        "coinbase-uni-usd-candle-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.candle_high@1",
+      "metric_id": "research.uni.valuation.candle_high",
+      "key": "candle_high",
+      "label": "同分鐘最高價",
+      "candle_field_index": 2,
+      "value": "7.9946",
+      "raw_value": "7.9946",
+      "unit": "USD/UNI",
+      "observed_at": "2026-10-07T11:02:00.000Z",
+      "response_received_at": "2026-10-07T11:16:25.947Z",
+      "source_ids": [
+        "coinbase-uni-usd-candle-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.candle_open@1",
+      "metric_id": "research.uni.valuation.candle_open",
+      "key": "candle_open",
+      "label": "同分鐘開盤價",
+      "candle_field_index": 3,
+      "value": "7.9946",
+      "raw_value": "7.9946",
+      "unit": "USD/UNI",
+      "observed_at": "2026-10-07T11:02:00.000Z",
+      "response_received_at": "2026-10-07T11:16:25.947Z",
+      "source_ids": [
+        "coinbase-uni-usd-candle-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.candle_close@1",
+      "metric_id": "research.uni.valuation.candle_close",
+      "key": "candle_close",
+      "label": "同分鐘收盤價",
+      "candle_field_index": 4,
+      "value": "7.9914",
+      "raw_value": "7.9914",
+      "unit": "USD/UNI",
+      "observed_at": "2026-10-07T11:02:00.000Z",
+      "response_received_at": "2026-10-07T11:16:25.947Z",
+      "source_ids": [
+        "coinbase-uni-usd-candle-20261007-v1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "OBSERVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.block26140081.candle_volume@1",
+      "metric_id": "research.uni.valuation.candle_volume",
+      "key": "candle_volume",
+      "label": "同分鐘成交量",
+      "candle_field_index": 5,
+      "value": "97.581852",
+      "raw_value": "97.581852",
+      "unit": "UNI",
+      "observed_at": "2026-10-07T11:02:00.000Z",
+      "response_received_at": "2026-10-07T11:16:25.947Z",
+      "source_ids": [
+        "coinbase-uni-usd-candle-20261007-v1"
+      ]
+    }
+  ],
+  "formulas": [
+    {
+      "id": "research.uni.valuation.supply_excluding_dead_sink",
+      "version": 1,
+      "unit": "UNI raw base units",
+      "expression": {
+        "op": "sub_raw_uint256",
+        "args": [
+          "research.uni.valuation.block26140081.total_supply@1",
+          "research.uni.valuation.block26140081.dead_sink_balance@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-governance-uni-sol-ab22c08-v1"
+      ],
+      "rationale": "研究口徑：UNI 合約沒有 burn 函式，轉入 dead address 的代幣仍計入 totalSupply，因此另列扣除後的供給。這是同區塊機械減法，不是已驗證的流通量；其他非流通持倉未分類。"
+    },
+    {
+      "id": "research.uni.valuation.supply_excluding_dead_sink_and_timelock",
+      "version": 1,
+      "unit": "UNI raw base units",
+      "expression": {
+        "op": "sub_raw_uint256",
+        "args": [
+          "research.uni.valuation.block26140081.total_supply@1",
+          "research.uni.valuation.block26140081.dead_sink_balance@1",
+          "research.uni.valuation.block26140081.timelock_balance@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-governance-uni-sol-ab22c08-v1",
+        "uniswap-governance-technical-reference-20260409-v1"
+      ],
+      "rationale": "情境 timelock_excluded：假設治理 Timelock 持有的 UNI 全部不計入供給。Timelock 是否已承諾、可支用或應排除是分析者情境，不是觀測事實。"
+    },
+    {
+      "id": "research.uni.valuation.mint_time_permitted_at_block",
+      "version": 1,
+      "unit": "ratio",
+      "expression": {
+        "op": "gte_uint",
+        "args": [
+          "research.uni.valuation.block26140081.block_timestamp@1",
+          "research.uni.valuation.block26140081.minting_allowed_after@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-governance-uni-sol-ab22c08-v1"
+      ],
+      "rationale": "揭露用：對照 Uni.sol 的鑄造時間條件。條件滿足代表以 totalSupply 計算的值沒有涵蓋治理未來可能的增發；不代表會鑄造。"
+    },
+    {
+      "id": "research.uni.valuation.total_supply_value_usd",
+      "version": 1,
+      "unit": "USD",
+      "expression": {
+        "op": "mul_decimal_sub_raw18_floor2",
+        "args": [
+          "research.uni.valuation.block26140081.candle_close@1",
+          "research.uni.valuation.block26140081.total_supply@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-governance-uni-sol-ab22c08-v1"
+      ],
+      "rationale": "FDV 研究值：同分鐘 K 線收盤價 × 現行 totalSupply ÷ 10^18，無條件捨去到美分。未涵蓋未來增發（每 365 日單次上限為 totalSupply 的 mintCap%），不是 canonical FDV。"
+    },
+    {
+      "id": "research.uni.valuation.excluding_dead_sink_value_usd",
+      "version": 1,
+      "unit": "USD",
+      "expression": {
+        "op": "mul_decimal_sub_raw18_floor2",
+        "args": [
+          "research.uni.valuation.block26140081.candle_close@1",
+          "research.uni.valuation.block26140081.total_supply@1",
+          "research.uni.valuation.block26140081.dead_sink_balance@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-governance-uni-sol-ab22c08-v1"
+      ],
+      "rationale": "研究口徑估值：同分鐘 K 線收盤價 ×（totalSupply − dead address 餘額）÷ 10^18，無條件捨去到美分。供給是研究口徑而非已驗證流通量，因此不是 canonical 市值。"
+    },
+    {
+      "id": "research.uni.valuation.excluding_dead_sink_and_timelock_value_usd",
+      "version": 1,
+      "unit": "USD",
+      "expression": {
+        "op": "mul_decimal_sub_raw18_floor2",
+        "args": [
+          "research.uni.valuation.block26140081.candle_close@1",
+          "research.uni.valuation.block26140081.total_supply@1",
+          "research.uni.valuation.block26140081.dead_sink_balance@1",
+          "research.uni.valuation.block26140081.timelock_balance@1"
+        ]
+      },
+      "method_source_ids": [
+        "uniswap-governance-uni-sol-ab22c08-v1",
+        "uniswap-governance-technical-reference-20260409-v1"
+      ],
+      "rationale": "情境 timelock_excluded 的估值：同分鐘 K 線收盤價 ×（totalSupply − dead − Timelock 餘額）÷ 10^18，無條件捨去到美分。只在該情境下成立。"
+    }
+  ],
+  "derived": [
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.supply_excluding_dead_sink@1-block26140081",
+      "metric_id": "research.uni.valuation.supply_excluding_dead_sink",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "value": "887324418788780481058004801",
+      "unit": "UNI raw base units",
+      "formula_id": "research.uni.valuation.supply_excluding_dead_sink",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.valuation.block26140081.total_supply@1",
+        "research.uni.valuation.block26140081.dead_sink_balance@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "SCENARIO",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.supply_excluding_dead_sink_and_timelock@1-block26140081",
+      "metric_id": "research.uni.valuation.supply_excluding_dead_sink_and_timelock",
+      "scenario_name": "timelock_excluded",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "value": "625076422482945460024898623",
+      "unit": "UNI raw base units",
+      "formula_id": "research.uni.valuation.supply_excluding_dead_sink_and_timelock",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.valuation.block26140081.total_supply@1",
+        "research.uni.valuation.block26140081.dead_sink_balance@1",
+        "research.uni.valuation.block26140081.timelock_balance@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.mint_time_permitted_at_block@1-block26140081",
+      "metric_id": "research.uni.valuation.mint_time_permitted_at_block",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "value": 1,
+      "unit": "ratio",
+      "formula_id": "research.uni.valuation.mint_time_permitted_at_block",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.valuation.block26140081.block_timestamp@1",
+        "research.uni.valuation.block26140081.minting_allowed_after@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.total_supply_value_usd@1-block26140081",
+      "metric_id": "research.uni.valuation.total_supply_value_usd",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "value": "7991400000.00",
+      "unit": "USD",
+      "formula_id": "research.uni.valuation.total_supply_value_usd",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.valuation.block26140081.candle_close@1",
+        "research.uni.valuation.block26140081.total_supply@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "DERIVED",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.excluding_dead_sink_value_usd@1-block26140081",
+      "metric_id": "research.uni.valuation.excluding_dead_sink_value_usd",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "value": "7090964360.30",
+      "unit": "USD",
+      "formula_id": "research.uni.valuation.excluding_dead_sink_value_usd",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.valuation.block26140081.candle_close@1",
+        "research.uni.valuation.block26140081.total_supply@1",
+        "research.uni.valuation.block26140081.dead_sink_balance@1"
+      ]
+    },
+    {
+      "version": 1,
+      "asset": "UNI",
+      "classification": "SCENARIO",
+      "fixture": false,
+      "confidence": "medium",
+      "as_of_date": "2026-10-07",
+      "period": {
+        "basis": "point",
+        "end": "2026-10-07"
+      },
+      "id": "research.uni.valuation.excluding_dead_sink_and_timelock_value_usd@1-block26140081",
+      "metric_id": "research.uni.valuation.excluding_dead_sink_and_timelock_value_usd",
+      "scenario_name": "timelock_excluded",
+      "observed_at": "2026-10-07T11:02:47.000Z",
+      "value": "4995235722.63",
+      "unit": "USD",
+      "formula_id": "research.uni.valuation.excluding_dead_sink_and_timelock_value_usd",
+      "formula_version": 1,
+      "dependencies": [
+        "research.uni.valuation.block26140081.candle_close@1",
+        "research.uni.valuation.block26140081.total_supply@1",
+        "research.uni.valuation.block26140081.dead_sink_balance@1",
+        "research.uni.valuation.block26140081.timelock_balance@1"
+      ]
+    }
+  ],
+  "context": {
+    "verified_circulating_supply": null,
+    "canonical_market_cap": null,
+    "canonical_fdv": null,
+    "other_non_circulating_holdings": null,
+    "timelock_committed_or_spendable": null,
+    "future_mint_decision": null,
+    "volume_weighted_price": null,
+    "cross_venue_price": null,
+    "deployment_source_equivalence": null
+  },
+  "limitations": [
+    "價格是單一交易所（Coinbase Exchange UNI-USD）包含區塊時間的那一分鐘 K 線收盤價，不是同一瞬間成交、成交量加權或跨交易所價格。",
+    "扣除 dead address 的供給是研究口徑，不是已驗證的流通量；其他團隊、投資人、合約或交易所持倉未分類。",
+    "Timelock 排除只是具名情境 timelock_excluded；Timelock 餘額是否已承諾、可支用或應排除未查證。",
+    "以現行 totalSupply 計算的值未涵蓋未來增發：合約允許 minter 每 365 日鑄造至多 totalSupply 的 mintCap%，是否鑄造由治理決定。",
+    "三個美元值都是研究層推導（或情境），沒有寫入 canonical uni.market_cap／uni.fdv，也不是合理價值或論點健康的證據。",
+    "單一公開 RPC provider 回報的 finalized／canonical 狀態，不是本地共識 proof；部署 bytecode 與原始碼等價未驗證。"
+  ],
+  "transport": {
+    "probe": {
+      "endpoint": "https://ethereum-rpc.publicnode.com",
+      "started_at": "2026-10-07T11:16:25.423Z",
+      "received_at": "2026-10-07T11:16:25.633Z",
+      "http_status": 200,
+      "http_date": "Wed, 07 Oct 2026 11:16:25 GMT",
+      "request_json": "[{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"eth_chainId\",\"params\":[]},{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"eth_getBlockByNumber\",\"params\":[\"finalized\",false]}]",
+      "response_json": "[{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x1\"},{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"hash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"parentHash\":\"0x7c351d3064d23da79a68745e6c65fbd413ad02db9987d66d58b97b7bfbcfa72b\",\"sha3Uncles\":\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\",\"miner\":\"0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97\",\"stateRoot\":\"0xb2a9a2be361c8a4ea20722cf58e309516f01e8f0385823faec3e7f253290e28b\",\"transactionsRoot\":\"0x71fea047b5d1c46406ea3ca1d8038e7f280fe64ec7656cbdbf79a2df46a5c0a8\",\"receiptsRoot\":\"0x4b7edc185f97bf9d97b16eba77274986d414a8da67f8ad968acdbc512a55d750\",\"logsBloom\":\"0x7ee73d7fbfa73e9f37eb7f25fdef7e3b773fbff3fff7fe757ea95f2e6f4f9dd37dc9ddffff8b5f232e7fbbbfc1f7f77ff7dddefcffe7bdfbbdffd36f9f3fe5afdf67f5747bdd47bde9cbf90fff4bb7eca747b79a2ff66efe971fbfddb9fdfc8f7fdbe7f1effbfad097e6a8dfaf7bff3ddabf53f2e7f61e58e7dcb9b7ff4f5557f57bb7faff8b75fdf4cbeffbcbafbfbfd7d19d61e75bdfcff7f6765dbebe76e8fbbefc2ff2fbfefafb7f93e1ff662ed3b4d7ff9fff9769efa0e77f3f476ee9fd6eb7efbec7ea3fff74fffcf7b7ffdecebbfee7d71538f7f7c7ef53fafdb2eb87dbf376c96ff3f7e7f775fefbafbfffd33dcef7ebd77fcd6a4bfefabff6a6d57a\",\"difficulty\":\"0x0\",\"number\":\"0x18eddb1\",\"gasLimit\":\"0x3938700\",\"gasUsed\":\"0x1d9af60\",\"timestamp\":\"0x6ac626d7\",\"extraData\":\"0x546974616e2028746974616e6275696c6465722e78797a29\",\"mixHash\":\"0xde43142d2a26ec2be1b946ab0ae651c27470db1926a5137aafcce0492081d994\",\"nonce\":\"0x0000000000000000\",\"baseFeePerGas\":\"0x75804e5\",\"withdrawalsRoot\":\"0xabfc22cfa43d6c9398dd847defda8f90bac7c4177e8563f6cd85b9e6d2171741\",\"blobGasUsed\":\"0xa0000\",\"excessBlobGas\":\"0xb031ae6\",\"parentBeaconBlockRoot\":\"0x5d1db2fbed9b7690c9fd40b6452dd854d36e6cd51945989e1ae5b80d853f4fea\",\"requestsHash\":\"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"size\":\"0x28cc7\",\"uncles\":[],\"transactions\":[\"0x0d5d70144e32292fa50855ddf139e737e6617adbd3d449a14016e4df18a98682\",\"0xd0bde58b8d31f95be506c1cffe684bcefad0adf8f294d2e48b4deb326171af04\",\"0x66fde6c26891060cc96575bc052ef791d29d4f8aff11805584a6f22057a9ec83\",\"0xb97984fce30c6c08f431f47f28986d6f7ff859182daa0272f019629da563353a\",\"0x3bf84980418ca8ea322689a9ddd0e8342879bdafa9205f93770da7252f5f48c4\",\"0xc03ca72c791edf443705af6bffe348123eabb765a10c59f30df306ed52e1e6c5\",\"0x5bd4ea11051959cf1477ad29299a96f6d900959a9a7d985179df41f71d7c3420\",\"0xc1fb67566d814090a154feeafd0a147d6621d6e8b0daabc35d3f090884d1e102\",\"0xa44960b8ff0e41648117712588785aead8fed9a4b53a786b99e2ebcf4c0a9343\",\"0x99cbd803429348bd1f5a8493a9f5942a1f17795ce7e739dc9b4939c04dcf492e\",\"0x5f115b162c4cc9bf659eda0c008f7b9a98d322482aa89266875d04f054862f2d\",\"0x46595262ee27d6de65f524c7a303f10ef91286ce3ea36ec711d52ff7df76543c\",\"0xd03a41c05ff63a8bcccb75984189a96d2580f1d6eb2b8aa1530b8c99502ad3f0\",\"0x5f93de000bca4c1d3308547882193ad036755662a3b9554dd6592859a41117a7\",\"0xa191372589de28ee0ff04d466dc28f590a85af7450759601a21be89a4f7ce51d\",\"0x069d67c19b09c7c618dee98d1b2c47517f854a957165f24f82d4cbaf2fa25872\",\"0xc1e43b91996b99f5824202fed79a788e6c1c5bd0f07002eb55de3d71bef35fe3\",\"0x3fdef91d599e2c9b666795f7b1dc988c77bea71034eec7651008320c6f97fcde\",\"0xc86408827ed81ac87c0929f70c715cb4f9d6b96b5f33add57ca427fe636c0d10\",\"0x5338cb9fdaecd294cb2699a6d4ff3db87a09431380fc249ddeb3574522dbff82\",\"0x3678d3382d1dcb85832288d53c3bfd88ae8296968551d80ae5e0ecf613805905\",\"0xdab2da696ea2fab85ec9206bc76ea9f1af65702bf282d4e0422d1a835c74e0d8\",\"0x4bf000e8e400f89f6b3e94f41d5b94f830085d9ff8dc97128153a3bca2d1c8fc\",\"0x205990273a1e15925f053c56b211c9d3c345a248306d853d263bfc1d1cc6b94c\",\"0x5c193ce9bacbecacf856ec1577a549108bdccc36191aca161bb934c738eb6782\",\"0x4e8801d03735c3827d091d70199d0ed1816d0f99f793a2ccb745dcfd8466736f\",\"0xc95e25320d94e086703949046c8b49df1904d9dd3aac2d4abf35240f0614cfd1\",\"0xc470d9d1a359a9698def80f06e6cd66c8eac98466e2df45bdff4efc5abc737fb\",\"0x72e6ee399ca6f0574824f842a8b5dfb9534770415a9037347ee4a9361722a71d\",\"0xda384aee1d0082a591fdbcf717ac72c30484895d3e3d3eeacb204dbf3abd48ca\",\"0x7a31530b00107863bd50cd5fd27af505869dd4cb5b54d997c63f46f91baabafd\",\"0x5bb3e2b3b4ac922870fca9e30e07303f83b9eedd8e9e0cf3a59a6344a9682677\",\"0x6431c27f38e6e8e41cf33410f214750a79b47fadce06507e304a7e48cf4d1147\",\"0xdcc29dbfaf700e31d42fe9f47279679aad5b64a5bdf3b2c880cd951b81560e93\",\"0x9bb040704164e4e254e3f6e92c66a09fe8f0a26ee0e66ff961014768808dc359\",\"0x526e831771554be7b6b470618c3b512a9685c73f4b1bcda20efa85267798ba7e\",\"0x7118c83885eb84f8586595c1bbf0e371d3bbcf94b392cefb4f3ae6f61b8f7d4d\",\"0xfe1d912debd094f5001e6842fda3bdaf5e3c9937297a157381bfa6df363f6fd9\",\"0xe497acb9259af353658bd36bfcfcbfbdc790b0dd21ec3ed45f9b0b0c27659ec3\",\"0x44bb66beff5035cd21a559c509e49a0bead1f1a109465d8730402799db8353ca\",\"0x6c6e6a088df9e47a9b37bef09eb75c657df55c58dc0541bc11109ed8d14236df\",\"0x0ae84debd89cc0605cdbe4475f46c07994e19a99c98e70d594b709cdb392664f\",\"0x37c63e7d6fd277e6c3718808dcaf96bab6305c6d4d6f3fc0eb8f25239d72adf8\",\"0xe47168b8ad4526f2a9897ff9f74300e0a31bf8a70be0cfb9c458bb329ed1e8e5\",\"0x1591aed0776f4cd96cf7029cb961acb1a291fe21953a5b2cbdd1d2ad787b40e9\",\"0x032f79eccd61db5e61e233a48af562d8df88473209d09e5c1fcd0fc5c23f3f94\",\"0x2f0711b085f1be2ae8751da058d7c662f65498b3e3b20c9f071f00b554fb78bd\",\"0x3fbfe8cf7558f39b41d56ec7d42a1e3c15829ad4a7233a67039c65d69e1f2723\",\"0x42c678b9ca3bba0809ec90e5c0e467abee77f678b75963f7e9daad3902f9941f\",\"0xad66af985f6e89a256e7e44b9a9e110aaf68d742e3bf69ef511d61ce1f4baa4d\",\"0x8948ffda04a9b8d8955ad8f1b0f306a165a6504ff79e1feb44e612724b5188a4\",\"0xc4cf045e3fbd120a297e4021303aeb8cc07148da759a8cd9f64de77cb738b408\",\"0xeb42a4d2bf4d7a806d6167a4cf201b5c3e36cea2bffde9561e4914178b7fabb4\",\"0x1fbdfe036de519f9fe89226035b102f2bf4981127148d1352c1ac872ba6b45fc\",\"0xb22331ba5c9f55d4aff3b020792f96245095cd4c204aeb3b06c6adcbcb9fb19d\",\"0x5d7a724bc501f0fe93ef8c3a888052403c2bde2f6053729730ba0d8d918ae53c\",\"0x5dd891a77f3133c76636cc1d8a6a50d89ca6b28895b7bae2263a1434221d2333\",\"0xda3c73a59335ce18ec14f45b6dddf9e26a8b9af9af71a5133a5c63023f3c07b7\",\"0xef776f5656b09280be58d652c4c4795dbf49ec2bf8cd36a925d0bb38a6aa05b0\",\"0xba2613559bdd36a1272e77714a87e43c67d14db95c64ef283aae0b14e36303ff\",\"0x2cae84b2d6ac93c9230dea45858e38135ab64010a502af04a79a95a0ee9a1218\",\"0x2fa66586211fb5f9dc8bc651b5cf3d8931699807028bf7a6c40b1190337ff28c\",\"0x1d9a3d57be31d187a8d38ed19eaaa9c7c9f7fab39fbc63584dac3ede824d3190\",\"0x5cf6d21bec900177055b1a3f94a249b2d9c6a2dc2b7f08e78cd32e52b3349f97\",\"0x1373abcd0ab9aa08fa1d4205a9160071d4e82a33df482c9b3dfce1e92dec4acd\",\"0x815bb954cb53e2d29e00664f4ae425588ccfcf413f95d37ef899753fe431f281\",\"0x424c70fe777619e2ff56816af3e8b7ecef810cb8cf79b5da9cbbc5508dc41966\",\"0x5b27c2fec7436956b4676775e7df64fa9330e4cf6052e60f9e048a75fb6b8cd7\",\"0xd222762fa90f0d60591b66bd51eeb2d8ca33ef703a81af4f97f1748a1c5ed86b\",\"0xb099fc960158755e0702671e6c0b5925f64943eda3c1bbe92babdd98d5926927\",\"0x5dcaa10926cfc029c4807833ca769eb013396526665808e162b4dff80da6cdb0\",\"0xdb5396ad7337d9627b9bb04ed1afed4c16a0314e2f0fe8ec6d03c5e4fb3fbd1c\",\"0x6a888758fa3f97c5b75920a0efef4462360be9a944ca9e4955a3efd770ccbd38\",\"0x2186a6d541b08b0989cf86dae285fac431430063774d8a4a5dc4aa075cf1630c\",\"0xb0694130f6c884f900cc6ee7f5acc299fccdf2edd51d08d8ea5fc97a3606ef59\",\"0xbb20b502161ed267432374adb966629403dfee0844ff9b320d417cdadb6dd4d6\",\"0x4727a54bfdf7eecb56f3d09e342ea5ff8aa52a662dc72cee7c6eded95585829a\",\"0xaebe7658e3b2d20835bb51f53f8a8c206569df87085f2a2a69fc50b52bf83bfe\",\"0x62eda0ed12d977c5ef24388954a62190af3c2d51847f7640f2c382e5fdde596e\",\"0x6102c298f7d2e84f58e76bf79aaa9f144d9ac74abeb5347f841ba3e6283bdf4f\",\"0xf834f632e674739dd5b94726998316defc300484e22b079537e3b9ecb8f31e17\",\"0x83dd3ca409560faa9d1afb13b8387e6abc9073e3648d4b595a70c540d6e4a39d\",\"0xc5b6ccb16b41566baf6c4b613f588e8a7232b4856710d326ca1a033a165a737e\",\"0xf89d2f7471b3fe82bacd404a52e1034de086a2393da91e662bb71460a1c8f133\",\"0xbedc18d923daf15acab3c436c4a236b1171441cfdd0ed433b28d3a24d6ba542c\",\"0x194c929e1c6da28de06736312bd17421c6ae39b341cddbb86b33aea6119b9f37\",\"0xeafa09e8f07d76acd182b9abe351b2fe940243c4e88a146016a3bfc4b0cbc29f\",\"0x697ae04d2fa30a5097558f6d7a685782b9bcc339b8afde5616bd3e1da75cbec5\",\"0x2edb90f64327c26de88e98988208275728f9bcc649a396e9a23fcf61e1194896\",\"0x6890ed701117237da7726b3f92a987490e039f8298b1449947fb26c3872a9fbe\",\"0x948d1bb1f6967450efb9c0ba523ce381e751f142dc6fc1fbc8bdbe7d2c3a8a30\",\"0xc1183cc027cd1c6dde704878bddca3b16c2f5cc40334bdaefb80b2aace68b94b\",\"0xcd42d75c298c5fe59d778043c2a62a57ce0b1685b8e934a84deeeb1dc305b849\",\"0xe62dc74616181b02671ef72127eb09121742680e882e02622b2f274d1ecceaeb\",\"0x09a3fbc7cd2b0793ca89985824d1055250c2dbea2d17a546caba750c11dbe184\",\"0x0705bc422e3ecb91cad3d81f7f54660ec1afbd398542dfc97bd6f00bed0a36db\",\"0xc6d2e371972786ec9e1564f3e1fbbf402e3c2fa1048a10effb187549cef4f581\",\"0x63ef723044607c9e0114a0b714f02372d1d805f27ab5f192668c0499a616cf2e\",\"0x5d1876f1c60b8169112b07f3f34201cc8322a61760308e526785e50449b4075e\",\"0x75bd1da49e734de5b04d2cefd9cd19a584f93c00eba914170a61520e0df4232e\",\"0x16906d0cba860cbff61924bd51b3082e40330f039cec230ccf6456c48287778c\",\"0x0bb9e80f67d68e1f65d798a16e88cef26de0799dfca8ccc81c39539325705cc2\",\"0xe2b59a8a6738435de5c2ea446c476436ae57479b5968ebc8bec3ee37f886a596\",\"0x01d92b0a13d47927610a2f6d44eca37f35cea9f567bb5ec28727fe58e8057619\",\"0x6843276729c88bb54a1d99fd78ecad15ff93069606e9ba7edfa11d7b5036d0cc\",\"0x2c2398c805c17d36d7aab70ee31fbd1944f7bc096b79b1a89215cf09226095a5\",\"0x64764182f762192a58732961118f999e8f4cc1246c93b7619acd3b47dddc493e\",\"0x9fde50a3d09eef46740eb49e144618ca4a4b89d304f0dddffa7425089058c30e\",\"0x4b7c635a4b266a10ea55b75acd686a01509d56dc7b287f2d924d420561978758\",\"0x58c895f09246449071e3a2c688d35333c24112153b54967650d278272fa91ec3\",\"0xa40744d0f6d5dbd71a58d244f1a045e30b31dc7c8a4853a5941c67bb53279671\",\"0xdeee67dd77a1443cfb7a4720d67273b49ea740c70f2483923ae594106f9a59ae\",\"0xa2582608c5095c41778684b16c86efe0d3e270c5a4e79ea5451fb9dad153f1dd\",\"0xd1a21608656ee545291662d1d350488891e9ea9dbcb5dd6a80e6cec3fb9eea90\",\"0xbfbbb83160b962f495cea22a0fb9ffb37c7327fabd52c513e1550185e99b1d4c\",\"0x96f5784ac6362fdf8c5abd4ff4df9622851f4bd167961b6098ac44e75de19bba\",\"0x202dbb0ce29a533e9ba639f519d619625b8dfd7f02ad5803b966af2b9745c397\",\"0x80a862bed27d0662cbbe4c6ba75e5224fba8907b104d72898666aa5bdb80deed\",\"0x594ff50aff9b88b09ce9944c1318780f421c573d9e40e862113c911199f93f89\",\"0xa55a8f7bd28c0aa2040a392dc37b3013db5be3b2752e34c089af6ae61d9946dd\",\"0xe9870e73fa242920aa86732aa997637789c0971d97e6c5c07e9a877404958343\",\"0xb61ee4a38784be603d2d4b13bd353e7d87fd7213c4c4ef85661e7a2edef9c02d\",\"0x9513d08912ed9eb4ca1a098db39b0d7cb4b9a76f42debed8c9915a38cae6aa37\",\"0x3946c81d50944b35d60b676180caed8b92202b8c7907c831b8a132bfdbde33e3\",\"0x6b979fe1e67aa727119b8d61dd2f998eecfd2bd86e05c764f2f700f552fd18b8\",\"0xd6da8fbe77f42a0d8904a1a329af0294ff7f4af2d97cba7a37ad5bcb657cdea6\",\"0x18db33231e6b49f1e4024709cba01032ed8161159bbd0fa250257535ef3d3264\",\"0xe712f5f319905e888fe57d2f298034326e6a0905e88c8c74576868286d049bef\",\"0x08f7150444c1a16268c2ab0ca9a0f448d3f9bda873aae38366d9803fcf201309\",\"0x96a2f689fe09fdc1b3ab39d34640e87b26b0c1885dba78c537f74503b2aec35c\",\"0xb773f2c5317c6c2099aef4776069418cdaeb76b7cc04d230f93971bb12a32879\",\"0xac11dbb430fe5654ce76757e286aaa1a041a6cb4a3322799c706aceac5b10338\",\"0x2db9ba729d969292f6153a86da67899939408fe7e894443da42462edb10fd10f\",\"0xaddcf7c48bb0c2f8c926932c08f7dee6d691c5c7a1115a10e762f9bf468c2772\",\"0x874e03a07bb8c28596c73bd83d801ad92453cf31597c29c0e554d0631a93b5be\",\"0x2a7abf0dffff95aa14d0aa3507026feb197d765dc2bc153ed1666a02b687a155\",\"0xe3dad2327c0b06b8386368c2078120b33dcc6c49ba150c240a0ea7b32ed9c3bb\",\"0xe65d69aa094ab5b868f8b1304169b23d6500529d905b9df0c0954d37a7e61b94\",\"0x670af392871ff4a8248ba50e819ff18a2dcf8454679c65c8a0eb2fbe730d258e\",\"0x40bb52725e9f6b386ea53e531b23e20f116f3a292d293863eba64aa98c5d898b\",\"0xa5ae1efb1a01f7afd2d5e0c74d35fbef4dc0f478490811609877abe816c70ae8\",\"0xef6e88aff8b350c2553b59d2adc2ff755985b7b5023f2bff243b16ed18983bff\",\"0x130cfbe89b6a3eea7846b66cf5f8cccbea92a2265d96cee1ca053b47c36204a7\",\"0x834c92af743267fd12958a1dfa155367f5c4094670812c1f61baf81262d68114\",\"0xa5692ce430a19e1d8ea5737c219c8a89cf4200519056fabf33ad23e0ddd51cff\",\"0x75a41a3f6d3a0a2629dd2cb4e76eef406d23c993e44d44b1634eb91e1e6a32d8\",\"0x631abaab6b2390829d87f10a492f897e2bf82d4b4a032d002339fc05ce0fa62f\",\"0x5f78f30bda01fd61003ce5ffb3502f55d4ac791d24f5214f74a609b079ae80ce\",\"0x03518de182dd2fa70c2443aba32a2962111ce29cce8d95bba72e2f9c105e6f52\",\"0x1fb66f32d26080ce0c3c53edc1926bbb1cd0dd221bec76dc21ea11f205a20c9c\",\"0xfb5f0695d658728dd9484050193d6d578c6a74f6d9aed775e121d89bb81f13c4\",\"0x06983e57b2cef3ecec7c16a1ef37bb24b31be90b48b0b2f356522ded66bec52b\",\"0x69252e71eb3ad39634fd1dc2d04a5a45825cfa0196479ac1b21a9992ff4e14d0\",\"0x409e9d7f7cab85ef5d04f81e81bed8b83a12402c6aabcecd84f2e6a6d88f4693\",\"0xd2bac8888c8320a47d5794ff58caf69b043ca3f94483921fe69f696446ca593f\",\"0xb206d2438bf17792c1d66d7771efdcc0dfd7e7094f86bfb12abec741e5c6c203\",\"0x28460836cb091cdf18554e0f2ee7a75b74a2d5406e306f086feda9ccbd7a0d47\",\"0xa632a8d77149b78767617c683dac7c607c32bd47fb256814e0f06e42dbf09735\",\"0xa3f8d80e60c7f957824bc4c1e846341c4835653dc7371ed9720971786834099f\",\"0x3f931e2be908e98c37955c1b5f23dcb9fbdb275abde6f8975843757533755f79\",\"0x1a466e3f89704e33241df6d0b77675085b86197ab5049d7397f725ab22e922c8\",\"0x0cd70e0906cbbd70dc1774d1f8d6cc5dd79084211860c1420af0ba43bd2285a0\",\"0x03ba1b66015d888dfda0e72470e6a280c22c46f78e5a11ca5bbee68926f953e0\",\"0xd5a672aed7fff81544afcf5baa4c2bac9476db2f129404a73dd44dd4404bdf3e\",\"0x36bc785d568aef6c2ef727aab2157d53a9764c9dc415c3719e5da166bc7fbdbb\",\"0xa444778cd2539d1ee50fe91d3799a7f5fe9b708709d1d721b6feb5a50252a580\",\"0x2e4f264a3b51463d181b523be5cfc55864ce5bb77dd787ab65aa35e9e37a8150\",\"0x5faa4c07535655d9062845b737516abdfa854a84e4c61a7826a368c57c26b495\",\"0xa80d0b15c754d8ef097f59e3a5ea34f0486cf68ab206c095f284ffcecb75b358\",\"0x21688e592ea758b86a7342bc748767e2723aecbfc2a7db5790cdf1abd7b59ca5\",\"0x21917bd0ab3143926f74972cde1dc292f22c95083714f95ef831c029ffcf134f\",\"0x98cf02a89d8ca8a4274fefb9293824482c55f7acb2b9d197134e51b9b49ac02b\",\"0xd064096a7ab36c6df5cb1b48a7349f93e8ca420f6a1c5a6fec63e9bb89bc4de9\",\"0x8fb86b0459c2011fefd7cfac65b4542c6bc01f7741c67a0dc53fbb2db00afb1f\",\"0x77136f952a3fab102fe3e93bd0ffb35eb6038537ac5e3a12567288b15e4ec383\",\"0x436c4f247715c6fdb87b4c5406f56f329392be9405f6653e2f07dcd101f2314d\",\"0xc6e1321961d53f5a5ac305d1d1bb8eed7ddb4fcfb7ec10b5aec3cfb7f73f18fd\",\"0x624023551d19c07b7f922c85a172e17284ff9bfb70c781995a9c5d105033dcbc\",\"0xf1c08c8fa967206aa9cc222be9c688f7beecd8353aa913344da554bfb2ec5054\",\"0x0fca5d9db57bc1bdc0daf9d7c9d2c9b4bc5ed9c175aad80970e0cf829974b878\",\"0xe3bec4338e8f1e69537e342f3653d67bd3aef92574342d24523063e185011cb5\",\"0xa9e394bc1c7357630654b849a11e7c5f6843382abca63a14eec3c6bdc26962cf\",\"0xbafb6041cbfd2e31179cfc1314ee98bdf0d9ded8ed1563848992a4d77db26c2e\",\"0x883840bedab728ba80a13e4749d02d0a4171f15c0c7667fcc91eb209b717546f\",\"0x62fe1e3a77797aa293f24338809dedee1a14d7548c605ae340f9698131f37c0a\",\"0xd8c54e30076db42268383816a0c36ab2c46fa676e92b29f766855cde86d90c50\",\"0x895098c79e97d079b581ecd7a1b5c93921b2e4754afa362c1cfbc483a116e3c2\",\"0xf1b96df66470770ac5ac6924f7de189e2d2f0e2ad2074ce68740f0fcc2d08130\",\"0xc783c9fc2c3fa349bce33f3963d07ab8613c50084b3c87a10ad75cd2354b6ac1\",\"0x8440a323eb77b58e06a5ec831db45924a31b52bcca11be17c342fa76fffd6aa3\",\"0x33f5133de6c1f610f2167bfd4224975ece90cf2a7d4aa7cebdb59c3e6d4a20b0\",\"0x0c039b374433864e86405b86ff33b2cc06aa5c22d92b0caf4656cf2313f6fc62\",\"0x2f428c93b1849ae59e540a17e0df67de64a5c56c9e4222dbcac8fbac07fa8ec9\",\"0xa6cec9a42c743007901af550d115e9be1d690e54aac029ec8cbbdd8ad31640d5\",\"0x98f2f583a60dfca0634ff8b4fb665539b11e97dd60a1e025edc43bc8a75178ee\",\"0xcca43ef73a3386b1f2443be45e14f7b9581ec24ccb16cd156d8b61adb5862b81\",\"0xed161c5ffa0d887e797f81e4c0017ea67e9268165aa6f9c6ea5434071a078d7a\",\"0xf25585cd26b52fe99e624f203b8596289e523f1733ee3b6353487ef1574eb5c7\",\"0xf2e8153e4db7bf3aee1314cf8284ca5124c4a8a0419050bfd69d329feb300bbb\",\"0xc10c5a5cf4388712b06219804449907061eb5294e74e20fa2517c718d5fbf2aa\",\"0x8260a185b18fd7626adc9876b0bd9c4881b7079a81351b6ce7fea944cfdd4379\",\"0x442f1c038dbcb69d0a78ba2aa7ede746739d41ad578293c47d71cc7f980368b7\",\"0x4731205aa51a09f7df7f42b2f08139b69a1a50f53361ba41f15794e3226acda2\",\"0xfa1f05a9276f07c2c47e0ddec665b1f21a203e5b6b6b567fc27d9fd34cea8855\",\"0x0f65f0aa64269d7101ad1bc90a730e0038c9423b74c0c2456fa7944071a85b81\",\"0xd5ab217e27460b3c6461378bcb39e553f67ac05164d89a9e519d847b20d49f00\",\"0x633e7d3236ec9dad145a24ea846a7562ef257a70c4a57c5d4f246a381bfb3d8e\",\"0xeab65aabbf5ec822bde8cc2072bf9cf4963eb17f31dd807da4ac25627b627858\",\"0xdfa3c3502df4edcdc4a0465e35fd2730e0509727b9da26223fc7e60c335b73da\",\"0x08ed3fef896cdc1de6fe531dfaa79a78863d53762c15d0359bdfa74c2c05240d\",\"0x329b07ab5d79c30d1d9f09ec51878be2e1d8d7cf90a06186fdfb47f064dc4346\",\"0x7d2e2c81427f9b8be0afc7ab760a530c889d836542be9b010b9a30d66f7f9615\",\"0x1f53cebd0480149bacdf510a71c6013af3dc36d2427b96d7a2ddd07e6c253a02\",\"0x02f7c9c10e8b044706ddeaaaad4c91fe552f1003acb36437aa6f8d72c4adb245\",\"0xa43f9f15037a5233c1fad6b12b9424aeb664d93f6650d0e39d2659096afd6b24\",\"0x40d86a1e8816243258e3f7398f42dcfaf279ce67ff1b8c406a808ba3a23504d2\",\"0xad74afb2e08e474bb158822df64d8e047d347add03eac103fb65c45728304a20\",\"0x168102521671758046f5b5a8d1f5eac847d8dc24f68ff6e760c6dbde902c03cc\",\"0x74b4142e4fde52e71424ce079817ecf63052a4da4fb510e542d409c705d4b3ac\",\"0xdc3cfe93a815653dde355e1922bae6709f5ec479a817f3676e0e2354130541d5\",\"0xb6b6007eae7b0183c2c4b754a00e9b121667bc7b5f2699cdfe77ce3c97f7b476\",\"0x4a262c3ea20018534f6327f88d1583717186e2e4cdbc79934ec9d5c71ca48924\",\"0xfd8752ebddd49466996850254f9b42d9baa90846f926ae0dc3dfaf2510112317\",\"0x6c43d2f287deff0d4be8f0e6ed4137e3f39f3242408c4d87ffa3d7d3d0bec1e7\",\"0x87ad57f90c4c8c255493978549d7fcf56d3a18a94915032a953d213799590197\",\"0x7211c87992269983b8e9f1369ca1cd296e5a329f074ba2255c5f27022f6fe73a\",\"0xa44b5e1342c8766bbbb98f9dc9a8b1ea8d6103dab5fea15a032ed944fd06e255\",\"0x0e40e71c7909cf8d9fbe813dd60c242b77aa69c080d0b2dfc5c7af51a7a403f6\",\"0x7e1b7640c86116ad7018854e553abfa41774e76028ece15211c4f8edf141325c\",\"0x03a45a381124419939f54c0887b1fc2060d64a0dd3e2e68d2cd3ba685791f5e9\",\"0xff6ae4c87354f38099c3302be0b8e743291d36b3862c53f4c8d5dc11e814a4c9\",\"0x7c85fbeb0ae0dc920500ecc35256106bb4a42ef747a22bef9b94b9b64a202931\",\"0x296b8cfba4cbf45ed8129c733557a0f0798fd5a991a6787689f0ed214663692e\",\"0x0bcab67b9b5a35c262162d7fc39f9c6af3c9b7302e1aaa6c057b3918d7072c44\",\"0xd1b5533ffabc7985d8ea9bcd806bd85e614abd81c8ac6563917e6e22f54c32e0\",\"0x29f392ef67f05daaf81e18e69e4142d28ab3b2b67d08fb355393072a2c6ad581\",\"0xb5ee2616c26ecd0007285b5f1dd113425ca65b1f4a55b767b5b65b570f62d9e4\",\"0x839db5d2d107a56288a365d9e924c353c12ea8e97cdb2d86ef0186655bd7ba44\",\"0xe11d94586bfd608e86150073d00ccefd9aa74ed66342ee91c9cc26374d7a9d74\",\"0x33c838aeb74da9506c355d38d1eadd55ae20f8b8687f710962b510d5baddcd65\",\"0x248ca9885d7f39640d5b0dde51a6edfe325d91575cdadabc2e02283bcaec0160\",\"0x11c8cbd626daa8d6e1f24e9e0c9aa7efe18fdb82ee829f4fac58be3fabbdc081\",\"0xd0859f395fdd238e980489bf81e05329eae36f598c43533d794d3cc2f115ca97\",\"0xe407e25633689b1fa61de889ef84370094f23c6ae1fa2e6e5f5ba353a596a67f\",\"0xbdd76eac74169b4edc1bde2e4e2a773bf069cd79830230b5f27f955f58b294be\",\"0x88bc6f402fe1f78d516cb084047484389b389717e8777d126df19c4d12ec5e7f\",\"0xa79287d67c0eea33bc171095d0593fa3ae9088a729c58c61d9c1fc9941eb05eb\",\"0xd9f725895510439fc3a77ede5fd92e1af118667eb62b53582186049bfbba9067\",\"0x217d0fb860244cafda08de9dcc0c9afcc2f1b4c189b92b0394893b1b74f65fc8\",\"0x00cdc61d0c9f19511b9275da9b180daf65714566267dcc9a7e5eeb4971de5e99\",\"0x76c9b9fcc0e6af2eb5d358d61a302a94b6b91ac12b2fe445d23747b02c100279\",\"0x6bffdeaf5ea7cb1366b84656dbbefbc45aeed7476ee66c11ce3a00b9547eecad\",\"0xe98b796fefa995f4605be238003035952e0cf345e5bad6424f62d8583e9e46d2\",\"0xcc99d49e74b9892967aa728abf5c07b4f968ea06501f22fcde55e09f2e0af991\",\"0xbd7e2b4221c4dc6f5b7df47cefd17118f222d29d3f1cb448fbc41a9a42fc3f51\",\"0x4e5b3d5529c6465eca92ae2caf83325ca41c0d4c3e4700f94a5e504d15ea6982\"],\"withdrawals\":[{\"index\":\"0x8aeedfb\",\"validatorIndex\":\"0xbbbc1\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd52caf\"},{\"index\":\"0x8aeedfc\",\"validatorIndex\":\"0xbbbc2\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0x3c73caa\"},{\"index\":\"0x8aeedfd\",\"validatorIndex\":\"0xbbbc3\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd425d5\"},{\"index\":\"0x8aeedfe\",\"validatorIndex\":\"0xbbbc4\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd48c10\"},{\"index\":\"0x8aeedff\",\"validatorIndex\":\"0xbbbc5\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd4ec2f\"},{\"index\":\"0x8aeee00\",\"validatorIndex\":\"0xbbbc6\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd51bd8\"},{\"index\":\"0x8aeee01\",\"validatorIndex\":\"0xbbbc7\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0xd51e46\"},{\"index\":\"0x8aeee02\",\"validatorIndex\":\"0xbbbc8\",\"address\":\"0x42e14d7968db2bd8607c392f83085e00174e66f8\",\"amount\":\"0xd53ca6\"},{\"index\":\"0x8aeee03\",\"validatorIndex\":\"0xbbbc9\",\"address\":\"0x30aa36505e30b23dcf95571491de7e57a7e4d3ef\",\"amount\":\"0xd53bcf\"},{\"index\":\"0x8aeee04\",\"validatorIndex\":\"0xbbbca\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0xd4de16\"},{\"index\":\"0x8aeee05\",\"validatorIndex\":\"0xbbbcb\",\"address\":\"0xa1c52afa77d87796b8cd34f4801e062fb54e7df6\",\"amount\":\"0xd4d41e\"},{\"index\":\"0x8aeee06\",\"validatorIndex\":\"0xbbbcc\",\"address\":\"0x30aa36505e30b23dcf95571491de7e57a7e4d3ef\",\"amount\":\"0xd51416\"},{\"index\":\"0x8aeee07\",\"validatorIndex\":\"0xbbbcd\",\"address\":\"0xa1c52afa77d87796b8cd34f4801e062fb54e7df6\",\"amount\":\"0xd534f0\"},{\"index\":\"0x8aeee08\",\"validatorIndex\":\"0xbbbce\",\"address\":\"0x9bd5e460b00cd6bd0f27bc2e96c8872cb2080d87\",\"amount\":\"0xd51ca4\"},{\"index\":\"0x8aeee09\",\"validatorIndex\":\"0xbbbcf\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd4d82d\"},{\"index\":\"0x8aeee0a\",\"validatorIndex\":\"0xbbbd0\",\"address\":\"0x9bd5e460b00cd6bd0f27bc2e96c8872cb2080d87\",\"amount\":\"0xd4c5fd\"}]}}]"
+    },
+    "state": {
+      "endpoint": "https://ethereum-rpc.publicnode.com",
+      "started_at": "2026-10-07T11:16:25.950Z",
+      "received_at": "2026-10-07T11:16:26.017Z",
+      "http_status": 200,
+      "http_date": "Wed, 07 Oct 2026 11:16:26 GMT",
+      "request_json": "[{\"jsonrpc\":\"2.0\",\"id\":10,\"method\":\"eth_getBlockByHash\",\"params\":[\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",false]},{\"jsonrpc\":\"2.0\",\"id\":11,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"data\":\"0x18160ddd\"},{\"blockHash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":12,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"data\":\"0x70a08231000000000000000000000000000000000000000000000000000000000000dead\"},{\"blockHash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":13,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"data\":\"0x70a082310000000000000000000000001a9c8182c09f50c8318d769245bea52c32be35bc\"},{\"blockHash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":14,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"data\":\"0x76c71ca1\"},{\"blockHash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":15,\"method\":\"eth_call\",\"params\":[{\"to\":\"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984\",\"data\":\"0x30b36cef\"},{\"blockHash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"requireCanonical\":true}]},{\"jsonrpc\":\"2.0\",\"id\":16,\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x18eddb1\",false]}]",
+      "response_json": "[{\"jsonrpc\":\"2.0\",\"id\":10,\"result\":{\"hash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"parentHash\":\"0x7c351d3064d23da79a68745e6c65fbd413ad02db9987d66d58b97b7bfbcfa72b\",\"sha3Uncles\":\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\",\"miner\":\"0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97\",\"stateRoot\":\"0xb2a9a2be361c8a4ea20722cf58e309516f01e8f0385823faec3e7f253290e28b\",\"transactionsRoot\":\"0x71fea047b5d1c46406ea3ca1d8038e7f280fe64ec7656cbdbf79a2df46a5c0a8\",\"receiptsRoot\":\"0x4b7edc185f97bf9d97b16eba77274986d414a8da67f8ad968acdbc512a55d750\",\"logsBloom\":\"0x7ee73d7fbfa73e9f37eb7f25fdef7e3b773fbff3fff7fe757ea95f2e6f4f9dd37dc9ddffff8b5f232e7fbbbfc1f7f77ff7dddefcffe7bdfbbdffd36f9f3fe5afdf67f5747bdd47bde9cbf90fff4bb7eca747b79a2ff66efe971fbfddb9fdfc8f7fdbe7f1effbfad097e6a8dfaf7bff3ddabf53f2e7f61e58e7dcb9b7ff4f5557f57bb7faff8b75fdf4cbeffbcbafbfbfd7d19d61e75bdfcff7f6765dbebe76e8fbbefc2ff2fbfefafb7f93e1ff662ed3b4d7ff9fff9769efa0e77f3f476ee9fd6eb7efbec7ea3fff74fffcf7b7ffdecebbfee7d71538f7f7c7ef53fafdb2eb87dbf376c96ff3f7e7f775fefbafbfffd33dcef7ebd77fcd6a4bfefabff6a6d57a\",\"difficulty\":\"0x0\",\"number\":\"0x18eddb1\",\"gasLimit\":\"0x3938700\",\"gasUsed\":\"0x1d9af60\",\"timestamp\":\"0x6ac626d7\",\"extraData\":\"0x546974616e2028746974616e6275696c6465722e78797a29\",\"mixHash\":\"0xde43142d2a26ec2be1b946ab0ae651c27470db1926a5137aafcce0492081d994\",\"nonce\":\"0x0000000000000000\",\"baseFeePerGas\":\"0x75804e5\",\"withdrawalsRoot\":\"0xabfc22cfa43d6c9398dd847defda8f90bac7c4177e8563f6cd85b9e6d2171741\",\"blobGasUsed\":\"0xa0000\",\"excessBlobGas\":\"0xb031ae6\",\"parentBeaconBlockRoot\":\"0x5d1db2fbed9b7690c9fd40b6452dd854d36e6cd51945989e1ae5b80d853f4fea\",\"requestsHash\":\"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"size\":\"0x28cc7\",\"uncles\":[],\"transactions\":[\"0x0d5d70144e32292fa50855ddf139e737e6617adbd3d449a14016e4df18a98682\",\"0xd0bde58b8d31f95be506c1cffe684bcefad0adf8f294d2e48b4deb326171af04\",\"0x66fde6c26891060cc96575bc052ef791d29d4f8aff11805584a6f22057a9ec83\",\"0xb97984fce30c6c08f431f47f28986d6f7ff859182daa0272f019629da563353a\",\"0x3bf84980418ca8ea322689a9ddd0e8342879bdafa9205f93770da7252f5f48c4\",\"0xc03ca72c791edf443705af6bffe348123eabb765a10c59f30df306ed52e1e6c5\",\"0x5bd4ea11051959cf1477ad29299a96f6d900959a9a7d985179df41f71d7c3420\",\"0xc1fb67566d814090a154feeafd0a147d6621d6e8b0daabc35d3f090884d1e102\",\"0xa44960b8ff0e41648117712588785aead8fed9a4b53a786b99e2ebcf4c0a9343\",\"0x99cbd803429348bd1f5a8493a9f5942a1f17795ce7e739dc9b4939c04dcf492e\",\"0x5f115b162c4cc9bf659eda0c008f7b9a98d322482aa89266875d04f054862f2d\",\"0x46595262ee27d6de65f524c7a303f10ef91286ce3ea36ec711d52ff7df76543c\",\"0xd03a41c05ff63a8bcccb75984189a96d2580f1d6eb2b8aa1530b8c99502ad3f0\",\"0x5f93de000bca4c1d3308547882193ad036755662a3b9554dd6592859a41117a7\",\"0xa191372589de28ee0ff04d466dc28f590a85af7450759601a21be89a4f7ce51d\",\"0x069d67c19b09c7c618dee98d1b2c47517f854a957165f24f82d4cbaf2fa25872\",\"0xc1e43b91996b99f5824202fed79a788e6c1c5bd0f07002eb55de3d71bef35fe3\",\"0x3fdef91d599e2c9b666795f7b1dc988c77bea71034eec7651008320c6f97fcde\",\"0xc86408827ed81ac87c0929f70c715cb4f9d6b96b5f33add57ca427fe636c0d10\",\"0x5338cb9fdaecd294cb2699a6d4ff3db87a09431380fc249ddeb3574522dbff82\",\"0x3678d3382d1dcb85832288d53c3bfd88ae8296968551d80ae5e0ecf613805905\",\"0xdab2da696ea2fab85ec9206bc76ea9f1af65702bf282d4e0422d1a835c74e0d8\",\"0x4bf000e8e400f89f6b3e94f41d5b94f830085d9ff8dc97128153a3bca2d1c8fc\",\"0x205990273a1e15925f053c56b211c9d3c345a248306d853d263bfc1d1cc6b94c\",\"0x5c193ce9bacbecacf856ec1577a549108bdccc36191aca161bb934c738eb6782\",\"0x4e8801d03735c3827d091d70199d0ed1816d0f99f793a2ccb745dcfd8466736f\",\"0xc95e25320d94e086703949046c8b49df1904d9dd3aac2d4abf35240f0614cfd1\",\"0xc470d9d1a359a9698def80f06e6cd66c8eac98466e2df45bdff4efc5abc737fb\",\"0x72e6ee399ca6f0574824f842a8b5dfb9534770415a9037347ee4a9361722a71d\",\"0xda384aee1d0082a591fdbcf717ac72c30484895d3e3d3eeacb204dbf3abd48ca\",\"0x7a31530b00107863bd50cd5fd27af505869dd4cb5b54d997c63f46f91baabafd\",\"0x5bb3e2b3b4ac922870fca9e30e07303f83b9eedd8e9e0cf3a59a6344a9682677\",\"0x6431c27f38e6e8e41cf33410f214750a79b47fadce06507e304a7e48cf4d1147\",\"0xdcc29dbfaf700e31d42fe9f47279679aad5b64a5bdf3b2c880cd951b81560e93\",\"0x9bb040704164e4e254e3f6e92c66a09fe8f0a26ee0e66ff961014768808dc359\",\"0x526e831771554be7b6b470618c3b512a9685c73f4b1bcda20efa85267798ba7e\",\"0x7118c83885eb84f8586595c1bbf0e371d3bbcf94b392cefb4f3ae6f61b8f7d4d\",\"0xfe1d912debd094f5001e6842fda3bdaf5e3c9937297a157381bfa6df363f6fd9\",\"0xe497acb9259af353658bd36bfcfcbfbdc790b0dd21ec3ed45f9b0b0c27659ec3\",\"0x44bb66beff5035cd21a559c509e49a0bead1f1a109465d8730402799db8353ca\",\"0x6c6e6a088df9e47a9b37bef09eb75c657df55c58dc0541bc11109ed8d14236df\",\"0x0ae84debd89cc0605cdbe4475f46c07994e19a99c98e70d594b709cdb392664f\",\"0x37c63e7d6fd277e6c3718808dcaf96bab6305c6d4d6f3fc0eb8f25239d72adf8\",\"0xe47168b8ad4526f2a9897ff9f74300e0a31bf8a70be0cfb9c458bb329ed1e8e5\",\"0x1591aed0776f4cd96cf7029cb961acb1a291fe21953a5b2cbdd1d2ad787b40e9\",\"0x032f79eccd61db5e61e233a48af562d8df88473209d09e5c1fcd0fc5c23f3f94\",\"0x2f0711b085f1be2ae8751da058d7c662f65498b3e3b20c9f071f00b554fb78bd\",\"0x3fbfe8cf7558f39b41d56ec7d42a1e3c15829ad4a7233a67039c65d69e1f2723\",\"0x42c678b9ca3bba0809ec90e5c0e467abee77f678b75963f7e9daad3902f9941f\",\"0xad66af985f6e89a256e7e44b9a9e110aaf68d742e3bf69ef511d61ce1f4baa4d\",\"0x8948ffda04a9b8d8955ad8f1b0f306a165a6504ff79e1feb44e612724b5188a4\",\"0xc4cf045e3fbd120a297e4021303aeb8cc07148da759a8cd9f64de77cb738b408\",\"0xeb42a4d2bf4d7a806d6167a4cf201b5c3e36cea2bffde9561e4914178b7fabb4\",\"0x1fbdfe036de519f9fe89226035b102f2bf4981127148d1352c1ac872ba6b45fc\",\"0xb22331ba5c9f55d4aff3b020792f96245095cd4c204aeb3b06c6adcbcb9fb19d\",\"0x5d7a724bc501f0fe93ef8c3a888052403c2bde2f6053729730ba0d8d918ae53c\",\"0x5dd891a77f3133c76636cc1d8a6a50d89ca6b28895b7bae2263a1434221d2333\",\"0xda3c73a59335ce18ec14f45b6dddf9e26a8b9af9af71a5133a5c63023f3c07b7\",\"0xef776f5656b09280be58d652c4c4795dbf49ec2bf8cd36a925d0bb38a6aa05b0\",\"0xba2613559bdd36a1272e77714a87e43c67d14db95c64ef283aae0b14e36303ff\",\"0x2cae84b2d6ac93c9230dea45858e38135ab64010a502af04a79a95a0ee9a1218\",\"0x2fa66586211fb5f9dc8bc651b5cf3d8931699807028bf7a6c40b1190337ff28c\",\"0x1d9a3d57be31d187a8d38ed19eaaa9c7c9f7fab39fbc63584dac3ede824d3190\",\"0x5cf6d21bec900177055b1a3f94a249b2d9c6a2dc2b7f08e78cd32e52b3349f97\",\"0x1373abcd0ab9aa08fa1d4205a9160071d4e82a33df482c9b3dfce1e92dec4acd\",\"0x815bb954cb53e2d29e00664f4ae425588ccfcf413f95d37ef899753fe431f281\",\"0x424c70fe777619e2ff56816af3e8b7ecef810cb8cf79b5da9cbbc5508dc41966\",\"0x5b27c2fec7436956b4676775e7df64fa9330e4cf6052e60f9e048a75fb6b8cd7\",\"0xd222762fa90f0d60591b66bd51eeb2d8ca33ef703a81af4f97f1748a1c5ed86b\",\"0xb099fc960158755e0702671e6c0b5925f64943eda3c1bbe92babdd98d5926927\",\"0x5dcaa10926cfc029c4807833ca769eb013396526665808e162b4dff80da6cdb0\",\"0xdb5396ad7337d9627b9bb04ed1afed4c16a0314e2f0fe8ec6d03c5e4fb3fbd1c\",\"0x6a888758fa3f97c5b75920a0efef4462360be9a944ca9e4955a3efd770ccbd38\",\"0x2186a6d541b08b0989cf86dae285fac431430063774d8a4a5dc4aa075cf1630c\",\"0xb0694130f6c884f900cc6ee7f5acc299fccdf2edd51d08d8ea5fc97a3606ef59\",\"0xbb20b502161ed267432374adb966629403dfee0844ff9b320d417cdadb6dd4d6\",\"0x4727a54bfdf7eecb56f3d09e342ea5ff8aa52a662dc72cee7c6eded95585829a\",\"0xaebe7658e3b2d20835bb51f53f8a8c206569df87085f2a2a69fc50b52bf83bfe\",\"0x62eda0ed12d977c5ef24388954a62190af3c2d51847f7640f2c382e5fdde596e\",\"0x6102c298f7d2e84f58e76bf79aaa9f144d9ac74abeb5347f841ba3e6283bdf4f\",\"0xf834f632e674739dd5b94726998316defc300484e22b079537e3b9ecb8f31e17\",\"0x83dd3ca409560faa9d1afb13b8387e6abc9073e3648d4b595a70c540d6e4a39d\",\"0xc5b6ccb16b41566baf6c4b613f588e8a7232b4856710d326ca1a033a165a737e\",\"0xf89d2f7471b3fe82bacd404a52e1034de086a2393da91e662bb71460a1c8f133\",\"0xbedc18d923daf15acab3c436c4a236b1171441cfdd0ed433b28d3a24d6ba542c\",\"0x194c929e1c6da28de06736312bd17421c6ae39b341cddbb86b33aea6119b9f37\",\"0xeafa09e8f07d76acd182b9abe351b2fe940243c4e88a146016a3bfc4b0cbc29f\",\"0x697ae04d2fa30a5097558f6d7a685782b9bcc339b8afde5616bd3e1da75cbec5\",\"0x2edb90f64327c26de88e98988208275728f9bcc649a396e9a23fcf61e1194896\",\"0x6890ed701117237da7726b3f92a987490e039f8298b1449947fb26c3872a9fbe\",\"0x948d1bb1f6967450efb9c0ba523ce381e751f142dc6fc1fbc8bdbe7d2c3a8a30\",\"0xc1183cc027cd1c6dde704878bddca3b16c2f5cc40334bdaefb80b2aace68b94b\",\"0xcd42d75c298c5fe59d778043c2a62a57ce0b1685b8e934a84deeeb1dc305b849\",\"0xe62dc74616181b02671ef72127eb09121742680e882e02622b2f274d1ecceaeb\",\"0x09a3fbc7cd2b0793ca89985824d1055250c2dbea2d17a546caba750c11dbe184\",\"0x0705bc422e3ecb91cad3d81f7f54660ec1afbd398542dfc97bd6f00bed0a36db\",\"0xc6d2e371972786ec9e1564f3e1fbbf402e3c2fa1048a10effb187549cef4f581\",\"0x63ef723044607c9e0114a0b714f02372d1d805f27ab5f192668c0499a616cf2e\",\"0x5d1876f1c60b8169112b07f3f34201cc8322a61760308e526785e50449b4075e\",\"0x75bd1da49e734de5b04d2cefd9cd19a584f93c00eba914170a61520e0df4232e\",\"0x16906d0cba860cbff61924bd51b3082e40330f039cec230ccf6456c48287778c\",\"0x0bb9e80f67d68e1f65d798a16e88cef26de0799dfca8ccc81c39539325705cc2\",\"0xe2b59a8a6738435de5c2ea446c476436ae57479b5968ebc8bec3ee37f886a596\",\"0x01d92b0a13d47927610a2f6d44eca37f35cea9f567bb5ec28727fe58e8057619\",\"0x6843276729c88bb54a1d99fd78ecad15ff93069606e9ba7edfa11d7b5036d0cc\",\"0x2c2398c805c17d36d7aab70ee31fbd1944f7bc096b79b1a89215cf09226095a5\",\"0x64764182f762192a58732961118f999e8f4cc1246c93b7619acd3b47dddc493e\",\"0x9fde50a3d09eef46740eb49e144618ca4a4b89d304f0dddffa7425089058c30e\",\"0x4b7c635a4b266a10ea55b75acd686a01509d56dc7b287f2d924d420561978758\",\"0x58c895f09246449071e3a2c688d35333c24112153b54967650d278272fa91ec3\",\"0xa40744d0f6d5dbd71a58d244f1a045e30b31dc7c8a4853a5941c67bb53279671\",\"0xdeee67dd77a1443cfb7a4720d67273b49ea740c70f2483923ae594106f9a59ae\",\"0xa2582608c5095c41778684b16c86efe0d3e270c5a4e79ea5451fb9dad153f1dd\",\"0xd1a21608656ee545291662d1d350488891e9ea9dbcb5dd6a80e6cec3fb9eea90\",\"0xbfbbb83160b962f495cea22a0fb9ffb37c7327fabd52c513e1550185e99b1d4c\",\"0x96f5784ac6362fdf8c5abd4ff4df9622851f4bd167961b6098ac44e75de19bba\",\"0x202dbb0ce29a533e9ba639f519d619625b8dfd7f02ad5803b966af2b9745c397\",\"0x80a862bed27d0662cbbe4c6ba75e5224fba8907b104d72898666aa5bdb80deed\",\"0x594ff50aff9b88b09ce9944c1318780f421c573d9e40e862113c911199f93f89\",\"0xa55a8f7bd28c0aa2040a392dc37b3013db5be3b2752e34c089af6ae61d9946dd\",\"0xe9870e73fa242920aa86732aa997637789c0971d97e6c5c07e9a877404958343\",\"0xb61ee4a38784be603d2d4b13bd353e7d87fd7213c4c4ef85661e7a2edef9c02d\",\"0x9513d08912ed9eb4ca1a098db39b0d7cb4b9a76f42debed8c9915a38cae6aa37\",\"0x3946c81d50944b35d60b676180caed8b92202b8c7907c831b8a132bfdbde33e3\",\"0x6b979fe1e67aa727119b8d61dd2f998eecfd2bd86e05c764f2f700f552fd18b8\",\"0xd6da8fbe77f42a0d8904a1a329af0294ff7f4af2d97cba7a37ad5bcb657cdea6\",\"0x18db33231e6b49f1e4024709cba01032ed8161159bbd0fa250257535ef3d3264\",\"0xe712f5f319905e888fe57d2f298034326e6a0905e88c8c74576868286d049bef\",\"0x08f7150444c1a16268c2ab0ca9a0f448d3f9bda873aae38366d9803fcf201309\",\"0x96a2f689fe09fdc1b3ab39d34640e87b26b0c1885dba78c537f74503b2aec35c\",\"0xb773f2c5317c6c2099aef4776069418cdaeb76b7cc04d230f93971bb12a32879\",\"0xac11dbb430fe5654ce76757e286aaa1a041a6cb4a3322799c706aceac5b10338\",\"0x2db9ba729d969292f6153a86da67899939408fe7e894443da42462edb10fd10f\",\"0xaddcf7c48bb0c2f8c926932c08f7dee6d691c5c7a1115a10e762f9bf468c2772\",\"0x874e03a07bb8c28596c73bd83d801ad92453cf31597c29c0e554d0631a93b5be\",\"0x2a7abf0dffff95aa14d0aa3507026feb197d765dc2bc153ed1666a02b687a155\",\"0xe3dad2327c0b06b8386368c2078120b33dcc6c49ba150c240a0ea7b32ed9c3bb\",\"0xe65d69aa094ab5b868f8b1304169b23d6500529d905b9df0c0954d37a7e61b94\",\"0x670af392871ff4a8248ba50e819ff18a2dcf8454679c65c8a0eb2fbe730d258e\",\"0x40bb52725e9f6b386ea53e531b23e20f116f3a292d293863eba64aa98c5d898b\",\"0xa5ae1efb1a01f7afd2d5e0c74d35fbef4dc0f478490811609877abe816c70ae8\",\"0xef6e88aff8b350c2553b59d2adc2ff755985b7b5023f2bff243b16ed18983bff\",\"0x130cfbe89b6a3eea7846b66cf5f8cccbea92a2265d96cee1ca053b47c36204a7\",\"0x834c92af743267fd12958a1dfa155367f5c4094670812c1f61baf81262d68114\",\"0xa5692ce430a19e1d8ea5737c219c8a89cf4200519056fabf33ad23e0ddd51cff\",\"0x75a41a3f6d3a0a2629dd2cb4e76eef406d23c993e44d44b1634eb91e1e6a32d8\",\"0x631abaab6b2390829d87f10a492f897e2bf82d4b4a032d002339fc05ce0fa62f\",\"0x5f78f30bda01fd61003ce5ffb3502f55d4ac791d24f5214f74a609b079ae80ce\",\"0x03518de182dd2fa70c2443aba32a2962111ce29cce8d95bba72e2f9c105e6f52\",\"0x1fb66f32d26080ce0c3c53edc1926bbb1cd0dd221bec76dc21ea11f205a20c9c\",\"0xfb5f0695d658728dd9484050193d6d578c6a74f6d9aed775e121d89bb81f13c4\",\"0x06983e57b2cef3ecec7c16a1ef37bb24b31be90b48b0b2f356522ded66bec52b\",\"0x69252e71eb3ad39634fd1dc2d04a5a45825cfa0196479ac1b21a9992ff4e14d0\",\"0x409e9d7f7cab85ef5d04f81e81bed8b83a12402c6aabcecd84f2e6a6d88f4693\",\"0xd2bac8888c8320a47d5794ff58caf69b043ca3f94483921fe69f696446ca593f\",\"0xb206d2438bf17792c1d66d7771efdcc0dfd7e7094f86bfb12abec741e5c6c203\",\"0x28460836cb091cdf18554e0f2ee7a75b74a2d5406e306f086feda9ccbd7a0d47\",\"0xa632a8d77149b78767617c683dac7c607c32bd47fb256814e0f06e42dbf09735\",\"0xa3f8d80e60c7f957824bc4c1e846341c4835653dc7371ed9720971786834099f\",\"0x3f931e2be908e98c37955c1b5f23dcb9fbdb275abde6f8975843757533755f79\",\"0x1a466e3f89704e33241df6d0b77675085b86197ab5049d7397f725ab22e922c8\",\"0x0cd70e0906cbbd70dc1774d1f8d6cc5dd79084211860c1420af0ba43bd2285a0\",\"0x03ba1b66015d888dfda0e72470e6a280c22c46f78e5a11ca5bbee68926f953e0\",\"0xd5a672aed7fff81544afcf5baa4c2bac9476db2f129404a73dd44dd4404bdf3e\",\"0x36bc785d568aef6c2ef727aab2157d53a9764c9dc415c3719e5da166bc7fbdbb\",\"0xa444778cd2539d1ee50fe91d3799a7f5fe9b708709d1d721b6feb5a50252a580\",\"0x2e4f264a3b51463d181b523be5cfc55864ce5bb77dd787ab65aa35e9e37a8150\",\"0x5faa4c07535655d9062845b737516abdfa854a84e4c61a7826a368c57c26b495\",\"0xa80d0b15c754d8ef097f59e3a5ea34f0486cf68ab206c095f284ffcecb75b358\",\"0x21688e592ea758b86a7342bc748767e2723aecbfc2a7db5790cdf1abd7b59ca5\",\"0x21917bd0ab3143926f74972cde1dc292f22c95083714f95ef831c029ffcf134f\",\"0x98cf02a89d8ca8a4274fefb9293824482c55f7acb2b9d197134e51b9b49ac02b\",\"0xd064096a7ab36c6df5cb1b48a7349f93e8ca420f6a1c5a6fec63e9bb89bc4de9\",\"0x8fb86b0459c2011fefd7cfac65b4542c6bc01f7741c67a0dc53fbb2db00afb1f\",\"0x77136f952a3fab102fe3e93bd0ffb35eb6038537ac5e3a12567288b15e4ec383\",\"0x436c4f247715c6fdb87b4c5406f56f329392be9405f6653e2f07dcd101f2314d\",\"0xc6e1321961d53f5a5ac305d1d1bb8eed7ddb4fcfb7ec10b5aec3cfb7f73f18fd\",\"0x624023551d19c07b7f922c85a172e17284ff9bfb70c781995a9c5d105033dcbc\",\"0xf1c08c8fa967206aa9cc222be9c688f7beecd8353aa913344da554bfb2ec5054\",\"0x0fca5d9db57bc1bdc0daf9d7c9d2c9b4bc5ed9c175aad80970e0cf829974b878\",\"0xe3bec4338e8f1e69537e342f3653d67bd3aef92574342d24523063e185011cb5\",\"0xa9e394bc1c7357630654b849a11e7c5f6843382abca63a14eec3c6bdc26962cf\",\"0xbafb6041cbfd2e31179cfc1314ee98bdf0d9ded8ed1563848992a4d77db26c2e\",\"0x883840bedab728ba80a13e4749d02d0a4171f15c0c7667fcc91eb209b717546f\",\"0x62fe1e3a77797aa293f24338809dedee1a14d7548c605ae340f9698131f37c0a\",\"0xd8c54e30076db42268383816a0c36ab2c46fa676e92b29f766855cde86d90c50\",\"0x895098c79e97d079b581ecd7a1b5c93921b2e4754afa362c1cfbc483a116e3c2\",\"0xf1b96df66470770ac5ac6924f7de189e2d2f0e2ad2074ce68740f0fcc2d08130\",\"0xc783c9fc2c3fa349bce33f3963d07ab8613c50084b3c87a10ad75cd2354b6ac1\",\"0x8440a323eb77b58e06a5ec831db45924a31b52bcca11be17c342fa76fffd6aa3\",\"0x33f5133de6c1f610f2167bfd4224975ece90cf2a7d4aa7cebdb59c3e6d4a20b0\",\"0x0c039b374433864e86405b86ff33b2cc06aa5c22d92b0caf4656cf2313f6fc62\",\"0x2f428c93b1849ae59e540a17e0df67de64a5c56c9e4222dbcac8fbac07fa8ec9\",\"0xa6cec9a42c743007901af550d115e9be1d690e54aac029ec8cbbdd8ad31640d5\",\"0x98f2f583a60dfca0634ff8b4fb665539b11e97dd60a1e025edc43bc8a75178ee\",\"0xcca43ef73a3386b1f2443be45e14f7b9581ec24ccb16cd156d8b61adb5862b81\",\"0xed161c5ffa0d887e797f81e4c0017ea67e9268165aa6f9c6ea5434071a078d7a\",\"0xf25585cd26b52fe99e624f203b8596289e523f1733ee3b6353487ef1574eb5c7\",\"0xf2e8153e4db7bf3aee1314cf8284ca5124c4a8a0419050bfd69d329feb300bbb\",\"0xc10c5a5cf4388712b06219804449907061eb5294e74e20fa2517c718d5fbf2aa\",\"0x8260a185b18fd7626adc9876b0bd9c4881b7079a81351b6ce7fea944cfdd4379\",\"0x442f1c038dbcb69d0a78ba2aa7ede746739d41ad578293c47d71cc7f980368b7\",\"0x4731205aa51a09f7df7f42b2f08139b69a1a50f53361ba41f15794e3226acda2\",\"0xfa1f05a9276f07c2c47e0ddec665b1f21a203e5b6b6b567fc27d9fd34cea8855\",\"0x0f65f0aa64269d7101ad1bc90a730e0038c9423b74c0c2456fa7944071a85b81\",\"0xd5ab217e27460b3c6461378bcb39e553f67ac05164d89a9e519d847b20d49f00\",\"0x633e7d3236ec9dad145a24ea846a7562ef257a70c4a57c5d4f246a381bfb3d8e\",\"0xeab65aabbf5ec822bde8cc2072bf9cf4963eb17f31dd807da4ac25627b627858\",\"0xdfa3c3502df4edcdc4a0465e35fd2730e0509727b9da26223fc7e60c335b73da\",\"0x08ed3fef896cdc1de6fe531dfaa79a78863d53762c15d0359bdfa74c2c05240d\",\"0x329b07ab5d79c30d1d9f09ec51878be2e1d8d7cf90a06186fdfb47f064dc4346\",\"0x7d2e2c81427f9b8be0afc7ab760a530c889d836542be9b010b9a30d66f7f9615\",\"0x1f53cebd0480149bacdf510a71c6013af3dc36d2427b96d7a2ddd07e6c253a02\",\"0x02f7c9c10e8b044706ddeaaaad4c91fe552f1003acb36437aa6f8d72c4adb245\",\"0xa43f9f15037a5233c1fad6b12b9424aeb664d93f6650d0e39d2659096afd6b24\",\"0x40d86a1e8816243258e3f7398f42dcfaf279ce67ff1b8c406a808ba3a23504d2\",\"0xad74afb2e08e474bb158822df64d8e047d347add03eac103fb65c45728304a20\",\"0x168102521671758046f5b5a8d1f5eac847d8dc24f68ff6e760c6dbde902c03cc\",\"0x74b4142e4fde52e71424ce079817ecf63052a4da4fb510e542d409c705d4b3ac\",\"0xdc3cfe93a815653dde355e1922bae6709f5ec479a817f3676e0e2354130541d5\",\"0xb6b6007eae7b0183c2c4b754a00e9b121667bc7b5f2699cdfe77ce3c97f7b476\",\"0x4a262c3ea20018534f6327f88d1583717186e2e4cdbc79934ec9d5c71ca48924\",\"0xfd8752ebddd49466996850254f9b42d9baa90846f926ae0dc3dfaf2510112317\",\"0x6c43d2f287deff0d4be8f0e6ed4137e3f39f3242408c4d87ffa3d7d3d0bec1e7\",\"0x87ad57f90c4c8c255493978549d7fcf56d3a18a94915032a953d213799590197\",\"0x7211c87992269983b8e9f1369ca1cd296e5a329f074ba2255c5f27022f6fe73a\",\"0xa44b5e1342c8766bbbb98f9dc9a8b1ea8d6103dab5fea15a032ed944fd06e255\",\"0x0e40e71c7909cf8d9fbe813dd60c242b77aa69c080d0b2dfc5c7af51a7a403f6\",\"0x7e1b7640c86116ad7018854e553abfa41774e76028ece15211c4f8edf141325c\",\"0x03a45a381124419939f54c0887b1fc2060d64a0dd3e2e68d2cd3ba685791f5e9\",\"0xff6ae4c87354f38099c3302be0b8e743291d36b3862c53f4c8d5dc11e814a4c9\",\"0x7c85fbeb0ae0dc920500ecc35256106bb4a42ef747a22bef9b94b9b64a202931\",\"0x296b8cfba4cbf45ed8129c733557a0f0798fd5a991a6787689f0ed214663692e\",\"0x0bcab67b9b5a35c262162d7fc39f9c6af3c9b7302e1aaa6c057b3918d7072c44\",\"0xd1b5533ffabc7985d8ea9bcd806bd85e614abd81c8ac6563917e6e22f54c32e0\",\"0x29f392ef67f05daaf81e18e69e4142d28ab3b2b67d08fb355393072a2c6ad581\",\"0xb5ee2616c26ecd0007285b5f1dd113425ca65b1f4a55b767b5b65b570f62d9e4\",\"0x839db5d2d107a56288a365d9e924c353c12ea8e97cdb2d86ef0186655bd7ba44\",\"0xe11d94586bfd608e86150073d00ccefd9aa74ed66342ee91c9cc26374d7a9d74\",\"0x33c838aeb74da9506c355d38d1eadd55ae20f8b8687f710962b510d5baddcd65\",\"0x248ca9885d7f39640d5b0dde51a6edfe325d91575cdadabc2e02283bcaec0160\",\"0x11c8cbd626daa8d6e1f24e9e0c9aa7efe18fdb82ee829f4fac58be3fabbdc081\",\"0xd0859f395fdd238e980489bf81e05329eae36f598c43533d794d3cc2f115ca97\",\"0xe407e25633689b1fa61de889ef84370094f23c6ae1fa2e6e5f5ba353a596a67f\",\"0xbdd76eac74169b4edc1bde2e4e2a773bf069cd79830230b5f27f955f58b294be\",\"0x88bc6f402fe1f78d516cb084047484389b389717e8777d126df19c4d12ec5e7f\",\"0xa79287d67c0eea33bc171095d0593fa3ae9088a729c58c61d9c1fc9941eb05eb\",\"0xd9f725895510439fc3a77ede5fd92e1af118667eb62b53582186049bfbba9067\",\"0x217d0fb860244cafda08de9dcc0c9afcc2f1b4c189b92b0394893b1b74f65fc8\",\"0x00cdc61d0c9f19511b9275da9b180daf65714566267dcc9a7e5eeb4971de5e99\",\"0x76c9b9fcc0e6af2eb5d358d61a302a94b6b91ac12b2fe445d23747b02c100279\",\"0x6bffdeaf5ea7cb1366b84656dbbefbc45aeed7476ee66c11ce3a00b9547eecad\",\"0xe98b796fefa995f4605be238003035952e0cf345e5bad6424f62d8583e9e46d2\",\"0xcc99d49e74b9892967aa728abf5c07b4f968ea06501f22fcde55e09f2e0af991\",\"0xbd7e2b4221c4dc6f5b7df47cefd17118f222d29d3f1cb448fbc41a9a42fc3f51\",\"0x4e5b3d5529c6465eca92ae2caf83325ca41c0d4c3e4700f94a5e504d15ea6982\"],\"withdrawals\":[{\"index\":\"0x8aeedfb\",\"validatorIndex\":\"0xbbbc1\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd52caf\"},{\"index\":\"0x8aeedfc\",\"validatorIndex\":\"0xbbbc2\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0x3c73caa\"},{\"index\":\"0x8aeedfd\",\"validatorIndex\":\"0xbbbc3\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd425d5\"},{\"index\":\"0x8aeedfe\",\"validatorIndex\":\"0xbbbc4\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd48c10\"},{\"index\":\"0x8aeedff\",\"validatorIndex\":\"0xbbbc5\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd4ec2f\"},{\"index\":\"0x8aeee00\",\"validatorIndex\":\"0xbbbc6\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd51bd8\"},{\"index\":\"0x8aeee01\",\"validatorIndex\":\"0xbbbc7\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0xd51e46\"},{\"index\":\"0x8aeee02\",\"validatorIndex\":\"0xbbbc8\",\"address\":\"0x42e14d7968db2bd8607c392f83085e00174e66f8\",\"amount\":\"0xd53ca6\"},{\"index\":\"0x8aeee03\",\"validatorIndex\":\"0xbbbc9\",\"address\":\"0x30aa36505e30b23dcf95571491de7e57a7e4d3ef\",\"amount\":\"0xd53bcf\"},{\"index\":\"0x8aeee04\",\"validatorIndex\":\"0xbbbca\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0xd4de16\"},{\"index\":\"0x8aeee05\",\"validatorIndex\":\"0xbbbcb\",\"address\":\"0xa1c52afa77d87796b8cd34f4801e062fb54e7df6\",\"amount\":\"0xd4d41e\"},{\"index\":\"0x8aeee06\",\"validatorIndex\":\"0xbbbcc\",\"address\":\"0x30aa36505e30b23dcf95571491de7e57a7e4d3ef\",\"amount\":\"0xd51416\"},{\"index\":\"0x8aeee07\",\"validatorIndex\":\"0xbbbcd\",\"address\":\"0xa1c52afa77d87796b8cd34f4801e062fb54e7df6\",\"amount\":\"0xd534f0\"},{\"index\":\"0x8aeee08\",\"validatorIndex\":\"0xbbbce\",\"address\":\"0x9bd5e460b00cd6bd0f27bc2e96c8872cb2080d87\",\"amount\":\"0xd51ca4\"},{\"index\":\"0x8aeee09\",\"validatorIndex\":\"0xbbbcf\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd4d82d\"},{\"index\":\"0x8aeee0a\",\"validatorIndex\":\"0xbbbd0\",\"address\":\"0x9bd5e460b00cd6bd0f27bc2e96c8872cb2080d87\",\"amount\":\"0xd4c5fd\"}]}},{\"jsonrpc\":\"2.0\",\"id\":11,\"result\":\"0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000\"},{\"jsonrpc\":\"2.0\",\"id\":12,\"result\":\"0x0000000000000000000000000000000000000000005d33fb7f2be573e1fea0bf\"},{\"jsonrpc\":\"2.0\",\"id\":13,\"result\":\"0x000000000000000000000000000000000000000000d8ed2c5dc1c3689ffd6b02\"},{\"jsonrpc\":\"2.0\",\"id\":14,\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000002\"},{\"jsonrpc\":\"2.0\",\"id\":15,\"result\":\"0x0000000000000000000000000000000000000000000000000000000065920080\"},{\"jsonrpc\":\"2.0\",\"id\":16,\"result\":{\"hash\":\"0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2\",\"parentHash\":\"0x7c351d3064d23da79a68745e6c65fbd413ad02db9987d66d58b97b7bfbcfa72b\",\"sha3Uncles\":\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\",\"miner\":\"0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97\",\"stateRoot\":\"0xb2a9a2be361c8a4ea20722cf58e309516f01e8f0385823faec3e7f253290e28b\",\"transactionsRoot\":\"0x71fea047b5d1c46406ea3ca1d8038e7f280fe64ec7656cbdbf79a2df46a5c0a8\",\"receiptsRoot\":\"0x4b7edc185f97bf9d97b16eba77274986d414a8da67f8ad968acdbc512a55d750\",\"logsBloom\":\"0x7ee73d7fbfa73e9f37eb7f25fdef7e3b773fbff3fff7fe757ea95f2e6f4f9dd37dc9ddffff8b5f232e7fbbbfc1f7f77ff7dddefcffe7bdfbbdffd36f9f3fe5afdf67f5747bdd47bde9cbf90fff4bb7eca747b79a2ff66efe971fbfddb9fdfc8f7fdbe7f1effbfad097e6a8dfaf7bff3ddabf53f2e7f61e58e7dcb9b7ff4f5557f57bb7faff8b75fdf4cbeffbcbafbfbfd7d19d61e75bdfcff7f6765dbebe76e8fbbefc2ff2fbfefafb7f93e1ff662ed3b4d7ff9fff9769efa0e77f3f476ee9fd6eb7efbec7ea3fff74fffcf7b7ffdecebbfee7d71538f7f7c7ef53fafdb2eb87dbf376c96ff3f7e7f775fefbafbfffd33dcef7ebd77fcd6a4bfefabff6a6d57a\",\"difficulty\":\"0x0\",\"number\":\"0x18eddb1\",\"gasLimit\":\"0x3938700\",\"gasUsed\":\"0x1d9af60\",\"timestamp\":\"0x6ac626d7\",\"extraData\":\"0x546974616e2028746974616e6275696c6465722e78797a29\",\"mixHash\":\"0xde43142d2a26ec2be1b946ab0ae651c27470db1926a5137aafcce0492081d994\",\"nonce\":\"0x0000000000000000\",\"baseFeePerGas\":\"0x75804e5\",\"withdrawalsRoot\":\"0xabfc22cfa43d6c9398dd847defda8f90bac7c4177e8563f6cd85b9e6d2171741\",\"blobGasUsed\":\"0xa0000\",\"excessBlobGas\":\"0xb031ae6\",\"parentBeaconBlockRoot\":\"0x5d1db2fbed9b7690c9fd40b6452dd854d36e6cd51945989e1ae5b80d853f4fea\",\"requestsHash\":\"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"size\":\"0x28cc7\",\"uncles\":[],\"transactions\":[\"0x0d5d70144e32292fa50855ddf139e737e6617adbd3d449a14016e4df18a98682\",\"0xd0bde58b8d31f95be506c1cffe684bcefad0adf8f294d2e48b4deb326171af04\",\"0x66fde6c26891060cc96575bc052ef791d29d4f8aff11805584a6f22057a9ec83\",\"0xb97984fce30c6c08f431f47f28986d6f7ff859182daa0272f019629da563353a\",\"0x3bf84980418ca8ea322689a9ddd0e8342879bdafa9205f93770da7252f5f48c4\",\"0xc03ca72c791edf443705af6bffe348123eabb765a10c59f30df306ed52e1e6c5\",\"0x5bd4ea11051959cf1477ad29299a96f6d900959a9a7d985179df41f71d7c3420\",\"0xc1fb67566d814090a154feeafd0a147d6621d6e8b0daabc35d3f090884d1e102\",\"0xa44960b8ff0e41648117712588785aead8fed9a4b53a786b99e2ebcf4c0a9343\",\"0x99cbd803429348bd1f5a8493a9f5942a1f17795ce7e739dc9b4939c04dcf492e\",\"0x5f115b162c4cc9bf659eda0c008f7b9a98d322482aa89266875d04f054862f2d\",\"0x46595262ee27d6de65f524c7a303f10ef91286ce3ea36ec711d52ff7df76543c\",\"0xd03a41c05ff63a8bcccb75984189a96d2580f1d6eb2b8aa1530b8c99502ad3f0\",\"0x5f93de000bca4c1d3308547882193ad036755662a3b9554dd6592859a41117a7\",\"0xa191372589de28ee0ff04d466dc28f590a85af7450759601a21be89a4f7ce51d\",\"0x069d67c19b09c7c618dee98d1b2c47517f854a957165f24f82d4cbaf2fa25872\",\"0xc1e43b91996b99f5824202fed79a788e6c1c5bd0f07002eb55de3d71bef35fe3\",\"0x3fdef91d599e2c9b666795f7b1dc988c77bea71034eec7651008320c6f97fcde\",\"0xc86408827ed81ac87c0929f70c715cb4f9d6b96b5f33add57ca427fe636c0d10\",\"0x5338cb9fdaecd294cb2699a6d4ff3db87a09431380fc249ddeb3574522dbff82\",\"0x3678d3382d1dcb85832288d53c3bfd88ae8296968551d80ae5e0ecf613805905\",\"0xdab2da696ea2fab85ec9206bc76ea9f1af65702bf282d4e0422d1a835c74e0d8\",\"0x4bf000e8e400f89f6b3e94f41d5b94f830085d9ff8dc97128153a3bca2d1c8fc\",\"0x205990273a1e15925f053c56b211c9d3c345a248306d853d263bfc1d1cc6b94c\",\"0x5c193ce9bacbecacf856ec1577a549108bdccc36191aca161bb934c738eb6782\",\"0x4e8801d03735c3827d091d70199d0ed1816d0f99f793a2ccb745dcfd8466736f\",\"0xc95e25320d94e086703949046c8b49df1904d9dd3aac2d4abf35240f0614cfd1\",\"0xc470d9d1a359a9698def80f06e6cd66c8eac98466e2df45bdff4efc5abc737fb\",\"0x72e6ee399ca6f0574824f842a8b5dfb9534770415a9037347ee4a9361722a71d\",\"0xda384aee1d0082a591fdbcf717ac72c30484895d3e3d3eeacb204dbf3abd48ca\",\"0x7a31530b00107863bd50cd5fd27af505869dd4cb5b54d997c63f46f91baabafd\",\"0x5bb3e2b3b4ac922870fca9e30e07303f83b9eedd8e9e0cf3a59a6344a9682677\",\"0x6431c27f38e6e8e41cf33410f214750a79b47fadce06507e304a7e48cf4d1147\",\"0xdcc29dbfaf700e31d42fe9f47279679aad5b64a5bdf3b2c880cd951b81560e93\",\"0x9bb040704164e4e254e3f6e92c66a09fe8f0a26ee0e66ff961014768808dc359\",\"0x526e831771554be7b6b470618c3b512a9685c73f4b1bcda20efa85267798ba7e\",\"0x7118c83885eb84f8586595c1bbf0e371d3bbcf94b392cefb4f3ae6f61b8f7d4d\",\"0xfe1d912debd094f5001e6842fda3bdaf5e3c9937297a157381bfa6df363f6fd9\",\"0xe497acb9259af353658bd36bfcfcbfbdc790b0dd21ec3ed45f9b0b0c27659ec3\",\"0x44bb66beff5035cd21a559c509e49a0bead1f1a109465d8730402799db8353ca\",\"0x6c6e6a088df9e47a9b37bef09eb75c657df55c58dc0541bc11109ed8d14236df\",\"0x0ae84debd89cc0605cdbe4475f46c07994e19a99c98e70d594b709cdb392664f\",\"0x37c63e7d6fd277e6c3718808dcaf96bab6305c6d4d6f3fc0eb8f25239d72adf8\",\"0xe47168b8ad4526f2a9897ff9f74300e0a31bf8a70be0cfb9c458bb329ed1e8e5\",\"0x1591aed0776f4cd96cf7029cb961acb1a291fe21953a5b2cbdd1d2ad787b40e9\",\"0x032f79eccd61db5e61e233a48af562d8df88473209d09e5c1fcd0fc5c23f3f94\",\"0x2f0711b085f1be2ae8751da058d7c662f65498b3e3b20c9f071f00b554fb78bd\",\"0x3fbfe8cf7558f39b41d56ec7d42a1e3c15829ad4a7233a67039c65d69e1f2723\",\"0x42c678b9ca3bba0809ec90e5c0e467abee77f678b75963f7e9daad3902f9941f\",\"0xad66af985f6e89a256e7e44b9a9e110aaf68d742e3bf69ef511d61ce1f4baa4d\",\"0x8948ffda04a9b8d8955ad8f1b0f306a165a6504ff79e1feb44e612724b5188a4\",\"0xc4cf045e3fbd120a297e4021303aeb8cc07148da759a8cd9f64de77cb738b408\",\"0xeb42a4d2bf4d7a806d6167a4cf201b5c3e36cea2bffde9561e4914178b7fabb4\",\"0x1fbdfe036de519f9fe89226035b102f2bf4981127148d1352c1ac872ba6b45fc\",\"0xb22331ba5c9f55d4aff3b020792f96245095cd4c204aeb3b06c6adcbcb9fb19d\",\"0x5d7a724bc501f0fe93ef8c3a888052403c2bde2f6053729730ba0d8d918ae53c\",\"0x5dd891a77f3133c76636cc1d8a6a50d89ca6b28895b7bae2263a1434221d2333\",\"0xda3c73a59335ce18ec14f45b6dddf9e26a8b9af9af71a5133a5c63023f3c07b7\",\"0xef776f5656b09280be58d652c4c4795dbf49ec2bf8cd36a925d0bb38a6aa05b0\",\"0xba2613559bdd36a1272e77714a87e43c67d14db95c64ef283aae0b14e36303ff\",\"0x2cae84b2d6ac93c9230dea45858e38135ab64010a502af04a79a95a0ee9a1218\",\"0x2fa66586211fb5f9dc8bc651b5cf3d8931699807028bf7a6c40b1190337ff28c\",\"0x1d9a3d57be31d187a8d38ed19eaaa9c7c9f7fab39fbc63584dac3ede824d3190\",\"0x5cf6d21bec900177055b1a3f94a249b2d9c6a2dc2b7f08e78cd32e52b3349f97\",\"0x1373abcd0ab9aa08fa1d4205a9160071d4e82a33df482c9b3dfce1e92dec4acd\",\"0x815bb954cb53e2d29e00664f4ae425588ccfcf413f95d37ef899753fe431f281\",\"0x424c70fe777619e2ff56816af3e8b7ecef810cb8cf79b5da9cbbc5508dc41966\",\"0x5b27c2fec7436956b4676775e7df64fa9330e4cf6052e60f9e048a75fb6b8cd7\",\"0xd222762fa90f0d60591b66bd51eeb2d8ca33ef703a81af4f97f1748a1c5ed86b\",\"0xb099fc960158755e0702671e6c0b5925f64943eda3c1bbe92babdd98d5926927\",\"0x5dcaa10926cfc029c4807833ca769eb013396526665808e162b4dff80da6cdb0\",\"0xdb5396ad7337d9627b9bb04ed1afed4c16a0314e2f0fe8ec6d03c5e4fb3fbd1c\",\"0x6a888758fa3f97c5b75920a0efef4462360be9a944ca9e4955a3efd770ccbd38\",\"0x2186a6d541b08b0989cf86dae285fac431430063774d8a4a5dc4aa075cf1630c\",\"0xb0694130f6c884f900cc6ee7f5acc299fccdf2edd51d08d8ea5fc97a3606ef59\",\"0xbb20b502161ed267432374adb966629403dfee0844ff9b320d417cdadb6dd4d6\",\"0x4727a54bfdf7eecb56f3d09e342ea5ff8aa52a662dc72cee7c6eded95585829a\",\"0xaebe7658e3b2d20835bb51f53f8a8c206569df87085f2a2a69fc50b52bf83bfe\",\"0x62eda0ed12d977c5ef24388954a62190af3c2d51847f7640f2c382e5fdde596e\",\"0x6102c298f7d2e84f58e76bf79aaa9f144d9ac74abeb5347f841ba3e6283bdf4f\",\"0xf834f632e674739dd5b94726998316defc300484e22b079537e3b9ecb8f31e17\",\"0x83dd3ca409560faa9d1afb13b8387e6abc9073e3648d4b595a70c540d6e4a39d\",\"0xc5b6ccb16b41566baf6c4b613f588e8a7232b4856710d326ca1a033a165a737e\",\"0xf89d2f7471b3fe82bacd404a52e1034de086a2393da91e662bb71460a1c8f133\",\"0xbedc18d923daf15acab3c436c4a236b1171441cfdd0ed433b28d3a24d6ba542c\",\"0x194c929e1c6da28de06736312bd17421c6ae39b341cddbb86b33aea6119b9f37\",\"0xeafa09e8f07d76acd182b9abe351b2fe940243c4e88a146016a3bfc4b0cbc29f\",\"0x697ae04d2fa30a5097558f6d7a685782b9bcc339b8afde5616bd3e1da75cbec5\",\"0x2edb90f64327c26de88e98988208275728f9bcc649a396e9a23fcf61e1194896\",\"0x6890ed701117237da7726b3f92a987490e039f8298b1449947fb26c3872a9fbe\",\"0x948d1bb1f6967450efb9c0ba523ce381e751f142dc6fc1fbc8bdbe7d2c3a8a30\",\"0xc1183cc027cd1c6dde704878bddca3b16c2f5cc40334bdaefb80b2aace68b94b\",\"0xcd42d75c298c5fe59d778043c2a62a57ce0b1685b8e934a84deeeb1dc305b849\",\"0xe62dc74616181b02671ef72127eb09121742680e882e02622b2f274d1ecceaeb\",\"0x09a3fbc7cd2b0793ca89985824d1055250c2dbea2d17a546caba750c11dbe184\",\"0x0705bc422e3ecb91cad3d81f7f54660ec1afbd398542dfc97bd6f00bed0a36db\",\"0xc6d2e371972786ec9e1564f3e1fbbf402e3c2fa1048a10effb187549cef4f581\",\"0x63ef723044607c9e0114a0b714f02372d1d805f27ab5f192668c0499a616cf2e\",\"0x5d1876f1c60b8169112b07f3f34201cc8322a61760308e526785e50449b4075e\",\"0x75bd1da49e734de5b04d2cefd9cd19a584f93c00eba914170a61520e0df4232e\",\"0x16906d0cba860cbff61924bd51b3082e40330f039cec230ccf6456c48287778c\",\"0x0bb9e80f67d68e1f65d798a16e88cef26de0799dfca8ccc81c39539325705cc2\",\"0xe2b59a8a6738435de5c2ea446c476436ae57479b5968ebc8bec3ee37f886a596\",\"0x01d92b0a13d47927610a2f6d44eca37f35cea9f567bb5ec28727fe58e8057619\",\"0x6843276729c88bb54a1d99fd78ecad15ff93069606e9ba7edfa11d7b5036d0cc\",\"0x2c2398c805c17d36d7aab70ee31fbd1944f7bc096b79b1a89215cf09226095a5\",\"0x64764182f762192a58732961118f999e8f4cc1246c93b7619acd3b47dddc493e\",\"0x9fde50a3d09eef46740eb49e144618ca4a4b89d304f0dddffa7425089058c30e\",\"0x4b7c635a4b266a10ea55b75acd686a01509d56dc7b287f2d924d420561978758\",\"0x58c895f09246449071e3a2c688d35333c24112153b54967650d278272fa91ec3\",\"0xa40744d0f6d5dbd71a58d244f1a045e30b31dc7c8a4853a5941c67bb53279671\",\"0xdeee67dd77a1443cfb7a4720d67273b49ea740c70f2483923ae594106f9a59ae\",\"0xa2582608c5095c41778684b16c86efe0d3e270c5a4e79ea5451fb9dad153f1dd\",\"0xd1a21608656ee545291662d1d350488891e9ea9dbcb5dd6a80e6cec3fb9eea90\",\"0xbfbbb83160b962f495cea22a0fb9ffb37c7327fabd52c513e1550185e99b1d4c\",\"0x96f5784ac6362fdf8c5abd4ff4df9622851f4bd167961b6098ac44e75de19bba\",\"0x202dbb0ce29a533e9ba639f519d619625b8dfd7f02ad5803b966af2b9745c397\",\"0x80a862bed27d0662cbbe4c6ba75e5224fba8907b104d72898666aa5bdb80deed\",\"0x594ff50aff9b88b09ce9944c1318780f421c573d9e40e862113c911199f93f89\",\"0xa55a8f7bd28c0aa2040a392dc37b3013db5be3b2752e34c089af6ae61d9946dd\",\"0xe9870e73fa242920aa86732aa997637789c0971d97e6c5c07e9a877404958343\",\"0xb61ee4a38784be603d2d4b13bd353e7d87fd7213c4c4ef85661e7a2edef9c02d\",\"0x9513d08912ed9eb4ca1a098db39b0d7cb4b9a76f42debed8c9915a38cae6aa37\",\"0x3946c81d50944b35d60b676180caed8b92202b8c7907c831b8a132bfdbde33e3\",\"0x6b979fe1e67aa727119b8d61dd2f998eecfd2bd86e05c764f2f700f552fd18b8\",\"0xd6da8fbe77f42a0d8904a1a329af0294ff7f4af2d97cba7a37ad5bcb657cdea6\",\"0x18db33231e6b49f1e4024709cba01032ed8161159bbd0fa250257535ef3d3264\",\"0xe712f5f319905e888fe57d2f298034326e6a0905e88c8c74576868286d049bef\",\"0x08f7150444c1a16268c2ab0ca9a0f448d3f9bda873aae38366d9803fcf201309\",\"0x96a2f689fe09fdc1b3ab39d34640e87b26b0c1885dba78c537f74503b2aec35c\",\"0xb773f2c5317c6c2099aef4776069418cdaeb76b7cc04d230f93971bb12a32879\",\"0xac11dbb430fe5654ce76757e286aaa1a041a6cb4a3322799c706aceac5b10338\",\"0x2db9ba729d969292f6153a86da67899939408fe7e894443da42462edb10fd10f\",\"0xaddcf7c48bb0c2f8c926932c08f7dee6d691c5c7a1115a10e762f9bf468c2772\",\"0x874e03a07bb8c28596c73bd83d801ad92453cf31597c29c0e554d0631a93b5be\",\"0x2a7abf0dffff95aa14d0aa3507026feb197d765dc2bc153ed1666a02b687a155\",\"0xe3dad2327c0b06b8386368c2078120b33dcc6c49ba150c240a0ea7b32ed9c3bb\",\"0xe65d69aa094ab5b868f8b1304169b23d6500529d905b9df0c0954d37a7e61b94\",\"0x670af392871ff4a8248ba50e819ff18a2dcf8454679c65c8a0eb2fbe730d258e\",\"0x40bb52725e9f6b386ea53e531b23e20f116f3a292d293863eba64aa98c5d898b\",\"0xa5ae1efb1a01f7afd2d5e0c74d35fbef4dc0f478490811609877abe816c70ae8\",\"0xef6e88aff8b350c2553b59d2adc2ff755985b7b5023f2bff243b16ed18983bff\",\"0x130cfbe89b6a3eea7846b66cf5f8cccbea92a2265d96cee1ca053b47c36204a7\",\"0x834c92af743267fd12958a1dfa155367f5c4094670812c1f61baf81262d68114\",\"0xa5692ce430a19e1d8ea5737c219c8a89cf4200519056fabf33ad23e0ddd51cff\",\"0x75a41a3f6d3a0a2629dd2cb4e76eef406d23c993e44d44b1634eb91e1e6a32d8\",\"0x631abaab6b2390829d87f10a492f897e2bf82d4b4a032d002339fc05ce0fa62f\",\"0x5f78f30bda01fd61003ce5ffb3502f55d4ac791d24f5214f74a609b079ae80ce\",\"0x03518de182dd2fa70c2443aba32a2962111ce29cce8d95bba72e2f9c105e6f52\",\"0x1fb66f32d26080ce0c3c53edc1926bbb1cd0dd221bec76dc21ea11f205a20c9c\",\"0xfb5f0695d658728dd9484050193d6d578c6a74f6d9aed775e121d89bb81f13c4\",\"0x06983e57b2cef3ecec7c16a1ef37bb24b31be90b48b0b2f356522ded66bec52b\",\"0x69252e71eb3ad39634fd1dc2d04a5a45825cfa0196479ac1b21a9992ff4e14d0\",\"0x409e9d7f7cab85ef5d04f81e81bed8b83a12402c6aabcecd84f2e6a6d88f4693\",\"0xd2bac8888c8320a47d5794ff58caf69b043ca3f94483921fe69f696446ca593f\",\"0xb206d2438bf17792c1d66d7771efdcc0dfd7e7094f86bfb12abec741e5c6c203\",\"0x28460836cb091cdf18554e0f2ee7a75b74a2d5406e306f086feda9ccbd7a0d47\",\"0xa632a8d77149b78767617c683dac7c607c32bd47fb256814e0f06e42dbf09735\",\"0xa3f8d80e60c7f957824bc4c1e846341c4835653dc7371ed9720971786834099f\",\"0x3f931e2be908e98c37955c1b5f23dcb9fbdb275abde6f8975843757533755f79\",\"0x1a466e3f89704e33241df6d0b77675085b86197ab5049d7397f725ab22e922c8\",\"0x0cd70e0906cbbd70dc1774d1f8d6cc5dd79084211860c1420af0ba43bd2285a0\",\"0x03ba1b66015d888dfda0e72470e6a280c22c46f78e5a11ca5bbee68926f953e0\",\"0xd5a672aed7fff81544afcf5baa4c2bac9476db2f129404a73dd44dd4404bdf3e\",\"0x36bc785d568aef6c2ef727aab2157d53a9764c9dc415c3719e5da166bc7fbdbb\",\"0xa444778cd2539d1ee50fe91d3799a7f5fe9b708709d1d721b6feb5a50252a580\",\"0x2e4f264a3b51463d181b523be5cfc55864ce5bb77dd787ab65aa35e9e37a8150\",\"0x5faa4c07535655d9062845b737516abdfa854a84e4c61a7826a368c57c26b495\",\"0xa80d0b15c754d8ef097f59e3a5ea34f0486cf68ab206c095f284ffcecb75b358\",\"0x21688e592ea758b86a7342bc748767e2723aecbfc2a7db5790cdf1abd7b59ca5\",\"0x21917bd0ab3143926f74972cde1dc292f22c95083714f95ef831c029ffcf134f\",\"0x98cf02a89d8ca8a4274fefb9293824482c55f7acb2b9d197134e51b9b49ac02b\",\"0xd064096a7ab36c6df5cb1b48a7349f93e8ca420f6a1c5a6fec63e9bb89bc4de9\",\"0x8fb86b0459c2011fefd7cfac65b4542c6bc01f7741c67a0dc53fbb2db00afb1f\",\"0x77136f952a3fab102fe3e93bd0ffb35eb6038537ac5e3a12567288b15e4ec383\",\"0x436c4f247715c6fdb87b4c5406f56f329392be9405f6653e2f07dcd101f2314d\",\"0xc6e1321961d53f5a5ac305d1d1bb8eed7ddb4fcfb7ec10b5aec3cfb7f73f18fd\",\"0x624023551d19c07b7f922c85a172e17284ff9bfb70c781995a9c5d105033dcbc\",\"0xf1c08c8fa967206aa9cc222be9c688f7beecd8353aa913344da554bfb2ec5054\",\"0x0fca5d9db57bc1bdc0daf9d7c9d2c9b4bc5ed9c175aad80970e0cf829974b878\",\"0xe3bec4338e8f1e69537e342f3653d67bd3aef92574342d24523063e185011cb5\",\"0xa9e394bc1c7357630654b849a11e7c5f6843382abca63a14eec3c6bdc26962cf\",\"0xbafb6041cbfd2e31179cfc1314ee98bdf0d9ded8ed1563848992a4d77db26c2e\",\"0x883840bedab728ba80a13e4749d02d0a4171f15c0c7667fcc91eb209b717546f\",\"0x62fe1e3a77797aa293f24338809dedee1a14d7548c605ae340f9698131f37c0a\",\"0xd8c54e30076db42268383816a0c36ab2c46fa676e92b29f766855cde86d90c50\",\"0x895098c79e97d079b581ecd7a1b5c93921b2e4754afa362c1cfbc483a116e3c2\",\"0xf1b96df66470770ac5ac6924f7de189e2d2f0e2ad2074ce68740f0fcc2d08130\",\"0xc783c9fc2c3fa349bce33f3963d07ab8613c50084b3c87a10ad75cd2354b6ac1\",\"0x8440a323eb77b58e06a5ec831db45924a31b52bcca11be17c342fa76fffd6aa3\",\"0x33f5133de6c1f610f2167bfd4224975ece90cf2a7d4aa7cebdb59c3e6d4a20b0\",\"0x0c039b374433864e86405b86ff33b2cc06aa5c22d92b0caf4656cf2313f6fc62\",\"0x2f428c93b1849ae59e540a17e0df67de64a5c56c9e4222dbcac8fbac07fa8ec9\",\"0xa6cec9a42c743007901af550d115e9be1d690e54aac029ec8cbbdd8ad31640d5\",\"0x98f2f583a60dfca0634ff8b4fb665539b11e97dd60a1e025edc43bc8a75178ee\",\"0xcca43ef73a3386b1f2443be45e14f7b9581ec24ccb16cd156d8b61adb5862b81\",\"0xed161c5ffa0d887e797f81e4c0017ea67e9268165aa6f9c6ea5434071a078d7a\",\"0xf25585cd26b52fe99e624f203b8596289e523f1733ee3b6353487ef1574eb5c7\",\"0xf2e8153e4db7bf3aee1314cf8284ca5124c4a8a0419050bfd69d329feb300bbb\",\"0xc10c5a5cf4388712b06219804449907061eb5294e74e20fa2517c718d5fbf2aa\",\"0x8260a185b18fd7626adc9876b0bd9c4881b7079a81351b6ce7fea944cfdd4379\",\"0x442f1c038dbcb69d0a78ba2aa7ede746739d41ad578293c47d71cc7f980368b7\",\"0x4731205aa51a09f7df7f42b2f08139b69a1a50f53361ba41f15794e3226acda2\",\"0xfa1f05a9276f07c2c47e0ddec665b1f21a203e5b6b6b567fc27d9fd34cea8855\",\"0x0f65f0aa64269d7101ad1bc90a730e0038c9423b74c0c2456fa7944071a85b81\",\"0xd5ab217e27460b3c6461378bcb39e553f67ac05164d89a9e519d847b20d49f00\",\"0x633e7d3236ec9dad145a24ea846a7562ef257a70c4a57c5d4f246a381bfb3d8e\",\"0xeab65aabbf5ec822bde8cc2072bf9cf4963eb17f31dd807da4ac25627b627858\",\"0xdfa3c3502df4edcdc4a0465e35fd2730e0509727b9da26223fc7e60c335b73da\",\"0x08ed3fef896cdc1de6fe531dfaa79a78863d53762c15d0359bdfa74c2c05240d\",\"0x329b07ab5d79c30d1d9f09ec51878be2e1d8d7cf90a06186fdfb47f064dc4346\",\"0x7d2e2c81427f9b8be0afc7ab760a530c889d836542be9b010b9a30d66f7f9615\",\"0x1f53cebd0480149bacdf510a71c6013af3dc36d2427b96d7a2ddd07e6c253a02\",\"0x02f7c9c10e8b044706ddeaaaad4c91fe552f1003acb36437aa6f8d72c4adb245\",\"0xa43f9f15037a5233c1fad6b12b9424aeb664d93f6650d0e39d2659096afd6b24\",\"0x40d86a1e8816243258e3f7398f42dcfaf279ce67ff1b8c406a808ba3a23504d2\",\"0xad74afb2e08e474bb158822df64d8e047d347add03eac103fb65c45728304a20\",\"0x168102521671758046f5b5a8d1f5eac847d8dc24f68ff6e760c6dbde902c03cc\",\"0x74b4142e4fde52e71424ce079817ecf63052a4da4fb510e542d409c705d4b3ac\",\"0xdc3cfe93a815653dde355e1922bae6709f5ec479a817f3676e0e2354130541d5\",\"0xb6b6007eae7b0183c2c4b754a00e9b121667bc7b5f2699cdfe77ce3c97f7b476\",\"0x4a262c3ea20018534f6327f88d1583717186e2e4cdbc79934ec9d5c71ca48924\",\"0xfd8752ebddd49466996850254f9b42d9baa90846f926ae0dc3dfaf2510112317\",\"0x6c43d2f287deff0d4be8f0e6ed4137e3f39f3242408c4d87ffa3d7d3d0bec1e7\",\"0x87ad57f90c4c8c255493978549d7fcf56d3a18a94915032a953d213799590197\",\"0x7211c87992269983b8e9f1369ca1cd296e5a329f074ba2255c5f27022f6fe73a\",\"0xa44b5e1342c8766bbbb98f9dc9a8b1ea8d6103dab5fea15a032ed944fd06e255\",\"0x0e40e71c7909cf8d9fbe813dd60c242b77aa69c080d0b2dfc5c7af51a7a403f6\",\"0x7e1b7640c86116ad7018854e553abfa41774e76028ece15211c4f8edf141325c\",\"0x03a45a381124419939f54c0887b1fc2060d64a0dd3e2e68d2cd3ba685791f5e9\",\"0xff6ae4c87354f38099c3302be0b8e743291d36b3862c53f4c8d5dc11e814a4c9\",\"0x7c85fbeb0ae0dc920500ecc35256106bb4a42ef747a22bef9b94b9b64a202931\",\"0x296b8cfba4cbf45ed8129c733557a0f0798fd5a991a6787689f0ed214663692e\",\"0x0bcab67b9b5a35c262162d7fc39f9c6af3c9b7302e1aaa6c057b3918d7072c44\",\"0xd1b5533ffabc7985d8ea9bcd806bd85e614abd81c8ac6563917e6e22f54c32e0\",\"0x29f392ef67f05daaf81e18e69e4142d28ab3b2b67d08fb355393072a2c6ad581\",\"0xb5ee2616c26ecd0007285b5f1dd113425ca65b1f4a55b767b5b65b570f62d9e4\",\"0x839db5d2d107a56288a365d9e924c353c12ea8e97cdb2d86ef0186655bd7ba44\",\"0xe11d94586bfd608e86150073d00ccefd9aa74ed66342ee91c9cc26374d7a9d74\",\"0x33c838aeb74da9506c355d38d1eadd55ae20f8b8687f710962b510d5baddcd65\",\"0x248ca9885d7f39640d5b0dde51a6edfe325d91575cdadabc2e02283bcaec0160\",\"0x11c8cbd626daa8d6e1f24e9e0c9aa7efe18fdb82ee829f4fac58be3fabbdc081\",\"0xd0859f395fdd238e980489bf81e05329eae36f598c43533d794d3cc2f115ca97\",\"0xe407e25633689b1fa61de889ef84370094f23c6ae1fa2e6e5f5ba353a596a67f\",\"0xbdd76eac74169b4edc1bde2e4e2a773bf069cd79830230b5f27f955f58b294be\",\"0x88bc6f402fe1f78d516cb084047484389b389717e8777d126df19c4d12ec5e7f\",\"0xa79287d67c0eea33bc171095d0593fa3ae9088a729c58c61d9c1fc9941eb05eb\",\"0xd9f725895510439fc3a77ede5fd92e1af118667eb62b53582186049bfbba9067\",\"0x217d0fb860244cafda08de9dcc0c9afcc2f1b4c189b92b0394893b1b74f65fc8\",\"0x00cdc61d0c9f19511b9275da9b180daf65714566267dcc9a7e5eeb4971de5e99\",\"0x76c9b9fcc0e6af2eb5d358d61a302a94b6b91ac12b2fe445d23747b02c100279\",\"0x6bffdeaf5ea7cb1366b84656dbbefbc45aeed7476ee66c11ce3a00b9547eecad\",\"0xe98b796fefa995f4605be238003035952e0cf345e5bad6424f62d8583e9e46d2\",\"0xcc99d49e74b9892967aa728abf5c07b4f968ea06501f22fcde55e09f2e0af991\",\"0xbd7e2b4221c4dc6f5b7df47cefd17118f222d29d3f1cb448fbc41a9a42fc3f51\",\"0x4e5b3d5529c6465eca92ae2caf83325ca41c0d4c3e4700f94a5e504d15ea6982\"],\"withdrawals\":[{\"index\":\"0x8aeedfb\",\"validatorIndex\":\"0xbbbc1\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd52caf\"},{\"index\":\"0x8aeedfc\",\"validatorIndex\":\"0xbbbc2\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0x3c73caa\"},{\"index\":\"0x8aeedfd\",\"validatorIndex\":\"0xbbbc3\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd425d5\"},{\"index\":\"0x8aeedfe\",\"validatorIndex\":\"0xbbbc4\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd48c10\"},{\"index\":\"0x8aeedff\",\"validatorIndex\":\"0xbbbc5\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd4ec2f\"},{\"index\":\"0x8aeee00\",\"validatorIndex\":\"0xbbbc6\",\"address\":\"0xb0baaa9d8c923bf4cf929a9453000c65c764c668\",\"amount\":\"0xd51bd8\"},{\"index\":\"0x8aeee01\",\"validatorIndex\":\"0xbbbc7\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0xd51e46\"},{\"index\":\"0x8aeee02\",\"validatorIndex\":\"0xbbbc8\",\"address\":\"0x42e14d7968db2bd8607c392f83085e00174e66f8\",\"amount\":\"0xd53ca6\"},{\"index\":\"0x8aeee03\",\"validatorIndex\":\"0xbbbc9\",\"address\":\"0x30aa36505e30b23dcf95571491de7e57a7e4d3ef\",\"amount\":\"0xd53bcf\"},{\"index\":\"0x8aeee04\",\"validatorIndex\":\"0xbbbca\",\"address\":\"0xda330f4c31e32d5a029eb16faaaf203093d3bb5c\",\"amount\":\"0xd4de16\"},{\"index\":\"0x8aeee05\",\"validatorIndex\":\"0xbbbcb\",\"address\":\"0xa1c52afa77d87796b8cd34f4801e062fb54e7df6\",\"amount\":\"0xd4d41e\"},{\"index\":\"0x8aeee06\",\"validatorIndex\":\"0xbbbcc\",\"address\":\"0x30aa36505e30b23dcf95571491de7e57a7e4d3ef\",\"amount\":\"0xd51416\"},{\"index\":\"0x8aeee07\",\"validatorIndex\":\"0xbbbcd\",\"address\":\"0xa1c52afa77d87796b8cd34f4801e062fb54e7df6\",\"amount\":\"0xd534f0\"},{\"index\":\"0x8aeee08\",\"validatorIndex\":\"0xbbbce\",\"address\":\"0x9bd5e460b00cd6bd0f27bc2e96c8872cb2080d87\",\"amount\":\"0xd51ca4\"},{\"index\":\"0x8aeee09\",\"validatorIndex\":\"0xbbbcf\",\"address\":\"0x686c1f120917d6ba3cd072b011d5140069aab4aa\",\"amount\":\"0xd4d82d\"},{\"index\":\"0x8aeee0a\",\"validatorIndex\":\"0xbbbd0\",\"address\":\"0x9bd5e460b00cd6bd0f27bc2e96c8872cb2080d87\",\"amount\":\"0xd4c5fd\"}]}}]"
+    },
+    "labels": [
+      {
+        "id": 1,
+        "label": "chain"
+      },
+      {
+        "id": 2,
+        "label": "finalized"
+      },
+      {
+        "id": 10,
+        "label": "fixed header"
+      },
+      {
+        "id": 11,
+        "label": "total_supply"
+      },
+      {
+        "id": 12,
+        "label": "dead_sink_balance"
+      },
+      {
+        "id": 13,
+        "label": "timelock_balance"
+      },
+      {
+        "id": 14,
+        "label": "mint_cap"
+      },
+      {
+        "id": 15,
+        "label": "minting_allowed_after"
+      },
+      {
+        "id": 16,
+        "label": "height recheck"
+      }
+    ]
+  }
+}
