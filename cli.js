@@ -16,11 +16,12 @@ import {reviewPublicVenue} from './engine/research/public-venue.js';
 import {reviewXlmSupply} from './engine/research/xlm-supply.js';
 import {reviewUniSupplyComposition} from './engine/research/supply-composition.js';
 import {reviewUniFirepitState} from './engine/research/firepit-state.js';
+import {reviewUniAlignedValuation} from './engine/research/aligned-valuation.js';
 const [command='validate',...args]=process.argv.slice(2);
 const mode=args.includes('--production')?'production':'fixture';
 try {
  if(command==='research-freshness'&&mode!=='production') throw new Error('Research freshness requires --production');
- if(['research-preview','research-apply','identity-review','revenue-review','revenue-compare','revenue-ttm','capital-review','fixed-block-review','token-state-review','public-venue-review','xlm-supply-review','uni-supply-composition-review','uni-firepit-state-review'].includes(command)) {
+ if(['research-preview','research-apply','identity-review','revenue-review','revenue-compare','revenue-ttm','capital-review','fixed-block-review','token-state-review','public-venue-review','xlm-supply-review','uni-supply-composition-review','uni-firepit-state-review','uni-aligned-valuation-review'].includes(command)) {
   if(mode!=='production') throw new Error('Research commands require --production');
   if(!args[0]||args[0].startsWith('--')) throw new Error(`Use node cli.js ${command} path/to/reviewed-research.yaml --production`);
  }
@@ -44,9 +45,9 @@ try {
   console.log(JSON.stringify(reviewRevenueTtm(project,...args.slice(0,3).map(file=>readYaml(file,process.cwd()))),null,2));
  } else if(command==='capital-review') {
   console.log(JSON.stringify(replayCapitalReview(project,readYaml(args[0],process.cwd())),null,2));
- } else if(['fixed-block-review','token-state-review','public-venue-review','xlm-supply-review','uni-supply-composition-review','uni-firepit-state-review'].includes(command)) {
+ } else if(['fixed-block-review','token-state-review','public-venue-review','xlm-supply-review','uni-supply-composition-review','uni-firepit-state-review','uni-aligned-valuation-review'].includes(command)) {
   const digestIndex=args.indexOf('--digest');
-  const inspect={'fixed-block-review':reviewFixedBlock,'token-state-review':reviewTokenState,'public-venue-review':reviewPublicVenue,'xlm-supply-review':reviewXlmSupply,'uni-supply-composition-review':reviewUniSupplyComposition,'uni-firepit-state-review':reviewUniFirepitState}[command];
+  const inspect={'fixed-block-review':reviewFixedBlock,'token-state-review':reviewTokenState,'public-venue-review':reviewPublicVenue,'xlm-supply-review':reviewXlmSupply,'uni-supply-composition-review':reviewUniSupplyComposition,'uni-firepit-state-review':reviewUniFirepitState,'uni-aligned-valuation-review':reviewUniAlignedValuation}[command];
   console.log(JSON.stringify(inspect(project,fs.readFileSync(args[0]),digestIndex<0?null:args[digestIndex+1]),null,2));
  } else if(command==='validate') {
   assertVersionHistory(history.at(-1),project);
@@ -77,7 +78,7 @@ try {
   const {term}=await import('./dashboard/zh-hant.js');
   const lines=['# 目前研究論點', '', `工作區：${mode==='fixture'?'合成示範（FIXTURE）':'正式研究（PRODUCTION）'}${result.fixture?'；合成資料，非市場資料':''}`,`模型期間：${term(result.period.basis)}；${result.period.end}`, '',...Object.entries(result.thesis).flatMap(([asset,t])=>[`## ${asset}：${term(t.state)}`,`證據覆蓋：${term(t.coverage)}。${term(t.interpretation)}`,...t.triggered_rules.map(r=>`- ${r.id}（規則原文）：${r.why}`),''])];
   fs.writeFileSync('reports/current-thesis.md',lines.join('\n').trimEnd()+'\n');console.log('reports/current-thesis.md');
- } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, capital-review FILE --production, fixed-block-review FILE --production --digest SHA256, token-state-review FILE --production --digest SHA256, public-venue-review FILE --production --digest SHA256, xlm-supply-review FILE --production --digest SHA256, uni-supply-composition-review FILE --production --digest SHA256, uni-firepit-state-review FILE --production --digest SHA256, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
+ } else throw new Error('Commands: validate, snapshot --reason TEXT, event FILE, research-preview FILE --production, research-apply FILE --production --digest SHA256, identity-review FILE --production, revenue-review FILE --production, revenue-compare PREVIOUS CURRENT --production, revenue-ttm REQUEST ANNUAL INTERIM --production, capital-review FILE --production, fixed-block-review FILE --production --digest SHA256, token-state-review FILE --production --digest SHA256, public-venue-review FILE --production --digest SHA256, xlm-supply-review FILE --production --digest SHA256, uni-supply-composition-review FILE --production --digest SHA256, uni-firepit-state-review FILE --production --digest SHA256, uni-aligned-valuation-review FILE --production --digest SHA256, freshness [--production] [--as-of DATE], research-freshness --production [--as-of DATE], report');
 } catch(error) {
  if(error.message==='Cannot snapshot calculation errors'&&error.details?.length) {
   const {metricLabel}=await import('./dashboard/zh-hant.js');

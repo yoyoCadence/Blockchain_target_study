@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-07（台北）— UNI 研究層估值資料包：唯讀驗證、研究目錄與中文查閱
+
+PR #72 push／PR CI 成功並合併（main `2e57e2a`）；`feat/uni-aligned-valuation-review` 把規格、reader、目錄與介面合成一個 PR。
+
+新 reader `engine/research/aligned-valuation.js`／CLI `uni-aligned-valuation-review`：沿用 `finalized-rpc.js` 的錨點／calldata／解碼；價格對齊是結構性要求——由錨點秒數算出分鐘 bucket 與預期 URL，必須等於保存的 URL 與方法檔 URL，回應須含該分鐘的列，且請求時該分鐘已收盤（順序 probe→K 線→state）。K 線回應以嚴格正則驗證並逐字擷取 token（不 `JSON.parse`）；low ≤ open、close ≤ high 以 BigInt 比較。`basis_dependency` 會實際重跑 `reviewUniSupplyComposition`。共用模組新增 `decimalToken`、`mul_decimal_sub_raw18_floor2`，`replayResearchFormulas` 依方法的 `scenario_formula_ids`／`scenario.name` 檢查分類（沒有這兩個欄位的既有方法一律要求 DERIVED）。摘要另輸出 `bases`（三口徑）與 `price`（含 `candle_start_at`／`candle_end_at`／`seconds_into_candle`）。
+
+目錄 v10：`uni-valuation-20261007`／kind `uni_aligned_valuation`，綁原 bytes `227008fc…`、事件 `uni-aligned-valuation-20261007`、原 review `2026-10-07T11:17:00.029Z`；inspection 的 UNI 固定區塊分支現在以 kind 對照表選 reader，capture 時間檢查同時支援 `documents` 與 `price_capture`。十四研究／251 紀錄／41 來源，事件十九筆。卡片最上方是三口徑表（美元值以字串加千分位）。97 新增、十五個既有測試檔更新 13／233／39→14／251／41，全套 1210、兩模式 validate 通過；canonical `uni.price`／`uni.market_cap`／`uni.fdv`、unknown 80 不變。Chrome headless 33 項檢查通過（含全部 33 張卡片窄版不溢出），favicon 404 以外 console 空，PID 41596 已核對停止。見[操作與驗收](uni-aligned-valuation-review.md)；本 PR／CI 最終狀態以遠端為準。
+
+工具備忘：在 Bash heredoc 或 `node -e` 內寫含反斜線的正則容易被多層跳脫吃掉；改用 Write 工具建立腳本檔，或用 split／join 做純字串替換。專案內多數 Markdown 是 CRLF，腳本比對 `\n\n` 會失敗，文件編輯直接用 Edit 工具。目錄數量更新採「以完整 receiver 名稱做純字串替換」，避免誤改單一資料包自己的筆數。
+
+下一項：使用者第 1 項的**第二階段**（canonical 推導）仍待明確確認，設計列在 `reports/uni-aligned-valuation.md` 末段。未確認前可做：使用者第 4 項的 RPC 能力少量驗證（需要使用者提供候選 archive endpoint 或 key）、第 2 項的 Firepit SCENARIO 試算（研究層，不進正式模型）。
+
 ## 2026-10-07（台北）— UNI 供給口徑與日期對齊的研究層估值（第一階段）
 
 PR #71 push／PR CI 成功並合併（main `fcd45f6`）；建立 `research/uni-aligned-valuation`。依使用者第 1 項指示的第一階段：只做研究層，不改 canonical。

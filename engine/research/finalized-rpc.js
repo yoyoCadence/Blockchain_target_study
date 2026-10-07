@@ -6,6 +6,8 @@ import {readRpcBatch} from './fixed-block.js';
 // reads already-saved values; `label` prefixes the error for the calling reader.
 const quantity=value=>typeof value==='string'&&/^0x(0|[1-9a-f][0-9a-f]*)$/.test(value);
 export const evmAddress=value=>typeof value==='string'&&/^0x[0-9a-fA-F]{40}$/.test(value);
+// Plain non-negative decimal text exactly as a provider printed it; no sign, exponent or leading zeros.
+export const decimalToken=value=>typeof value==='string'&&/^(0|[1-9][0-9]*)(\.[0-9]+)?$/.test(value);
 export const RAW_UNI='UNI raw base units';
 
 export function decodeAbiWord(type,word,label) {
@@ -43,6 +45,14 @@ export function researchOperators(label) {
   casefold_evm_address_eq:(f,inputs)=>{
    units(inputs.length===2&&inputs.every(r=>r.unit==='address'&&evmAddress(r.value))&&f.unit==='ratio');
    return inputs[0].value.toLowerCase()===inputs[1].value.toLowerCase()?1:0;
+  },
+  // Decimal USD/UNI price x (first raw supply minus the rest) / 10^18, floored to cents.
+  mul_decimal_sub_raw18_floor2:(f,inputs)=>{
+   units(inputs.length>=2&&inputs[0].unit==='USD/UNI'&&decimalToken(inputs[0].value)&&inputs.slice(1).every(r=>r.unit===RAW_UNI)&&f.unit==='USD');
+   const [whole,fraction='']=inputs[0].value.split('.'),supply=inputs.slice(2).reduce((sum,r)=>sum-BigInt(r.value),BigInt(inputs[1].value));
+   assert(supply>=0n,`${label} subtraction is negative`);
+   const cents=BigInt(whole+fraction)*supply*100n/10n**BigInt(18+fraction.length);
+   return `${cents/100n}.${(cents%100n).toString().padStart(2,'0')}`;
   }
  };
 }
@@ -119,7 +129,10 @@ export function replayResearchFormulas(artifact,method,{anchor,day,point},method
   const value=operators[formula.expression.op](formula,inputs),d=artifact.derived.find(r=>r.formula_id===formula.id);
   assert(d&&d.id===`${formula.id}@1-block${anchor.number}`&&d.metric_id===formula.id&&d.formula_version===formula.version&&same(d.dependencies,deps)&&
    d.value===value&&d.unit===formula.unit&&d.as_of_date===day&&same(d.period,point)&&d.observed_at===anchor.effective_at,`${label} derived value/lineage mismatch`);
-  derived.push({id:d.id,label:method.derived_labels[formula.id],classification:d.classification,confidence:d.confidence,formula_id:formula.id,
+  // Only formulas the method names as scenario outputs may be SCENARIO, and they must carry its name.
+  const scenario=method.scenario_formula_ids?.includes(formula.id)?method.scenario.name:null;
+  assert(d.classification===(scenario?'SCENARIO':'DERIVED')&&(scenario?d.scenario_name===scenario:!Object.hasOwn(d,'scenario_name')),`${label} derived classification/scenario mismatch`);
+  derived.push({id:d.id,label:method.derived_labels[formula.id],classification:d.classification,...(scenario?{scenario_name:scenario}:{}),confidence:d.confidence,formula_id:formula.id,
    formula_version:formula.version,op:formula.expression.op,dependencies:[...deps],value,unit:formula.unit});
  }
  return derived;

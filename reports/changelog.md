@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-07（台北）— UNI 研究層估值資料包：唯讀驗證、研究目錄與中文查閱
+
+新增 `spec/uni-aligned-valuation-schema.yaml`／`spec/uni-aligned-valuation-method.yaml` v1 與 uni-aligned-valuation-review／共用 reader：價格必須是包含錨點區塊時間的已收盤一分鐘 K 線（否則拒絕）、六個欄位由原回應逐字擷取、依賴的供給組成資料包重新驗證、六條研究公式以 BigInt 重播。共用模組新增研究層受限運算 `mul_decimal_sub_raw18_floor2` 與 SCENARIO 分類檢查（只有方法指名的公式可為 SCENARIO 並須帶情境名稱）；不新增 canonical 公式、假設或情境。研究目錄 v10 新增 `uni_aligned_valuation`，十四研究／251 紀錄／41 來源；中文卡片把三個口徑、分類與界線並列。97 新增／全套 1210、兩模式 validate、Chrome 桌面／窄／Fixture／兩 cutoff 通過；見[操作與驗收](uni-aligned-valuation-review.md)。原資料、金融／來源／歷史／unknown 80 不變。
+
 ## 2026-10-07（台北）— UNI 供給口徑定義與日期對齊的研究層估值（第一階段）
 
 新 finalized block 26140081 以同 hash／requireCanonical 保存 totalSupply、dead／Timelock 餘額與鑄造參數，並保存包含該區塊時間的 Coinbase UNI-USD 一分鐘 K 線（完整原回應、逐字 token）。定義三個研究口徑並分開標示：totalSupply（FDV 研究值，揭露未涵蓋未來增發）、扣除 dead（研究口徑，非已驗證流通量）、再扣除 Timelock（**SCENARIO** `timelock_excluded`）；美元值以 BigInt 計算並捨去到美分。研究層公式 v1，不新增或修改 canonical 公式、假設或情境。追加兩來源與 source-only 完整快照；canonical `uni.price`（10/4）／`uni.market_cap`／`uni.fdv`、論點與 unknown 80 不變。六項新增／全套 1113、兩模式 validate、Chrome 桌面／窄／Fixture 通過；見[研究與驗收](uni-aligned-valuation.md)。第二階段的模型版本升級設計列於報告，待確認。

@@ -15,6 +15,7 @@ import {reviewPublicVenue} from './public-venue.js';
 import {reviewXlmSupply} from './xlm-supply.js';
 import {reviewUniSupplyComposition} from './supply-composition.js';
 import {reviewUniFirepitState} from './firepit-state.js';
+import {reviewUniAlignedValuation} from './aligned-valuation.js';
 
 // Explicit local catalog only: no discovery, remote fetching, ingestion or writes.
 export function inspectResearch(project,{catalog}={}) {
@@ -35,7 +36,7 @@ export function inspectResearch(project,{catalog}={}) {
  const knownFormulas=new Map(project.registry.formulas.map(formula=>[versionKey(formula),fingerprint(formula)]));
  const knownAssumptions=new Map(project.inputs.filter(record=>record.classification==='ASSUMPTION').map(record=>[versionKey(record),fingerprint(record)]));
  for(const entry of catalog.records) {
-  const bytes=['fixed_block','token_state','public_venue','xlm_supply','uni_supply_composition','uni_firepit_state'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
+  const bytes=['fixed_block','token_state','public_venue','xlm_supply','uni_supply_composition','uni_firepit_state','uni_aligned_valuation'].includes(entry.kind)?fs.readFileSync(path.join(project.root,'data/research',entry.file)):null;
   const saved=bytes?JSON.parse(bytes):readYaml(`data/research/${entry.file}`,project.root);
   const actualId=bytes?createHash('sha256').update(bytes).digest('hex'):entry.kind==='identity'?fingerprint(saved):saved.id;
   assert(actualId===entry.expected_id,'Research catalog fingerprint mismatch');
@@ -68,14 +69,14 @@ export function inspectResearch(project,{catalog}={}) {
    });
    periods=[{basis:'point',end:saved.as_of_date}];formulas=saved.formulas;
    sources=publicVenue.method.source_ids.map(id=>project.sources.find(s=>s.id===id));
-  } else if(['uni_supply_composition','uni_firepit_state'].includes(entry.kind)) {
-   uniBlock=(entry.kind==='uni_firepit_state'?reviewUniFirepitState:reviewUniSupplyComposition)(project,bytes,entry.expected_id);
+  } else if(['uni_supply_composition','uni_firepit_state','uni_aligned_valuation'].includes(entry.kind)) {
+   uniBlock={uni_supply_composition:reviewUniSupplyComposition,uni_firepit_state:reviewUniFirepitState,uni_aligned_valuation:reviewUniAlignedValuation}[entry.kind](project,bytes,entry.expected_id);
    sources=uniBlock.method.source_ids.map(id=>project.sources.find(s=>s.id===id));
    const reviewedEvent=inspectReviewedEvents(project).find(e=>e.id===entry.event_id);
    assert(reviewedEvent&&reviewedEvent.event.as_of_date===saved.as_of_date&&reviewedEvent.event.reason.includes(entry.expected_id)&&
     sources.every(source=>reviewedEvent.sources.some(s=>fingerprint(s)===fingerprint(source))),'UNI fixed-block catalog does not match reviewed event');
    review=reviewedEvent.event.research_review;as_of_date=saved.as_of_date;
-   assert([saved.captured_at,...saved.documents.map(d=>d.received_at)].every(time=>Date.parse(time)<=Date.parse(review.reviewed_at)),'UNI fixed-block capture retrieved after review');
+   assert([saved.captured_at,...(saved.documents||[saved.price_capture]).map(d=>d.received_at)].every(time=>Date.parse(time)<=Date.parse(review.reviewed_at)),'UNI fixed-block capture retrieved after review');
    const labels=new Map(uniBlock.summary.derived.map(d=>[d.id,d.label]));
    records=[...saved.observations,...saved.derived.map(d=>({...d,label:labels.get(d.id)}))];
    periods=[{basis:'point',end:saved.anchor.effective_at.slice(0,10)}];formulas=saved.formulas;
@@ -147,7 +148,7 @@ export function inspectResearch(project,{catalog}={}) {
    ...(publicVenue?{summary:publicVenue.summary,method:publicVenue.method,event_id:entry.event_id,
     notice:'單一平台的公開回報；個人／地區／託管／交易／提款仍未驗證，不更新金融或投資性。'}:{}),
    ...(uniBlock?{summary:uniBlock.summary,method:uniBlock.method,event_id:entry.event_id,
-    notice:entry.kind==='uni_firepit_state'?'固定區塊的 Firepit 狀態；次數乘以現行門檻不等於已查證的累計或年度銷毀，dead 餘額未歸因，不更新金融、估值或論點。':'固定區塊的供給組成與鑄造參數；扣除後餘額不是流通供給，鑄造條件不是預測，不更新金融、市值／FDV 或論點。'}:{}),
+    notice:entry.kind==='uni_aligned_valuation'?'同區塊供給與同分鐘價格的研究層估值；扣除 dead 是研究口徑而非已驗證流通量，Timelock 排除只是情境，totalSupply 口徑未涵蓋未來增發；不更新金融、canonical 市值／FDV 或論點。':entry.kind==='uni_firepit_state'?'固定區塊的 Firepit 狀態；次數乘以現行門檻不等於已查證的累計或年度銷毀，dead 餘額未歸因，不更新金融、估值或論點。':'固定區塊的供給組成與鑄造參數；扣除後餘額不是流通供給，鑄造條件不是預測，不更新金融、市值／FDV 或論點。'}:{}),
    ...(xlmSupply?{summary:xlmSupply.summary,method:xlmSupply.method,event_id:entry.event_id,
     notice:'供應者回報的單一時點供給與算術殘差；不是獨立 ledger／帳戶查證、自由流通、同步市值／FDV 或投資性判斷，不更新金融。'}:{}),
    ...(fixedBlock?{summary:fixedBlock.summary,method:fixedBlock.method,event_id:entry.event_id,

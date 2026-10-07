@@ -24,7 +24,7 @@ function isolated(t,fn,{repin=false}={}){
 
 test('UNI supply catalog preserves original bytes, raw strings, derived lineage, source versions and review outside finance',()=>{
  const before=fingerprint({p,economics:calculate(p),history:readSnapshots(p.root,p.mode)}),result=inspectResearch(p),r=result.records.find(r=>r.id===entry.id);
- assert.ok(catalog.version>=7);assert.equal(result.records.length,13);assert.equal(r.records.length,18);
+ assert.ok(catalog.version>=7);assert.equal(result.records.length,14);assert.equal(r.records.length,18);
  assert.equal(r.artifact_id,'de66eac4f1d0beda86dc04ee0e129162b4b7ecd29072b666682733da482f2de1');assert.deepEqual(r.full_review,a);
  assert.ok(r.records.every(r=>typeof r.label==='string'&&/[一-鿿]|minter/u.test(r.label)));
  assert.deepEqual(r.review,result.events.find(e=>e.id===entry.event_id).event.research_review);assert.equal(r.event_id,'uni-supply-composition-20261006');
@@ -60,7 +60,7 @@ test('valid replacement UNI supply semantics still require the original event di
 test('UNI supply is unavailable before its review day and derived checks never become observed facts',()=>{
  for(const [cutoff,available] of [['2026-10-05',false],['2026-10-06',true]]){
   const research=researchFreshness(p,{as_of_date:cutoff}).research,artifact=research.artifacts.find(r=>r.id===entry.id),rows=research.records.filter(r=>r.catalog_id===entry.id);
-  assert.equal(research.artifacts.length,13);assert.equal(research.records.length,233);assert.equal(research.source_checks.length,39);
+  assert.equal(research.artifacts.length,14);assert.equal(research.records.length,251);assert.equal(research.source_checks.length,41);
   assert.equal(artifact.review_state,available?'AVAILABLE_AT_CUTOFF':'NOT_AVAILABLE_AT_CUTOFF');assert.equal(rows.length,18);
   const observed=rows.filter(r=>r.record.classification==='OBSERVED');assert.equal(observed.length,13);
   assert.ok(observed.every(r=>r.evidence_state===(available?'AVAILABLE':'INSUFFICIENT')));

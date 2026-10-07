@@ -22,7 +22,7 @@ test('research API serves verified production evidence separately from fixtures 
   let response=await fetch(`${base}/api/research`),data=await response.json();
   assert.equal(response.status,200);assert.equal(data.mode,'fixture');assert.deepEqual(data.records,[]);
   response=await fetch(`${base}/api/research?mode=production`);data=await response.json();
-  assert.equal(response.status,200);assert.equal(data.records.length,13);assert.equal(data.financial_inputs_updated,false);
+  assert.equal(response.status,200);assert.equal(data.records.length,14);assert.equal(data.financial_inputs_updated,false);
   assert.equal(data.records.find(r=>r.kind==='revenue_ttm').records[0].value,null);
   assert.equal(data.records.find(r=>r.kind==='identity').records[1].investability.status,'unverified');
   assert.equal((await fetch(`${base}/api/research?mode=production`,{method:'POST'})).status,405);

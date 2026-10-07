@@ -387,6 +387,29 @@ test('Firepit zero comparison flags render as observed zero instead of unknown',
  assert.equal(row.children[1].textContent,'0');assert.match(row.textContent,/推導值（DERIVED）/);assert.equal(row.textContent.includes('未知'),false);
 });
 
+test('aligned valuation research card leads with the three labelled bases and keeps canonical valuation unknown',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const card=v.$('research-records').children.find(c=>c.dataset.research==='uni-valuation-20261007');
+ assert.match(card.textContent,/UNI 供給口徑與同分鐘價格／研究層估值/);assert.match(card.textContent,/2026-10-07T11:17:00\.029Z/);
+ const [bases,values,derived]=card.querySelectorAll('table');assert.equal(card.querySelectorAll('table').length,3);
+ const rows=bases.children.slice(1).map(tr=>tr.children.map(td=>td.textContent));
+ assert.deepEqual(rows.map(r=>[r[0],r[2],r[3]]),[['現行 totalSupply','推導值（DERIVED）','7,991,400,000.00'],['扣除 dead address','推導值（DERIVED）','7,090,964,360.30'],
+  ['再扣除 Timelock','情境（SCENARIO）：timelock_excluded','4,995,235,722.63']]);
+ assert.match(rows[0][4],/未涵蓋未來增發/);assert.match(rows[1][4],/不是已驗證流通量/);assert.match(rows[2][4],/只在情境 timelock_excluded/);
+ assert.equal(rows[1][1],'887324418788780481058004801');
+ assert.match(card.textContent,/區塊時間 2026-10-07T11:02:47\.000Z · K 線分鐘 2026-10-07T11:02:00\.000Z → 2026-10-07T11:03:00\.000Z（區塊在第 47 秒）/);
+ assert.match(card.textContent,/Coinbase Exchange UNI-USD 同分鐘收盤 7\.9914 USD\/UNI（最低 7\.9914／最高 7\.9946）/);
+ assert.match(card.textContent,/不是同一瞬間成交、成交量加權或跨交易所價格/);assert.match(card.textContent,/這些數值沒有寫入金融模型；正式的 UNI 市值與 FDV 仍為未知。/);
+ assert.match(values.textContent,/97\.581852/);assert.match(values.textContent,/美元／UNI（USD\/UNI）/);assert.match(values.textContent,/K 線欄位 4/);
+ assert.match(derived.textContent,/情境（SCENARIO）：timelock_excluded/);assert.match(derived.textContent,/research\.uni\.valuation\.excluding_dead_sink_value_usd \/ v1/);
+ assert.match(card.textContent,/uni-supply-composition-evidence-20261006-v1（SHA-256 de66eac4/);
+ for(const label of ['已驗證流通量','正式市值','正式完全稀釋估值（FDV）','其他非流通持倉','未來鑄造決定','成交量加權價格','跨交易所價格'])assert.ok(card.textContent.includes(label+'：未知'),label);
+ assert.equal(card.querySelectorAll('a').length,4);
+ const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,3);assert.ok(tables.every(n=>n.tabIndex===0));
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);
+});
+
 test('aligned valuation event shows research bases, scenario and disclosure without updating canonical valuation',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-aligned-valuation-20261007');
@@ -432,6 +455,6 @@ test('XLM supply event shows exact reported decimals and separate timestamps wit
  assert.match(card.textContent,/零殘差不證明真實供給或健康論點/);assert.match(card.textContent,/前一天價格不能配成本次同步市值／FDV/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
  assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),84);
- assert.equal(productionResearch.records.length,13);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
+ assert.equal(productionResearch.records.length,14);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });

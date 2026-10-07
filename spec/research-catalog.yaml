@@ -1,4 +1,4 @@
-version: 9
+version: 10
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -71,3 +71,9 @@ records:
     kind: revenue_ttm
     file: revenue-ttm-reviews/secz-20260630-v2.json
     expected_id: cd09b167530a627545fbb7dfeaed1d3f3d267d21e2e091210ec3513595f8e45c
+  - id: uni-valuation-20261007
+    label: UNI 供給口徑與同分鐘價格／研究層估值
+    kind: uni_aligned_valuation
+    file: uni-aligned-valuation-2026-10-07-v1.json
+    expected_id: 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356
+    event_id: uni-aligned-valuation-20261007

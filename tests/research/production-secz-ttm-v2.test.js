@@ -74,7 +74,7 @@ test('confirmed comparability still needs stated confidence, rationale, both fil
 test('catalog keeps both assumption versions; v2 results never become observations or canonical inputs',()=>{
  const history=readSnapshots(p.root,p.mode),before=fingerprint({economics:calculate(p),history});
  const result=inspectResearch(p),entries=result.records.filter(r=>r.kind==='revenue_ttm');
- assert.equal(result.records.length,13);assert.deepEqual(entries.map(r=>[r.id,r.comparability.id,r.comparability.version]),
+ assert.equal(result.records.length,14);assert.deepEqual(entries.map(r=>[r.id,r.comparability.id,r.comparability.version]),
   [['secz-ttm-20260630','secz-ttm-20260630-comparability@1',1],['secz-ttm-20260630-v2','secz-ttm-20260630-comparability@2',2]]);
  assert.ok(entries[0].records.every(r=>r.value===null));assert.deepEqual(entries[1].records.map(r=>r.value),Object.values(TTM));
  assert.deepEqual(entries[1].full_review,v2);assert.equal(entries[1].artifact_id,v2.id);
