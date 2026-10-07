@@ -1,4 +1,4 @@
-version: 8
+version: 9
 records:
   - id: core-identifiers-20261003
     label: UNI / SECZ / XLM identifiers
@@ -66,3 +66,8 @@ records:
     file: uni-firepit-state-2026-10-06-v1.json
     expected_id: 41c8fcb16267e1b068aea59f8675bcd27a913d1a52c3d5ed2602034e71a0e6f9
     event_id: uni-firepit-state-20261006
+  - id: secz-ttm-20260630-v2
+    label: SECZ TTM 附條件研究 v2／保留名稱衝突
+    kind: revenue_ttm
+    file: revenue-ttm-reviews/secz-20260630-v2.json
+    expected_id: cd09b167530a627545fbb7dfeaed1d3f3d267d21e2e091210ec3513595f8e45c

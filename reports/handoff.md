@@ -1,5 +1,21 @@
 # 開發交接
 
+## 2026-10-07（台北）— 使用者決定與 SECZ TTM 附條件研究 v2
+
+main `4f516b3` CI 成功、無未合併 PR。使用者 2026-10-07 對四項待決定事項的指示（**後續以此為準**）：
+
+1. **UNI 市值／FDV**：同意新增推導，但先定義供給口徑，分階段做。價格與供給日期要對齊；扣除 dead 地址後的供給先標為研究口徑，不能宣稱是已驗證流通量；治理金庫是否排除要列成明確假設或情境；若用現行 totalSupply 算 FDV，要揭露未涵蓋未來增發（已保存的官方 UNI 原始碼仍有增發機制）。
+2. **Firepit**：目前**不要**把年化值放進正式模型。次數×現行門檻需要「歷史門檻沒變」的假設，不足以證明實際累計銷毀；可另做 SCENARIO 試算，實績等歷史交易、門檻與期間查證後再計算。UNI 模型要納入分配與增發稀釋，不能只看 gross burn。
+3. **SECZ TTM**：先做「保留衝突、附條件」的研究計算（本子項）。
+4. **存取權限**：RPC 能力與 SEC 聯絡資訊分開處理。RPC 先用少量請求驗證是否支援所需歷史資料，再決定是否取得 key（有 key 不代表一定查得到）；SEC 建議用真實、可收信的研究專用信箱（非私人主要信箱），設定後仍不保證解除 403。
+5. 所有新增計算保留原本的 null 與歷史快照，追加新版本。
+
+本子項 `research/secz-ttm-conditional-v2`：新 request `secz-ttm-20260630-review@2`／假設 `secz-ttm-20260630-comparability@2`（v2、low），只把 `acquisition_treatment` 由 null 改為 true（理由：兩份 Note 3 同收購日、已保存收購查證的購買價格分配逐項相同；明示不是法律主體等價、衝突保留、查明不同即失效），其餘四項逐字沿用 v1。結果 Tokenization 36,249,459／Asset Servicing 30,520,797／合計 66,770,256 USD（TTM 2025-07-01→2026-06-30，DERIVED、low）。研究檔 `cd09b167…` exclusive-create；目錄 v9 在最後追加 v2，v1 留在原位（既有測試以 `find` 取第一份 TTM，仍保證 v1 為 null）。TTM 引擎沒有修改：比較來源必須來自兩份收入研究的 statement 來源，所以收購查證事件只在理由文字中引用。假設 ID 用新 `@2` 而不是沿用舊 ID 加版本，因為結果的 `assumption_dependencies` 只記 ID。
+
+介面：TTM 卡片加假設 ID／版本、中文限制說明與條件提示；三個 `secz.reported_*` 指標加中文名稱。十項新增（九項 v2、一項卡片）、十四個既有測試檔更新 12／230→13／233，全套 1107、兩模式 validate 通過；canonical SECZ 收入仍 null、unknown 80、無新事件／快照。Chrome headless 27 項檢查通過，favicon 404 以外 console 空，PID 5928 已核對停止。見[研究與驗收](secz-revenue-ttm-v2.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項（使用者指示的第 1 項第一階段）：UNI 供給口徑定義與日期對齊的研究層估值——在同一個 finalized 區塊時間附近取得價格，建立「totalSupply」「扣除 dead」兩個研究口徑（Timelock 是否排除列為情境），FDV 揭露未涵蓋未來增發；先做研究層 DERIVED 與情境，不改 canonical `uni.market_cap`／`uni.fdv` 的 input 定義，待使用者確認口徑後再做第二階段的模型版本升級。
+
 ## 2026-10-06（台北）— 後續研究可行性探測與待使用者決定事項
 
 PR #69 push／PR CI 成功並合併（main `8b33dfe`），無未合併 PR。以下是合併後的**探索性**結果，沒有保存成證據、沒有套用事件；只供排優先順序，不可當作已查證事實引用。

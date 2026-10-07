@@ -80,7 +80,7 @@ node cli.js uni-firepit-state-review data/research/uni-firepit-state-2026-10-06-
 
 可使用[固定區塊資料包手動唯讀驗證](reports/manual-fixed-block-review.md)重新核對原始 request／response、ABI 解碼、同區塊與來源日期。命令明示 production 與已審查 hash，不連 RPC 或寫入資料；matching hash 仍須通過語意驗證。
 
-[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共十二份 review／十八筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
+[固定區塊研究目錄／中文介面](reports/fixed-block-research-inspection.md)也能直接查閱同一份 hash 固定資料包：八個完整 raw 字串、分類／可信程度及三種時間分開，保留 receipt 無結果。研究共十三份 review／十八筆事件；歷史截止日不能提前取得這份 10 月 4 日證據，Fixture 隔離保留。
 
 已保存 [XLM 官方回報供給與口徑](reports/xlm-reported-supply.md)：九個回報觀測及兩個精確小數研究殘差，更新／取得時間分開，中文已審查事件可查看原 hash／來源／限制。算術一致不證明獨立鏈上供給，昨日價格不能與本次供給拼成同步市值／FDV。可使用[手動唯讀驗證](reports/manual-xlm-supply-review.md)重新核對原回應 hash、精確小數、更新／取得時間、來源版本與兩條殘差公式：
 
@@ -134,6 +134,12 @@ node cli.js revenue-ttm data/research/secz-ttm-20260630-review-v1.yaml data/rese
 ```
 
 後續 [收購範圍查證](reports/secz-acquisition-context.md)另存 S-1 XBRL 的 Inc.／LLC 標題、相同收購日期／對價及 actual／pro forma 區分。只追加來源事件／完整快照；法律名稱等價未獲直接澄清，原 TTM null 與所有金融輸入保留。
+
+2026-10-07 依分析者指示另存[保留衝突的附條件研究 v2](reports/secz-revenue-ttm-v2.md)：以低信心 ASSUMPTION `secz-ttm-20260630-comparability@2`（同收購日、同購買價格分配；Inc.／LLC 法律名稱衝突原樣保留）推導 2025-07-01 至 2026-06-30 的報表口徑收入——Tokenization 36,249,459、Asset Servicing 30,520,797、合計 66,770,256 USD。這是研究層 DERIVED，不是已審計 TTM；v1 的 null 保留，canonical 的 SECZ 收入仍為未知：
+
+```powershell
+node cli.js revenue-ttm data/research/secz-ttm-20260630-review-v2.yaml data/research/revenue-reviews/secz-prospectus-v1.json data/research/revenue-reviews/secz-q22026-v1.json --production
+```
 
 [母公司歷史股本範圍](reports/secz-parent-capital-context.md)另存 10-Q／Exhibit 5.1 的已發行、條件發行、預留與轉售登記區分，保留日期／類別衝突與 S-1 索引閱讀限制；只追加來源及完整快照，目前估值與 TTM 仍未知。
 

@@ -354,6 +354,23 @@ test('Firepit state research renders exact readings, mechanical products, pinned
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
+test('SECZ TTM v2 card shows conditional values with the assumption, preserved conflict and no financial update',async()=>{
+ const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);v.researchRequests[0].reply(productionResearch);await tick();
+ const cards=v.$('research-records').children,second=cards.find(c=>c.dataset.research==='secz-ttm-20260630-v2'),first=cards.find(c=>c.dataset.research==='secz-ttm-20260630');
+ assert.match(second.textContent,/SECZ 近十二個月附條件研究 v2／保留名稱衝突/);
+ for(const value of ['36,249,459','30,520,797','66,770,256'])assert.ok(second.textContent.includes(value),value);
+ for(const label of ['報表口徑代幣化收入','報表口徑資產服務收入','報表口徑收入合計'])assert.ok(second.textContent.includes(label),label);
+ assert.match(second.textContent,/假設（ASSUMPTION） · 可信程度 低/);assert.match(second.textContent,/假設 secz-ttm-20260630-comparability@2 \/ v2/);
+ assert.match(second.textContent,/下列數值只在上列假設成立時有效，是研究層推導，不是已審計的 TTM 報表，也沒有寫入金融模型。/);
+ assert.match(second.textContent,/附條件的報表口徑子公司收入銜接/);assert.match(second.textContent,/衝突原樣保留/);assert.match(second.textContent,/不是法律主體等價的查證/);
+ assert.match(second.textContent,/近十二個月（TTM） · 2025-07-01 → 2026-06-30/);assert.match(second.textContent,/推導值（DERIVED）/);
+ assert.equal(second.textContent.includes('尚未確認'),false);
+ assert.match(first.textContent,/假設 secz-ttm-20260630-comparability@1 \/ v1/);assert.match(first.textContent,/尚未確認/);assert.match(first.textContent,/可比性未全部確認，三項結果維持未知。/);
+ assert.equal(first.textContent.includes('36,249,459'),false);
+ for(const id of ['secz.revenue','secz.tokenization','secz.servicing'])assert.equal(production.metrics[id].value,null);assert.equal(v.count(),84);
+ v.change('fixture');assert.equal(v.$('research-records').children.length,0);
+});
+
 test('research card text, list and raw blocks can break long unspaced evidence on narrow screens',()=>{
  // README rows carry long unspaced URLs; without this rule the narrow page overflowed (312/509 in Chrome).
  const css=fs.readFileSync(new URL('../dashboard/style.css',import.meta.url),'utf8');
@@ -403,6 +420,6 @@ test('XLM supply event shows exact reported decimals and separate timestamps wit
  assert.match(card.textContent,/零殘差不證明真實供給或健康論點/);assert.match(card.textContent,/前一天價格不能配成本次同步市值／FDV/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
  assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),84);
- assert.equal(productionResearch.records.length,12);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
+ assert.equal(productionResearch.records.length,13);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });

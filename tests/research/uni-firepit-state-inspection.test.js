@@ -24,7 +24,7 @@ function isolated(t,fn,{repin=false}={}){
 
 test('Firepit catalog preserves original bytes, raw strings, derived lineage, source versions and review outside finance',()=>{
  const before=fingerprint({p,economics:calculate(p),history:readSnapshots(p.root,p.mode)}),result=inspectResearch(p),r=result.records.find(r=>r.id===entry.id);
- assert.ok(catalog.version>=8);assert.equal(result.records.length,12);assert.equal(r.records.length,16);
+ assert.ok(catalog.version>=8);assert.equal(result.records.length,13);assert.equal(r.records.length,16);
  assert.equal(r.artifact_id,'41c8fcb16267e1b068aea59f8675bcd27a913d1a52c3d5ed2602034e71a0e6f9');assert.deepEqual(r.full_review,a);
  assert.ok(r.records.every(r=>typeof r.label==='string'&&/[一-鿿]/u.test(r.label)));
  assert.deepEqual(r.review,result.events.find(e=>e.id===entry.event_id).event.research_review);assert.equal(r.event_id,'uni-firepit-state-20261006');
@@ -60,7 +60,7 @@ test('valid replacement Firepit semantics still require the original event diges
 test('Firepit state is unavailable before its review day and derived checks never become observed facts',()=>{
  for(const [cutoff,available] of [['2026-10-05',false],['2026-10-06',true]]){
   const research=researchFreshness(p,{as_of_date:cutoff}).research,artifact=research.artifacts.find(r=>r.id===entry.id),rows=research.records.filter(r=>r.catalog_id===entry.id);
-  assert.equal(research.artifacts.length,12);assert.equal(research.records.length,230);assert.equal(research.source_checks.length,39);
+  assert.equal(research.artifacts.length,13);assert.equal(research.records.length,233);assert.equal(research.source_checks.length,39);
   assert.equal(artifact.review_state,available?'AVAILABLE_AT_CUTOFF':'NOT_AVAILABLE_AT_CUTOFF');assert.equal(rows.length,16);
   const observed=rows.filter(r=>r.record.classification==='OBSERVED');assert.equal(observed.length,12);
   assert.ok(observed.every(r=>r.evidence_state===(available?'AVAILABLE':'INSUFFICIENT')));
