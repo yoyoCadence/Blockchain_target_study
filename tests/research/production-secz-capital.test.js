@@ -47,7 +47,7 @@ test('capital evidence appends one full snapshot while preserving replay and ins
  const before=fingerprint(history),index=history.indexOf(review);
  for(const snapshot of history)verifySnapshot(snapshot);
  const replay=calculate({...project,inputs:review.inputs,sources:review.sources,
-  registry:{...project.registry,formulas:review.formulas},dictionary:review.dictionary,
+  registry:{...project.registry,formulas:review.formulas},dictionary:review.dictionary,sensitivity:review.sensitivity,
   thesis:{...project.thesis,rules:review.rules}},{history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,review.metrics);assert.deepEqual(replay.thesis,review.thesis);
  assert.equal(new Set(history.slice(0,history.indexOf(review)+1).map(s=>JSON.stringify(s.period))).size,1);
@@ -66,7 +66,7 @@ test('parent capital evidence leaves subsidiary TTM comparability unknown and fi
  assert.equal(ttm.comparability.checks.acquisition_treatment.value,null);
  assert.ok(ttm.records.every(r=>r.value===null&&r.status==='COMPARABILITY_UNVERIFIED'));
  assert.equal(fingerprint(readSnapshots(project.root,'production')),before);
- const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,3);
+ const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,4);
  assert.ok(!fixture.sources.some(s=>s.id.startsWith('secz-parent-capital-')));
  assert.deepEqual(inspectResearch(fixture).records,[]);
 });

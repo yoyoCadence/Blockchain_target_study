@@ -2,7 +2,10 @@
 // in the canonical engine; original identifiers/codes remain inspectable.
 export const metricLabels={
  'market.equity_aum':'代幣化股票管理資產', 'market.volume':'代幣化股票交易量', 'market.global_equity':'全球股票市場規模', 'market.penetration':'情境滲透率',
- 'uni.price':'UNI 價格', 'uni.market_cap':'市值', 'uni.fdv':'完全稀釋估值', 'uni.crypto_fees':'加密資產協議費用', 'uni.other_rwa':'其他實體資產費用',
+ 'uni.price':'UNI 價格', 'uni.market_cap':'市值（舊版直接輸入）', 'uni.fdv':'完全稀釋估值（舊版直接輸入）',
+ 'uni.total_supply':'UNI 總供給（totalSupply）', 'uni.dead_balance':'dead 地址餘額', 'uni.timelock_balance':'治理金庫（Timelock）餘額',
+ 'uni.supply_basis_excludes_dead':'供給口徑假設：扣除 dead 地址', 'uni.timelock_exclusion':'治理金庫排除（情境旗標）', 'uni.model_supply':'模型供給（扣除 dead 口徑）',
+ 'uni.model_market_cap':'模型市值：扣除 dead 口徑', 'uni.fdv_current_supply':'現行總供給估值（FDV 口徑，未含未來增發）', 'uni.crypto_fees':'加密資產協議費用', 'uni.other_rwa':'其他實體資產費用',
  'uni.unichain':'Unichain 價值累積', 'uni.mev':'MEV 價值累積', 'uni.other_accrual':'其他協議價值累積', 'uni.activity_growth':'協議活動成長率',
  'uni.supply_growth':'UNI 淨供給成長率', 'uni.turnover':'周轉率', 'uni.onchain_share':'鏈上占比', 'uni.amm_share':'AMM 占比', 'uni.market_share':'Uniswap 市占率',
  'uni.fee':'有效協議費率', 'uni.required_yield':'要求收益率', 'uni.growth_budget':'年度成長預算', 'uni.other_dilution':'其他稀釋價值',
@@ -56,7 +59,7 @@ const terms={
  UNKNOWN_DATA:'資料未知（UNKNOWN_DATA）',NOT_OBSERVED:'非觀測值（NOT_OBSERVED）',INSUFFICIENT:'證據不足（INSUFFICIENT）',AVAILABLE:'可用（AVAILABLE）',RECHECK_DUE:'需重新查證（RECHECK_DUE）',RECENTLY_RETRIEVED:'近期取得（RECENTLY_RETRIEVED）',NOT_AVAILABLE_AT_CUTOFF:'截止日尚不可用（NOT_AVAILABLE_AT_CUTOFF）',STALE_FOR_CURRENT_USE:'目前使用前需重查（STALE_FOR_CURRENT_USE）',WITHIN_REVIEW_WINDOW:'在查證窗口內（WITHIN_REVIEW_WINDOW）',AVAILABLE_AT_CUTOFF:'截止日可用（AVAILABLE_AT_CUTOFF）',COMPARABILITY_UNVERIFIED:'可比性未查證（COMPARABILITY_UNVERIFIED）',UNKNOWN_INPUT:'輸入未知（UNKNOWN_INPUT）',
  input_states:'輸入狀態',evidence_states:'證據狀態',active_source_states:'使用中來源',review_states:'審查狀態',observation_states:'觀測狀態',source_states:'來源狀態',
  ERROR:'錯誤（ERROR）',WARNING:'警告（WARNING）',UNKNOWN:'未知（UNKNOWN）',
- text:'文字（text）',address:'地址（address）',flag:'旗標（flag）',
+ text:'文字（text）',one_minute_close:'同分鐘收盤價',timelock_excluded:'全部排除治理金庫（timelock_excluded）',address:'地址（address）',flag:'旗標（flag）',
  source_change:'來源變更',assumption_change:'假設變更',scenario_change:'情境變更',formula_change:'公式變更',rule_change:'規則變更',
  revenue_definitions:'收入定義',continuing_operations:'持續營業範圍',acquisition_treatment:'收購處理',selected_presentation:'所選披露版本',audit_difference:'審計差異',
  operating_subsidiary:'營業子公司',audited:'已審計',unaudited:'未經審計',erc20:'ERC-20 代幣',common_stock:'普通股',native_asset:'原生資產',

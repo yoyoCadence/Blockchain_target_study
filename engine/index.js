@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import YAML from 'yaml';
-import {assert,unique,validateSchema,normalize,checkPeriods,utcDay,checkEventEvidence,checkEventReview,checkResearchEvidence} from './validation/index.js';
+import {assert,unique,validateSchema,normalize,checkPeriods,blockTime,utcDay,checkEventEvidence,checkEventReview,checkResearchEvidence} from './validation/index.js';
 import {references,evaluate,orderFormulas} from './formulas/index.js';
 import {evaluateTheses} from './thesis/index.js';
 import {verifySnapshot,fingerprint} from './snapshots.js';
@@ -77,7 +77,9 @@ export function validateProject(p) {
   assert(Number.isInteger(f.version)&&f.version>0,`Invalid formula version ${f.id}`);
   assert(dictionary[f.output]?.kind==='derived',`Missing derived dictionary entry ${f.output}`);
   assert(f.unit===dictionary[f.output].unit,`Formula output unit mismatch ${f.id}`);
-  assert(['compatible','prior_comparison','annual_rate_valuation','valuation_compatible'].includes(f.period_policy),`Invalid period policy ${f.id}`);
+  assert(['compatible','prior_comparison','annual_rate_valuation','valuation_compatible','same_block_point','aligned_price_valuation'].includes(f.period_policy),`Invalid period policy ${f.id}`);
+  if(f.period_policy==='aligned_price_valuation')assert(f.expression.op==='mul'&&f.expression.args.length===2&&f.expression.args.includes(f.price_input)&&
+   f.expression.args.every(a=>typeof a==='string'),`Invalid aligned valuation expression: ${f.id}`);
   if(f.period_policy==='annual_rate_valuation') {
    assert(f.rate_input!==f.price_input&&f.expression.op==='mul'&&f.expression.args.length===2&&
     f.expression.args.includes(f.rate_input)&&f.expression.args.includes(f.price_input),`Invalid annual-rate valuation expression: ${f.id}`);
@@ -101,6 +103,11 @@ export function validateProject(p) {
  }
  assert(p.sensitivity.parameters.every(id=>dictionary[id]?.kind==='input'),'Invalid sensitivity parameter');
  assert(p.sensitivity.parameters.includes(p.sensitivity.matrix.row)&&p.sensitivity.parameters.includes(p.sensitivity.matrix.column)&&dictionary[p.sensitivity.matrix.output]?.kind==='derived','Invalid sensitivity matrix definitions');
+ for(const s of p.sensitivity.named_scenarios||[]) {
+  const d=dictionary[s.parameter];
+  assert(p.sensitivity.parameters.includes(s.parameter)&&(d.minimum===null||s.value>=d.minimum)&&(d.maximum===null||s.value<=d.maximum),`Invalid named scenario: ${s.name}`);
+ }
+ assert(new Set((p.sensitivity.named_scenarios||[]).map(s=>s.name)).size===(p.sensitivity.named_scenarios||[]).length,'Duplicate named scenario');
  selectInputs(p.inputs); // validates supersession, conflicts remain errors until explicitly resolved
 }
 export function selectInputs(records) {
@@ -124,7 +131,11 @@ export function calculate(p,{overrides={},history=[],previousThesis={}}={}) {
  for(const id of Object.keys(overrides)) assert(p.sensitivity.parameters.includes(id),`Not a sensitivity parameter: ${id}`);
  for(const d of p.dictionary.metrics.filter(x=>x.kind==='input')) {
   let input=current[d.id]||{id:`${d.id}@unknown`,metric_id:d.id,asset:d.asset,value:null,unit:d.unit,classification:'ASSUMPTION',rationale:'No verified observation available. Unknown, not an estimated fact. Date is the model reference date, not an observation date.',as_of_date:defaultDate,period:{basis:'model',end:defaultDate},confidence:'unknown',version:1,fixture:false};
-  if(Object.hasOwn(overrides,d.id)) input={...input,id:`${d.id}@sensitivity`,classification:'SCENARIO',source_ids:[],scenario:'Interactive sensitivity — unsaved',rationale:'User-selected counterfactual, not a new observation.',value:overrides[d.id],base_record_id:input.id,range:undefined};
+  if(Object.hasOwn(overrides,d.id)) {
+   // A value matching a declared named scenario carries that name; anything else stays an unsaved sensitivity.
+   const named=(p.sensitivity.named_scenarios||[]).find(s=>s.parameter===d.id&&s.value===overrides[d.id]);
+   input={...input,id:`${d.id}@sensitivity`,classification:'SCENARIO',source_ids:[],scenario:named?named.name:'Interactive sensitivity — unsaved',rationale:named?named.rationale:'User-selected counterfactual, not a new observation.',value:overrides[d.id],base_record_id:input.id,range:undefined};
+  }
   metrics[d.id]=normalize(input,d);
   if(input.value===null) issues.push({severity:'UNKNOWN',metric_id:d.id,message:'Input unavailable; downstream outputs remain unknown.'});
  }
@@ -138,12 +149,16 @@ export function calculate(p,{overrides={},history=[],previousThesis={}}={}) {
    const valuationDate=quote&&quote.value!==null?quote.period.end:dependencies.find(m=>m.valuation_date)?.valuation_date;
    if(valuationDate)metrics[f.output].valuation_date=valuationDate;
    if(f.period_policy==='annual_rate_valuation')metrics[f.output].rationale=f.description;
+   const at=blockTime(f,dependencies);if(at)metrics[f.output].observed_at=at;
   }
   if(value===null&&!error) issues.push({severity:'UNKNOWN',metric_id:f.output,message:'Incomplete upstream data.'});
   validateSchema(p.schema,Object.fromEntries(Object.entries(metrics[f.output]).filter(([k])=>!['input_record_ids','error'].includes(k))),`derived ${f.output}`);
  }
  for(const id of ['uni.required_share','uni.required_share_net']) if(metrics[id].value>1) issues.push({severity:'WARNING',metric_id:id,message:'Required market share exceeds 100%: scenario is infeasible.'});
  if(metrics['uni.fdv'].value!==null&&metrics['uni.market_cap'].value!==null&&metrics['uni.fdv'].value<metrics['uni.market_cap'].value) issues.push({severity:'WARNING',metric_id:'uni.fdv',message:'FDV is below market cap; review definitions.'});
+ // Historical replays may use a dictionary that predates the model valuation metrics.
+ const modelFdv=metrics['uni.fdv_current_supply']?.value??null,modelCap=metrics['uni.model_market_cap']?.value??null;
+ if(modelFdv!==null&&modelCap!==null&&modelFdv<modelCap) issues.push({severity:'WARNING',metric_id:'uni.fdv_current_supply',message:'FDV is below market cap; review definitions.'});
  const flows=Object.values(metrics).filter(x=>x.period.basis==='annual'||x.period.basis==='quarterly');
  const period={basis:flows.find(x=>x.period.end===defaultDate)?.period.basis||'annual',end:defaultDate};
  const thesis=evaluateTheses(p.thesis.rules,{period,metrics},history,previousThesis);

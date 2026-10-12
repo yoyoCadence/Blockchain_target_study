@@ -39,7 +39,7 @@ test('single executed release appends sources while retaining every earlier fina
 
 test('release snapshot fully replays and repeated model period cannot add thesis evidence',()=>{
  const replayProject={...project,inputs:release.inputs,sources:release.sources,registry:{version:1,formulas:release.formulas},
-  dictionary:release.dictionary,thesis:{...project.thesis,rules:release.rules},assets:release.assets,
+  dictionary:release.dictionary,sensitivity:release.sensitivity,thesis:{...project.thesis,rules:release.rules},assets:release.assets,
   graph:release.graph,sensitivity:release.sensitivity};
  const replay=calculate(replayProject,{history:history.slice(0,history.indexOf(release)),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,release.metrics);assert.deepEqual(replay.thesis,release.thesis);

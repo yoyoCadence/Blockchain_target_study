@@ -197,3 +197,35 @@ metrics:
     version: 1
     fixture: false
     rationale: Analyst input pending research; unknown production value.
+  - id: uni.supply_basis_excludes_dead@1
+    metric_id: uni.supply_basis_excludes_dead
+    asset: UNI
+    value: 1
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2026-10-07
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: medium
+    version: 1
+    fixture: false
+    rationale: 分析者 2026-10-07 決定的模型供給口徑：以 totalSupply 扣除 dead address 餘額作為模型市值的供給基準。理由：UNI 合約沒有 burn
+      函式，轉入 dead address 的代幣仍計入 totalSupply（已保存官方 Uni.sol 選定行與 UNI
+      供給組成研究）。這是有理由、有版本的口徑選擇，不是已驗證的流通量；其他團隊、投資人、合約或交易所持倉未分類。required_accrual、required_share 等下游經由
+      uni.model_supply 繼承此依賴。
+  - id: uni.timelock_exclusion@1
+    metric_id: uni.timelock_exclusion
+    asset: UNI
+    value: 0
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2026-10-07
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: medium
+    version: 1
+    fixture: false
+    rationale: 預設不排除治理 Timelock 餘額。全部排除 Timelock 只作為具名情境 timelock_excluded（敏感度參數設為 1），切換時重算模型市值與
+      required-share；Timelock 是否已承諾、可支用或應排除未查證。

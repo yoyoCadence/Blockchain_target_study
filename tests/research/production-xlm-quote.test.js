@@ -53,7 +53,7 @@ test('known XLM point quote is unavailable at the earlier cutoff and never repla
 
 test('historical XLM snapshot replays and its v1 formulas retain three UNI blockers without writes',()=>{
  const before=fingerprint({project,history,result:calculate(project)});
- const replay=calculate({...project,inputs:baseline.inputs,sources:baseline.sources,registry:{...project.registry,formulas:baseline.formulas}},
+ const replay=calculate({...project,inputs:baseline.inputs,sources:baseline.sources,registry:{...project.registry,formulas:baseline.formulas},dictionary:baseline.dictionary,sensitivity:baseline.sensitivity},
   {history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,baseline.metrics);assert.deepEqual(replay.thesis,baseline.thesis);
  const pending=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');

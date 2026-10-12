@@ -41,7 +41,7 @@ test('warrant evidence preserves all historical replay and cannot add a consecut
  for(const [index,snapshot] of history.entries()) {
   verifySnapshot(snapshot);
   const replay=calculate({...project,inputs:snapshot.inputs,sources:snapshot.sources,
-   registry:{...project.registry,formulas:snapshot.formulas},dictionary:snapshot.dictionary,
+   registry:{...project.registry,formulas:snapshot.formulas},dictionary:snapshot.dictionary,sensitivity:snapshot.sensitivity,
    thesis:{...project.thesis,rules:snapshot.rules}},{history:history.slice(0,index),previousThesis:history[index-1]?.thesis??{}});
   assert.deepEqual(replay.metrics,snapshot.metrics);assert.deepEqual(replay.thesis,snapshot.thesis);
  }
@@ -58,7 +58,7 @@ test('warrant source context cannot establish subsidiary TTM or enter the fixtur
  assert.equal(ttm.artifact_id,'6ff89732cd3c586c911471e36028a0227ae99b4dca136340b4ab15933d045c5d');
  assert.equal(ttm.comparability.checks.acquisition_treatment.value,null);
  assert.ok(ttm.records.every(r=>r.value===null&&r.status==='COMPARABILITY_UNVERIFIED'));
- const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,3);
+ const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,4);
  assert.ok(!fixture.sources.some(s=>s.id===review.event.sources[0].id));
  assert.deepEqual(inspectResearch(fixture).records,[]);
 });

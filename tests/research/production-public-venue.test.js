@@ -62,7 +62,7 @@ test('public venue source versions append while all original financial values, p
   assert.deepEqual(saved.metrics[asset+'.price'],previous.metrics[asset+'.price']);
  }
  assert.equal(sourceFreshness(p,{as_of_date:'2026-10-05'}).inputs.find(r=>r.metric_id==='uni.growth_budget').observation_state,'STALE_FOR_CURRENT_USE');
- const before=fingerprint(history),replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas}},
+ const before=fingerprint(history),replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},
   {history:history.slice(0,index),previousThesis:previous.thesis});assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  assert.equal(new Set(history.slice(0,index+1).map(s=>s.period.end)).size,2);assert.equal(saved.period.end,'2026-10-04');
  assert.equal(inspectResearch(p).events.find(e=>e.id===saved.event.id).recorded_update_count,0);assert.deepEqual(inspectResearch(loadProject('fixture')).events,[]);

@@ -99,7 +99,7 @@ test('Firepit state is a source-only append that keeps finance, thesis, history,
  assert.equal(Object.values(saved.metrics).filter(m=>m.value===null).length,80);assert.equal(saved.period.end,'2026-10-04');
  for(const id of ['uni.crypto_fees','uni.gross_accrual','uni.net_accrual','uni.net_burn_yield','uni.market_cap'])assert.equal(saved.metrics[id].value,null);
  const before=fingerprint(history);
- const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas}},{history:history.slice(0,index),previousThesis:previous.thesis});
+ const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},{history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  for(const snapshot of history)verifySnapshot(snapshot);
  const inspected=inspectResearch(p),entry=inspected.events.find(e=>e.id===event.id);

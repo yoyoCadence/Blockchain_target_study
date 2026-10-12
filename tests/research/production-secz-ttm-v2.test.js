@@ -85,7 +85,7 @@ test('catalog keeps both assumption versions; v2 results never become observatio
  }
  const metrics=calculate(p).metrics;
  for(const id of ['secz.tokenization','secz.servicing','secz.revenue','secz.prior_revenue','secz.revenue_growth','secz.required_revenue'])assert.equal(metrics[id].value,null,id);
- assert.equal(Object.values(metrics).filter(m=>m.value===null).length,80);
+ assert.equal(Object.values(metrics).filter(m=>m.value===null).length,Object.values(history.at(-1).metrics).filter(m=>m.value===null).length);
  assert.ok(!p.inputs.some(r=>String(r.id).includes('secz-ttm')||String(r.metric_id).startsWith('secz.reported_')));
  assert.ok(!history.some(s=>JSON.stringify(s.event||{}).includes('secz-ttm-20260630-review@2')));
  assert.deepEqual(inspectResearch(loadProject('fixture')).records,[]);assert.equal(calculate(loadProject('fixture')).metrics['uni.required_share'].value,0.422);

@@ -46,7 +46,7 @@ test('every production snapshot replays its own formula version and keeps its ha
  const before=fingerprint(history);
  for(const [i,snapshot]of history.entries()) {
   const replay=calculate({...p,inputs:snapshot.inputs,sources:snapshot.sources,registry:{version:1,formulas:snapshot.formulas},
-   dictionary:snapshot.dictionary,thesis:{...p.thesis,rules:snapshot.rules}},
+   dictionary:snapshot.dictionary,sensitivity:snapshot.sensitivity,thesis:{...p.thesis,rules:snapshot.rules}},
    {history:history.slice(0,i),previousThesis:history[i-1]?.thesis??{}});
   assert.deepEqual(replay.metrics,snapshot.metrics);assert.deepEqual(replay.thesis,snapshot.thesis);assert.deepEqual(replay.period,snapshot.period);
  }
@@ -55,8 +55,9 @@ test('every production snapshot replays its own formula version and keeps its ha
 });
 
 test('fixture records remain synthetic and its separate formula snapshot retains all economic values',()=>{
- const fixture=loadProject('fixture'),snapshots=readSnapshots(fixture.root,'fixture'),latest=snapshots.at(-1),old=snapshots.at(-2);
- verifySnapshot(latest);assert.equal(latest.parent_id,old.id);assert.equal(snapshots.length,3);
+ // The 2026-10-04 fixture formula snapshot; a later model-valuation snapshot follows it.
+ const fixture=loadProject('fixture'),snapshots=readSnapshots(fixture.root,'fixture'),latest=snapshots.find(s=>s.id.startsWith('8ea6ec68')),old=snapshots[snapshots.indexOf(latest)-1];
+ verifySnapshot(latest);assert.equal(latest.parent_id,old.id);assert.equal(snapshots.length,4);assert.equal(snapshots.at(-1).parent_id,latest.id);
  for(const [id,m]of Object.entries(old.metrics))assert.equal(latest.metrics[id].value,m.value,id);
  for(const field of ['inputs','sources','observations','assumptions','scenarios'])assert.deepEqual(latest[field],old[field]);
  const changes=compareSnapshots(old,latest);assert.equal(changes.formula_change,true);assert.equal(changes.source_change,false);

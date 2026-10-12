@@ -16,8 +16,8 @@ test('sensitivity changes downstream metrics and retains canonical input',()=>{
  assert.equal(after.metrics['uni.growth_distribution'].value,90e6);assert.equal(after.metrics['secz.required_revenue'].value,100e6);assert.equal(after.metrics['uni.growth_budget'].classification,'SCENARIO');
  assert.deepEqual(calculate(p).metrics,before.metrics);assert.throws(()=>sensitivity(p,{'secz.fcf_margin':2}));assert.throws(()=>sensitivity(p,{'xlm.price':1}));
 });
-test('all ten requested sensitivity parameters produce calculated matrices',()=>{
- const p=project();assert.equal(p.sensitivity.parameters.length,10);const grid=matrix(p);assert.equal(grid.cells.length,3);assert.equal(grid.cells[1][1].value,0.422);
+test('the ten requested sensitivity parameters and the Timelock scenario flag produce calculated matrices',()=>{
+ const p=project();assert.equal(p.sensitivity.parameters.length,11);assert.deepEqual(p.sensitivity.parameters.filter(id=>id!=='uni.timelock_exclusion').length,10);const grid=matrix(p);assert.equal(grid.cells.length,3);assert.equal(grid.cells[1][1].value,0.422);
  for(const id of p.sensitivity.parameters){const value=calculate(p).metrics[id].value;const r=sensitivity(p,{[id]:value*0.9});assert.ok(!r.issues.some(x=>x.severity==='ERROR'));}
 });
 test('cycles, unknown dependencies and arbitrary expression code are rejected',()=>{

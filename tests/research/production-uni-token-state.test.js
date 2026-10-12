@@ -52,7 +52,7 @@ test('token-state source appends without financial changes, history periods or r
  for(const source of previous.sources)assert.deepEqual(saved.sources.find(s=>s.id===source.id),source);
  assert.equal(saved.sources.length,previous.sources.length+1);assert.equal(Object.values(saved.metrics).filter(m=>m.value===null).length,80);
  assert.equal(sourceFreshness(p,{as_of_date:'2026-10-04'}).inputs.find(m=>m.metric_id==='uni.growth_budget').observation_state,'STALE_FOR_CURRENT_USE');
- const before=fingerprint(history),replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas}},
+ const before=fingerprint(history),replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},
   {history:history.slice(0,index),previousThesis:previous.thesis});assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  assert.equal(new Set(history.slice(0,index+1).map(s=>s.period.end)).size,2);
  assert.equal(inspectReviewedEvents(p).find(e=>e.id===saved.event.id).recorded_update_count,0);

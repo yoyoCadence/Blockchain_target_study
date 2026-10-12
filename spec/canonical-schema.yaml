@@ -79,6 +79,18 @@ properties:
     minItems: 2
     maxItems: 2
   supersedes: *a1
+  # Intraday alignment evidence for point valuation inputs (block time / closed price window).
+  observed_at:
+    type: string
+    format: date-time
+  price_window:
+    type: object
+    additionalProperties: false
+    required: [basis, start, end]
+    properties:
+      basis: {const: one_minute_close}
+      start: {type: string, format: date-time}
+      end: {type: string, format: date-time}
 required:
   - id
   - metric_id

@@ -109,7 +109,7 @@ test('UNI supply composition is a source-only append that keeps finance, thesis,
  for(const id of ['uni.market_cap','uni.fdv','uni.required_share'])assert.equal(saved.metrics[id].value,null);
  assert.equal(sourceFreshness(p,{as_of_date:'2026-10-06'}).inputs.find(r=>r.metric_id==='uni.growth_budget').observation_state,'STALE_FOR_CURRENT_USE');
  const before=fingerprint(history);
- const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas}},{history:history.slice(0,index),previousThesis:previous.thesis});
+ const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},{history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  for(const snapshot of history)verifySnapshot(snapshot);
  const inspected=inspectResearch(p),entry=inspected.events.find(e=>e.id===event.id);

@@ -37,17 +37,73 @@ metrics:
     maximum: null
   - id: uni.market_cap
     asset: UNI
-    label: Market Cap
+    label: Market Cap (legacy direct input; formulas use uni.model_market_cap)
     unit: USD
     kind: input
     minimum: 0
     maximum: null
   - id: uni.fdv
     asset: UNI
-    label: Fully Diluted Valuation
+    label: Fully Diluted Valuation (legacy direct input; see uni.fdv_current_supply)
     unit: USD
     kind: input
     minimum: 0
+    maximum: null
+  - id: uni.total_supply
+    asset: UNI
+    label: UNI Total Supply (token contract totalSupply)
+    unit: UNI
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.dead_balance
+    asset: UNI
+    label: UNI Balance Held by the Dead Address
+    unit: UNI
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.timelock_balance
+    asset: UNI
+    label: UNI Balance Held by the Governance Timelock
+    unit: UNI
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: uni.supply_basis_excludes_dead
+    asset: UNI
+    label: Model Supply Basis Excludes Dead Address (assumption flag)
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.timelock_exclusion
+    asset: UNI
+    label: Governance Timelock Excluded from Model Supply (scenario flag)
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: uni.model_supply
+    asset: UNI
+    label: Model Supply Basis (not verified circulating supply)
+    unit: UNI
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.model_market_cap
+    asset: UNI
+    label: "Model Market Cap: Dead-Excluded Basis"
+    unit: USD
+    kind: derived
+    minimum: null
+    maximum: null
+  - id: uni.fdv_current_supply
+    asset: UNI
+    label: Current Total Supply Valuation (FDV basis, excludes future issuance)
+    unit: USD
+    kind: derived
+    minimum: null
     maximum: null
   - id: uni.crypto_fees
     asset: UNI

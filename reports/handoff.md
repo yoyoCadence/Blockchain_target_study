@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-07（台北）— UNI 模型市值與 FDV 口徑：模型版本升級（第二階段之一）
+
+PR #73 合併後 main `d37851c` CI 成功。使用者確認第二階段並附條件（完整 FDV 名稱、扣除 dead 的口徑另立 ASSUMPTION 讓下游繼承、預設不排除 Timelock 而以具名 SCENARIO 切換並重算、同分鐘已收盤 K 線並顯示「同分鐘收盤價」、價格更新要重新折算分配負擔、其他缺口維持 null；Firepit 情境試算與歷史存取另排）。建立 `feat/uni-valuation-model-v2`。
+
+設計重點：`uni.market_cap`／`uni.fdv` 不能改成推導——Fixture 舊快照有它們的 OBSERVED 輸入，`assertVersionHistory` 要求舊輸入原樣存在，字典改成 derived 會讓這些紀錄被拒。所以新增 `uni.model_market_cap`／`uni.fdv_current_supply`／`uni.model_supply` 與五個輸入，旗標做成 0–1 輸入（口徑假設、Timelock 情境），`model_supply = total − dead×旗標 − timelock×旗標`，讓假設與情境出現在 required-share 的血緣裡。Fixture 的 dead 值 462,222,222.2222222 是刻意選定，讓 9×(1e9−dead) 在浮點數下剛好等於 4.84e9，0.422 完全不變。具名情境放在 `spec/sensitivity.yaml` 的 `named_scenarios`，`calculate` 在覆寫值吻合時把覆寫紀錄的 `scenario` 標為該名稱。新期間政策在任一側未知時回傳 model 期間——第一版回傳 point，導致下游「Unaligned accounting periods」，已修正並有測試。正式假設的期間參考日用 2025-12-31（與其他正式假設一致），知識日 2026-10-07，避免無資料就推進模型期間。
+
+快照：`node cli.js snapshot --reason …`（Fixture `bb6e3c07…`）與 `--production`（`c85cf219…`，第一次寫入 `data/snapshots/production/`；`readSnapshots` 同時讀快照目錄與事件 journal，依 parent 串接）。CLI 印比較時暴露 `compareSnapshots` 兩個問題：新增指標 `fingerprint(undefined)` 拋錯、來源清單依載入順序比較造成假的 source_change；已修正。很多既有測試用目前字典重播舊快照，已一律改傳快照自己的 `dictionary`／`sensitivity`（`tests/research/historical-quote-workspace.js` 也寫回 baseline 的 sensitivity）。
+
+全套 1220、兩模式 validate（92 指標／28 公式，unknown 1／86）；Chrome 18 項（含在敏感度表單切換 Timelock 旗標，模型市值 $48.4億→$25.9億、required-share 42.2%→30.95%，重設恢復），PID 41652 已停止。見[設計與驗收](uni-valuation-model-v2.md)；本 PR／CI 最終狀態以遠端為準。
+
+下一項（第二階段之二）：research-refresh 追加正式觀測——block 26140081 的 `uni.total_supply`／`uni.dead_balance`／`uni.timelock_balance`（OBSERVED、point 2026-10-07、`observed_at` 2026-10-07T11:02:47Z），以及 `uni.price` v2（7.9914、`price_window` 11:02:00→11:03:00、supersedes `uni.price@1-coinbase-20261004`）。需要新版本來源（`ethereum-uni-valuation-supply-20261007-v2`、`coinbase-uni-usd-candle-20261007-v2`，supersedes v1，covered_metrics 加入正規指標 ID），因為已存 v1 來源不涵蓋 `uni.total_supply` 等正規指標且不可改寫。套用後 growth distribution 依新價格重新折算（20M×7.9914），模型市值與 FDV 口徑有值，required-share 仍因要求收益率等未知而維持 null；模型期間會推進到 2026-10-07。`tests/freshness-api.test.js` 的未知輸入狀態 59 屆時應回到 56。
+
 ## 2026-10-07（台北）— UNI 研究層估值資料包：唯讀驗證、研究目錄與中文查閱
 
 PR #72 push／PR CI 成功並合併（main `2e57e2a`）；`feat/uni-aligned-valuation-review` 把規格、reader、目錄與介面合成一個 PR。

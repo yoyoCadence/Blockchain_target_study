@@ -106,7 +106,7 @@ test('aligned valuation is a source-only append; canonical price, market cap, FD
  for(const id of ['uni.market_cap','uni.fdv','uni.required_accrual','uni.required_share','uni.net_burn_yield'])assert.equal(saved.metrics[id].value,null,id);
  assert.equal(Object.values(saved.metrics).filter(m=>m.value===null).length,80);assert.equal(saved.period.end,'2026-10-04');
  const before=fingerprint(history);
- const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas}},{history:history.slice(0,index),previousThesis:previous.thesis});
+ const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},{history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);for(const snapshot of history)verifySnapshot(snapshot);
  const inspected=inspectResearch(p),entry=inspected.events.find(e=>e.id===event.id);
  assert.equal(entry.recorded_update_count,0);assert.equal(entry.sources.length,4);assert.equal(inspected.records.find(r=>r.kind==='uni_aligned_valuation').artifact_id,hash(raw));
