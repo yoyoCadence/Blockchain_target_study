@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-12（台北）— 決策紀錄與 SEC 原文查證（使用者要求告一段落）
+
+PR #75（UNI 第二階段之二）與 #76（[決策紀錄](decision-log.md)）已合併，CI 成功。使用者同意四項建議 D-20261012-01～04，並要求記錄理由。SEC 研究專用信箱只透過環境變數 `SEC_CONTACT_EMAIL` 提供；repo 是公開的，不可寫入檔案。
+
+本 PR 只有 [MG Stover 研究筆記](secz-mgstover-naming.md)。scratch builder（`scratchpad/sec/build-mgstover.mjs`）會重取 14 份文件，比對第一次的 SHA-256，並抽出四種名稱的原文 bytes、位移與 hash。已重取的文件 hash 都相同；但 26 MB 級文件的逐字元正規化太慢，使用者要求收尾，所以中途停止。下次改用較快的正規化，產生 `data/research/secz-mgstover-naming-2026-10-12-v1.json` 與 source-only `acquisition` 事件（15 個 tier 1 來源），並加離線回歸（excerpt hash、不含信箱）。
+
+之後依決策順序：required-share 假設／情境 v2（D-20261012-01；`uni.turnover@2` 必須用 model 期間基礎，否則與 10/07 估值日期不對齊；預期 51.4%）→ Firepit 近期速率短窗口（D-20261012-02）→ Binance 封存交叉核對（D-20261012-03）。
+
 ## 2026-10-07（台北）— UNI 同區塊供給與同分鐘收盤價：正式套用（第二階段之二）
 
 PR #74 合併後在 `research/uni-valuation-baseline-20261007` 套用研究資料包的對齊觀測。研究層 v1 來源的 covered_metrics 沒有正規 ID，而來源不可改寫，所以以 v2 supersedes（其他欄位相同）；提案由 scratch 腳本從已審查資料包（SHA-256 `227008fc…`）程式產生，raw 字串與精確小數寫在理由裡，不手抄。流程：`research-preview` → `research-apply --digest 89aa3b3d…` → journal `data/events/production/uni-valuation-baseline-20261007.json`（快照 `ca4e19d9…`）。**不可再次套用。**

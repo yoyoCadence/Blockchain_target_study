@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-12（台北）— SECZ MG Stover 名稱沿革：SEC 原文查證（研究筆記）
+
+依 D-20261012-04 以研究專用信箱（不寫入 repo）取得 EDGAR 全文檢索 `"MG Stover"` 的 14 份原始檔案（HTTP 200，記錄 SHA-256）。發現四種名稱：年度 Note 3 一律寫 Inc.；期中 Note 3 從 2026-05-20 S-4/A 起改為 LLC；8-K/A 定義詞「MG Stover LLC ("MG Stover" or "MG Stover & Co.")」；S-1／424B3 寫「Securitize Fund Services, LLC, formerly MG Stover & Co」。新來源衝突：2026-01-28 S-4 把 Securitize Fund Services, LLC 對應到 Theorem，並另列 MG Stover & Co.；兩說保留。沒有任何文件說明 Inc. 轉為 LLC，所以法律等價仍未直接查證。只有文件；事件、快照、來源版本、金融數值、TTM 假設都沒有改。見[研究筆記](secz-mgstover-naming.md)。
+
 ## 2026-10-12（台北）— 分析者決策紀錄
 
 新增 [決策紀錄](decision-log.md)：每個分析者決策有固定編號，記錄背景、考慮過的選項、決定、邏輯、界線、重查方式與實作位置，只追加不改寫。補記 2026-10-07 的兩項決策（D-20261007-01／02），並記錄 2026-10-12 使用者同意的四項：required-share 輸入、Firepit 近期速率短窗口 SCENARIO、Binance 公開封存交叉核對、SEC 研究專用信箱（不寫入公開 repo）。只有文件；資料、公式、假設、快照都沒有改。
