@@ -137,3 +137,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-06 待使用者決定：UNI 供給與主網 Firepit 兩條證據鏈已完成至研究目錄。後續主線需要決定 (1) uni.market_cap／uni.fdv 是否改為推導與流通供給 ASSUMPTION、(2) Firepit 次數×門檻是否年化為模型輸入、(3) SECZ TTM 是否在保留 MG Stover 名稱衝突下確認收購處理、(4) 是否提供 archive RPC／API key 與 SEC 聯絡 User-Agent。可行性探測見 reports/handoff.md；探測結果不是已保存證據。
 
 2026-10-07 使用者決定：(1) UNI 市值／FDV 同意新增推導但先定供給口徑、分階段，價格與供給日期對齊，扣除 dead 後供給標為研究口徑、治理金庫排除列為假設或情境、FDV 揭露未涵蓋未來增發；(2) Firepit 年化值暫不進正式模型，可另做 SCENARIO，實績待門檻歷史與期間查證；(3) SECZ TTM 先做保留衝突、附條件的研究計算；(4) RPC 能力與 SEC 聯絡資訊分開處理，RPC 先少量驗證再決定 key，SEC 用研究專用信箱。所有新增計算保留原 null 與歷史快照，追加新版本。
+
+2026-10-12 使用者決定：同意四項建議並要求記錄理由以便日後查詢——required-share 輸入（D-20261012-01）、Firepit 近期速率短窗口 SCENARIO（D-20261012-02）、Binance 公開封存作為交叉核對與歷史價格（D-20261012-03）、SEC 研究專用信箱（D-20261012-04，信箱不寫入公開 repo）。執行順序：SEC 查證 → required-share → Firepit → Binance。見[決策紀錄](reports/decision-log.md)。

@@ -273,4 +273,4 @@ TTM [可比性假設也須維持同版本定義](reports/research-assumption-ver
 
 目前只有歷史核准預算與單筆交易所價格，缺少完整四期證據、自動研究、外部事件訂閱或 scheduler。來源衝突保留且阻擋無聲選取，仍需分析者明確處理。Snapshot 使用雜湊與禁止覆寫 API，並非抵抗管理員修改檔案的外部不可變儲存。CLI 使用單一寫入者；不是多人協作資料庫。完整 unit-dimensional algebra 與可配置會計曆尚未實作；目前會檢查宣告單位、basis、期間與明確轉換。
 
-目前可以閱讀已保存研究、操作合成情境與手動查詢時效；人工預覽／明確套用流程及歷史 UNI 核准預算已完成。**完整 production baseline 尚未完成**，後續仍需現行投資性、完整價值捕獲、同步估值與可比財務期間。詳見 [task.md](task.md)、[方法說明](reports/methodology.md) 與 [Agent 規範](AGENTS.md)。
+目前可以閱讀已保存研究、操作合成情境與手動查詢時效；人工預覽／明確套用流程及歷史 UNI 核准預算已完成。**完整 production baseline 尚未完成**，後續仍需現行投資性、完整價值捕獲、同步估值與可比財務期間。詳見 [task.md](task.md)、[方法說明](reports/methodology.md)、[分析者決策紀錄](reports/decision-log.md)（每個假設／情境選擇的理由）與 [Agent 規範](AGENTS.md)。

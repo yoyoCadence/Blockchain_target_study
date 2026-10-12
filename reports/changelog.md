@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-12（台北）— 分析者決策紀錄
+
+新增 [決策紀錄](decision-log.md)：每個分析者決策有固定編號，記錄背景、考慮過的選項、決定、邏輯、界線、重查方式與實作位置，只追加不改寫。補記 2026-10-07 的兩項決策（D-20261007-01／02），並記錄 2026-10-12 使用者同意的四項：required-share 輸入、Firepit 近期速率短窗口 SCENARIO、Binance 公開封存交叉核對、SEC 研究專用信箱（不寫入公開 repo）。只有文件；資料、公式、假設、快照都沒有改。
+
 ## 2026-10-07（台北）— UNI 同區塊供給與同分鐘收盤價：正式套用（第二階段之二）
 
 以 reviewed research-refresh（提案 `data/research/uni-valuation-baseline-2026-10-07.yaml`，review digest `89aa3b3d…`）把研究資料包的對齊觀測寫入正式模型。**來源**：追加 `ethereum-uni-valuation-supply-20261007-v2`／`coinbase-uni-usd-candle-20261007-v2`，明示 supersedes 研究層 v1（同 URL／日期／tier，只在涵蓋指標加入正規 ID）。**觀測**：block 26140081（`observed_at` 2026-10-07T11:02:47Z）的 `uni.total_supply`／`uni.dead_balance`／`uni.timelock_balance` v1，與 `uni.price@2-coinbase-candle-20261007`（7.9914 同分鐘收盤價，`price_window` 11:02→11:03，supersedes 10/04 單筆成交價 9.0556，舊紀錄保留）。**公式／假設／情境／規則未改。** 結果：模型市值（扣除 dead 口徑）7,090,964,360.31、FDV 口徑 7,991,400,000 USD，捨去到美分後與研究值完全相同；分配負擔依新價格重新折算 181,112,000→159,828,000 USD/年；required_accrual／required-share／net burn yield 仍 null，論點仍證據不足；unknown 86→80，模型期間 10/04→10/07。事件 journal `uni-valuation-baseline-20261007`，快照 `ca4e19d9…`（parent `c85cf219…`）。Fixture 不變（0.422、歷史 4 份）。7 項新增、既有正式價格／負擔／未知數相關測試更新；全套 1227、兩模式 validate、Chrome 15 項通過。見[套用與驗收](uni-valuation-baseline.md)。
