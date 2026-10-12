@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-07（台北）— UNI 同區塊供給與同分鐘收盤價：正式套用（第二階段之二）
+
+以 reviewed research-refresh（提案 `data/research/uni-valuation-baseline-2026-10-07.yaml`，review digest `89aa3b3d…`）把研究資料包的對齊觀測寫入正式模型。**來源**：追加 `ethereum-uni-valuation-supply-20261007-v2`／`coinbase-uni-usd-candle-20261007-v2`，明示 supersedes 研究層 v1（同 URL／日期／tier，只在涵蓋指標加入正規 ID）。**觀測**：block 26140081（`observed_at` 2026-10-07T11:02:47Z）的 `uni.total_supply`／`uni.dead_balance`／`uni.timelock_balance` v1，與 `uni.price@2-coinbase-candle-20261007`（7.9914 同分鐘收盤價，`price_window` 11:02→11:03，supersedes 10/04 單筆成交價 9.0556，舊紀錄保留）。**公式／假設／情境／規則未改。** 結果：模型市值（扣除 dead 口徑）7,090,964,360.31、FDV 口徑 7,991,400,000 USD，捨去到美分後與研究值完全相同；分配負擔依新價格重新折算 181,112,000→159,828,000 USD/年；required_accrual／required-share／net burn yield 仍 null，論點仍證據不足；unknown 86→80，模型期間 10/04→10/07。事件 journal `uni-valuation-baseline-20261007`，快照 `ca4e19d9…`（parent `c85cf219…`）。Fixture 不變（0.422、歷史 4 份）。7 項新增、既有正式價格／負擔／未知數相關測試更新；全套 1227、兩模式 validate、Chrome 15 項通過。見[套用與驗收](uni-valuation-baseline.md)。
+
 ## 2026-10-07（台北）— UNI 模型市值與 FDV 口徑：模型版本升級
 
 依分析者確認的第二階段條件升級模型。**公式**：新增 `f.uni.model_supply` v1、`f.uni.model_market_cap` v1、`f.uni.fdv_current_supply` v1；`f.uni.required_accrual` v1→v2、`f.uni.net_burn_yield` v2→v3 改用模型市值；registry 版本 2→3。**假設**：新增正式 `uni.supply_basis_excludes_dead@1`（扣除 dead 的口徑選擇，含理由）與 `uni.timelock_exclusion@1`（預設不排除）。**情境**：敏感度設定 v2 新增具名情境 `timelock_excluded` 與旗標參數。**期間政策**：新增 `same_block_point`、`aligned_price_valuation`（同分鐘已收盤 K 線必須包含供給區塊時間）。**規格**：正規紀錄與事件更新新增選填 `observed_at`／`price_window`。舊版直接輸入 `uni.market_cap`／`uni.fdv` 保留不刪（歷史 Fixture 紀錄需原樣存在），不再被公式使用。Fixture 新增合成供給與 `fixture-source@2`（supersedes v1），市值重建為 4,840,000,000，required-share 0.422 不變。Fixture／正式各追加一份模型快照（`bb6e3c07…`／`c85cf219…`），舊快照全部保留且各自重播；正式新估值仍未知（unknown 80→86）。另修正 `compareSnapshots` 對新增指標拋錯與依載入順序誤判來源變更。10 項新增、既有測試改用快照自己的字典重播；全套 1220、兩模式 validate、Chrome 情境切換通過。見[設計與驗收](uni-valuation-model-v2.md)。

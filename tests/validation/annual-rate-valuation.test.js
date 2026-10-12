@@ -5,6 +5,7 @@ import {checkPeriods} from '../../engine/validation/index.js';
 import {readSnapshots,fingerprint} from '../../engine/snapshots.js';
 import {prepareResearchRefresh} from '../../engine/research/index.js';
 import {project,change} from '../helpers.js';
+import {historicalQuoteWorkspace} from '../research/historical-quote-workspace.js';
 
 // Explicit opt-in remains useful for replaying pre-adoption formula versions.
 function optIn(p) {
@@ -21,8 +22,9 @@ function optIn(p) {
  return p;
 }
 
-test('explicit annual-rate valuation previews the real UNI quote without changing its historical inputs or files',()=>{
- const p=optIn(loadProject('production')),proposal=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
+test('explicit annual-rate valuation previews the real UNI quote without changing its historical inputs or files',t=>{
+ // Replay the state before any UNI price existed; later prices (10/04, 10/07) are already applied in the real history.
+ const p=optIn(historicalQuoteWorkspace(t)),proposal=readYaml('data/research/uni-market-quote-pending-2026-10-04.yaml');
  // Test-only supersession reuses the same real tick in memory, without pretending
  // to have fetched a second quote or writing any observation.
  const existing=p.inputs.find(m=>m.id===proposal.observations[0].id);

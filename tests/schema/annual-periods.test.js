@@ -35,6 +35,7 @@ test('point prices and inventories do not inherit annual-flow restrictions',()=>
  assert.equal(fixture.metrics['uni.required_share'].value,0.422);
  const production=calculate(loadProject('production'));
  assert.equal(production.metrics['uni.growth_budget'].value,20_000_000);
- assert.equal(production.metrics['uni.growth_distribution'].value,181112000);
- assert.deepEqual(production.metrics['uni.growth_distribution'].period,{basis:'model',end:'2026-10-04'});
+ // Re-priced at the 2026-10-07 same-minute close when that price superseded the 10/04 trade.
+ assert.equal(production.metrics['uni.growth_distribution'].value,20_000_000*7.9914);
+ assert.deepEqual(production.metrics['uni.growth_distribution'].period,{basis:'model',end:'2026-10-07'});
 });

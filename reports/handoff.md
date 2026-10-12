@@ -1,5 +1,13 @@
 # 開發交接
 
+## 2026-10-07（台北）— UNI 同區塊供給與同分鐘收盤價：正式套用（第二階段之二）
+
+PR #74 合併後在 `research/uni-valuation-baseline-20261007` 套用研究資料包的對齊觀測。研究層 v1 來源的 covered_metrics 沒有正規 ID，而來源不可改寫，所以以 v2 supersedes（其他欄位相同）；提案由 scratch 腳本從已審查資料包（SHA-256 `227008fc…`）程式產生，raw 字串與精確小數寫在理由裡，不手抄。流程：`research-preview` → `research-apply --digest 89aa3b3d…` → journal `data/events/production/uni-valuation-baseline-20261007.json`（快照 `ca4e19d9…`）。**不可再次套用。**
+
+套用後，凡斷言「目前正式價格／負擔／未知數」的既有測試都要改：價格 7.9914、負擔 `20_000_000*7.9914`（期間 10/07）、freshness UNKNOWN_DATA 56；10/04 年率折算預覽測試改在 `historicalQuoteWorkspace` 重播；fixed-block／token-state 隔離目錄要另外複製 `data/snapshots`（正式模型快照在那裡）；描述升級前 null 的測試改讀 `c85cf219`。
+
+全套 1227、兩模式 validate（92 指標／28 公式，unknown 1／80）、Chrome 15 項（`http://127.0.0.1:4326`，服務 PID 44000 已核對後停止）。下一步：required-share 的其餘輸入（要求收益率、其他累積來源、稀釋）仍缺；Firepit 年化 SCENARIO 試算另排；RPC archive 能力需使用者提供節點或 key；SEC 需研究專用信箱。
+
 ## 2026-10-07（台北）— UNI 模型市值與 FDV 口徑：模型版本升級（第二階段之一）
 
 PR #73 合併後 main `d37851c` CI 成功。使用者確認第二階段並附條件（完整 FDV 名稱、扣除 dead 的口徑另立 ASSUMPTION 讓下游繼承、預設不排除 Timelock 而以具名 SCENARIO 切換並重算、同分鐘已收盤 K 線並顯示「同分鐘收盤價」、價格更新要重新折算分配負擔、其他缺口維持 null；Firepit 情境試算與歷史存取另排）。建立 `feat/uni-valuation-model-v2`。

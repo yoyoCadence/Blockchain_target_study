@@ -112,10 +112,10 @@ test('project validation rejects malformed aligned formulas and named scenarios'
  p=fixture();p.sensitivity.named_scenarios.push(structuredClone(p.sensitivity.named_scenarios[0]));assert.throws(()=>validateProject(p),/Duplicate named scenario/);
 });
 
-test('production keeps new valuation metrics unknown until aligned supply observations exist; downstream gaps stay null',()=>{
- const p=production(),r=calculate(p),v=id=>r.metrics[id].value;
+test('the model-upgrade snapshot kept production valuation unknown before aligned supply observations existed',()=>{
+ const snapshot=readSnapshots(production().root,'production').find(s=>s.id.startsWith('c85cf219')),v=id=>snapshot.metrics[id].value;
  for(const id of ['uni.total_supply','uni.dead_balance','uni.timelock_balance','uni.model_supply','uni.model_market_cap','uni.fdv_current_supply','uni.required_accrual','uni.required_share','uni.net_burn_yield','uni.market_cap','uni.fdv'])
   assert.equal(v(id),null,id);
  assert.equal(v('uni.supply_basis_excludes_dead'),1);assert.equal(v('uni.timelock_exclusion'),0);assert.equal(v('uni.growth_distribution'),181112000);
- assert.equal(r.issues.filter(i=>i.severity==='ERROR').length,0);
+ assert.equal(snapshot.issues.filter(i=>i.severity==='ERROR').length,0);assert.equal(snapshot.period.end,'2026-10-04');
 });

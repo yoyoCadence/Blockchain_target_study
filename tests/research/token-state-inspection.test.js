@@ -21,7 +21,7 @@ function copyTree(from,to) {
 }
 function isolated(t,mutate,{repin=false}={}) {
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'token-state-inspection-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
- copyTree(path.join(project.root,'spec'),path.join(root,'spec'));copyTree(path.join(project.root,'data/events'),path.join(root,'data/events'));
+ copyTree(path.join(project.root,'spec'),path.join(root,'spec'));copyTree(path.join(project.root,'data/events'),path.join(root,'data/events'));copyTree(path.join(project.root,'data/snapshots'),path.join(root,'data/snapshots'));
  fs.mkdirSync(path.join(root,'data/research'),{recursive:true});
  const dependency='uni-vesting-fixed-block-2026-10-04-v1.json';fs.writeFileSync(path.join(root,'data/research',dependency),fs.readFileSync(path.join(project.root,'data/research',dependency)));
  const saved=structuredClone(archive);mutate(saved);const bytes=Buffer.from(JSON.stringify(saved));fs.writeFileSync(path.join(root,'data/research',entry.file),bytes);
