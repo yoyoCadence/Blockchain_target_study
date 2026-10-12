@@ -82,7 +82,7 @@ test('apply saves review, sources and observations together; reload and historic
  for(const [id,metric] of Object.entries(applied.result.metrics)) assert.equal(result.metrics[id].value,metric.value,id);
  history.forEach((snapshot,index)=>{
   const replayProject={...loaded,inputs:snapshot.inputs,sources:snapshot.sources,
-   registry:{version:1,formulas:snapshot.formulas},dictionary:snapshot.dictionary,
+   registry:{version:1,formulas:snapshot.formulas},dictionary:snapshot.dictionary,sensitivity:snapshot.sensitivity,
    thesis:{...loaded.thesis,rules:snapshot.rules}};
   const replay=calculate(replayProject,{history:history.slice(0,index),previousThesis:history[index-1]?.thesis||{}});
   for(const [id,metric] of Object.entries(snapshot.metrics)) assert.equal(replay.metrics[id].value,metric.value,id);

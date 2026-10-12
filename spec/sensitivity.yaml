@@ -1,4 +1,4 @@
-version: 1
+version: 2
 parameters:
   - market.equity_aum
   - uni.turnover
@@ -8,6 +8,7 @@ parameters:
   - uni.market_share
   - uni.required_yield
   - uni.growth_budget
+  - uni.timelock_exclusion
   - secz.fcf_margin
   - secz.multiple
 matrix:
@@ -22,3 +23,9 @@ matrix:
     - 0.000125
     - 0.0002
   output: uni.required_share
+named_scenarios:
+  - name: timelock_excluded
+    parameter: uni.timelock_exclusion
+    value: 1
+    label: 全部排除治理金庫（Timelock）
+    rationale: 假設治理 Timelock 持有的 UNI 全部不計入模型供給。Timelock 是否已承諾、可支用或應排除未查證；這是分析者情境，不是觀測事實。

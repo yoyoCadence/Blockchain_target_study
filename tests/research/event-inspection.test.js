@@ -44,7 +44,7 @@ test('read-only research API includes every reviewed event, keeps original catal
   const response=await fetch(`${url}?mode=production`),data=await response.json();
   assert.equal(response.status,200);assert.equal(data.records.length,14);assert.equal(data.events.length,history.filter(s=>s.event?.research_review).length);
   assert.equal(data.persisted,false);assert.equal(data.financial_inputs_updated,false);
-  assert.equal(data.events.at(-1).snapshot_id,history.at(-1).id);
+  assert.equal(data.events.at(-1).snapshot_id,history.filter(s=>s.event?.research_review).at(-1).id);
   assert.deepEqual((await (await fetch(`${url}?mode=fixture`)).json()).events,[]);
   for(const method of ['POST','PUT','DELETE'])assert.equal((await fetch(`${url}?mode=production`,{method})).status,405);
  }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

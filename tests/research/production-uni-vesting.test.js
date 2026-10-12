@@ -62,7 +62,7 @@ test('executed quarterly transfer adds evidence without renewing the old rate or
 
 test('vesting evidence replays and read-only inspection retains original dates while isolating fixture',()=>{
  const before=fingerprint(history),replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,
-  registry:{...p.registry,formulas:saved.formulas}},
+  registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},
   {history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  assert.equal(saved.period.end,'2026-10-04');assert.equal(new Set(history.slice(0,index+1).map(s=>s.period.end)).size,2);

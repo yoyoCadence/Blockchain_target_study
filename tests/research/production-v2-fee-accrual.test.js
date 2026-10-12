@@ -55,13 +55,13 @@ test('LP shares and caller redemption cannot become canonical fees, UNI burn or 
  assert.equal(new Set(history.slice(0,history.indexOf(accrued)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(accrued.thesis).every(t=>t.coverage==='insufficient'));
  const replay=calculate({...project,inputs:accrued.inputs,sources:accrued.sources,
-  registry:{...project.registry,formulas:accrued.formulas}},
+  registry:{...project.registry,formulas:accrued.formulas},dictionary:accrued.dictionary,sensitivity:accrued.sensitivity},
   {history:history.slice(0,history.indexOf(accrued)),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,accrued.metrics);assert.deepEqual(replay.thesis,accrued.thesis);
 });
 
 test('manual fee-accrual events retain ordinary evidence and temporal ingestion guards',()=>{
- const base={...project,inputs:previous.inputs,sources:previous.sources,registry:{version:1,formulas:previous.formulas}};
+ const base={...project,inputs:previous.inputs,sources:previous.sources,registry:{version:1,formulas:previous.formulas},dictionary:previous.dictionary,sensitivity:previous.sensitivity};
  const event=readYaml('data/research/uni-v2-fee-accrual-2026-10-04.yaml');
  assert.deepEqual(prepareEvent(base,event,history.slice(0,history.indexOf(accrued))).result.metrics,previous.metrics);
  const missing=structuredClone(event);missing.source_ids=['missing-fee-receipt'];

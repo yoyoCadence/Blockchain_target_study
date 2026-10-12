@@ -891,3 +891,78 @@ metrics:
     fixture: true
     rationale: Synthetic analyst input for deterministic MVP demonstration; not
       verified market data.
+  - id: uni.total_supply@1
+    metric_id: uni.total_supply
+    asset: UNI
+    value: 1000000000
+    unit: UNI
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@2
+  - id: uni.dead_balance@1
+    metric_id: uni.dead_balance
+    asset: UNI
+    value: 462222222.2222222
+    unit: UNI
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@2
+  - id: uni.timelock_balance@1
+    metric_id: uni.timelock_balance
+    asset: UNI
+    value: 250000000
+    unit: UNI
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: point
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-source@2
+  - id: uni.supply_basis_excludes_dead@1
+    metric_id: uni.supply_basis_excludes_dead
+    asset: UNI
+    value: 1
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic analyst basis flag for deterministic MVP demonstration; dead balance chosen to
+      reproduce the legacy fixture market cap. Not verified market data.
+  - id: uni.timelock_exclusion@1
+    metric_id: uni.timelock_exclusion
+    asset: UNI
+    value: 0
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: Synthetic default (Timelock not excluded); the timelock_excluded named scenario sets it
+      to 1. Not verified market data.

@@ -85,7 +85,47 @@ export function normalize(record, definition) {
  }
  return out;
 }
+// Point inventories that must describe one block. Model-basis flags (assumptions,
+// scenarios) carry no time evidence. Real (non-fixture) readings must state the
+// exact block time; synthetic fixtures may align by day only.
+function sameBlockKnown(formula,dependencies) {
+ const known=dependencies.filter(m=>m.value!==null&&m.period.basis!=='model');
+ assert(known.every(m=>m.period.basis==='point'),`Point-in-time supply required: ${formula.id}`);
+ assert(new Set(known.map(m=>m.period.end)).size<=1,`Unaligned supply dates: ${formula.id}`);
+ if(known.some(m=>!m.fixture))assert(known.every(m=>m.observed_at)&&new Set(known.map(m=>Date.parse(m.observed_at))).size<=1,`Supply readings must share one block time: ${formula.id}`);
+ return known;
+}
+export function blockTime(formula,dependencies) {
+ if(formula.period_policy!=='same_block_point')return undefined;
+ const known=dependencies.filter(m=>m.value!==null&&m.period.basis!=='model');
+ return known.length&&known.every(m=>m.observed_at)?known[0].observed_at:undefined;
+}
 export function checkPeriods(formula, dependencies) {
+ if(formula.period_policy==='same_block_point') {
+  const known=sameBlockKnown(formula,dependencies);
+  // An unknown output carries no period evidence, so only a complete reading set is a dated point.
+  const complete=dependencies.every(m=>m.value!==null);
+  return complete&&known.length?{basis:'point',end:known[0].period.end}:{basis:'model',end:dependencies.map(m=>m.period.end).sort().at(-1)};
+ }
+ if(formula.period_policy==='aligned_price_valuation') {
+  const price=dependencies.find(m=>m.metric_id===formula.price_input),supply=dependencies.filter(m=>m!==price);
+  assert(price&&supply.length===1&&price.unit==='USD'&&supply[0].unit==='UNI'&&formula.unit==='USD','Aligned valuation requires one USD/token price and one token supply');
+  assert(!dependencies.some(m=>m.valuation_date),'Aligned valuation cannot reprice a prior valuation');
+  const [amount]=supply;
+  if(price.value!==null)assert(price.period.basis==='point','Aligned valuation requires a point price');
+  if(amount.value!==null)assert(amount.period.basis==='point','Aligned valuation requires a point supply');
+  if(price.value!==null&&amount.value!==null) {
+   assert(price.period.end===amount.period.end&&price.as_of_date===amount.as_of_date,`Price and supply dates are not aligned: ${formula.id}`);
+   // Same-minute policy: the closed one-minute candle must contain the supply block time.
+   if(!price.fixture||!amount.fixture) {
+    const window=price.price_window,at=Date.parse(amount.observed_at);
+    assert(window?.basis==='one_minute_close'&&Number.isFinite(at),`Real valuation requires a one-minute close and a block time: ${formula.id}`);
+    const start=Date.parse(window.start),end=Date.parse(window.end);
+    assert(end-start===60000&&start<=at&&at<end,`Price minute does not contain the supply block time: ${formula.id}`);
+   }
+  }
+  return price.value!==null&&amount.value!==null?{basis:'point',end:price.period.end}:{basis:'model',end:dependencies.map(m=>m.period.end).sort().at(-1)};
+ }
  if(formula.period_policy==='annual_rate_valuation') {
   const rate=dependencies.find(m=>m.metric_id===formula.rate_input),price=dependencies.find(m=>m.metric_id===formula.price_input);
   assert(rate&&price&&dependencies.length===2,'Annual-rate valuation requires its declared rate and price');

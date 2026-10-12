@@ -50,7 +50,7 @@ test('authorization alone cannot supply a valuation, realized fee capture or a h
 test('production authorization snapshot replays with complete primary-source lineage',()=>{
  const index=history.indexOf(baseline);
  const replayProject={...project,inputs:baseline.inputs,sources:baseline.sources,
-  registry:{version:1,formulas:baseline.formulas},dictionary:baseline.dictionary,
+  registry:{version:1,formulas:baseline.formulas},dictionary:baseline.dictionary,sensitivity:baseline.sensitivity,
   thesis:{...project.thesis,rules:baseline.rules},assets:baseline.assets,graph:baseline.graph,
   sensitivity:baseline.sensitivity};
  const replay=calculate(replayProject,{history:history.slice(0,index),previousThesis:history[index-1]?.thesis||{}});

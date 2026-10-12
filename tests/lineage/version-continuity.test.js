@@ -75,7 +75,7 @@ test('committed histories retain all hashes, periods and financial/thesis replay
   const p=loadProject(mode),snapshots=readSnapshots(p.root,mode),before=fingerprint(snapshots);
   for(const [index,snapshot]of snapshots.entries()) {
    const historic={...p,inputs:snapshot.inputs,sources:snapshot.sources,
-    registry:{...p.registry,formulas:snapshot.formulas},dictionary:snapshot.dictionary,
+    registry:{...p.registry,formulas:snapshot.formulas},dictionary:snapshot.dictionary,sensitivity:snapshot.sensitivity,
     thesis:{...p.thesis,rules:snapshot.rules}};
    const result=calculate(historic,{history:snapshots.slice(0,index),previousThesis:snapshots[index-1]?.thesis??{}});
    assert.deepEqual(result.metrics,snapshot.metrics);assert.deepEqual(result.thesis,snapshot.thesis);

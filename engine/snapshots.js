@@ -68,7 +68,11 @@ export function readSnapshots(root,mode) {
 }
 export function compareSnapshots(previous,current) {
  if(!previous) return {available:false,changes:[],reason:current.reason};
- const categoryChanged=(key)=>fingerprint(previous[key])!==fingerprint(current[key]);
- const changes=Object.keys(current.metrics).filter(id=>fingerprint(previous.metrics[id])!==fingerprint(current.metrics[id])).map(id=>({metric_id:id,previous:previous.metrics[id]?.value??null,current:current.metrics[id].value,unit:current.metrics[id].unit,classification:current.metrics[id].classification}));
+ // A metric or category absent from the previous snapshot (a new dictionary entry) counts as changed from null.
+ const fp=value=>value===undefined?null:fingerprint(value);
+ // Record lists are compared by content, not load order (journals load by file name, not chronology).
+ const byId=value=>Array.isArray(value)&&value.every(x=>x&&typeof x==='object'&&typeof x.id==='string')?[...value].sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0):value;
+ const categoryChanged=(key)=>fp(byId(previous[key]))!==fp(byId(current[key]));
+ const changes=Object.keys(current.metrics).filter(id=>fp(previous.metrics[id])!==fp(current.metrics[id])).map(id=>({metric_id:id,previous:previous.metrics[id]?.value??null,current:current.metrics[id].value,unit:current.metrics[id].unit,classification:current.metrics[id].classification}));
  return {available:true,previous_id:previous.id,current_id:current.id,reason:current.reason,source_change:categoryChanged('sources')||categoryChanged('observations'),assumption_change:categoryChanged('assumptions'),scenario_change:categoryChanged('scenarios'),formula_change:categoryChanged('formulas'),rule_change:categoryChanged('rules'),changes};
 }

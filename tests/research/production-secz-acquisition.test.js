@@ -41,7 +41,7 @@ test('corroborating acquisition disclosures append evidence without changing fin
 
 test('new source-only full snapshot replays and repeated model dates do not add thesis periods',()=>{
  const index=history.indexOf(review),replay=calculate({...project,inputs:review.inputs,sources:review.sources,
-  registry:{...project.registry,formulas:review.formulas},dictionary:review.dictionary,
+  registry:{...project.registry,formulas:review.formulas},dictionary:review.dictionary,sensitivity:review.sensitivity,
   thesis:{...project.thesis,rules:review.rules}},{history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,review.metrics);assert.deepEqual(replay.thesis,review.thesis);
  assert.equal(new Set(history.slice(0,history.indexOf(review)+1).map(s=>JSON.stringify(s.period))).size,1);
@@ -60,6 +60,6 @@ test('actual and pro forma amounts remain distinct while formal comparability an
  assert.match(review.event.reason,/not actual realized revenue or a forecast/);
  assert.match(review.event.reason,/not organic like-for-like growth/);
  assert.equal(fingerprint(readSnapshots(project.root,'production')),before);
- const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,3);
+ const fixture=loadProject('fixture');assert.equal(readSnapshots(fixture.root,'fixture').length,4);
  assert.ok(!fixture.sources.some(s=>s.id.startsWith('secz-acquisition-')));
 });

@@ -105,7 +105,7 @@ test('XLM supply preserves all financial, thesis, immutable history and fixture 
  for(const id of ['secz.revenue','xlm.network_fees','xlm.native_demand','xlm.capture_ratio','uni.market_cap','uni.fdv'])assert.equal(saved.metrics[id].value,null);
  assert.equal(sourceFreshness(p,{as_of_date:'2026-10-05'}).inputs.find(r=>r.metric_id==='uni.growth_budget').observation_state,'STALE_FOR_CURRENT_USE');
  const before=fingerprint(history);
- const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas}},
+ const replay=calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{...p.registry,formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity},
   {history:history.slice(0,index),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,saved.metrics);assert.deepEqual(replay.thesis,saved.thesis);
  for(const snapshot of history)verifySnapshot(snapshot);

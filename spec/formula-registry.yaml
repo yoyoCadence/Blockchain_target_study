@@ -1,4 +1,4 @@
-version: 2
+version: 3
 formulas:
   - id: f.market.penetration
     version: 1
@@ -30,6 +30,61 @@ formulas:
     description: 歷史核准名目 UNI 年率按單筆 USD／UNI 價格折算的模型負擔；
       model／valuation_date 是報價參考日，原預算日期與來源保留。
       不代表當日額度仍有效、實際年度分配、支出或收入。
+  - id: f.uni.model_supply
+    version: 1
+    output: uni.model_supply
+    asset: UNI
+    label: Model Supply Basis
+    unit: UNI
+    expression:
+      op: sub
+      args:
+        - uni.total_supply
+        - op: mul
+          args:
+            - uni.dead_balance
+            - uni.supply_basis_excludes_dead
+        - op: mul
+          args:
+            - uni.timelock_balance
+            - uni.timelock_exclusion
+    period_policy: same_block_point
+    description: 模型供給口徑＝totalSupply − dead 餘額×口徑假設旗標 − Timelock 餘額×情境旗標。
+      三個餘額必須是同一區塊時點的觀測；扣除 dead 是有理由、有版本的 ASSUMPTION，
+      全部排除 Timelock 只是具名 SCENARIO timelock_excluded（預設不排除）。
+      這是研究口徑，不是已驗證的流通量。
+  - id: f.uni.model_market_cap
+    version: 1
+    output: uni.model_market_cap
+    asset: UNI
+    label: "Model Market Cap: Dead-Excluded Basis"
+    unit: USD
+    expression:
+      op: mul
+      args:
+        - uni.price
+        - uni.model_supply
+    period_policy: aligned_price_valuation
+    price_input: uni.price
+    description: 模型市值：扣除 dead 口徑＝同分鐘收盤價×模型供給。價格必須是包含供給區塊時間的
+      一分鐘 K 線收盤價（同分鐘對齊政策），不是同一瞬間成交。流通量尚未完整查證，
+      不是已驗證流通市值或合理價值。
+  - id: f.uni.fdv_current_supply
+    version: 1
+    output: uni.fdv_current_supply
+    asset: UNI
+    label: Current Total Supply Valuation (FDV basis)
+    unit: USD
+    expression:
+      op: mul
+      args:
+        - uni.price
+        - uni.total_supply
+    period_policy: aligned_price_valuation
+    price_input: uni.price
+    description: 現行總供給估值（FDV 口徑，未含未來增發）＝同分鐘收盤價×現行 totalSupply。
+      官方 UNI 原始碼保留增發機制（每 365 日單次至多 totalSupply 的 mintCap%），
+      此值不代表所有未來稀釋。
   - id: f.uni.equity_revenue
     version: 1
     output: uni.equity_revenue
@@ -80,7 +135,7 @@ formulas:
     description: 模型淨累積扣除年率折算負擔與其他稀釋；沿用明示折算日，
       已知會計流量必須同日且基礎相容。缺失輸入保持 null，不當作實際年度收入。
   - id: f.uni.net_burn_yield
-    version: 2
+    version: 3
     output: uni.net_burn_yield
     asset: UNI
     label: Net Burn Yield
@@ -89,12 +144,13 @@ formulas:
       op: div
       args:
         - uni.net_accrual
-        - uni.market_cap
+        - uni.model_market_cap
     period_policy: valuation_compatible
-    description: 模型淨累積／市值；沿用明示折算日，已知市值必須同日。
+    description: 模型淨累積／模型市值（扣除 dead 口徑）；沿用明示折算日，已知市值必須同日。
+      v3 起分母改為依口徑假設推導的模型市值，繼承其假設與情境依賴。
       不代表已實現收益或投資建議。
   - id: f.uni.required_accrual
-    version: 1
+    version: 2
     output: uni.required_accrual
     asset: UNI
     label: Required UNI Accrual
@@ -102,10 +158,11 @@ formulas:
     expression:
       op: mul
       args:
-        - uni.market_cap
+        - uni.model_market_cap
         - uni.required_yield
     period_policy: compatible
-    description: Required UNI Accrual
+    description: 所需 UNI 價值累積＝模型市值（扣除 dead 口徑）×要求收益率。v2 起由舊版直接輸入市值改為
+      依口徑假設推導的模型市值；required-share 等下游繼承該假設與 Timelock 情境依賴。
   - id: f.uni.required_share
     version: 2
     output: uni.required_share

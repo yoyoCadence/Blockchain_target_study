@@ -86,7 +86,7 @@ test('quote source review remains separately inspectable, replayable and exclude
  assert.equal(new Set(history.slice(0,history.indexOf(quoteReview)+1).map(s=>JSON.stringify(s.period))).size,1);
  assert.ok(Object.values(quoteReview.thesis).every(t=>t.coverage==='insufficient'));
  const replay=calculate({...project,inputs:quoteReview.inputs,sources:quoteReview.sources,
-  registry:{...project.registry,formulas:quoteReview.formulas}},
+  registry:{...project.registry,formulas:quoteReview.formulas},dictionary:quoteReview.dictionary,sensitivity:quoteReview.sensitivity},
   {history:history.slice(0,history.indexOf(quoteReview)),previousThesis:previous.thesis});
  assert.deepEqual(replay.metrics,quoteReview.metrics);assert.deepEqual(replay.thesis,quoteReview.thesis);
 });

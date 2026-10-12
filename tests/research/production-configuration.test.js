@@ -59,7 +59,7 @@ test('source-only configuration preserves economics, old source versions and obs
 test('historical configuration snapshot replays and cannot manufacture a second thesis period',()=>{
  const index=history.indexOf(configuration);
  const replayProject={...project,inputs:configuration.inputs,sources:configuration.sources,
-  registry:{version:1,formulas:configuration.formulas},dictionary:configuration.dictionary,
+  registry:{version:1,formulas:configuration.formulas},dictionary:configuration.dictionary,sensitivity:configuration.sensitivity,
   thesis:{...project.thesis,rules:configuration.rules},assets:configuration.assets,graph:configuration.graph,
   sensitivity:configuration.sensitivity};
  const replay=calculate(replayProject,{history:history.slice(0,index),previousThesis:previous.thesis});

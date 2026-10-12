@@ -16,6 +16,7 @@ export function historicalQuoteWorkspace(t) {
  const write=(file,value)=>{const target=path.join(root,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(value));};
  write('spec/formula-registry.yaml',{version:1,formulas:baseline.formulas});
  write('spec/data-dictionary.yaml',baseline.dictionary);
+ write('spec/sensitivity.yaml',baseline.sensitivity);
  write('spec/assumptions.yaml',{version:1,metrics:baseline.inputs.filter(m=>m.classification==='ASSUMPTION')});
  write('spec/scenarios.yaml',{version:1,metrics:baseline.inputs.filter(m=>m.classification==='SCENARIO')});
  write('data/observed/observations.yaml',{version:1,metrics:baseline.inputs.filter(m=>m.classification==='OBSERVED')});
