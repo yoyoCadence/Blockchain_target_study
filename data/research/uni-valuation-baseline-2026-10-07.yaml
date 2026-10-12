@@ -1,0 +1,114 @@
+version: 1
+id: uni-valuation-baseline-20261007
+as_of_date: 2026-10-07
+reason: 依分析者 2026-10-07 確認的第二階段，正式套用同區塊供給與同分鐘收盤價：block 26140081 的 totalSupply／dead／Timelock 餘額（OBSERVED，point 2026-10-07，observed_at 2026-10-07T11:02:47.000Z）與包含該區塊時間的一分鐘收盤價 7.9914 USD（v2，supersedes 10/04 單筆成交價）。模型市值（扣除 dead 口徑）與現行總供給估值（FDV 口徑，未含未來增發）依已合併的模型版本計算；扣除 dead 是有版本的口徑假設，Timelock 預設不排除。成長預算負擔依新價格重新折算；要求收益率、其他累積與稀釋等輸入仍未知，required-share 等下游維持 null。流通量尚未完整查證，不是已驗證流通市值或合理價值。來源以 v2 明示 supersedes 研究層 v1，加入正規指標涵蓋；研究資料包 data/research/uni-aligned-valuation-2026-10-07-v1.json SHA-256 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356 不變。
+affected_nodes:
+  - UNI
+sources:
+  - id: ethereum-uni-valuation-supply-20261007-v2
+    version: 2
+    url: https://ethereum-rpc.publicnode.com
+    publisher: Ethereum mainnet JSON-RPC via PublicNode; single public provider
+    title: UNI 固定 block 26140081 的 totalSupply／dead／Timelock 餘額與鑄造參數（估值供給口徑）；v2 涵蓋正規供給指標
+    date: 2026-10-07
+    retrieved_at: 2026-10-07T11:16:26.017Z
+    tier: 1
+    covered_metrics:
+      - uni.token_supply_evidence
+      - uni.valuation_basis_evidence
+      - uni.total_supply
+      - uni.dead_balance
+      - uni.timelock_balance
+    fixture: false
+    supersedes: ethereum-uni-valuation-supply-20261007-v1
+  - id: coinbase-uni-usd-candle-20261007-v2
+    version: 2
+    url: https://api.exchange.coinbase.com/products/UNI-USD/candles?granularity=60&start=2026-10-07T11:01:00.000Z&end=2026-10-07T11:03:00.000Z
+    publisher: Coinbase Exchange public market data API
+    title: UNI-USD 一分鐘 K 線（包含 block 26140081 時間的分鐘；單一交易所）；v2 涵蓋正規價格指標
+    date: 2026-10-07
+    retrieved_at: 2026-10-07T11:16:25.947Z
+    tier: 1
+    covered_metrics:
+      - uni.price_evidence
+      - uni.valuation_basis_evidence
+      - uni.price
+    fixture: false
+    supersedes: coinbase-uni-usd-candle-20261007-v1
+observations:
+  - id: uni.total_supply@1-block26140081
+    metric_id: uni.total_supply
+    asset: UNI
+    value: 1000000000
+    unit: UNI
+    classification: OBSERVED
+    as_of_date: 2026-10-07
+    period:
+      basis: point
+      end: 2026-10-07
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - ethereum-uni-valuation-supply-20261007-v2
+    observed_at: 2026-10-07T11:02:47.000Z
+    rationale: UNI 合約 totalSupply：block 26140081（hash 0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2，區塊時間 2026-10-07T11:02:47.000Z）以 blockHash／requireCanonical 讀取；原始 raw=1000000000000000000000000000（18 位小數），精確值 1000000000 UNI。模型以 IEEE 浮點數儲存，原 raw 字串保存在研究資料包 data/research/uni-aligned-valuation-2026-10-07-v1.json（SHA-256 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356）。
+  - id: uni.dead_balance@1-block26140081
+    metric_id: uni.dead_balance
+    asset: UNI
+    value: 112675581.21121952
+    unit: UNI
+    classification: OBSERVED
+    as_of_date: 2026-10-07
+    period:
+      basis: point
+      end: 2026-10-07
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - ethereum-uni-valuation-supply-20261007-v2
+    observed_at: 2026-10-07T11:02:47.000Z
+    rationale: dead address（0x…dEaD）餘額：block 26140081（hash 0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2，區塊時間 2026-10-07T11:02:47.000Z）以 blockHash／requireCanonical 讀取；原始 raw=112675581211219518941995199（18 位小數），精確值 112675581.211219518941995199 UNI。模型以 IEEE 浮點數儲存，原 raw 字串保存在研究資料包 data/research/uni-aligned-valuation-2026-10-07-v1.json（SHA-256 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356）。
+  - id: uni.timelock_balance@1-block26140081
+    metric_id: uni.timelock_balance
+    asset: UNI
+    value: 262247996.305835
+    unit: UNI
+    classification: OBSERVED
+    as_of_date: 2026-10-07
+    period:
+      basis: point
+      end: 2026-10-07
+    confidence: medium
+    version: 1
+    fixture: false
+    source_ids:
+      - ethereum-uni-valuation-supply-20261007-v2
+    observed_at: 2026-10-07T11:02:47.000Z
+    rationale: 治理 Timelock 餘額：block 26140081（hash 0xaced3a9b3e5b866b0e1fc49c340b29d8291cd96fb17e5cb934f27aa827a114b2，區塊時間 2026-10-07T11:02:47.000Z）以 blockHash／requireCanonical 讀取；原始 raw=262247996305835021033106178（18 位小數），精確值 262247996.305835021033106178 UNI。模型以 IEEE 浮點數儲存，原 raw 字串保存在研究資料包 data/research/uni-aligned-valuation-2026-10-07-v1.json（SHA-256 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356）。
+  - id: uni.price@2-coinbase-candle-20261007
+    metric_id: uni.price
+    asset: UNI
+    value: 7.9914
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-10-07
+    period:
+      basis: point
+      end: 2026-10-07
+    confidence: medium
+    version: 2
+    supersedes: uni.price@1-coinbase-20261004
+    fixture: false
+    source_ids:
+      - coinbase-uni-usd-candle-20261007-v2
+    price_window:
+      basis: one_minute_close
+      start: 2026-10-07T11:02:00.000Z
+      end: 2026-10-07T11:03:00.000Z
+    rationale: 同分鐘收盤價：Coinbase Exchange UNI-USD 一分鐘 K 線 2026-10-07T11:02:00.000Z → 2026-10-07T11:03:00.000Z 的 close=7.9914 USD／1 UNI（已收盤後取得於 2026-10-07T11:16:25.947Z）。該分鐘包含供給區塊時間 2026-10-07T11:02:47.000Z；close 是該分鐘最後一筆成交，不保證與區塊同一瞬間，也不是成交量加權或跨交易所價格。明示 supersedes 2026-10-04 單筆成交價 v1，舊紀錄保留。原回應保存在 data/research/uni-aligned-valuation-2026-10-07-v1.json（SHA-256 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356）。
+review:
+  reviewer: Claude Code 依已審查研究資料包整理；依使用者（分析者）確認的口徑套用；非獨立人類簽核
+  reviewed_at: 2026-10-12T12:27:51.897Z
+  rationale: 數值與時間全部由已審查且可重播的研究資料包程式化產生（uni-aligned-valuation-review 已核對錨點、canonical 釘選讀值、K 線逐字數值與分鐘對齊）。來源以新版本涵蓋正規指標而不改寫 v1；價格以 v2 明示 supersedes 舊紀錄。preview 檢查全模型重算、同分鐘政策、未知傳播與不推進其他輸入。

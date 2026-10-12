@@ -54,13 +54,13 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
-- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year），以及 2026-10-04 Coinbase Exchange UNI／XLM 單筆最後成交價（9.0556 USD／1 UNI、0.216265 USD／1 XLM）。歷史名目年率按 UNI 價格折算為 181,112,000 USD/year 的推導模型負擔，其餘 80 個數值仍為 `Unknown`。模型折算不代表當日額度仍有效或實際支出；價格保留原成交時間與 point 期間，不會即時更新，也不證明合理價值或個人交易資格。查證見[預算研究](reports/uni-growth-budget-baseline.md)、[UNI 價格基準](reports/uni-quote-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
+- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year）、2026-10-04 Coinbase Exchange XLM 單筆最後成交價（0.216265 USD／1 XLM），以及 2026-10-07 同區塊 UNI 供給與同分鐘收盤價（7.9914 USD／1 UNI，supersedes 10/04 的 9.0556 單筆成交價）。歷史名目年率按 UNI 價格折算為 159,828,000 USD/year 的推導模型負擔；模型市值（扣除 dead 口徑）與現行總供給估值（FDV 口徑，未含未來增發）已有值；92 個指標中 80 個仍為 `Unknown`。模型折算不代表當日額度仍有效或實際支出；價格保留原成交時間與 point 期間，不會即時更新，也不證明合理價值或個人交易資格。查證見[預算研究](reports/uni-growth-budget-baseline.md)、[UNI 價格基準](reports/uni-quote-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
 - **ASSUMPTION**：分析者設定與理由。原先使用者提供的 20M UNI/year fixture 假設與 production null v1 均保留；正式資料以 OBSERVED v2 明確 supersede 該 null，代表經查證的核准額度。
 - **SCENARIO**：4T TAM 與互動敏感度等反事實情境，不是預測事實。
 - **DERIVED**：28 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
 
-最新金融模型參考日為 2026-10-04；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。最近的數值更新是 UNI 單筆價格與名目年率折算負擔；其來源／公式變更分開呈現，假設／情境未改。最新季度提領查證只增加來源，沒有數值變動；舊快照保留原日期、數值與 v1 公式。五條 UNI 公式升至 v2，將折算明示為 model 並傳遞報價日，已知跨期收入／市值仍拒絕。原未套用候選保留當時研究，現在已有同 ID 的觀測，不能再次直接 apply；新的研究需新 ID／版本及重新 preview。
+最新金融模型參考日為 2026-10-07；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。最近的數值更新是 UNI 同區塊供給、同分鐘收盤價、模型市值與 FDV 口徑，以及依新價格重新折算的負擔（只改來源與觀測，公式／假設／情境未改）。再之前是 UNI 單筆價格與名目年率折算負擔；其來源／公式變更分開呈現，假設／情境未改。最新季度提領查證只增加來源，沒有數值變動；舊快照保留原日期、數值與 v1 公式。五條 UNI 公式升至 v2，將折算明示為 model 並傳遞報價日，已知跨期收入／市值仍拒絕。原未套用候選保留當時研究，現在已有同 ID 的觀測，不能再次直接 apply；新的研究需新 ID／版本及重新 preview。
 
 已另存 [UNI／XLM 單一公開市場與網路表示](reports/uni-xlm-public-venue.md)：UTC 2026-10-05 四份公開 currency／product 回應、26 個 typed 觀測與原身份地址比較 v1；XLM 空合約 raw 保留為 null，個人／地區／託管／提款未驗證。只追加來源與事件，不刷新前一天價格或提升投資性。原 26 個觀測、地址比較及五項未知存取權限亦可逐列查閱，並以[手動唯讀命令](reports/public-venue-research-review.md)重新驗證原 HTTP／身份／公式依賴；既有研究與時效 API 共用同一個 reader。
 
@@ -104,7 +104,7 @@ node cli.js token-state-review data/research/uni-token-state-2026-10-04-v1.json 
 node cli.js uni-aligned-valuation-review data/research/uni-aligned-valuation-2026-10-07-v1.json --production --digest 227008fc44076ba5a09a159e6531158a5605979484a0c21e4f155b5fca4d2356
 ```
 
-第二階段已完成[模型版本升級](reports/uni-valuation-model-v2.md)：新增「模型市值：扣除 dead 口徑」與「現行總供給估值（FDV 口徑，未含未來增發）」兩個推導指標；扣除 dead 是有版本的口徑假設，全部排除治理金庫是具名情境 `timelock_excluded`（預設不排除，可在敏感度表單切換，估值與 required-share 一起重算）；價格必須是包含供給區塊時間的同分鐘收盤價。required_accrual v2、net_burn_yield v3 改用模型市值；舊版直接輸入市值／FDV 保留但不再使用。正式的同區塊供給與同分鐘價格尚未套用，所以正式模式的新估值仍為未知。
+第二階段已完成[模型版本升級](reports/uni-valuation-model-v2.md)：新增「模型市值：扣除 dead 口徑」與「現行總供給估值（FDV 口徑，未含未來增發）」兩個推導指標；扣除 dead 是有版本的口徑假設，全部排除治理金庫是具名情境 `timelock_excluded`（預設不排除，可在敏感度表單切換，估值與 required-share 一起重算）；價格必須是包含供給區塊時間的同分鐘收盤價。required_accrual v2、net_burn_yield v3 改用模型市值；舊版直接輸入市值／FDV 保留但不再使用。之後已[正式套用](reports/uni-valuation-baseline.md) 2026-10-07 block 26140081 的供給與包含該區塊時間的同分鐘收盤價 7.9914 USD（明示 supersedes 10/04 單筆成交價）：模型市值（扣除 dead 口徑）7,090,964,360.31 USD、現行總供給估值（FDV 口徑，未含未來增發）7,991,400,000 USD，成長預算負擔依新價格重新折算為 159,828,000 USD/年。要求收益率等輸入仍未知，所以 required-share 仍為未知；流通量尚未完整查證。
 
 新的 finalized block 26133577 另存 [UNI 供給組成與鑄造參數](reports/uni-supply-composition.md)：totalSupply 仍為 1,000,000,000 UNI，dead address 累計約 112.63M、Timelock 約 262.25M UNI；minter 為官方文件列示的 Timelock，2024-01-01 起時間上可鑄造，單次上限 2%（每 365 日）。扣除後餘額只是機械減法，不是流通供給；鑄造條件滿足不代表會鑄造，市值／FDV 仍未知。研究頁提供[供給組成中文表格](reports/uni-supply-composition-inspection.md)：13 列原始讀值與 5 列研究推導分開，官方地址表、Uni.sol 原文行與九項未知保留；旗標 0 顯示為 0，不當成未知或健康訊號。可使用[手動唯讀驗證](reports/manual-uni-supply-composition-review.md)重新核對錨點、十個 canonical 釘選讀值、文件片段與五個推導：
 

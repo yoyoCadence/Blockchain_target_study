@@ -22,7 +22,7 @@ function copyTree(from,to) {
 function isolated(t,mutate,{repin=false}={}) {
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'fixed-block-inspection-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  copyTree(path.join(project.root,'spec'),path.join(root,'spec'));
- fs.mkdirSync(path.join(root,'data/research'),{recursive:true});copyTree(path.join(project.root,'data/events'),path.join(root,'data/events'));
+ fs.mkdirSync(path.join(root,'data/research'),{recursive:true});copyTree(path.join(project.root,'data/events'),path.join(root,'data/events'));copyTree(path.join(project.root,'data/snapshots'),path.join(root,'data/snapshots'));
  const saved=structuredClone(archive);mutate(saved);const bytes=Buffer.from(JSON.stringify(saved));
  fs.writeFileSync(path.join(root,'data/research',entry.file),bytes);
  return {project:{...project,root},catalog:{version:3,records:[{...entry,expected_id:repin?createHash('sha256').update(bytes).digest('hex'):entry.expected_id}]}};

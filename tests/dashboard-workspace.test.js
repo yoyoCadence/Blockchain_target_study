@@ -189,7 +189,7 @@ test('single venue source review retains its saved scope alongside a later indep
  assert.match(card.textContent,/9\.0556 USD\/UNI/);assert.match(card.textContent,/0\.216265 USD\/XLM/);
  assert.match(card.textContent,/2026-10-04T11:33:36\.662371063Z/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);
- assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(production.metrics['xlm.price'].value,0.216265);
+ assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(production.metrics['xlm.price'].value,0.216265);
  assert.equal(production.metrics['xlm.price'].classification,'OBSERVED');
  const quote=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='xlm.price');
  assert.match(quote.textContent,/\$0\.216265/);
@@ -197,7 +197,7 @@ test('single venue source review retains its saved scope alongside a later indep
  const savedQuote=v.$('research-events').querySelectorAll('details').find(card=>card.dataset.event==='uni-market-quote-baseline-20261004');
  assert.match(savedQuote.textContent,/9\.0556/);
  const cost=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='uni.growth_distribution');
- assert.match(cost.textContent,/按報價折算的模型 · 2026-10-04/);
+ assert.match(cost.textContent,/按報價折算的模型 · 2026-10-07/);
  cost.onclick();assert.match(v.$('inspector-body').textContent,/不代表實際年度支出或收入/);
  assert.equal(v.count(),92);
 });
@@ -210,7 +210,7 @@ test('UNI vesting card retains quarterly execution and unpinned current-state li
  assert.match(card.textContent,/5000000000000000000000000/);assert.match(card.textContent,/quartersPaid=1/);
  assert.match(card.textContent,/未固定 block number／hash/);assert.match(card.textContent,/保存時 0 筆數值更新/);
  assert.match(card.textContent,/"updates": \[\]/);assert.equal(v.count(),92);
- assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');
+ assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');
 });
 
 test('fixed-block UNI card distinguishes canonical state, receipt null and unchanged financial inputs',async()=>{
@@ -383,7 +383,13 @@ test('UNI valuation basis panel names the model market cap and FDV bases and the
  assert.match(panel.textContent,/合成示範資料只按日期對齊，不代表同分鐘收盤價/);
  const p=v.$('asset-models').children.find(box=>box.textContent.includes('UNI'));assert.match(p.textContent,/模型市值：扣除 dead 口徑/);assert.match(p.textContent,/市值（舊版直接輸入）/);
  const prod=app('?mode=production');prod.requests[0].reply(production);await tick();const real=basisPanel(prod).textContent;
- assert.match(real,/模型市值：扣除 dead 口徑：未知/);assert.match(real,/不是同分鐘收盤價；正式的模型市值與 FDV 口徑需要包含供給區塊時間的一分鐘收盤價/);
+ assert.match(real,/價格：同分鐘收盤價 \$7\.9914（2026-10-07T11:02:00\.000Z → 2026-10-07T11:03:00\.000Z）/);assert.match(real,/不保證與供給區塊同一瞬間/);
+ assert.match(real,/模型市值：扣除 dead 口徑：\$70\.91億（推導值；口徑假設 uni\.supply_basis_excludes_dead@1）/);assert.match(real,/流通量尚未完整查證/);
+ assert.match(real,/現行總供給估值（FDV 口徑，未含未來增發）：\$79\.91億/);assert.match(real,/目前情境：預設，不排除治理金庫/);
+ // A real price without a minute window gets the explicit non-aligned wording.
+ const noWindow=structuredClone(production);delete noWindow.metrics['uni.price'].price_window;
+ const other=app('?mode=production');other.requests[0].reply(noWindow);await tick();
+ assert.match(basisPanel(other).textContent,/不是同分鐘收盤價；正式的模型市值與 FDV 口徑需要包含供給區塊時間的一分鐘收盤價/);
 });
 
 test('UNI valuation basis panel shows the named Timelock scenario and a same-minute close when present',async()=>{
@@ -433,7 +439,7 @@ test('aligned valuation research card leads with the three labelled bases and ke
  for(const label of ['已驗證流通量','正式市值','正式完全稀釋估值（FDV）','其他非流通持倉','未來鑄造決定','成交量加權價格','跨交易所價格'])assert.ok(card.textContent.includes(label+'：未知'),label);
  assert.equal(card.querySelectorAll('a').length,4);
  const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,3);assert.ok(tables.every(n=>n.tabIndex===0));
- assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(v.count(),92);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);
 });
 
@@ -445,7 +451,7 @@ test('aligned valuation event shows research bases, scenario and disclosure with
  assert.match(card.textContent,/非已驗證流通量/);assert.match(card.textContent,/情境 timelock_excluded/);assert.match(card.textContent,/未涵蓋未來增發/);
  assert.match(card.textContent,/不是 canonical 市值／FDV 更新/);assert.match(card.textContent,/不是同一瞬間成交/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,4);
- assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,9.0556);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(v.count(),92);
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });
 
