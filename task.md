@@ -89,6 +89,7 @@
       - [x] UNI 單筆價格與公式 v2：明示採用五條期間政策，preview／digest 追加 9.0556 USD／1 UNI 與完整快照，歷史名目率折算為 DERIVED model 181112000 USD/year，正式 unknown 82→80。十一份正式／三份 Fixture 歷史重播、588 項測試與兩模式 validate、桌面／窄視窗／鍵盤／工作區隔離通過。見[價格基準與驗收](reports/uni-quote-baseline.md)。現行預算／同步估值／捕獲／TTM／父 baseline 仍未完成。
     - [x] 中文計算阻擋診斷：共用快照拒絕錯誤保留全部原始 ERROR，CLI 顯示中文說明／指標名與 machine ID／公式原因。實際價格候選 preview／apply 的三項阻擋完整輸出，exit 1、stdout 空與不寫入驗證；相關 60／全套 571 項通過。見[診斷與限制](reports/research-preview-diagnostics.md)。計算、公式、日期及期間拒絕規則不變，父 baseline 保留。
     - [x] XLM 單筆交易所價格基準：重用已保存的兩份 Tier 1 來源，依原 preview／digest 流程獨立追加 0.216265 USD／1 XLM 的 point OBSERVED 與完整不可變快照，重算全部下游。中文卡片／血緣／比較保留價格精度；十份歷史各自重播、Fixture 隔離及截止日驗證通過，全套 575 項與兩模式 validate 通過，正式未知由 83 降為 82。見[價格基準與驗收](reports/xlm-quote-baseline.md)。UNI 候選仍有三項期間阻擋，三項 TTM null、估值／投資性與父 baseline 保留；本次窄視窗實測未驗證。
+    - [ ] SECZ MG Stover 名稱沿革 SEC 原文查證：研究筆記完成（14 份 EDGAR 原檔、四種名稱、新來源衝突，法律等價仍未直接查證，見[研究筆記](reports/secz-mgstover-naming.md)）；原文 bytes 研究資料包與 source-only 事件尚待完成。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
