@@ -66,7 +66,7 @@ test('switch failure clears every old result and inspector, keeps calculation bl
  v.$('retry-workspace').onclick();assert.equal(v.requests[2].url,'/api/state?mode=production');
  v.requests[2].reply(production);await tick();assert.equal(v.count(),92);assert.equal(v.submit.disabled,false);
  assert.equal(v.$('retry-workspace').hidden,true);assert.match(v.$('notice').textContent,/正式研究工作區/);
- assert.equal(v.$('parameters').querySelectorAll('input').find(input=>input.name==='uni.fee').value,'');
+ assert.equal(v.$('parameters').querySelectorAll('input').find(input=>input.name==='uni.fee').value,0.000125);
 });
 test('a late old workspace success cannot replace the latest workspace or its controls',async()=>{
  const v=await loaded();v.change('production');v.change('fixture');

@@ -95,7 +95,7 @@ required-share = (要求收益率 × 模型市值 + 分配負擔)
 - 假設紀錄看 `spec/assumptions.yaml`，情境紀錄看 `spec/scenarios.yaml`，理由欄都引用 `D-20261012-01`。
 - 用 `node cli.js calculate --production` 重算；用敏感度表單切換規模、費率或 `timelock_excluded` 看變化。
 
-**實作**：待補。
+**實作**：2026-10-13，六筆 v2 紀錄與快照 `f096f2c3…`，required-share ≈ 51.44%，敏感度與預估一致。見 [UNI required-share 輸入](uni-required-share-inputs.md)。
 
 ---
 

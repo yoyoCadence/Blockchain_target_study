@@ -19,7 +19,7 @@ test('the reviewed refresh journal binds the digest-reviewed proposal and append
  assert.deepEqual(saved.event.updates,proposal.observations);assert.deepEqual(saved.event.sources,proposal.sources);
  assert.deepEqual(saved.event.research_review,proposal.review);assert.match(saved.event.research_digest,/^[a-f0-9]{64}$/);
  assert.equal(previous.id,'c85cf219fd3820276cc0719700c794d17a1fd50781493c2a7ba735c2318379ae');assert.equal(saved.parent_id,previous.id);
- assert.equal(saved.id,'ca4e19d9b64103d887b551f8c0ccde58e5c29c75133694f67cbb4d8182a2f67a');assert.deepEqual(history.slice(index+1).map(s=>s.event?.id),['secz-mgstover-naming-20261013']);
+ assert.equal(saved.id,'ca4e19d9b64103d887b551f8c0ccde58e5c29c75133694f67cbb4d8182a2f67a');assert.equal(history[index+1].event.id,'secz-mgstover-naming-20261013');
  assert.ok(proposal.reason.includes(digest));assert.equal(proposal.as_of_date,'2026-10-07');
  assert.ok(Date.parse(proposal.review.reviewed_at)>=Date.parse(a.captured_at));
 });
@@ -79,7 +79,8 @@ test('the named timelock scenario on production data matches the research scenar
  const r=sensitivity(p,{'uni.timelock_exclusion':1}),cap=r.metrics['uni.model_market_cap'].value;
  assert.equal(r.metrics['uni.timelock_exclusion'].scenario,'timelock_excluded');
  assert.equal((Math.floor(cap*100)/100).toFixed(2),research.summary.bases[2].value_usd);
- assert.equal(r.metrics['uni.required_share'].value,null);
+ // D-20261012-01 later supplied the remaining inputs; the scenario re-prices required-share too.
+ assert.equal(r.metrics['uni.required_share'].value,(0.05*cap+20_000_000*7.9914)/(4e12*2*0.000125));
 });
 
 test('only sources and observations changed; formulas, assumptions, scenarios, earlier history and Fixture stay intact',()=>{

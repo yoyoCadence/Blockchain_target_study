@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-13（台北）— UNI required-share 輸入：假設與情境 v2
+
+依 D-20261012-01 追加六筆 v2 紀錄（公式不變）。**假設**：`uni.required_yield@2` 0.05、`uni.turnover@2` 2（期間基礎由年度改為模型，避免與 10/07 估值日期錯配）、`uni.fee@2` 0.000125。**情境**：`market.equity_aum@2` 4 兆（`tokenized_equity_tam_4t`，範圍 2～6 兆），`uni.onchain_share@2`／`uni.amm_share@2` 為 1（`all_onchain_amm_upper_bound`，由 ASSUMPTION 改為具名 SCENARIO）。required-share ≈ 51.44%，是上限情境下的最低必要市占；完整淨經濟仍 null；STRESS 規則因費率不低於 0.5 bp 而未觸發，規則不改。正式未知 80→72，快照 `f096f2c3…`；Fixture 0.422 不變。4 項新增，6 處舊斷言更新，全套 1236。見[說明](uni-required-share-inputs.md)。
+
 ## 2026-10-13（台北）— SECZ MG Stover 名稱沿革：原文 bytes 資料包與 source-only 事件
 
 新增唯讀模組 `engine/research/sec-excerpts.js`（固定正規化 `sec-html-text-v1`、SEC 傳送層 script 過濾、資料包離線重驗、下載後逐 byte 核對）。研究資料包 `data/research/secz-mgstover-naming-2026-10-13-v1.json`（SHA-256 `9641cf34…`，LF）保存 14 份文件身分與 43 段原文 bytes 摘錄、7 項觀測、2 項衝突。發現 SEC 每次回應在 `</BODY>` 前插入隨機路徑 script，所以分開記錄 response／filing hash；兩日 filing hash 全同。source-only `acquisition` 事件追加 15 個 tier 1 來源，快照 `2c35927c…`；金融、公式、假設、情境不變，unknown 80。5 項新增，全套 1232。見[研究筆記](secz-mgstover-naming.md)。
