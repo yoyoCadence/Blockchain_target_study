@@ -18,3 +18,54 @@ metrics:
     range:
       - 1000000000000
       - 8000000000000
+  - id: market.equity_aum@2
+    metric_id: market.equity_aum
+    asset: MARKET
+    value: 4000000000000
+    unit: USD
+    classification: SCENARIO
+    as_of_date: 2026-10-12
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 2
+    fixture: false
+    supersedes: market.equity_aum@1
+    scenario: tokenized_equity_tam_4t
+    range:
+      - 2000000000000
+      - 6000000000000
+    rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：代幣化股票規模 4 兆 USD，沿用原始提示的 TAM 情境；以 2 兆／6 兆檢視敏感度。TAM 不是任何資產的價值，也不是觀測的 AUM。
+  - id: uni.onchain_share@2
+    metric_id: uni.onchain_share
+    asset: UNI
+    value: 1
+    unit: ratio
+    classification: SCENARIO
+    as_of_date: 2026-10-12
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 2
+    fixture: false
+    supersedes: uni.onchain_share@1
+    scenario: all_onchain_amm_upper_bound
+    rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：具名上限情境「全部上鏈且全走 AMM」：鏈上占比設 100%。這是刻意最樂觀的分母，使 required-share 成為最低必要市占；描述未來狀態、無法觀測，所以分類為 SCENARIO 而非 ASSUMPTION。
+  - id: uni.amm_share@2
+    metric_id: uni.amm_share
+    asset: UNI
+    value: 1
+    unit: ratio
+    classification: SCENARIO
+    as_of_date: 2026-10-12
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 2
+    fixture: false
+    supersedes: uni.amm_share@1
+    scenario: all_onchain_amm_upper_bound
+    rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：具名上限情境「全部上鏈且全走 AMM」：AMM 占比設 100%。與鏈上占比同一情境；結果解讀為最低必要市占，不是預測。

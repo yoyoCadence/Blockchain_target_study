@@ -1,5 +1,9 @@
 # 開發交接
 
+## 2026-10-13（台北）— UNI required-share 輸入 v2
+
+PR #78（SEC 資料包）已合併。本分支追加 D-20261012-01 的六筆 v2 紀錄，並以 `node cli.js snapshot --production --reason …` 建立快照 `f096f2c3…`。**注意**：我多執行了一次 snapshot 指令，產生多餘快照 `8ece0c66…`（理由「x」）；它還沒 commit，已核對後刪除，沒有進入歷史。之後每次 snapshot 只執行一次。下一步：Firepit 近期速率短窗口 SCENARIO（D-20261012-02），需要重讀最新已確認區塊的 Firepit nonce 與門檻；再來是 Binance 交叉核對（D-20261012-03）。
+
 ## 2026-10-13（台北）— SECZ MG Stover 原文資料包與事件
 
 完成 2026-10-12 中斷的保存。上次 builder 太慢，是因為對 26 MB 文件逐字元正規化；改成只正規化每個 Stover／Fund Services 錨點前後約 20,000 字元的窗口。重取時所有 response hash 都變了，查出是 SEC 傳送層插入的隨機 script，改以 `secFilingBytes` 移除單一元素後比較，兩日一致。builder 在 scratch（`build-archive.mjs`），信箱只從 `SEC_CONTACT_EMAIL` 讀。既有 UNI 第二階段回歸改為「之後只接這個 SEC 快照」。下一步：required-share（D-20261012-01）。

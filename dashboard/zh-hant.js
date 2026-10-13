@@ -59,7 +59,7 @@ const terms={
  UNKNOWN_DATA:'資料未知（UNKNOWN_DATA）',NOT_OBSERVED:'非觀測值（NOT_OBSERVED）',INSUFFICIENT:'證據不足（INSUFFICIENT）',AVAILABLE:'可用（AVAILABLE）',RECHECK_DUE:'需重新查證（RECHECK_DUE）',RECENTLY_RETRIEVED:'近期取得（RECENTLY_RETRIEVED）',NOT_AVAILABLE_AT_CUTOFF:'截止日尚不可用（NOT_AVAILABLE_AT_CUTOFF）',STALE_FOR_CURRENT_USE:'目前使用前需重查（STALE_FOR_CURRENT_USE）',WITHIN_REVIEW_WINDOW:'在查證窗口內（WITHIN_REVIEW_WINDOW）',AVAILABLE_AT_CUTOFF:'截止日可用（AVAILABLE_AT_CUTOFF）',COMPARABILITY_UNVERIFIED:'可比性未查證（COMPARABILITY_UNVERIFIED）',UNKNOWN_INPUT:'輸入未知（UNKNOWN_INPUT）',
  input_states:'輸入狀態',evidence_states:'證據狀態',active_source_states:'使用中來源',review_states:'審查狀態',observation_states:'觀測狀態',source_states:'來源狀態',
  ERROR:'錯誤（ERROR）',WARNING:'警告（WARNING）',UNKNOWN:'未知（UNKNOWN）',
- text:'文字（text）',one_minute_close:'同分鐘收盤價',timelock_excluded:'全部排除治理金庫（timelock_excluded）',address:'地址（address）',flag:'旗標（flag）',
+ text:'文字（text）',one_minute_close:'同分鐘收盤價',timelock_excluded:'全部排除治理金庫（timelock_excluded）',all_onchain_amm_upper_bound:'全部上鏈且全走 AMM（上限情境）',tokenized_equity_tam_4t:'代幣化股票規模 4 兆（TAM 情境）',address:'地址（address）',flag:'旗標（flag）',
  source_change:'來源變更',assumption_change:'假設變更',scenario_change:'情境變更',formula_change:'公式變更',rule_change:'規則變更',
  revenue_definitions:'收入定義',continuing_operations:'持續營業範圍',acquisition_treatment:'收購處理',selected_presentation:'所選披露版本',audit_difference:'審計差異',
  operating_subsidiary:'營業子公司',audited:'已審計',unaudited:'未經審計',erc20:'ERC-20 代幣',common_stock:'普通股',native_asset:'原生資產',

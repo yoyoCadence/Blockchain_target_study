@@ -229,3 +229,48 @@ metrics:
     fixture: false
     rationale: 預設不排除治理 Timelock 餘額。全部排除 Timelock 只作為具名情境 timelock_excluded（敏感度參數設為 1），切換時重算模型市值與
       required-share；Timelock 是否已承諾、可支用或應排除未查證。
+  - id: uni.required_yield@2
+    metric_id: uni.required_yield
+    asset: UNI
+    value: 0.05
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2026-10-12
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 2
+    fixture: false
+    supersedes: uni.required_yield@1
+    rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：要求收益率 5%，沿用使用者原始提示與 Fixture 0.422 回歸的門檻。意義是協議每年需累積相當於模型市值 5% 的價值才撐得起目前估值（約 20 倍本益比的倒數）；這是分析者的報酬門檻，不是觀測值。
+  - id: uni.turnover@2
+    metric_id: uni.turnover
+    asset: UNI
+    value: 2
+    unit: turns/year
+    classification: ASSUMPTION
+    as_of_date: 2026-10-12
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 2
+    fixture: false
+    supersedes: uni.turnover@1
+    rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：週轉率每年 2 次，沿用原始提示，信心低。描述未來代幣化股票市場的假設狀態，不是 2025 年實際流量，所以期間基礎由 v1 的年度改為模型；將來取得 WFE 實際年度週轉時另存 OBSERVED 年度紀錄，不改寫本版。
+  - id: uni.fee@2
+    metric_id: uni.fee
+    asset: UNI
+    value: 0.000125
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2026-10-12
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 2
+    fixture: false
+    supersedes: uni.fee@1
+    rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：協議費率 1.25 bps，沿用原始提示，信心低；敏感度以 0.5／2 bps 檢視。尚未以鏈上實際協議費設定查證，查證後追加新版本。

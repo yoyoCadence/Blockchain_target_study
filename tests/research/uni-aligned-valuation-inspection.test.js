@@ -82,7 +82,7 @@ test('valuation APIs preserve exact strings, cutoff, write rejection, canonical 
  const r=data.records.find(r=>r.id===entry.id);assert.deepEqual(r.full_review,a);
  assert.equal(r.summary.values.find(v=>v.key==='candle_close').value,'7.9914');assert.equal(r.summary.bases[1].value_usd,'7090964360.30');
  const state=await (await fetch(base+'/api/state?mode=production')).json();
- for(const id of ['uni.market_cap','uni.fdv','uni.required_share'])assert.equal(state.metrics[id].value,null,id);assert.equal(state.metrics['uni.price'].value,7.9914);
+ for(const id of ['uni.market_cap','uni.fdv','uni.required_share_net'])assert.equal(state.metrics[id].value,null,id);assert.equal(state.metrics['uni.price'].value,7.9914);
  const freshness=await (await fetch(base+'/api/freshness?mode=production&as_of=2026-10-06')).json();
  assert.equal(freshness.research.artifacts.find(r=>r.id===entry.id).review_state,'NOT_AVAILABLE_AT_CUTOFF');
  for(const endpoint of ['/api/research?mode=production','/api/freshness?mode=production&as_of=2026-10-07'])assert.equal((await fetch(base+endpoint,{method:'POST'})).status,405);

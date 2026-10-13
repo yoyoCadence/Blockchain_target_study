@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
-import {loadProject,calculate,readYaml} from '../../engine/index.js';
+import {loadProject,readYaml} from '../../engine/index.js';
 import {readSnapshots,verifySnapshot,compareSnapshots} from '../../engine/snapshots.js';
 import {normalizeSecHtml,secExcerptText,secFilingBytes,reviewSecExcerptArchive,verifySecDocument} from '../../engine/research/sec-excerpts.js';
 
@@ -60,7 +60,7 @@ test('the delivery-script filter removes exactly one trailing element and re-ver
 });
 
 test('the source-only event appends 15 tier 1 SEC sources and changes no financial history',()=>{
- verifySnapshot(saved);assert.equal(saved.id,'2c35927c50a5d42d968d4a52cd24647ab3dcee2123b04da009d918fb7f93342a');assert.equal(saved,history.at(-1));
+ verifySnapshot(saved);assert.equal(saved.id,'2c35927c50a5d42d968d4a52cd24647ab3dcee2123b04da009d918fb7f93342a');assert.equal(saved.parent_id,previous.id);
  assert.deepEqual(saved.event.updates,[]);assert.ok(event.reason.includes(digest));assert.equal(event.type,'acquisition');
  assert.equal(event.sources.length,15);assert.ok(event.sources.every(s=>s.tier===1&&s.fixture===false&&s.url.startsWith('https://')));
  for(const d of archive.documents){const s=event.sources.find(x=>x.id===d.source_id);assert.deepEqual([s.url,s.date,s.retrieved_at],[d.url,d.file_date,d.received_at]);}
@@ -70,5 +70,5 @@ test('the source-only event appends 15 tier 1 SEC sources and changes no financi
  assert.deepEqual(saved.metrics,previous.metrics);assert.equal(saved.inputs.length,previous.inputs.length);
  for(const r of previous.inputs)assert.deepEqual(saved.inputs.find(x=>x.id===r.id),r,r.id);
  assert.equal(saved.sources.length,previous.sources.length+15);
- assert.equal(Object.values(calculate(p).metrics).filter(m=>m.value===null).length,80);
+ assert.equal(Object.values(saved.metrics).filter(m=>m.value===null).length,80);
 });
