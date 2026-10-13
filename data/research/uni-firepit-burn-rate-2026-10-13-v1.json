@@ -1,0 +1,44 @@
+{
+ "version": 1,
+ "id": "uni-firepit-burn-rate-20261013-v1",
+ "fixture": false,
+ "as_of_date": "2026-10-13",
+ "classification": "SCENARIO",
+ "scenario": "firepit_recent_rate",
+ "decision": "D-20261012-02",
+ "short_window": true,
+ "endpoints": [
+  {
+   "archive_id": "uni-firepit-state-evidence-20261006-v1",
+   "sha256": "41c8fcb16267e1b068aea59f8675bcd27a913d1a52c3d5ed2602034e71a0e6f9",
+   "block_number": "26133926",
+   "block_time": "2026-10-06T14:27:35.000Z",
+   "nonce": "1395"
+  },
+  {
+   "archive_id": "uni-firepit-state-evidence-20261013-v1",
+   "sha256": "273e3eecb14ed1067e44f9acbfa5cca669056fe6df35f4d15b6927465eeb32b7",
+   "block_number": "26183367",
+   "block_time": "2026-10-13T11:47:35.000Z",
+   "nonce": "1415"
+  }
+ ],
+ "threshold_raw": "4000000000000000000000",
+ "releases": "20",
+ "window_seconds": "595200",
+ "burned_raw": "80000000000000000000000",
+ "burned_uni": "80000",
+ "annualized_raw": "4241612903225806451612903",
+ "annualized_uni": "4241612.903225806451612903",
+ "unit": "UNI/year",
+ "context": {
+  "dead_balance_delta_raw": "220000002071909718123708",
+  "dead_balance_delta_uni": "220000.002071909718123708",
+  "not_from_mainnet_firepit_uni": "140000.002071909718123708"
+ },
+ "limitations": [
+  "只計主網 Firepit；dead 餘額同期增加的其他部分不歸因。",
+  "兩端門檻相同，但期間內若曾短暫改變又改回仍無法排除。",
+  "窗口短於 30 天時年化會放大雜訊；不是預測、不是手續費收入、未換算 USD。"
+ ]
+}

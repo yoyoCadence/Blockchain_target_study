@@ -129,7 +129,7 @@ required-share = (要求收益率 × 模型市值 + 分配負擔)
 - 只計主網 Firepit，不含 Unichain 橋接版本。
 - 燒毀的 UNI 是 release 呼叫者付出的成本，不等於協議手續費收入。
 
-**實作**：待補。
+**實作**：2026-10-13，終點 block 26183367（nonce 1415，門檻同為 4,000 UNI），20 次 release、80,000 UNI，年化約 4,241,612.90 UNI/年（短窗口）。同期 dead 餘額另有 140,000 UNI 非主網 Firepit，未歸因。見 [Firepit 近期速率](uni-firepit-burn-rate.md)。
 
 ---
 

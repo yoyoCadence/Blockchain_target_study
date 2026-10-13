@@ -1,5 +1,9 @@
 # 開發交接
 
+## 2026-10-13（台北）— Firepit 近期速率 SCENARIO
+
+擷取沿用 scratch `capture-uni-firepit.mjs`（輸出檔名參數化，來源 ID 依日期）。文件來源 ID 在擷取腳本裡是固定的 `-v1`，保存前改成 `-v2`（重新取得的版本），方法檔中含區塊號（`block…`）與日期（`@1-YYYYMMDD`）的紀錄 ID 也一併改。下次 30 天窗口：再跑一次擷取，複製方法檔並改綁定，再以 `firepitBurnRateScenario` 計算新版本。**注意**：這次事件在 reader 驗證通過前就套用了；因為資料包沒改，事件仍有效，但下次應先驗證再套用。下一步：Binance 交叉核對（D-20261012-03）。
+
 ## 2026-10-13（台北）— UNI required-share 輸入 v2
 
 PR #78（SEC 資料包）已合併。本分支追加 D-20261012-01 的六筆 v2 紀錄，並以 `node cli.js snapshot --production --reason …` 建立快照 `f096f2c3…`。**注意**：我多執行了一次 snapshot 指令，產生多餘快照 `8ece0c66…`（理由「x」）；它還沒 commit，已核對後刪除，沒有進入歷史。之後每次 snapshot 只執行一次。下一步：Firepit 近期速率短窗口 SCENARIO（D-20261012-02），需要重讀最新已確認區塊的 Firepit nonce 與門檻；再來是 Binance 交叉核對（D-20261012-03）。
