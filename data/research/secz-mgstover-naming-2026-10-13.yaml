@@ -1,0 +1,196 @@
+id: secz-mgstover-naming-20261013
+type: acquisition
+status: completed
+as_of_date: 2026-10-13
+effective_date: 2025-04-15
+affected_nodes:
+  - SECZ
+fixture: false
+source_ids:
+  - sec-efts-mgstover-search-20261013-v1
+  - sec-2025-10-28-425-ea026272001ex992cantor2-v1
+  - sec-2025-10-28-8k-ea026272001ex992cantor2-v1
+  - sec-2025-11-12-drs-filename1-v1
+  - sec-2025-11-21-425-ea0266517425cantor2-v1
+  - sec-2026-01-28-s4-ea026411902-v1
+  - sec-2026-04-13-s4a-ea026411904-v1
+  - sec-2026-05-08-s4a-ea026411907-v1
+  - sec-2026-05-20-s4a-ea026411909-v1
+  - sec-2026-06-05-424b3-ea026411911-v1
+  - sec-2026-06-05-defm14a-ea029359701-v1
+  - sec-2026-07-31-s1-secz20260731-v1
+  - sec-2026-08-07-424b3-securitizeholdings424b3-v1
+  - sec-2026-08-13-8ka-exhibit991securitizeq220-v1
+  - sec-2026-08-13-8ka-exhibit992securitizemdaq-v1
+reason: 依決策 D-20261012-04 以研究專用 SEC 聯絡信箱（不寫入公開 repo）直接取得 EDGAR 原始檔案，查證 SECZ 收購標的 MG Stover 的法律名稱沿革。全文檢索 "MG Stover" 共 14 份文件，2026-10-12 與 10-13 兩次取得的 filing SHA-256 全部相同（SEC 傳送層每次插入的隨機 script 已排除，當次完整回應 hash 另存）。43 段原文 bytes 摘錄（位移與 SHA-256）與 7 項觀測保存於 data/research/secz-mgstover-naming-2026-10-13-v1.json，exact bytes SHA-256 9641cf34584ec7f95aad3722d223cc0d26cea6309b76ff74baa81fff84bd12bd。觀測：年度 Note 3 一律寫 MG Stover, Inc.；期中 Note 3 自 2026-05-20 S-4/A 起寫 MG Stover, LLC；8-K/A 定義詞「MG Stover LLC (“MG Stover” or "MG Stover & Co.")」；S-1／424B3 寫「Securitize Fund Services, LLC, formerly MG Stover & Co」；2026-01-28 S-4 與 DRS 則把 Securitize Fund Services, LLC 定義為 Theorem。後兩項是新的來源衝突，兩說保留。所有 Stover 前後 300 字元內沒有轉換字樣，這只是本範圍的負面結果。Inc.／LLC 法律主體等價仍未直接查證；SECZ TTM v2 假設 secz-ttm-20260630-comparability@2、原 v1 null、金融輸入、公式、情境、論點與可投資性都不變。updates=[]，只追加 15 個 tier 1 來源與完整快照。
+research_review:
+  reviewer: Claude Code SEC EDGAR 原文人工查證；非人類簽核
+  reviewed_at: 2026-10-13T11:36:19.924Z
+  rationale: 以全文檢索列出全部命中文件，逐份取得原始 bytes，排除 SEC 傳送層插入的單一隨機 script 後比較兩日 filing hash；以固定正規化 sec-html-text-v1 在每個 Stover／Fund Services 錨點附近抽出四種名稱寫法，保存原 bytes、位移與 hash，並離線重驗每段摘錄與觀測引文。名稱寫法是發行人表述，不是州政府登記；不以此解除名稱衝突。
+updates: []
+sources:
+  - id: sec-efts-mgstover-search-20261013-v1
+    version: 1
+    url: https://efts.sec.gov/LATEST/search-index?q=%22MG%20Stover%22&dateRange=custom&startdt=2025-01-01&enddt=2026-10-12
+    publisher: U.S. Securities and Exchange Commission
+    title: EDGAR 全文檢索 "MG Stover"（2025-01-01 至 2026-10-12）；14 份命中文件
+    date: 2026-10-13
+    retrieved_at: 2026-10-13T11:35:29.605Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2025-10-28-425-ea026272001ex992cantor2-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2034269/000121390025102785/ea026272001ex99-2_cantor2.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 425 0001213900-25-102785（Cantor Equity Partners II, Inc. (CEPT)）；MG Stover 名稱摘錄，filing SHA-256 74e14ee009bf1278…
+    date: 2025-10-28
+    retrieved_at: 2026-10-13T11:35:32.175Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2025-10-28-8k-ea026272001ex992cantor2-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2034269/000121390025102783/ea026272001ex99-2_cantor2.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 8-K 0001213900-25-102783（Cantor Equity Partners II, Inc. (CEPT)）；MG Stover 名稱摘錄，filing SHA-256 74e14ee009bf1278…
+    date: 2025-10-28
+    retrieved_at: 2026-10-13T11:35:32.720Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2025-11-12-drs-filename1-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000121390025108962/filename1.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: DRS 0001213900-25-108962（Securitize Holdings, Inc.）；MG Stover 名稱摘錄，filing SHA-256 dfd98073a0252df5…
+    date: 2025-11-12
+    retrieved_at: 2026-10-13T11:35:45.282Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2025-11-21-425-ea0266517425cantor2-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2034269/000121390025113656/ea0266517-425_cantor2.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 425 0001213900-25-113656（Cantor Equity Partners II, Inc. (CEPT)）；MG Stover 名稱摘錄，filing SHA-256 ebaa89a414c13ca2…
+    date: 2025-11-21
+    retrieved_at: 2026-10-13T11:35:33.103Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-01-28-s4-ea026411902-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000121390026008915/ea0264119-02.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-4 0001213900-26-008915（Securitize Holdings, Inc.）；MG Stover 名稱摘錄，filing SHA-256 c2b55222b5aa4504…
+    date: 2026-01-28
+    retrieved_at: 2026-10-13T11:35:43.822Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-04-13-s4a-ea026411904-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000121390026042685/ea0264119-04.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-4/A 0001213900-26-042685（Securitize Holdings, Inc. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 0ba0fedbe8e7f23c…
+    date: 2026-04-13
+    retrieved_at: 2026-10-13T11:35:42.497Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-05-08-s4a-ea026411907-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000121390026053457/ea0264119-07.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-4/A 0001213900-26-053457（Securitize Holdings, Inc. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 c331b437cf808359…
+    date: 2026-05-08
+    retrieved_at: 2026-10-13T11:35:41.002Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-05-20-s4a-ea026411909-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000121390026059300/ea0264119-09.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-4/A 0001213900-26-059300（Securitize Holdings, Inc. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 842bb25f0ff19ce9…
+    date: 2026-05-20
+    retrieved_at: 2026-10-13T11:35:34.350Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-06-05-424b3-ea026411911-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000121390026065825/ea0264119-11.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 424B3 0001213900-26-065825（Securitize Holdings, Inc. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 b44ba39b647d68cb…
+    date: 2026-06-05
+    retrieved_at: 2026-10-13T11:35:36.508Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-06-05-defm14a-ea029359701-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2034269/000121390026065822/ea0293597-01.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: DEFM14A 0001213900-26-065822（Cantor Equity Partners II, Inc. (CEPT)）；MG Stover 名稱摘錄，filing SHA-256 31b949271d43eff3…
+    date: 2026-06-05
+    retrieved_at: 2026-10-13T11:35:38.564Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-07-31-s1-secz20260731-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/secz-20260731.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: S-1 0001628280-26-051182（Securitize Corp. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 3f2e482cc8da504b…
+    date: 2026-07-31
+    retrieved_at: 2026-10-13T11:35:31.698Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-08-07-424b3-securitizeholdings424b3-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/securitizeholdings-424b3.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 424B3 0001628280-26-054866（Securitize Corp. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 b38a4b06cd129e89…
+    date: 2026-08-07
+    retrieved_at: 2026-10-13T11:35:31.081Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-08-13-8ka-exhibit991securitizeq220-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 8-K/A 0001628280-26-056811（Securitize Corp. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 07928e4b436c05c7…
+    date: 2026-08-13
+    retrieved_at: 2026-10-13T11:35:30.596Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false
+  - id: sec-2026-08-13-8ka-exhibit992securitizemdaq-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit992securitizemdaq22.htm
+    publisher: U.S. Securities and Exchange Commission
+    title: 8-K/A 0001628280-26-056811（Securitize Corp. (SECZ)）；MG Stover 名稱摘錄，filing SHA-256 28dce88812d01103…
+    date: 2026-08-13
+    retrieved_at: 2026-10-13T11:35:30.103Z
+    tier: 1
+    covered_metrics:
+      - secz.acquisition_context_evidence
+    fixture: false

@@ -1,5 +1,9 @@
 # 開發交接
 
+## 2026-10-13（台北）— SECZ MG Stover 原文資料包與事件
+
+完成 2026-10-12 中斷的保存。上次 builder 太慢，是因為對 26 MB 文件逐字元正規化；改成只正規化每個 Stover／Fund Services 錨點前後約 20,000 字元的窗口。重取時所有 response hash 都變了，查出是 SEC 傳送層插入的隨機 script，改以 `secFilingBytes` 移除單一元素後比較，兩日一致。builder 在 scratch（`build-archive.mjs`），信箱只從 `SEC_CONTACT_EMAIL` 讀。既有 UNI 第二階段回歸改為「之後只接這個 SEC 快照」。下一步：required-share（D-20261012-01）。
+
 ## 2026-10-12（台北）— 決策紀錄與 SEC 原文查證（使用者要求告一段落）
 
 PR #75（UNI 第二階段之二）與 #76（[決策紀錄](decision-log.md)）已合併，CI 成功。使用者同意四項建議 D-20261012-01～04，並要求記錄理由。SEC 研究專用信箱只透過環境變數 `SEC_CONTACT_EMAIL` 提供；repo 是公開的，不可寫入檔案。
