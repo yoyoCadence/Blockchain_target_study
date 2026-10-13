@@ -91,6 +91,7 @@
     - [x] XLM 單筆交易所價格基準：重用已保存的兩份 Tier 1 來源，依原 preview／digest 流程獨立追加 0.216265 USD／1 XLM 的 point OBSERVED 與完整不可變快照，重算全部下游。中文卡片／血緣／比較保留價格精度；十份歷史各自重播、Fixture 隔離及截止日驗證通過，全套 575 項與兩模式 validate 通過，正式未知由 83 降為 82。見[價格基準與驗收](reports/xlm-quote-baseline.md)。UNI 候選仍有三項期間阻擋，三項 TTM null、估值／投資性與父 baseline 保留；本次窄視窗實測未驗證。
     - [x] SECZ MG Stover 名稱沿革 SEC 原文查證：14 份 EDGAR 原檔、四種名稱、新來源衝突；原文 bytes 資料包（43 段摘錄，SEC 傳送層 script 排除後兩日 filing hash 一致）與 source-only 事件（15 來源，快照 `2c35927c…`）。法律等價仍未直接查證，TTM 假設不變。見[研究筆記](reports/secz-mgstover-naming.md)。全套 1232、兩模式 validate 通過。
     - [x] UNI required-share 輸入 v2（D-20261012-01）：三筆 ASSUMPTION 與三筆 SCENARIO v2（週轉率改模型基礎），required-share ≈ 51.44%（上限情境下的最低必要市占），敏感度與決策紀錄一致，完整淨經濟仍 null，未知 80→72，快照 `f096f2c3…`。見[說明](reports/uni-required-share-inputs.md)。全套 1236、兩模式 validate 通過。
+    - [x] UNI 主網 Firepit 近期速率 SCENARIO（D-20261012-02）：終點 block 26183367 同方法重讀（nonce 1395→1415、門檻同為 4,000 UNI），年化約 4,241,612.90 UNI/年（短窗口，只在研究層），同期 140,000 UNI dead 增加未歸因；source-only 快照 `2e9da6b1…`。見[說明](reports/uni-firepit-burn-rate.md)。全套 1239、兩模式 validate 通過；30 天窗口版本待 11 月初。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

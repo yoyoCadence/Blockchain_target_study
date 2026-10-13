@@ -8,13 +8,18 @@ import {evmAddress,decodeAbiWord,reviewFinalizedAnchor,pinnedCall,reviewSavedDoc
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex'),LABEL='UNI Firepit';
 
 // Digest-bound local consistency review. No RPC, document fetch, writes, threshold history, attribution, annualization or valuation.
-export function reviewUniFirepitState(project,bytes,expectedDigest) {
+// methodFile binds a later capture to its own archive/source IDs; getters, formulas and document lines must equal v1 apart from block/date-bound record IDs.
+export function reviewUniFirepitState(project,bytes,expectedDigest,methodFile='spec/uni-firepit-state-method.yaml') {
  assert(project.mode==='production','UNI Firepit state review requires production');
  assert(typeof expectedDigest==='string'&&/^[0-9a-f]{64}$/.test(expectedDigest),'UNI Firepit state review requires a reviewed SHA-256 digest');
  assert(Buffer.isBuffer(bytes)||typeof bytes==='string','UNI Firepit state review requires raw JSON bytes');
  const digest=hash(bytes);assert(digest===expectedDigest,'UNI Firepit state archive digest mismatch');
  const artifact=parseRpcJson(bytes.toString(),'UNI Firepit state artifact');
- const schema=readYaml('spec/uni-firepit-state-schema.yaml',project.root),method=readYaml('spec/uni-firepit-state-method.yaml',project.root);
+ const schema=readYaml('spec/uni-firepit-state-schema.yaml',project.root),method=readYaml(methodFile,project.root);
+ if(methodFile!=='spec/uni-firepit-state-method.yaml') {
+  const base=readYaml('spec/uni-firepit-state-method.yaml',project.root),strip=x=>JSON.stringify({...x,archive_id:null,rpc_source_id:null}).replace(/-8604e4b-v[12]/g,'').replace(/block[0-9]+/g,'block').replace(/@1-[0-9]{8}/g,'@1-');
+  assert(strip(method)===strip(base),'UNI Firepit later method must equal v1 apart from archive/source bindings');
+ }
  validateSchema(schema,artifact,'UNI Firepit state research');validateSchema(schema.definitions.method,method,'UNI Firepit state method');
  unique(method.getters.map(([id])=>({id})));unique(method.formulas);unique(method.documents,'key');
  assert(method.version===1&&artifact.id===method.archive_id,'UNI Firepit method/archive version mismatch');

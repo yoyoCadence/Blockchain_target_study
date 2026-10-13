@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-13（台北）— UNI 主網 Firepit 近期速率年化（研究層 SCENARIO）
+
+依 D-20261012-02 在 finalized block 26183367 以同一方法重讀 Firepit（nonce 1415、門檻 4,000 UNI 與 10/06 相同），並新增方法檔 `spec/uni-firepit-state-method-20261013.yaml`（只改綁定）。reader 新增選填 methodFile，並檢查新方法除綁定外與 v1 相同。source-only 事件追加 RPC 來源與五個文件來源 v2，快照 `2e9da6b1…`。新唯讀模組 `firepit-burn-rate.js` 以 BigInt 重算 SCENARIO `firepit_recent_rate`：20 次 release、80,000 UNI、窗口約 6.89 天，年化約 4,241,612.90 UNI/年（短窗口）。只在研究層，不進正式模型、不換算 USD。同期 dead 餘額另有 140,000 UNI 未歸因。3 項新增，全套 1239。見[說明](uni-firepit-burn-rate.md)。
+
 ## 2026-10-13（台北）— UNI required-share 輸入：假設與情境 v2
 
 依 D-20261012-01 追加六筆 v2 紀錄（公式不變）。**假設**：`uni.required_yield@2` 0.05、`uni.turnover@2` 2（期間基礎由年度改為模型，避免與 10/07 估值日期錯配）、`uni.fee@2` 0.000125。**情境**：`market.equity_aum@2` 4 兆（`tokenized_equity_tam_4t`，範圍 2～6 兆），`uni.onchain_share@2`／`uni.amm_share@2` 為 1（`all_onchain_amm_upper_bound`，由 ASSUMPTION 改為具名 SCENARIO）。required-share ≈ 51.44%，是上限情境下的最低必要市占；完整淨經濟仍 null；STRESS 規則因費率不低於 0.5 bp 而未觸發，規則不改。正式未知 80→72，快照 `f096f2c3…`；Fixture 0.422 不變。4 項新增，6 處舊斷言更新，全套 1236。見[說明](uni-required-share-inputs.md)。
