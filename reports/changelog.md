@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-13（台北）— SECZ MG Stover 名稱沿革：原文 bytes 資料包與 source-only 事件
+
+新增唯讀模組 `engine/research/sec-excerpts.js`（固定正規化 `sec-html-text-v1`、SEC 傳送層 script 過濾、資料包離線重驗、下載後逐 byte 核對）。研究資料包 `data/research/secz-mgstover-naming-2026-10-13-v1.json`（SHA-256 `9641cf34…`，LF）保存 14 份文件身分與 43 段原文 bytes 摘錄、7 項觀測、2 項衝突。發現 SEC 每次回應在 `</BODY>` 前插入隨機路徑 script，所以分開記錄 response／filing hash；兩日 filing hash 全同。source-only `acquisition` 事件追加 15 個 tier 1 來源，快照 `2c35927c…`；金融、公式、假設、情境不變，unknown 80。5 項新增，全套 1232。見[研究筆記](secz-mgstover-naming.md)。
+
 ## 2026-10-12（台北）— SECZ MG Stover 名稱沿革：SEC 原文查證（研究筆記）
 
 依 D-20261012-04 以研究專用信箱（不寫入 repo）取得 EDGAR 全文檢索 `"MG Stover"` 的 14 份原始檔案（HTTP 200，記錄 SHA-256）。發現四種名稱：年度 Note 3 一律寫 Inc.；期中 Note 3 從 2026-05-20 S-4/A 起改為 LLC；8-K/A 定義詞「MG Stover LLC ("MG Stover" or "MG Stover & Co.")」；S-1／424B3 寫「Securitize Fund Services, LLC, formerly MG Stover & Co」。新來源衝突：2026-01-28 S-4 把 Securitize Fund Services, LLC 對應到 Theorem，並另列 MG Stover & Co.；兩說保留。沒有任何文件說明 Inc. 轉為 LLC，所以法律等價仍未直接查證。只有文件；事件、快照、來源版本、金融數值、TTM 假設都沒有改。見[研究筆記](secz-mgstover-naming.md)。

@@ -19,7 +19,7 @@ test('the reviewed refresh journal binds the digest-reviewed proposal and append
  assert.deepEqual(saved.event.updates,proposal.observations);assert.deepEqual(saved.event.sources,proposal.sources);
  assert.deepEqual(saved.event.research_review,proposal.review);assert.match(saved.event.research_digest,/^[a-f0-9]{64}$/);
  assert.equal(previous.id,'c85cf219fd3820276cc0719700c794d17a1fd50781493c2a7ba735c2318379ae');assert.equal(saved.parent_id,previous.id);
- assert.equal(saved.id,'ca4e19d9b64103d887b551f8c0ccde58e5c29c75133694f67cbb4d8182a2f67a');assert.equal(index,history.length-1);
+ assert.equal(saved.id,'ca4e19d9b64103d887b551f8c0ccde58e5c29c75133694f67cbb4d8182a2f67a');assert.deepEqual(history.slice(index+1).map(s=>s.event?.id),['secz-mgstover-naming-20261013']);
  assert.ok(proposal.reason.includes(digest));assert.equal(proposal.as_of_date,'2026-10-07');
  assert.ok(Date.parse(proposal.review.reviewed_at)>=Date.parse(a.captured_at));
 });

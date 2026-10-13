@@ -190,4 +190,4 @@ required-share = (要求收益率 × 模型市值 + 分配負擔)
 
 **下一步**：用逐 byte 原文查證 SECZ 法律主體名稱差異（MG Stover Inc.／LLC）與六類收入對應。
 
-**實作**：2026-10-12 第一步完成，見 [MG Stover 名稱沿革研究筆記](secz-mgstover-naming.md)。14 份 EDGAR 原始檔案都取得 200，並找到新的定義詞證據與新的來源衝突；Inc.／LLC 法律等價仍未直接查證，TTM 假設不變。原文 bytes 研究資料包與 source-only 事件尚待完成。
+**實作**：2026-10-12 第一步完成，見 [MG Stover 名稱沿革研究筆記](secz-mgstover-naming.md)。14 份 EDGAR 原始檔案都取得 200，並找到新的定義詞證據與新的來源衝突；Inc.／LLC 法律等價仍未直接查證，TTM 假設不變。2026-10-13 完成原文 bytes 研究資料包（43 段摘錄、filing hash 兩日一致）與 source-only 事件（快照 `2c35927c…`）。

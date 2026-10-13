@@ -54,7 +54,19 @@ EDGAR 全文檢索 `"MG Stover"`，期間 2025-01-01 至 2026-10-12，共 14 份
 - 「全文檢索沒找到轉換說明」是對這 14 份文件的負面結果，不代表轉換說明不存在；州政府公司登記（非 SEC）可能有直接紀錄。
 - SECZ TTM v2 的假設 `secz-ttm-20260630-comparability@2`（低信心）**不變**。是否因新證據調整信心，是分析者決策，要另外記錄在[決策紀錄](decision-log.md)。
 
-## 後續
+## 原文保存（2026-10-13 完成）
 
-- **完整保存**：把上述引文以原始 bytes、位移與 SHA-256 保存成研究資料包，並追加 15 個 tier 1 來源（全文檢索加 14 份文件）的 source-only 事件。builder 腳本已寫好，但文件太大（共約 175 MB），擷取還沒跑完就停止了，下次接續。
+- **資料包**：[資料包](../data/research/secz-mgstover-naming-2026-10-13-v1.json)，固定 LF，exact bytes SHA-256 `9641cf34…`，約 127 KB。
+  - 內容有：全文檢索原回應、14 份文件的身分，以及 43 段原文 bytes 摘錄（位移、長度、SHA-256、正規化文字）。
+  - 另有 7 項觀測（每項都引用摘錄）、2 項衝突，以及「Stover 前後 300 字元內無轉換字樣」的範圍檢查（0 筆）。
+- **SEC 傳送層會改變整份回應的 hash**：
+  - 每次回應都會在 `</BODY>` 前插入一個 `<script src="/隨機路徑">`。Cantor 那份 425 兩次取得就差 7 bytes，`Last-Modified` 仍是 2025-10-28。
+  - 所以資料包記兩種 hash：當次完整回應的 `response_sha256`；以及只移除這一個元素後的 `filing_sha256`。插入的元素必須剛好一個，而且緊接 `</BODY>`。
+  - 14 份文件 10/12 與 10/13 兩次取得的 `filing_sha256` 全部相同。所有摘錄都在插入點之前，所以位移不受影響。
+- **離線重驗**：唯讀模組 `engine/research/sec-excerpts.js` 用固定正規化 `sec-html-text-v1` 重驗每段摘錄與觀測引文，並拒絕任何 email。
+  - `verifySecDocument` 可在重新下載後逐 byte 核對位移；這需要連網，不在自動測試內。
+- **事件**：source-only `acquisition` 事件 `secz-mgstover-naming-20261013`（[提案](../data/research/secz-mgstover-naming-2026-10-13.yaml)）。
+  - 追加 15 個 tier 1 SEC 來源，快照 `2c35927c…`；updates=[]。
+  - 金融紀錄、公式、假設、情境都不變，unknown 仍是 80。**不可再次套用。**
+- **測試**：5 項新增（重驗、竄改拒絕、傳送層 script 過濾、事件與歷史不變）。全套 1232、兩模式 validate 通過。
 - **六類收入對應**：SECZ 只揭露 Tokenization 與 Asset Servicing 兩類收入。如何對應到模型的六類，需要分析者決策。
