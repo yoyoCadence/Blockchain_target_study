@@ -1,0 +1,40 @@
+id: binance-uni-cross-check-20261013
+type: market_data_review
+status: completed
+as_of_date: 2026-10-13
+effective_date: 2026-10-07
+source_ids:
+  - binance-uniusdt-1m-20261007-v1
+  - binance-uniusdc-1m-20261007-v1
+affected_nodes:
+  - UNI
+fixture: false
+reason: 依分析者決策 D-20261012-03（參考使用者 AlphaFactorForge 專案的資料來源），以 Binance 公開封存交叉核對正式模型 uni.price@2-coinbase-candle-20261007（Coinbase UNI-USD 同分鐘收盤價 7.9914，11:02:00→11:03:00 UTC）。UNIUSDT 與 UNIUSDC 2026-10-07 日封存的 zip SHA-256 皆與官方 CHECKSUM 相符；同一分鐘收盤 UNIUSDT 7.99500000（差 +0.0036，4.50 bp）、UNIUSDC 7.99400000（差 +0.0026，3.25 bp）。時間戳為微秒，已逐值換算並確認與正式價格窗口相同。USDT／USDC 與 USD 是不同單位，差值只供一致性檢查，不換算、不取代正式價格，也沒有通過／不通過門檻。原 CHECKSUM、zip hash 與參考分鐘前後三行原 CSV 保存於 data/research/binance-uni-klines-2026-10-07-v1.json，exact bytes SHA-256 e6ffc5c4490a254fec1f1de73eb1a2b215567efa7af6bc9b1c6238e9f1944079。updates=[]；金融輸入、公式、假設、情境、論點不變。
+research_review:
+  reviewer: Claude Code 公開交易所封存人工查證；依分析者決策；非獨立人類簽核
+  reviewed_at: 2026-10-13T12:15:57.178Z
+  rationale: 先取官方 CHECKSUM，再取 zip 並比對 SHA-256；讀取單一 CSV entry，以微秒時間戳定位與正式價格相同的一分鐘，保存前後各一分鐘原行並以十進位字串計算差值。
+updates: []
+sources:
+  - id: binance-uniusdt-1m-20261007-v1
+    version: 1
+    url: https://data.binance.vision/data/spot/daily/klines/UNIUSDT/1m/UNIUSDT-1m-2026-10-07.zip
+    publisher: Binance public data archive (data.binance.vision)
+    title: UNIUSDT 一分鐘 K 線日封存 2026-10-07；官方 CHECKSUM 與 zip SHA-256 ce7abbb91b4e84a8… 相符（報價 USDT，非 USD）
+    date: 2026-10-08
+    retrieved_at: 2026-10-13T12:15:37.687Z
+    tier: 1
+    covered_metrics:
+      - uni.price_cross_check_evidence
+    fixture: false
+  - id: binance-uniusdc-1m-20261007-v1
+    version: 1
+    url: https://data.binance.vision/data/spot/daily/klines/UNIUSDC/1m/UNIUSDC-1m-2026-10-07.zip
+    publisher: Binance public data archive (data.binance.vision)
+    title: UNIUSDC 一分鐘 K 線日封存 2026-10-07；官方 CHECKSUM 與 zip SHA-256 acb1166a05c0bbc1… 相符（報價 USDC，非 USD）
+    date: 2026-10-08
+    retrieved_at: 2026-10-13T12:15:37.939Z
+    tier: 1
+    covered_metrics:
+      - uni.price_cross_check_evidence
+    fixture: false

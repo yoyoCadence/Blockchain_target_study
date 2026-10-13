@@ -21,7 +21,7 @@ function workspace(t,mode='fixture') {
  const sourceFile=path.join(root,mode==='fixture'?'data/fixtures/sources.yaml':'sources/sources.yaml');
  fs.mkdirSync(path.dirname(sourceFile),{recursive:true});fs.writeFileSync(sourceFile,JSON.stringify({version:1,sources:p.sources}));
  const e={id:'test-only-saved-evidence',type:'protocol_fee_change',status:'completed',fixture:mode==='fixture',
-  as_of_date:'2026-10-03',effective_date:'2025-12-31',source_ids:[p.sources[0].id],
+  as_of_date:'2026-10-03',effective_date:'2025-12-31',source_ids:[p.sources.find(s=>s.date<='2026-10-03').id],
   affected_nodes:['UNI'],reason:'Test-only saved event evidence',updates:[]};
  const prepared=prepareEvent(p,e),transaction={event:e,snapshot:prepared.snapshot};
  const file=path.join(root,'data/events',mode,`${e.id}.json`);fs.mkdirSync(path.dirname(file),{recursive:true});

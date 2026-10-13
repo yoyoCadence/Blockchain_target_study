@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-13（台北）— Binance 公開封存交叉核對 UNI 同分鐘收盤價
+
+依 D-20261012-03 新增唯讀模組 `engine/research/binance-klines.js`（K 線行解析、微秒／毫秒精確換算、十進位差值、zip 重驗）。資料包 `binance-uni-klines-2026-10-07-v1.json`（SHA-256 `e6ffc5c4…`）保存官方 CHECKSUM、zip hash 與參考分鐘前後三行原 CSV。UNIUSDT 7.995（+4.50 bp）、UNIUSDC 7.994（+3.25 bp），對照 Coinbase UNI-USD 7.9914；不同報價單位、不換算、不取代正式價格、無門檻。source-only 事件追加兩個 tier 1 來源，快照 `a0003005…`。三個舊測試改用日期合格的來源，不再依賴 `sources[0]`。4 項新增，全套 1243。見[說明](binance-uni-cross-check.md)。
+
 ## 2026-10-13（台北）— UNI 主網 Firepit 近期速率年化（研究層 SCENARIO）
 
 依 D-20261012-02 在 finalized block 26183367 以同一方法重讀 Firepit（nonce 1415、門檻 4,000 UNI 與 10/06 相同），並新增方法檔 `spec/uni-firepit-state-method-20261013.yaml`（只改綁定）。reader 新增選填 methodFile，並檢查新方法除綁定外與 v1 相同。source-only 事件追加 RPC 來源與五個文件來源 v2，快照 `2e9da6b1…`。新唯讀模組 `firepit-burn-rate.js` 以 BigInt 重算 SCENARIO `firepit_recent_rate`：20 次 release、80,000 UNI、窗口約 6.89 天，年化約 4,241,612.90 UNI/年（短窗口）。只在研究層，不進正式模型、不換算 USD。同期 dead 餘額另有 140,000 UNI 未歸因。3 項新增，全套 1239。見[說明](uni-firepit-burn-rate.md)。

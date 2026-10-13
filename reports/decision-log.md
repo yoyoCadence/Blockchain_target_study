@@ -169,7 +169,7 @@ required-share = (要求收益率 × 模型市值 + 分配負擔)
 - 交叉核對只檢查價格是否一致，不取代 Coinbase 價格。
 - Binance 的可取得性與地區限制可能改變。
 
-**實作**：待補。
+**實作**：2026-10-13，UNIUSDT／UNIUSDC 10/07 日封存與官方 CHECKSUM 相符；11:02 收盤分別差 +4.50 bp、+3.25 bp。只做一致性檢查，正式價格不變。見 [Binance 交叉核對](binance-uni-cross-check.md)。
 
 ---
 

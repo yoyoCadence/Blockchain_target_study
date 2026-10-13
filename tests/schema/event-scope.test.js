@@ -20,7 +20,7 @@ function workspace(t,mode='fixture',affected=['UNI']) {
  const sourceFile=path.join(root,mode==='fixture'?'data/fixtures/sources.yaml':'sources/sources.yaml');
  fs.mkdirSync(path.dirname(sourceFile),{recursive:true});fs.writeFileSync(sourceFile,JSON.stringify({version:1,sources:p.sources}));
  const base=loadProject(mode,root),event={id:'test-only-scope',type:'governance',status:'completed',fixture:mode==='fixture',
-  as_of_date:'2026-10-03',effective_date:'2025-12-31',source_ids:[p.sources[0].id],affected_nodes:affected,reason:'Test-only scope evidence',updates:[]};
+  as_of_date:'2026-10-03',effective_date:'2025-12-31',source_ids:[p.sources.find(s=>s.date<='2026-10-03').id],affected_nodes:affected,reason:'Test-only scope evidence',updates:[]};
  const transaction={event,snapshot:prepareEvent(base,event).snapshot},file=path.join(root,'data/events',mode,`${event.id}.json`);
  fs.mkdirSync(path.dirname(file),{recursive:true});return {root,base,transaction,file,mode};
 }
