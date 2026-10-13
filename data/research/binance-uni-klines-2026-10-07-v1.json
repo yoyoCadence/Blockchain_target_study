@@ -1,0 +1,118 @@
+{
+ "version": 1,
+ "id": "binance-uni-klines-20261007-v1",
+ "fixture": false,
+ "as_of_date": "2026-10-13",
+ "day": "2026-10-07",
+ "decision": "D-20261012-03",
+ "purpose": "以 Binance 公開封存的一分鐘 K 線，交叉核對正式模型 2026-10-07 同分鐘收盤價（Coinbase UNI-USD）。報價為 USDT／USDC，不換算、不取代正式價格。",
+ "reference": {
+  "canonical_record": "uni.price@2-coinbase-candle-20261007",
+  "price_window": {
+   "basis": "one_minute_close",
+   "start": "2026-10-07T11:02:00.000Z",
+   "end": "2026-10-07T11:03:00.000Z"
+  }
+ },
+ "symbols": [
+  {
+   "symbol": "UNIUSDT",
+   "base": "UNI",
+   "quote": "USDT",
+   "checksum_url": "https://data.binance.vision/data/spot/daily/klines/UNIUSDT/1m/UNIUSDT-1m-2026-10-07.zip.CHECKSUM",
+   "checksum_text": "ce7abbb91b4e84a86054a4583a95d4ee323192da8923af25c694c505e3a25982  UNIUSDT-1m-2026-10-07.zip",
+   "checksum_retrieval": {
+    "started_at": "2026-10-13T12:15:37.172Z",
+    "received_at": "2026-10-13T12:15:37.559Z",
+    "http_status": 200,
+    "http_date": "Tue, 13 Oct 2026 12:15:37 GMT",
+    "last_modified": "Thu, 08 Oct 2026 01:47:12 GMT"
+   },
+   "zip_url": "https://data.binance.vision/data/spot/daily/klines/UNIUSDT/1m/UNIUSDT-1m-2026-10-07.zip",
+   "zip_sha256": "ce7abbb91b4e84a86054a4583a95d4ee323192da8923af25c694c505e3a25982",
+   "zip_byte_length": 58126,
+   "zip_retrieval": {
+    "started_at": "2026-10-13T12:15:37.560Z",
+    "received_at": "2026-10-13T12:15:37.687Z",
+    "http_status": 200,
+    "http_date": "Tue, 13 Oct 2026 12:15:38 GMT",
+    "last_modified": "Thu, 08 Oct 2026 01:47:12 GMT"
+   },
+   "csv_entry": "UNIUSDT-1m-2026-10-07.csv",
+   "csv_rows": 1440,
+   "time_unit": "microseconds",
+   "rows": [
+    {
+     "row_number": 662,
+     "line": "1791370860000000,7.99000000,7.99600000,7.98800000,7.99600000,1748.18000000,1791370919999999,13971.01555000,69,1017.42000000,8130.99981000,0",
+     "open_at": "2026-10-07T11:01:00.000Z",
+     "close": "7.99600000"
+    },
+    {
+     "row_number": 663,
+     "line": "1791370920000000,7.99600000,7.99900000,7.99300000,7.99500000,2578.62000000,1791370979999999,20617.39998000,98,1198.86000000,9586.51195000,0",
+     "open_at": "2026-10-07T11:02:00.000Z",
+     "close": "7.99500000"
+    },
+    {
+     "row_number": 664,
+     "line": "1791370980000000,7.99400000,7.99900000,7.99200000,7.99700000,1788.84000000,1791371039999999,14302.15627000,97,1348.34000000,10780.78646000,0",
+     "open_at": "2026-10-07T11:03:00.000Z",
+     "close": "7.99700000"
+    }
+   ]
+  },
+  {
+   "symbol": "UNIUSDC",
+   "base": "UNI",
+   "quote": "USDC",
+   "checksum_url": "https://data.binance.vision/data/spot/daily/klines/UNIUSDC/1m/UNIUSDC-1m-2026-10-07.zip.CHECKSUM",
+   "checksum_text": "acb1166a05c0bbc1b890b4a4ead675fe98b83639b836b19c7e2a5f4fca3bdf4b  UNIUSDC-1m-2026-10-07.zip",
+   "checksum_retrieval": {
+    "started_at": "2026-10-13T12:15:37.695Z",
+    "received_at": "2026-10-13T12:15:37.762Z",
+    "http_status": 200,
+    "http_date": "Tue, 13 Oct 2026 12:15:38 GMT",
+    "last_modified": "Thu, 08 Oct 2026 01:59:37 GMT"
+   },
+   "zip_url": "https://data.binance.vision/data/spot/daily/klines/UNIUSDC/1m/UNIUSDC-1m-2026-10-07.zip",
+   "zip_sha256": "acb1166a05c0bbc1b890b4a4ead675fe98b83639b836b19c7e2a5f4fca3bdf4b",
+   "zip_byte_length": 50839,
+   "zip_retrieval": {
+    "started_at": "2026-10-13T12:15:37.762Z",
+    "received_at": "2026-10-13T12:15:37.939Z",
+    "http_status": 200,
+    "http_date": "Tue, 13 Oct 2026 12:15:38 GMT",
+    "last_modified": "Thu, 08 Oct 2026 01:59:37 GMT"
+   },
+   "csv_entry": "UNIUSDC-1m-2026-10-07.csv",
+   "csv_rows": 1440,
+   "time_unit": "microseconds",
+   "rows": [
+    {
+     "row_number": 662,
+     "line": "1791370860000000,7.98900000,7.99600000,7.98900000,7.99600000,206.02000000,1791370919999999,1646.69156000,11,154.02000000,1231.13356000,0",
+     "open_at": "2026-10-07T11:01:00.000Z",
+     "close": "7.99600000"
+    },
+    {
+     "row_number": 663,
+     "line": "1791370920000000,7.99400000,7.99600000,7.99400000,7.99400000,78.00000000,1791370979999999,623.58400000,4,0.00000000,0.00000000,0",
+     "open_at": "2026-10-07T11:02:00.000Z",
+     "close": "7.99400000"
+    },
+    {
+     "row_number": 664,
+     "line": "1791370980000000,7.99000000,7.99600000,7.99000000,7.99600000,283.68000000,1791371039999999,2267.16967000,17,162.99000000,1302.66588000,0",
+     "open_at": "2026-10-07T11:03:00.000Z",
+     "close": "7.99600000"
+    }
+   ]
+  }
+ ],
+ "limitations": [
+  "USDT、USDC 與 USD 是不同單位；差值只是一致性檢查，沒有通過／不通過門檻（門檻屬分析者決策）。",
+  "只保存參考分鐘與前後各一分鐘的原 CSV 行；完整 zip 可依官方 CHECKSUM 重新下載核對。",
+  "Binance 封存的可取得性與地區限制可能改變。"
+ ]
+}

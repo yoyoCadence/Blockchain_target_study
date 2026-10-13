@@ -1,5 +1,9 @@
 # 開發交接
 
+## 2026-10-13（台北）— Binance 交叉核對；D-20261012 四項全部完成
+
+builder 在 scratch（`binance/build-binance.mjs`），不需要 key。正式來源依 journal 檔名排序，新 journal 名稱若排在最前面，會改變 `p.sources[0]`；三個測試已改成依日期挑選來源。D-20261012-01～04 都已實作。剩餘（都需要分析者決策或時間）：Firepit 30 天窗口版本（約 11 月初）；SECZ 六類收入對應與 MG Stover 名稱衝突處理；週轉率以 WFE 對照、協議費率以鏈上設定查證；required-share 完整淨經濟的其他累積來源。
+
 ## 2026-10-13（台北）— Firepit 近期速率 SCENARIO
 
 擷取沿用 scratch `capture-uni-firepit.mjs`（輸出檔名參數化，來源 ID 依日期）。文件來源 ID 在擷取腳本裡是固定的 `-v1`，保存前改成 `-v2`（重新取得的版本），方法檔中含區塊號（`block…`）與日期（`@1-YYYYMMDD`）的紀錄 ID 也一併改。下次 30 天窗口：再跑一次擷取，複製方法檔並改綁定，再以 `firepitBurnRateScenario` 計算新版本。**注意**：這次事件在 reader 驗證通過前就套用了；因為資料包沒改，事件仍有效，但下次應先驗證再套用。下一步：Binance 交叉核對（D-20261012-03）。

@@ -82,7 +82,7 @@ test('reviewed plan may retain a future effective date without becoming complete
 
 test('ordinary manual events without review metadata retain the existing path in both modes',()=>{
  for(const mode of ['fixture','production']) {
-  const p=loadProject(mode),e=event();delete e.research_review;e.fixture=mode==='fixture';e.source_ids=[p.sources[0].id];
+  const p=loadProject(mode),e=event();delete e.research_review;e.fixture=mode==='fixture';e.source_ids=[p.sources.find(s=>s.date<=e.as_of_date).id];
   assert.doesNotThrow(()=>prepareEvent(p,e));
  }
 });
