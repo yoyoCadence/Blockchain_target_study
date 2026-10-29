@@ -1,5 +1,11 @@
 # 開發交接
 
+## 2026-10-29（台北）— SECZ 收入定義與六欄對應缺口
+
+從 main `61ec71a` 建立 `research/secz-revenue-definitions-20261029`。查閱 S-1 年度 Note 19 與 Q2 Note 18，兩類披露與六個模型欄位重疊，不能把未披露四欄當零。研究檔 `secz-revenue-definitions-2026-10-29-v1.yaml` SHA-256 `6c977fd8…`；取得方式 `web_reader_text`，不是逐 byte HTTP 封存。本環境 process／user／machine 都沒有 `SEC_CONTACT_EMAIL`，不虛構聯絡資訊，也未把信箱寫入 repo。
+
+source-only 事件 `secz-revenue-definitions-20261029` 已驗證後套用一次，快照 `e0f7c236…`；updates=[]，兩來源，金融 unknown 72 與模型日不變。**不可重跑套用或改寫研究檔。** 兩項回歸核對分類／來源／日期／取得限制、歷史與金融不變。使用者已於本次回覆選擇「新增獨立兩類報表收入路徑，採附條件 TTM v2並保留低信心與名稱衝突」（D-20261029-01）。下一段實作版本化 TTM 公式與明示期間政策，再獨立預覽／套用來源觀測；六類細分保持 null，不把研究 DERIVED 偽裝成輸入 OBSERVED。
+
 ## 2026-10-13（台北）— Binance 交叉核對；D-20261012 四項全部完成
 
 builder 在 scratch（`binance/build-binance.mjs`），不需要 key。正式來源依 journal 檔名排序，新 journal 名稱若排在最前面，會改變 `p.sources[0]`；三個測試已改成依日期挑選來源。D-20261012-01～04 都已實作。剩餘（都需要分析者決策或時間）：Firepit 30 天窗口版本（約 11 月初）；SECZ 六類收入對應與 MG Stover 名稱衝突處理；週轉率以 WFE 對照、協議費率以鏈上設定查證；required-share 完整淨經濟的其他累積來源。

@@ -93,6 +93,7 @@
     - [x] UNI required-share 輸入 v2（D-20261012-01）：三筆 ASSUMPTION 與三筆 SCENARIO v2（週轉率改模型基礎），required-share ≈ 51.44%（上限情境下的最低必要市占），敏感度與決策紀錄一致，完整淨經濟仍 null，未知 80→72，快照 `f096f2c3…`。見[說明](reports/uni-required-share-inputs.md)。全套 1236、兩模式 validate 通過。
     - [x] UNI 主網 Firepit 近期速率 SCENARIO（D-20261012-02）：終點 block 26183367 同方法重讀（nonce 1395→1415、門檻同為 4,000 UNI），年化約 4,241,612.90 UNI/年（短窗口，只在研究層），同期 140,000 UNI dead 增加未歸因；source-only 快照 `2e9da6b1…`。見[說明](reports/uni-firepit-burn-rate.md)。全套 1239、兩模式 validate 通過；30 天窗口版本待 11 月初。
     - [x] Binance 公開封存交叉核對（D-20261012-03）：UNIUSDT／UNIUSDC 10/07 日封存與官方 CHECKSUM 相符，11:02 收盤對 Coinbase 7.9914 差 +4.50／+3.25 bp（不同單位、不換算、無門檻），source-only 快照 `a0003005…`。見[說明](reports/binance-uni-cross-check.md)。全套 1243、兩模式 validate 通過。
+    - [x] SECZ 兩類披露與六欄重疊查證（2026-10-29）：年度 Note 19／Q2 Note 18 定義摘要與兩個 tier 1 來源；交易／維護／基金行政已含在報表兩類中，不能六欄重複加總。保存取得方式為網頁文字、原 HTTP bytes 未保存的限制與 source-only 快照；六欄及總收入繼續 null。見[對應缺口與選項](reports/secz-revenue-mapping.md)。數值分配及報表兩類模型路徑待分析者決定，父 baseline 保留。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.

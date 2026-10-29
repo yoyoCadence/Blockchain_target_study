@@ -1,0 +1,45 @@
+id: secz-revenue-definitions-20261029
+type: market_data_review
+status: completed
+as_of_date: 2026-10-29
+effective_date: 2026-10-29
+source_ids:
+  - secz-s1-revenue-definitions-20261029-v1
+  - secz-q2-revenue-definitions-20261029-v1
+affected_nodes:
+  - SECZ
+fixture: false
+reason: SECZ 收入定義人工查閱完成；完成只指本次研究。S-1 年度 Note 19 與 Q2 Note 18 均披露
+  Tokenization／Asset Servicing；交易、維護及行政服務包含在兩大類中，不能當成六個互斥金額。四項 OBSERVED 定義摘要保存於
+  data/research/secz-revenue-definitions-2026-10-29-v1.yaml，本地檔案 SHA-256
+  6c977fd8ee6eca30041a594c3ba48bce4152ba1bcd6fdbe6da47d221665d8b4f。取得方式
+  web_reader_text，未保存原 HTTP bytes；不是逐 byte 封存。六欄分配、TTM 可比性、MG Stover
+  名稱衝突、母公司範圍及投資性仍未確認；updates=[]，不填零、不改模型／金融／論點期間。
+research_review:
+  reviewer: Codex 一手申報網頁人工查閱；非獨立人類簽核
+  reviewed_at: 2026-10-29T11:49:09.837Z
+  rationale: 對照年度與期中收入表及定義；摘要與推論分開，保存取得方式限制，兩大類與子服務重疊不作數值分配。
+updates: []
+sources:
+  - id: secz-s1-revenue-definitions-20261029-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/secz-20260731.htm
+    publisher: Securitize Corp. / SEC EDGAR
+    title: S-1；年度 Note 19 Revenue 與收入認列政策
+    date: 2026-07-31
+    retrieved_at: 2026-10-29T11:48:36Z
+    tier: 1
+    covered_metrics:
+      - secz.revenue_definition_evidence
+    fixture: false
+  - id: secz-q2-revenue-definitions-20261029-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: Securitize Corp. / SEC EDGAR
+    title: 8-K/A 附件 99.1；截至 2026-06-30 未審計財報 Note 18 Revenue
+    date: 2026-08-13
+    retrieved_at: 2026-10-29T11:48:36Z
+    tier: 1
+    covered_metrics:
+      - secz.revenue_definition_evidence
+    fixture: false
