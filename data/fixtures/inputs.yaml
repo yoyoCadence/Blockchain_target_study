@@ -966,3 +966,155 @@ metrics:
     fixture: true
     rationale: Synthetic default (Timelock not excluded); the timelock_excluded named scenario sets it
       to 1. Not verified market data.
+  - id: secz.reported_tokenization_fy@1-fixture
+    metric_id: secz.reported_tokenization_fy
+    asset: SECZ
+    value: 60000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      start: 2024-01-01
+      end: 2024-12-31
+      duration_months: 12
+    confidence: high
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-secz-reported-ttm@1
+    rationale: 合成資料，只示範 FY／H1 銜接；非真實市場觀測。
+    statement_context:
+      entity_name: Synthetic Securitize subsidiary
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: audited
+  - id: secz.reported_tokenization_prior_ytd@1-fixture
+    metric_id: secz.reported_tokenization_prior_ytd
+    asset: SECZ
+    value: 25000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: year_to_date
+      start: 2024-01-01
+      end: 2024-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-secz-reported-ttm@1
+    rationale: 合成資料，只示範 FY／H1 銜接；非真實市場觀測。
+    statement_context:
+      entity_name: Synthetic Securitize subsidiary
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+  - id: secz.reported_tokenization_current_ytd@1-fixture
+    metric_id: secz.reported_tokenization_current_ytd
+    asset: SECZ
+    value: 30000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: year_to_date
+      start: 2025-01-01
+      end: 2025-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-secz-reported-ttm@1
+    rationale: 合成資料，只示範 FY／H1 銜接；非真實市場觀測。
+    statement_context:
+      entity_name: Synthetic Securitize subsidiary
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+  - id: secz.reported_servicing_fy@1-fixture
+    metric_id: secz.reported_servicing_fy
+    asset: SECZ
+    value: 40000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: annual
+      start: 2024-01-01
+      end: 2024-12-31
+      duration_months: 12
+    confidence: high
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-secz-reported-ttm@1
+    rationale: 合成資料，只示範 FY／H1 銜接；非真實市場觀測。
+    statement_context:
+      entity_name: Synthetic Securitize subsidiary
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: audited
+  - id: secz.reported_servicing_prior_ytd@1-fixture
+    metric_id: secz.reported_servicing_prior_ytd
+    asset: SECZ
+    value: 20000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: year_to_date
+      start: 2024-01-01
+      end: 2024-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-secz-reported-ttm@1
+    rationale: 合成資料，只示範 FY／H1 銜接；非真實市場觀測。
+    statement_context:
+      entity_name: Synthetic Securitize subsidiary
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+  - id: secz.reported_servicing_current_ytd@1-fixture
+    metric_id: secz.reported_servicing_current_ytd
+    asset: SECZ
+    value: 25000000
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2025-12-31
+    period:
+      basis: year_to_date
+      start: 2025-01-01
+      end: 2025-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: true
+    source_ids:
+      - fixture-secz-reported-ttm@1
+    rationale: 合成資料，只示範 FY／H1 銜接；非真實市場觀測。
+    statement_context:
+      entity_name: Synthetic Securitize subsidiary
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+  - id: secz.reported_ttm_comparability@1-fixture
+    metric_id: secz.reported_ttm_comparability
+    asset: SECZ
+    value: 1
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2025-12-31
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: true
+    rationale: 合成示範可比性假設；不是生產研究，不解除真實來源衝突。

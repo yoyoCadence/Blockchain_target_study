@@ -4,13 +4,14 @@ const requestedModes=new URLSearchParams(location.search).getAll('mode');
 const validRoute=requestedModes.length<=1&&requestedModes.every(value=>['fixture','production'].includes(value));
 let state,mode=validRoute?(requestedModes[0]||'fixture'):null,overrides={},refreshRevision=0,researchRevision=0,freshnessRevision=0;
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;if(className) node.className=className;return node;};
-function format(value,unit,metricId) {if(value===null||value===undefined)return '未知';if(unit==='USD'&&metricId?.endsWith('.price'))return `$${new Intl.NumberFormat('zh-TW',{maximumFractionDigits:8}).format(value)}`;if(unit==='ratio')return new Intl.NumberFormat('zh-TW',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('zh-TW',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
+function format(value,unit,metricId) {if(value===null||value===undefined)return '未知';if(metricId==='secz.reported_ttm_comparability')return value===1?'採用附條件假設':'未採用';if(unit==='USD'&&metricId?.endsWith('.price'))return `$${new Intl.NumberFormat('zh-TW',{maximumFractionDigits:8}).format(value)}`;if(unit==='ratio')return new Intl.NumberFormat('zh-TW',{style:'percent',maximumFractionDigits:3}).format(value);return `${unit.startsWith('USD')?'$':''}${new Intl.NumberFormat('zh-TW',{notation:'compact',maximumFractionDigits:2}).format(value)}`;}
 const definition=id=>{const record=state.dictionary.find(x=>x.id===id);return record?{...record,label:metricLabel(id)}:undefined;};
 function metricCard(metric) {
  const button=el('button',undefined,'metric');button.type='button';button.dataset.metric=metric.metric_id;
  button.append(el('span',definition(metric.metric_id)?.label||metric.metric_id,'metric-label'),el('span',format(metric.value,metric.unit,metric.metric_id),'metric-value'),el('span',term(metric.unit),'metric-unit'),el('span',term(metric.classification),`badge ${metric.classification}`));
  if(metric.fixture)button.append(el('span','合成示範資料（Fixture）','fixture-label'));
  if(metric.valuation_date)button.append(el('span',`按報價折算的模型 · ${metric.valuation_date}`,'fixture-label'));
+ if(metric.statement_context?.audit_status==='mixed_audit_conditional')button.append(el('span',`${periodLabel(metric.period)} · 信心${term(metric.confidence)}；非已審計 TTM`,'fixture-label'));
  button.onclick=()=>inspect(metric.metric_id);return button;
 }
 function renderLineage(tree) {
@@ -19,6 +20,9 @@ function renderLineage(tree) {
  const dl=el('dl',undefined,'metadata');
  for(const [label,value] of Object.entries({'紀錄 ID':m.id,'單位':term(m.unit),'分類':term(m.classification),'知識日':m.as_of_date,'期間':`${term(m.period.basis)} / ${m.period.end}`,'可信程度':term(m.confidence),'版本':m.version,'來源性質':m.fixture?'合成示範資料（Fixture）':'正式研究資料','理由／情境（原文）':m.rationale||m.scenario||'—','錯誤（原始訊息）':m.error||'—'})){dl.append(el('dt',label),el('dd',String(value)));}
  wrap.append(dl);
+ if(m.period.start)wrap.append(el('p',`完整期間：${periodLabel(m.period)}（${m.period.duration_months} 個月）`));
+ if(m.statement_context)wrap.append(el('p',`報表主體：${m.statement_context.entity_name}；${term(m.statement_context.scope)}；${m.statement_context.accounting_basis}；${term(m.statement_context.audit_status)}。`));
+ if(m.research_reference)wrap.append(el('p',`研究依據：${m.research_reference.artifact_id} ／ ${m.research_reference.record_id}`));
  if(m.valuation_date)wrap.append(el('p',`折算參考日：${m.valuation_date}。此為按報價折算的模型，原始年率與價格日期保留於血緣；不代表實際年度支出或收入。`));
  if(tree.formula) {wrap.append(el('p',`${tree.formula.id} / v${tree.formula.version}`),el('p',`公式說明（原文）：${tree.formula.description}`),el('pre',JSON.stringify(tree.formula.expression,null,2)));}
  for(const source of tree.sources||[]) {const p=el('p',`${source.title} · ${source.publisher} · 來源層級 ${source.tier} · v${source.version} · 發布 ${source.date} · 取得 ${source.retrieved_at} `);if(!source.fixture){const a=el('a','開啟來源 ↗');a.href=source.url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);}else p.append(el('span',`[僅為合成示範證據：${source.url}]`));wrap.append(p);}
@@ -36,6 +40,14 @@ function renderGraph() {
  $('network').replaceChildren(svg);
  const table=el('table'),head=el('tr');for(const label of ['來源 → 對象','關係','傳導方式','證據狀態'])head.append(el('th',label));table.append(head);
  for(const e of state.graph.edges){const row=el('tr');for(const text of [`${e.from} → ${e.to}`,term(e.type),`${e.economic?'經濟傳導':'一般依賴'} / ${term(e.transmission)}`,`${term(e.status)} · ${e.source_ids.length?e.source_ids.join(', '):'尚無已查證來源'}`])row.append(el('td',text));table.append(row);}$('edge-list').replaceChildren(table);
+}
+function reportedRevenueBasis() {
+ const m=state.metrics['secz.reported_revenue_ttm'],wrap=el('div',undefined,'reported-revenue-basis');
+ wrap.append(el('h3','獨立兩類報表收入路徑（附條件 TTM）'),
+  el('p',`期間：${periodLabel(m.period)}；信心${term(m.confidence)}。此路徑與原六類收入分開，不重複相加。`,'hint'),
+  el('p',state.mode==='fixture'?'此處為合成資料，僅示範年度與同期累計銜接，非市場觀測。':'營運子公司合併範圍；保留 MG Stover Inc.／LLC 名稱衝突及低信心可比性假設。年度已審計、期中未審計，TTM 本身未經審計；不是母公司估值或有機成長。','hint'),
+  el('p','點擊下方兩類 TTM 指標可查完整期間、原始觀測、可比性假設及來源版本。假設撤回或資料缺失時結果為未知。','hint'));
+ return wrap;
 }
 // UNI valuation basis: price basis, model market cap and FDV caveats, and the active Timelock scenario.
 function valuationBasis() {
@@ -67,7 +79,7 @@ function renderComparison() {
 function render(resetInputs=false) {
  $('notice').replaceChildren(el('strong',state.fixture?'合成示範工作區／非即時市場資訊':'正式研究工作區／未查證數據保持未知'),el('span',state.fixture?'全部數字範例均為合成資料；已觀測（OBSERVED）標籤只描述示範紀錄結構，不代表真實查證。':'缺失證據不以虛構數值補齊；取得足夠證據前，投資論點仍標示證據不足。'),el('span',` · 模型期間：${state.period.end}${Object.keys(overrides).length?' · 目前為未儲存的敏感度情境':''}`));
  $('market-cards').replaceChildren(...state.dictionary.filter(d=>d.asset==='MARKET').map(d=>metricCard(state.metrics[d.id])));
- $('asset-models').replaceChildren(...state.assets.filter(a=>a.role==='core').map(asset=>{const box=el('article',undefined,'model'),head=el('div',undefined,'model-head'),title=el('div');title.append(el('span',asset.id,'asset-title'),el('span',asset.name,'asset-name'));head.append(title,el('span','採用 → 單位經濟 → 持有人價值','hint'));box.append(head);if(asset.id==='UNI')box.append(valuationBasis());const metrics=state.dictionary.filter(d=>d.asset===asset.id),primary=metrics.filter(d=>d.kind==='derived'),inputs=metrics.filter(d=>d.kind==='input');const grid=el('div',undefined,'model-metrics');grid.append(...primary.map(d=>metricCard(state.metrics[d.id])));const details=el('details'),inputGrid=el('div',undefined,'model-metrics');details.append(el('summary',`基準輸入與市場估值（${inputs.length} 項）`));inputGrid.append(...inputs.map(d=>metricCard(state.metrics[d.id])));details.append(inputGrid);box.append(grid,details);return box;}));
+ $('asset-models').replaceChildren(...state.assets.filter(a=>a.role==='core').map(asset=>{const box=el('article',undefined,'model'),head=el('div',undefined,'model-head'),title=el('div');title.append(el('span',asset.id,'asset-title'),el('span',asset.name,'asset-name'));head.append(title,el('span','採用 → 單位經濟 → 持有人價值','hint'));box.append(head);if(asset.id==='UNI')box.append(valuationBasis());if(asset.id==='SECZ')box.append(reportedRevenueBasis());const metrics=state.dictionary.filter(d=>d.asset===asset.id),primary=metrics.filter(d=>d.kind==='derived').sort((a,b)=>Number(b.id.startsWith('secz.reported_'))-Number(a.id.startsWith('secz.reported_'))),inputs=metrics.filter(d=>d.kind==='input');const grid=el('div',undefined,'model-metrics');grid.append(...primary.map(d=>metricCard(state.metrics[d.id])));const details=el('details'),inputGrid=el('div',undefined,'model-metrics');details.append(el('summary',`基準輸入與市場估值（${inputs.length} 項）`));inputGrid.append(...inputs.map(d=>metricCard(state.metrics[d.id])));details.append(inputGrid);box.append(grid,details);return box;}));
  if(resetInputs)$('parameters').replaceChildren(...state.parameters.map(id=>{const d=definition(id),m=state.metrics[id],label=el('label',undefined,'parameter');label.append(el('span',`${d.label}（${term(m.unit)}）`));const input=el('input');input.type='number';input.step='any';input.name=id;input.value=m.value??'';input.placeholder='未知';if(d.minimum!==null)input.min=d.minimum;if(d.maximum!==null)input.max=d.maximum;label.append(input);return label;}));
  const matrix=state.sensitivity,table=el('table'),head=el('tr');head.append(el('th',`${definition(matrix.row).label} ↓ / ${definition(matrix.column).label} →`));for(const value of matrix.columns)head.append(el('th',format(value,state.metrics[matrix.column].unit)));table.append(head);matrix.rows.forEach((value,i)=>{const row=el('tr');row.append(el('th',format(value,state.metrics[matrix.row].unit)));matrix.cells[i].forEach(cell=>{const td=el('td',undefined,cell.value>1?'infeasible':'feasible'),button=el('button',format(cell.value,state.metrics[matrix.output].unit),'evidence-link');button.onclick=()=>inspect(matrix.output,cell.lineage);td.append(button);td.title=cell.issues.map(x=>x.message).join('; ');row.append(td);});table.append(row);});$('matrix').replaceChildren(table);$('matrix-caption').textContent='反事實情境矩陣：點擊儲存格檢視該情境的完整血緣；其他參數沿用目前輸入。';
  renderGraph();renderThesis();renderComparison();

@@ -47,13 +47,32 @@ function app(search='',{manualResearch=false}={}){
  const count=()=>$('market-cards').querySelectorAll('button').length+$('asset-models').querySelectorAll('button').length;
  return {$,submit,requests,researchRequests,change,count,urls};
 }
-async function loaded(){const view=app();view.requests[0].reply(fixture);await tick();assert.equal(view.count(),92);return view;}
+async function loaded(){const view=app();view.requests[0].reply(fixture);await tick();assert.equal(view.count(),102);return view;}
+
+test('reported-category TTM cards retain conditional scope, low confidence, full periods and assumption lineage',async()=>{
+ const v=app('?mode=production');v.requests[0].reply(production);await tick();
+ const text=v.$('asset-models').textContent;
+ assert.match(text,/獨立兩類報表收入路徑（附條件 TTM）/);assert.match(text,/保留 MG Stover Inc.／LLC 名稱衝突/);
+ const card=v.$('asset-models').querySelectorAll('button').find(b=>b.dataset.metric==='secz.reported_revenue_ttm');
+ assert.match(card.textContent,/2025-07-01 → 2026-06-30/);assert.match(card.textContent,/信心低；非已審計 TTM/);assert.match(card.textContent,/DERIVED/);
+ card.onclick();const lineage=v.$('inspector-body').textContent;
+ for(const value of ['完整期間：','Securitize, Inc. and subsidiaries','US_GAAP','f.secz.reported_tokenization_ttm / v1','secz.reported_ttm_comparability@1','ASSUMPTION','採用附條件假設','secz-ttm-20260630-comparability@2'])assert.ok(lineage.includes(value),value);
+ assert.equal(production.metrics['secz.revenue'].value,null);
+});
+
+test('fixture TTM remains explicitly synthetic and workspace switching clears its inspector',async()=>{
+ const v=await loaded();assert.match(v.$('asset-models').textContent,/合成資料，僅示範年度與同期累計銜接/);
+ const card=v.$('asset-models').querySelectorAll('button').find(b=>b.dataset.metric==='secz.reported_revenue_ttm');
+ assert.match(card.textContent,/合成示範資料/);card.onclick();assert.equal(v.$('inspector').open,true);
+ v.change('production');assert.equal(v.$('inspector').open,false);assert.equal(v.count(),0);
+ v.requests[1].reply(production);await tick();assert.match(v.$('asset-models').textContent,/保留 MG Stover Inc.／LLC 名稱衝突/);
+});
 
 test('initial pending state cannot submit a scenario without baseline data',async()=>{
  const v=app();assert.equal(v.count(),0);assert.equal(v.submit.disabled,true);
  v.$('scenario-form').onsubmit({preventDefault(){}});assert.equal(v.requests.length,1);
  assert.match(v.$('notice').textContent,/Fixture/);assert.equal(v.$('overview').attrs['aria-busy'],'true');
- v.requests[0].reply(fixture);await tick();assert.equal(v.submit.disabled,false);assert.equal(v.count(),92);
+ v.requests[0].reply(fixture);await tick();assert.equal(v.submit.disabled,false);assert.equal(v.count(),102);
 });
 test('switch failure clears every old result and inspector, keeps calculation blocked, and retries the selected workspace',async()=>{
  const v=await loaded();v.$('inspector').showModal();v.$('inspector-body').textContent='old evidence';
@@ -64,14 +83,14 @@ test('switch failure clears every old result and inspector, keeps calculation bl
  assert.equal(v.count(),0);assert.equal(v.submit.disabled,true);assert.equal(v.$('retry-workspace').hidden,false);
  assert.match(v.$('notice').textContent,/Production.*失敗/);assert.equal(v.$('overview').attrs['aria-busy'],'false');
  v.$('retry-workspace').onclick();assert.equal(v.requests[2].url,'/api/state?mode=production');
- v.requests[2].reply(production);await tick();assert.equal(v.count(),92);assert.equal(v.submit.disabled,false);
+ v.requests[2].reply(production);await tick();assert.equal(v.count(),102);assert.equal(v.submit.disabled,false);
  assert.equal(v.$('retry-workspace').hidden,true);assert.match(v.$('notice').textContent,/正式研究工作區/);
  assert.equal(v.$('parameters').querySelectorAll('input').find(input=>input.name==='uni.fee').value,0.000125);
 });
 test('a late old workspace success cannot replace the latest workspace or its controls',async()=>{
  const v=await loaded();v.change('production');v.change('fixture');
  v.requests[2].reply(fixture);await tick();const notice=v.$('notice').textContent;
- v.requests[1].reply(production);await tick();assert.equal(v.$('notice').textContent,notice);assert.equal(v.count(),92);
+ v.requests[1].reply(production);await tick();assert.equal(v.$('notice').textContent,notice);assert.equal(v.count(),102);
  assert.equal(v.submit.disabled,false);assert.match(notice,/合成示範工作區/);
 });
 test('a late failure cannot show an old error or enable controls during the latest pending load',async()=>{
@@ -86,7 +105,7 @@ test('failed same-workspace sensitivity retains the last successful result and d
  v.$('scenario-form').onsubmit({preventDefault(){}});assert.equal(v.submit.disabled,true);
  assert.equal(v.requests[1].url,'/api/sensitivity?mode=fixture');assert.equal(JSON.parse(v.requests[1].options.body).overrides['secz.fcf_margin'],2);
  v.requests[1].reply({error:'invalid margin'},false);await tick();
- assert.equal(v.count(),92);assert.equal(v.$('notice').textContent,notice);assert.match(v.$('load-status').textContent,/上一個成功結果.*尚未套用/);
+ assert.equal(v.count(),102);assert.equal(v.$('notice').textContent,notice);assert.match(v.$('load-status').textContent,/上一個成功結果.*尚未套用/);
  assert.equal(v.submit.disabled,false);assert.equal(margin.value,'2');
 });
 for(const [name,patch] of [['mode',{mode:'fixture'}],['provenance',{fixture:true}]])test(`mismatched ${name} response is rejected before production results render`,async()=>{
@@ -97,13 +116,13 @@ test('initial load failure remains retryable without dereferencing an absent sta
  const v=app();v.requests[0].reply({error:'initial failure'},false);await tick();
  v.$('scenario-form').onsubmit({preventDefault(){}});assert.equal(v.requests.length,1);
  assert.equal(v.submit.disabled,true);v.$('retry-workspace').onclick();v.requests[1].reply(fixture);await tick();
- assert.equal(v.submit.disabled,false);assert.equal(v.$('error').hidden,true);assert.equal(v.count(),92);
+ assert.equal(v.submit.disabled,false);assert.equal(v.$('error').hidden,true);assert.equal(v.count(),102);
 });
 
 test('a direct production URL requests production before any data loads and selects its workspace',async()=>{
  const v=app('?mode=production');assert.equal(v.requests[0].url,'/api/state?mode=production');
  assert.equal(v.$('mode').value,'production');v.requests[0].reply(production);await tick();
- assert.match(v.$('notice').textContent,/正式研究工作區/);assert.equal(v.count(),92);
+ assert.match(v.$('notice').textContent,/正式研究工作區/);assert.equal(v.count(),102);
 });
 for(const search of ['?mode=invalid','?mode=','?mode=fixture&mode=production'])test(`invalid route ${search} blocks implicit data loads until an explicit workspace choice`,async()=>{
  const v=app(search);assert.equal(v.requests.length,0);assert.equal(v.count(),0);assert.equal(v.$('mode').value,'');
@@ -112,7 +131,7 @@ for(const search of ['?mode=invalid','?mode=','?mode=fixture&mode=production'])t
  v.change('production');assert.equal(v.requests[0].url,'/api/state?mode=production');
  assert.equal(v.$('route-error').hidden,true);assert.equal(v.$('check-freshness').disabled,false);
  assert.equal(v.urls[0],'http://local/?mode=production#research');v.requests[0].reply(production);await tick();
- assert.equal(v.count(),92);
+ assert.equal(v.count(),102);
 });
 test('workspace selection preserves the anchor and unrelated query while replacing the mode',async()=>{
  const v=app('?mode=fixture&context=review');v.requests[0].reply(fixture);await tick();v.change('production');
@@ -123,12 +142,12 @@ test('independent research retry preserves loaded financial results and unapplie
  const v=app('?mode=production',{manualResearch:true});v.requests[0].reply(production);await tick();
  const margin=v.$('parameters').querySelectorAll('input').find(input=>input.name==='secz.fcf_margin');margin.value='0.3';
  v.researchRequests[0].reply({error:'research offline'},false);await tick();
- assert.equal(v.$('retry-research').hidden,false);assert.equal(v.count(),92);
+ assert.equal(v.$('retry-research').hidden,false);assert.equal(v.count(),102);
  v.$('retry-research').onclick();assert.equal(v.researchRequests[1].url,'/api/research?mode=production');
  assert.equal(v.requests.length,1);assert.equal(margin.value,'0.3');assert.equal(v.$('research-records').attrs['aria-busy'],'true');
  v.researchRequests[1].reply(productionResearch);await tick();
  assert.equal(v.$('research-records').children.length,productionResearch.records.length);assert.equal(v.$('retry-research').hidden,true);
- assert.equal(margin.value,'0.3');assert.equal(v.count(),92);assert.equal(v.$('research-records').attrs['aria-busy'],'false');
+ assert.equal(margin.value,'0.3');assert.equal(v.count(),102);assert.equal(v.$('research-records').attrs['aria-busy'],'false');
 });
 test('wrong research workspace is rejected without displaying its records',async()=>{
  const v=app('',{manualResearch:true});v.researchRequests[0].reply(productionResearch);await tick();
@@ -159,7 +178,7 @@ test('reviewed event cards preserve exact evidence and separate current event da
  assert.match(accrued.textContent,/6952494133386631432161/);
  assert.match(accrued.textContent,/知識日 2026-10-04/);assert.match(accrued.textContent,/模型期間 年度 · 2026-01-01/);
  assert.match(accrued.textContent,/保存時 0 筆數值更新/);assert.match(accrued.textContent,/來源層級 1 · v1/);
- assert.equal(v.$('research-events').attrs['aria-busy'],'false');assert.equal(v.count(),92);
+ assert.equal(v.$('research-events').attrs['aria-busy'],'false');assert.equal(v.count(),102);
 });
 test('switching to fixture immediately clears event evidence and late production success cannot restore it',async()=>{
  const v=app('?mode=production',{manualResearch:true});v.researchRequests[0].reply(productionResearch);await tick();
@@ -178,7 +197,7 @@ test('research failure clears old event cards and independent retry restores the
  assert.equal(v.$('research-events').children.length,0);assert.equal(v.$('retry-research').hidden,false);
  v.$('retry-research').onclick();v.researchRequests[2].reply(productionResearch);await tick();
  assert.equal(v.$('research-events').querySelectorAll('details').filter(card=>card.dataset.event).length,productionResearch.events.length);
- assert.equal(margin.value,'0.3');assert.equal(v.requests.length,1);assert.equal(v.count(),92);
+ assert.equal(margin.value,'0.3');assert.equal(v.requests.length,1);assert.equal(v.count(),102);
 });
 
 test('single venue source review retains its saved scope alongside a later independent XLM baseline',async()=>{
@@ -199,7 +218,7 @@ test('single venue source review retains its saved scope alongside a later indep
  const cost=v.$('asset-models').querySelectorAll('button').find(button=>button.dataset.metric==='uni.growth_distribution');
  assert.match(cost.textContent,/按報價折算的模型 · 2026-10-07/);
  cost.onclick();assert.match(v.$('inspector-body').textContent,/不代表實際年度支出或收入/);
- assert.equal(v.count(),92);
+ assert.equal(v.count(),102);
 });
 
 test('UNI vesting card retains quarterly execution and unpinned current-state limits without financial ingestion',async()=>{
@@ -209,7 +228,7 @@ test('UNI vesting card retains quarterly execution and unpinned current-state li
  assert.match(card.textContent,/UNI 季度提領與公開合約參數/);assert.match(card.textContent,/生效 2026-10-01/);
  assert.match(card.textContent,/5000000000000000000000000/);assert.match(card.textContent,/quartersPaid=1/);
  assert.match(card.textContent,/未固定 block number／hash/);assert.match(card.textContent,/保存時 0 筆數值更新/);
- assert.match(card.textContent,/"updates": \[\]/);assert.equal(v.count(),92);
+ assert.match(card.textContent,/"updates": \[\]/);assert.equal(v.count(),102);
  assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');
 });
 
@@ -220,7 +239,7 @@ test('fixed-block UNI card distinguishes canonical state, receipt null and uncha
  assert.match(card.textContent,/UNI 固定區塊參數與剩餘授權/);assert.match(card.textContent,/requireCanonical=true/);
  assert.match(card.textContent,/20000000000000000000000000/);assert.match(card.textContent,/本次未能 RPC 交叉確認/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
- assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.growth_budget'].as_of_date,'2026-01-01');assert.equal(v.count(),102);
 });
 
 test('fixed-block research table preserves raw strings and separates block, retrieval and review dates',async()=>{
@@ -241,7 +260,7 @@ test('token-state event keeps point balance, raw supply and future-funding limit
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-token-state-20261004');
  assert.match(card.textContent,/UNI 固定區塊餘額與供給/);assert.match(card.textContent,/262247996305835021033106178/);
  assert.match(card.textContent,/totalSupply raw=1000000000000000000000000000/);assert.match(card.textContent,/不是健康論點或付款保證/);
- assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),92);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),102);
 });
 
 test('token-state research renders exact OBSERVED integers separately from DERIVED comparison and its complete dependencies',async()=>{
@@ -262,7 +281,7 @@ test('public venue event preserves provider flags and personal-access nulls with
  const card=v.$('research-events').querySelectorAll('details').find(c=>c.dataset.event==='uni-xlm-public-venue-state-20261005');
  assert.match(card.textContent,/UNI／XLM 公開市場與網路表示/);assert.match(card.textContent,/trading_disabled／cancel_only／limit_only／post_only／auction_mode 都為 false/);
  assert.match(card.textContent,/研究觀測保留 null／unknown/);assert.match(card.textContent,/不是個人交易／提款或全球可用性認證/);
- assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(v.count(),92);
+ assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(v.count(),102);
 });
 
 test('public venue research renders exact typed raw values, original dates, address lineage and unknown access',async()=>{
@@ -275,7 +294,7 @@ test('public venue research renders exact typed raw values, original dates, addr
  for(const label of ['個人資格','地區資格','託管查證','帳戶交易權限','提款權限'])assert.ok(card.textContent.includes(label+'：未知'));
  assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,6);
  const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
- assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -300,7 +319,7 @@ test('XLM supply research renders exact decimal strings, separate times, residua
  for(const label of ['Ledger 序號','各組成帳戶餘額','獨立查證流通供給','完全稀釋供給','同步市值','同步 FDV'])assert.ok(card.textContent.includes(label+'：未知'),label);
  assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,3);
  const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
- assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');assert.equal(v.count(),92);
+ assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -320,7 +339,7 @@ test('UNI supply composition research renders exact raw readings, derived checks
  for(const label of ['流通供給','流通供給定義','dead address 餘額歸因','未來鑄造決定','同步價格','市值','完全稀釋估值（FDV）','部署原始碼等價'])assert.ok(card.textContent.includes(label+'：未知'),label);
  assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,3);
  const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
- assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -350,7 +369,7 @@ test('Firepit state research renders exact readings, mechanical products, pinned
   assert.ok(card.textContent.includes(label+'：未知'),label);
  assert.equal(card.querySelectorAll('table').length,2);assert.equal(card.querySelectorAll('a').length,6);
  const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,2);assert.ok(tables.every(n=>n.tabIndex===0));
- assert.equal(production.metrics['uni.net_burn_yield'].value,null);assert.equal(production.metrics['uni.crypto_fees'].value,null);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.net_burn_yield'].value,null);assert.equal(production.metrics['uni.crypto_fees'].value,null);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -367,7 +386,7 @@ test('SECZ TTM v2 card shows conditional values with the assumption, preserved c
  assert.equal(second.textContent.includes('尚未確認'),false);
  assert.match(first.textContent,/假設 secz-ttm-20260630-comparability@1 \/ v1/);assert.match(first.textContent,/尚未確認/);assert.match(first.textContent,/可比性未全部確認，三項結果維持未知。/);
  assert.equal(first.textContent.includes('36,249,459'),false);
- for(const id of ['secz.revenue','secz.tokenization','secz.servicing'])assert.equal(production.metrics[id].value,null);assert.equal(v.count(),92);
+ for(const id of ['secz.revenue','secz.tokenization','secz.servicing'])assert.equal(production.metrics[id].value,null);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);
 });
 
@@ -439,7 +458,7 @@ test('aligned valuation research card leads with the three labelled bases and ke
  for(const label of ['已驗證流通量','正式市值','正式完全稀釋估值（FDV）','其他非流通持倉','未來鑄造決定','成交量加權價格','跨交易所價格'])assert.ok(card.textContent.includes(label+'：未知'),label);
  assert.equal(card.querySelectorAll('a').length,4);
  const tables=card.querySelectorAll('div').filter(n=>n.attrs['aria-label']?.includes('表格，可左右捲動'));assert.equal(tables.length,3);assert.ok(tables.every(n=>n.tabIndex===0));
- assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-records').children.length,0);
 });
 
@@ -451,7 +470,7 @@ test('aligned valuation event shows research bases, scenario and disclosure with
  assert.match(card.textContent,/非已驗證流通量/);assert.match(card.textContent,/情境 timelock_excluded/);assert.match(card.textContent,/未涵蓋未來增發/);
  assert.match(card.textContent,/不是 canonical 市值／FDV 更新/);assert.match(card.textContent,/不是同一瞬間成交/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,4);
- assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(production.metrics['uni.price'].value,7.9914);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -463,7 +482,7 @@ test('Firepit state event shows release count, current threshold and unattribute
   assert.ok(card.textContent.includes(value),value);
  assert.match(card.textContent,/門檻歷史未查證/);assert.match(card.textContent,/不年化、不計估值/);assert.match(card.textContent,/不是新的銷毀交易、年度 burn 或費用收入/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,6);
- assert.equal(production.metrics['uni.net_burn_yield'].value,null);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.net_burn_yield'].value,null);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -475,7 +494,7 @@ test('UNI supply composition event shows exact raw supply and mint parameters wi
   assert.ok(card.textContent.includes(value),value);
  assert.match(card.textContent,/不是流通供給定義/);assert.match(card.textContent,/鑄造條件滿足不代表治理會鑄造/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.equal(card.querySelectorAll('a').length,3);
- assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),92);
+ assert.equal(production.metrics['uni.market_cap'].value,null);assert.equal(production.metrics['uni.fdv'].value,null);assert.equal(v.count(),102);
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });
 
@@ -487,7 +506,7 @@ test('XLM supply event shows exact reported decimals and separate timestamps wit
  assert.match(card.textContent,/2026-10-05T11:14:19\.137Z/);assert.match(card.textContent,/2026-10-05T11:22:26\.166Z/);
  assert.match(card.textContent,/零殘差不證明真實供給或健康論點/);assert.match(card.textContent,/前一天價格不能配成本次同步市值／FDV/);
  assert.match(card.textContent,/保存時 0 筆數值更新/);assert.match(card.textContent,/"updates": \[\]/);
- assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),92);
+ assert.equal(card.querySelectorAll('a').length,2);assert.equal(v.count(),102);
  assert.equal(productionResearch.records.length,14);assert.equal(production.metrics['xlm.price'].as_of_date,'2026-10-04');
  v.change('fixture');assert.equal(v.$('research-events').children.length,0);
 });

@@ -1,4 +1,4 @@
-version: 1
+version: 2
 metrics:
   - id: market.equity_aum
     asset: MARKET
@@ -643,4 +643,74 @@ metrics:
     unit: ratio
     kind: derived
     minimum: null
+    maximum: null
+  - id: secz.reported_tokenization_fy
+    asset: SECZ
+    label: 報表口徑 Tokenization／已審計前一全年
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.reported_tokenization_prior_ytd
+    asset: SECZ
+    label: 報表口徑 Tokenization／前年同期累計
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.reported_tokenization_current_ytd
+    asset: SECZ
+    label: 報表口徑 Tokenization／本年同期累計
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.reported_servicing_fy
+    asset: SECZ
+    label: 報表口徑 Asset Servicing／已審計前一全年
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.reported_servicing_prior_ytd
+    asset: SECZ
+    label: 報表口徑 Asset Servicing／前年同期累計
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.reported_servicing_current_ytd
+    asset: SECZ
+    label: 報表口徑 Asset Servicing／本年同期累計
+    unit: USD
+    kind: input
+    minimum: 0
+    maximum: null
+  - id: secz.reported_ttm_comparability
+    asset: SECZ
+    label: TTM 可比性假設（保留名稱衝突）
+    unit: ratio
+    kind: input
+    minimum: 0
+    maximum: 1
+  - id: secz.reported_tokenization_ttm
+    asset: SECZ
+    label: 報表口徑 Tokenization／附條件 TTM
+    unit: USD/year
+    kind: derived
+    minimum: 0
+    maximum: null
+  - id: secz.reported_servicing_ttm
+    asset: SECZ
+    label: 報表口徑 Asset Servicing／附條件 TTM
+    unit: USD/year
+    kind: derived
+    minimum: 0
+    maximum: null
+  - id: secz.reported_revenue_ttm
+    asset: SECZ
+    label: 報表口徑兩類合計／附條件 TTM
+    unit: USD/year
+    kind: derived
+    minimum: 0
     maximum: null

@@ -57,7 +57,7 @@ test('every production snapshot replays its own formula version and keeps its ha
 test('fixture records remain synthetic and its separate formula snapshot retains all economic values',()=>{
  // The 2026-10-04 fixture formula snapshot; a later model-valuation snapshot follows it.
  const fixture=loadProject('fixture'),snapshots=readSnapshots(fixture.root,'fixture'),latest=snapshots.find(s=>s.id.startsWith('8ea6ec68')),old=snapshots[snapshots.indexOf(latest)-1];
- verifySnapshot(latest);assert.equal(latest.parent_id,old.id);assert.equal(snapshots.length,4);assert.equal(snapshots.at(-1).parent_id,latest.id);
+ verifySnapshot(latest);assert.equal(latest.parent_id,old.id);assert.equal(snapshots.length,5);assert.equal(snapshots[snapshots.indexOf(latest)+1].parent_id,latest.id);
  for(const [id,m]of Object.entries(old.metrics))assert.equal(latest.metrics[id].value,m.value,id);
  for(const field of ['inputs','sources','observations','assumptions','scenarios'])assert.deepEqual(latest[field],old[field]);
  const changes=compareSnapshots(old,latest);assert.equal(changes.formula_change,true);assert.equal(changes.source_change,false);

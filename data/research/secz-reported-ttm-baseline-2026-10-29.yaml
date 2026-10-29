@@ -1,0 +1,298 @@
+id: secz-reported-ttm-baseline-20261029
+version: 1
+as_of_date: 2026-10-29
+reason: D-20261029-01：依分析者選定的獨立兩類附條件 TTM 路徑，匯入六筆原始 FY／H1 觀測；重播來源研究 TTM v2
+  cd09b167530a627545fbb7dfeaed1d3f3d267d21e2e091210ec3513595f8e45c，保留低信心、名稱衝突與六欄
+  null。新增來源版本僅擴充覆蓋，不刷新原取得時間。新公式重算 Tokenization 36249459、Asset Servicing
+  30520797、兩類合計 66770256 USD/year，期間 2025-07-01 至 2026-06-30。營運子公司範圍，不是已審計
+  TTM、有機成長、母公司估值或個人投資性；未知其他輸入不補值。
+affected_nodes:
+  - SECZ
+review:
+  reviewer: Codex 依分析者 D-20261029-01；原研究重播與模型映射檢查，非獨立人類簽核
+  reviewed_at: 2026-10-29T12:02:02.813Z
+  rationale: 先重播收入研究與附條件 TTM
+    v2，原數值／期間／範圍／審計狀態逐欄映射；假設獨立留在血緣，原來源不覆寫、未重取。模型版本快照先保存，再預覽與 digest 套用。
+sources:
+  - id: secz-424b3-20260807-annual-statements-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/securitizeholdings-424b3.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: "424B3 Securitize Inc. audited statements: audit F-81, Note 19 revenue
+      F-134, issuance F-136"
+    date: 2026-08-07
+    retrieved_at: 2026-10-03T07:03:19Z
+    tier: 1
+    covered_metrics:
+      - SECZ.financial_statement
+      - secz.reported_tokenization_revenue
+      - secz.reported_asset_servicing_revenue
+      - secz.reported_total_revenue
+    fixture: false
+  - id: secz-424b3-20260807-annual-statements-v2
+    version: 2
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026054866/securitizeholdings-424b3.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: "424B3 Securitize Inc. audited statements: audit F-81, Note 19 revenue
+      F-134, issuance F-136"
+    date: 2026-08-07
+    retrieved_at: 2026-10-03T07:03:19Z
+    tier: 1
+    covered_metrics:
+      - SECZ.financial_statement
+      - secz.reported_tokenization_revenue
+      - secz.reported_asset_servicing_revenue
+      - secz.reported_total_revenue
+      - secz.reported_tokenization_fy
+      - secz.reported_servicing_fy
+    fixture: false
+    supersedes: secz-424b3-20260807-annual-statements-v1
+  - id: secz-q22026-financial-exhibit-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: Securitize Inc. unaudited financial exhibit; Note 18 revenue
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 1
+    covered_metrics:
+      - SECZ.financial_statement
+      - secz.reported_tokenization_revenue
+      - secz.reported_asset_servicing_revenue
+      - secz.reported_total_revenue
+    fixture: false
+  - id: secz-q22026-financial-exhibit-v2
+    version: 2
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: U.S. Securities and Exchange Commission / Securitize
+    title: Securitize Inc. unaudited financial exhibit; Note 18 revenue
+    date: 2026-08-13
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 1
+    covered_metrics:
+      - SECZ.financial_statement
+      - secz.reported_tokenization_revenue
+      - secz.reported_asset_servicing_revenue
+      - secz.reported_total_revenue
+      - secz.reported_tokenization_prior_ytd
+      - secz.reported_tokenization_current_ytd
+      - secz.reported_servicing_prior_ytd
+      - secz.reported_servicing_current_ytd
+    fixture: false
+    supersedes: secz-q22026-financial-exhibit-v1
+  - id: secz-q22026-ir-results-v1
+    version: 1
+    url: https://investors.securitize.io/news/news-details/2026/Securitize-Reports-Second-Quarter-2026-Results/default.aspx
+    publisher: Securitize investor relations
+    title: Securitize Reports Second Quarter 2026 Results
+    date: 2026-08-12
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 2
+    covered_metrics:
+      - secz.reported_tokenization_revenue
+      - secz.reported_asset_servicing_revenue
+      - secz.reported_total_revenue
+    fixture: false
+  - id: secz-q22026-ir-results-v2
+    version: 2
+    url: https://investors.securitize.io/news/news-details/2026/Securitize-Reports-Second-Quarter-2026-Results/default.aspx
+    publisher: Securitize investor relations
+    title: Securitize Reports Second Quarter 2026 Results
+    date: 2026-08-12
+    retrieved_at: 2026-10-03T06:04:57Z
+    tier: 2
+    covered_metrics:
+      - secz.reported_tokenization_revenue
+      - secz.reported_asset_servicing_revenue
+      - secz.reported_total_revenue
+      - secz.reported_tokenization_prior_ytd
+      - secz.reported_tokenization_current_ytd
+      - secz.reported_servicing_prior_ytd
+      - secz.reported_servicing_current_ytd
+    fixture: false
+    supersedes: secz-q22026-ir-results-v1
+observations:
+  - id: secz.reported_tokenization_fy@1-20261029
+    metric_id: secz.reported_tokenization_fy
+    asset: SECZ
+    value: 37411171
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-08-07
+    period:
+      basis: annual
+      start: 2025-01-01
+      end: 2025-12-31
+      duration_months: 12
+    confidence: high
+    version: 1
+    fixture: false
+    source_ids:
+      - secz-424b3-20260807-annual-statements-v2
+    statement_context:
+      entity_name: Securitize, Inc. and subsidiaries
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: audited
+    research_reference:
+      artifact_id: f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7
+      record_id: secz-2025-fy.tokenization.424b3-20260807@1
+    rationale: D-20261029-01：由已重播收入研究
+      f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7 的
+      secz-2025-fy.tokenization.424b3-20260807@1 映射原值及原期間；來源只新增 canonical
+      covered_metrics，未重新取得來源或刷新原日期。獨立兩類報表路徑；不分配到六欄，不使用 pro forma。TTM
+      本身由公式重新計算，沒有把研究 DERIVED 存成 OBSERVED。
+  - id: secz.reported_tokenization_prior_ytd@1-20261029
+    metric_id: secz.reported_tokenization_prior_ytd
+    asset: SECZ
+    value: 20136056
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-08-13
+    period:
+      basis: year_to_date
+      start: 2025-01-01
+      end: 2025-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: false
+    source_ids:
+      - secz-q22026-financial-exhibit-v2
+      - secz-q22026-ir-results-v2
+    statement_context:
+      entity_name: Securitize, Inc. and subsidiaries
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+    research_reference:
+      artifact_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+      record_id: secz-2025-h1.tokenization@1
+    rationale: D-20261029-01：由已重播收入研究
+      f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173 的
+      secz-2025-h1.tokenization@1 映射原值及原期間；來源只新增 canonical
+      covered_metrics，未重新取得來源或刷新原日期。獨立兩類報表路徑；不分配到六欄，不使用 pro forma。TTM
+      本身由公式重新計算，沒有把研究 DERIVED 存成 OBSERVED。
+  - id: secz.reported_tokenization_current_ytd@1-20261029
+    metric_id: secz.reported_tokenization_current_ytd
+    asset: SECZ
+    value: 18974344
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-08-13
+    period:
+      basis: year_to_date
+      start: 2026-01-01
+      end: 2026-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: false
+    source_ids:
+      - secz-q22026-financial-exhibit-v2
+      - secz-q22026-ir-results-v2
+    statement_context:
+      entity_name: Securitize, Inc. and subsidiaries
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+    research_reference:
+      artifact_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+      record_id: secz-2026-h1.tokenization@1
+    rationale: D-20261029-01：由已重播收入研究
+      f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173 的
+      secz-2026-h1.tokenization@1 映射原值及原期間；來源只新增 canonical
+      covered_metrics，未重新取得來源或刷新原日期。獨立兩類報表路徑；不分配到六欄，不使用 pro forma。TTM
+      本身由公式重新計算，沒有把研究 DERIVED 存成 OBSERVED。
+  - id: secz.reported_servicing_fy@1-20261029
+    metric_id: secz.reported_servicing_fy
+    asset: SECZ
+    value: 24740969
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-08-07
+    period:
+      basis: annual
+      start: 2025-01-01
+      end: 2025-12-31
+      duration_months: 12
+    confidence: high
+    version: 1
+    fixture: false
+    source_ids:
+      - secz-424b3-20260807-annual-statements-v2
+    statement_context:
+      entity_name: Securitize, Inc. and subsidiaries
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: audited
+    research_reference:
+      artifact_id: f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7
+      record_id: secz-2025-fy.asset_servicing.424b3-20260807@1
+    rationale: D-20261029-01：由已重播收入研究
+      f0138d7c19d6c9d959bf5618c06032a4c72fd9a246db6cb451f1c104c68c1ba7 的
+      secz-2025-fy.asset_servicing.424b3-20260807@1 映射原值及原期間；來源只新增 canonical
+      covered_metrics，未重新取得來源或刷新原日期。獨立兩類報表路徑；不分配到六欄，不使用 pro forma。TTM
+      本身由公式重新計算，沒有把研究 DERIVED 存成 OBSERVED。
+  - id: secz.reported_servicing_prior_ytd@1-20261029
+    metric_id: secz.reported_servicing_prior_ytd
+    asset: SECZ
+    value: 9160139
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-08-13
+    period:
+      basis: year_to_date
+      start: 2025-01-01
+      end: 2025-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: false
+    source_ids:
+      - secz-q22026-financial-exhibit-v2
+      - secz-q22026-ir-results-v2
+    statement_context:
+      entity_name: Securitize, Inc. and subsidiaries
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+    research_reference:
+      artifact_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+      record_id: secz-2025-h1.asset_servicing@1
+    rationale: D-20261029-01：由已重播收入研究
+      f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173 的
+      secz-2025-h1.asset_servicing@1 映射原值及原期間；來源只新增 canonical
+      covered_metrics，未重新取得來源或刷新原日期。獨立兩類報表路徑；不分配到六欄，不使用 pro forma。TTM
+      本身由公式重新計算，沒有把研究 DERIVED 存成 OBSERVED。
+  - id: secz.reported_servicing_current_ytd@1-20261029
+    metric_id: secz.reported_servicing_current_ytd
+    asset: SECZ
+    value: 14939967
+    unit: USD
+    classification: OBSERVED
+    as_of_date: 2026-08-13
+    period:
+      basis: year_to_date
+      start: 2026-01-01
+      end: 2026-06-30
+      duration_months: 6
+    confidence: high
+    version: 1
+    fixture: false
+    source_ids:
+      - secz-q22026-financial-exhibit-v2
+      - secz-q22026-ir-results-v2
+    statement_context:
+      entity_name: Securitize, Inc. and subsidiaries
+      scope: operating_subsidiary_consolidated
+      accounting_basis: US_GAAP
+      audit_status: unaudited
+    research_reference:
+      artifact_id: f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173
+      record_id: secz-2026-h1.asset_servicing@1
+    rationale: D-20261029-01：由已重播收入研究
+      f98e20052dd8d05552e8a054d9a43a3e4ede417bccba875ea1a895b064e49173 的
+      secz-2026-h1.asset_servicing@1 映射原值及原期間；來源只新增 canonical
+      covered_metrics，未重新取得來源或刷新原日期。獨立兩類報表路徑；不分配到六欄，不使用 pro forma。TTM
+      本身由公式重新計算，沒有把研究 DERIVED 存成 OBSERVED。

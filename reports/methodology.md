@@ -34,6 +34,8 @@ Regression: (242M + 180M) / (4T × 2 × 1 × 1 × 0.000125) = 0.422. Actual prot
 
 ## SECZ
 
+另有分析者 D-20261029-01 核准的獨立兩類報表收入路徑：各類按已審計 FY − 未審計前期 YTD ＋ 未審計本期 YTD 重算，完整期間與主體必須對齊。可比性 ASSUMPTION 為 1 才採用；0／null 或任一金額缺失即維持未知，兩類合計繼承低信心及 MG Stover 名稱衝突。這條附條件 TTM 路徑不與六欄加總，也不替代其估值／成長公式。見[模型與驗證](secz-reported-ttm-model.md)。
+
 Revenue = tokenization + servicing + transaction + issuer SaaS/maintenance + fund administration + other. AUM and volume are not a proxy for shareholder wealth. Revenue efficiency and volume monetization test conversion into financial outcomes; operating leverage compares EBITDA changes to revenue changes.
 
 Required FCF = EV / terminal multiple; required revenue = required FCF / target FCF margin; required CAGR = (required revenue / current revenue)^(1/years) − 1. This simple reverse hurdle does not discount future FCF, model net debt/share dilution or calculate fair value. Terminal multiple is represented as years of FCF, and horizon in years. These are explicit limitations rather than hidden assumptions.

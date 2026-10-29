@@ -94,6 +94,7 @@
     - [x] UNI 主網 Firepit 近期速率 SCENARIO（D-20261012-02）：終點 block 26183367 同方法重讀（nonce 1395→1415、門檻同為 4,000 UNI），年化約 4,241,612.90 UNI/年（短窗口，只在研究層），同期 140,000 UNI dead 增加未歸因；source-only 快照 `2e9da6b1…`。見[說明](reports/uni-firepit-burn-rate.md)。全套 1239、兩模式 validate 通過；30 天窗口版本待 11 月初。
     - [x] Binance 公開封存交叉核對（D-20261012-03）：UNIUSDT／UNIUSDC 10/07 日封存與官方 CHECKSUM 相符，11:02 收盤對 Coinbase 7.9914 差 +4.50／+3.25 bp（不同單位、不換算、無門檻），source-only 快照 `a0003005…`。見[說明](reports/binance-uni-cross-check.md)。全套 1243、兩模式 validate 通過。
     - [x] SECZ 兩類披露與六欄重疊查證（2026-10-29）：年度 Note 19／Q2 Note 18 定義摘要與兩個 tier 1 來源；交易／維護／基金行政已含在報表兩類中，不能六欄重複加總。保存取得方式為網頁文字、原 HTTP bytes 未保存的限制與 source-only 快照；六欄及總收入繼續 null。見[對應缺口與選項](reports/secz-revenue-mapping.md)。數值分配及報表兩類模型路徑待分析者決定，父 baseline 保留。
+    - [x] SECZ 獨立兩類附條件 TTM 路徑（D-20261029-01）：分析者明選採 TTM v2，新增六筆原始 FY／H1 觀測、一個低信心可比性假設、三條 v1 公式與明示期間／主體／審計檢查，兩類 36,249,459／30,520,797、合計 66,770,256 USD/year；保留名稱衝突、原六欄 null。模型快照與 digest 資料套用快照分開；繁中卡片／血緣保留完整期間與 Fixture 隔離，原 92 指標、模型日及論點不變。見[模型與驗證](reports/secz-reported-ttm-model.md)。母公司估值與父 baseline 保留。
     - [ ] Current access/investability checks, actual value-capture activation, dated valuations and comparable financial periods. Remaining values stay null; this parent baseline is incomplete.
 - [ ] Automated research refresh workflow with reviewed source/observation proposals.
 - [ ] Additional asset models.
@@ -144,3 +145,5 @@ NEXT/LATER items are intentionally not implemented in this bootstrap.
 2026-10-07 使用者決定：(1) UNI 市值／FDV 同意新增推導但先定供給口徑、分階段，價格與供給日期對齊，扣除 dead 後供給標為研究口徑、治理金庫排除列為假設或情境、FDV 揭露未涵蓋未來增發；(2) Firepit 年化值暫不進正式模型，可另做 SCENARIO，實績待門檻歷史與期間查證；(3) SECZ TTM 先做保留衝突、附條件的研究計算；(4) RPC 能力與 SEC 聯絡資訊分開處理，RPC 先少量驗證再決定 key，SEC 用研究專用信箱。所有新增計算保留原 null 與歷史快照，追加新版本。
 
 2026-10-12 使用者決定：同意四項建議並要求記錄理由以便日後查詢——required-share 輸入（D-20261012-01）、Firepit 近期速率短窗口 SCENARIO（D-20261012-02）、Binance 公開封存作為交叉核對與歷史價格（D-20261012-03）、SEC 研究專用信箱（D-20261012-04，信箱不寫入公開 repo）。執行順序：SEC 查證 → required-share → Firepit → Binance。見[決策紀錄](reports/decision-log.md)。
+
+2026-10-29 接續授權與決定：持續逐段開中文非 Draft PR，檢查／CI 通過後合併再接續。分析者選擇「新增獨立兩類報表收入路徑，採附條件 TTM v2並保留低信心與名稱衝突」（D-20261029-01）；六欄未知與舊歷史保留，不把推導當成觀測。排除的自動化／排程／通知／投資組合範圍不變。

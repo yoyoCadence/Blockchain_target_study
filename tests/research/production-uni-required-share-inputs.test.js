@@ -53,5 +53,5 @@ test('the snapshot appends assumption and scenario changes only, after the SEC s
  assert.deepEqual([diff.source_change,diff.formula_change,diff.assumption_change,diff.scenario_change,diff.rule_change],[false,false,true,true,false]);
  for(const r of previous.inputs)assert.deepEqual(saved.inputs.find(x=>x.id===r.id),r,r.id);
  assert.equal(saved.inputs.length,previous.inputs.length+6);assert.equal(previous.metrics['uni.required_share'].value,null);
- assert.deepEqual(saved.metrics,calculate(p).metrics);
+ assert.deepEqual(saved.metrics,calculate({...p,inputs:saved.inputs,sources:saved.sources,registry:{formulas:saved.formulas},dictionary:saved.dictionary,sensitivity:saved.sensitivity}).metrics);
 });

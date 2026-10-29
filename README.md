@@ -54,10 +54,10 @@ Canonical [未來證據防線](reports/future-canonical-evidence.md)亦拒絕晚
 ## 資料品質：請先閱讀
 
 - **Fixture 模式**：預設的合成示範資料，全部清楚標示。`OBSERVED` 標籤在此只表示資料結構，不代表真實世界查證；synthetic source 並非新聞或一手證據。
-- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year）、2026-10-04 Coinbase Exchange XLM 單筆最後成交價（0.216265 USD／1 XLM），以及 2026-10-07 同區塊 UNI 供給與同分鐘收盤價（7.9914 USD／1 UNI，supersedes 10/04 的 9.0556 單筆成交價）。歷史名目年率按 UNI 價格折算為 159,828,000 USD/year 的推導模型負擔；模型市值（扣除 dead 口徑）與現行總供給估值（FDV 口徑，未含未來增發）已有值；依決策 D-20261012-01 的假設與上限情境，required-share 約 51.44%（最低必要市占，不是預測）；92 個指標中 72 個仍為 `Unknown`。模型折算不代表當日額度仍有效或實際支出；價格保留原成交時間與 point 期間，不會即時更新，也不證明合理價值或個人交易資格。查證見[預算研究](reports/uni-growth-budget-baseline.md)、[UNI 價格基準](reports/uni-quote-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
+- **Production 模式**：已加入截至 2026-01-01 的歷史 UNI 核准預算額度（20M UNI/year）、2026-10-04 Coinbase Exchange XLM 單筆最後成交價（0.216265 USD／1 XLM），以及 2026-10-07 同區塊 UNI 供給與同分鐘收盤價（7.9914 USD／1 UNI，supersedes 10/04 的 9.0556 單筆成交價）。歷史名目年率按 UNI 價格折算為 159,828,000 USD/year 的推導模型負擔；模型市值（扣除 dead 口徑）與現行總供給估值（FDV 口徑，未含未來增發）已有值；依決策 D-20261012-01 的假設與上限情境，required-share 約 51.44%（最低必要市占，不是預測）；102 個指標中 72 個仍為 `Unknown`。模型折算不代表當日額度仍有效或實際支出；價格保留原成交時間與 point 期間，不會即時更新，也不證明合理價值或個人交易資格。查證見[預算研究](reports/uni-growth-budget-baseline.md)、[UNI 價格基準](reports/uni-quote-baseline.md)與[XLM 價格基準](reports/xlm-quote-baseline.md)，不從 fixture 補值。
 - **ASSUMPTION**：分析者設定與理由。原先使用者提供的 20M UNI/year fixture 假設與 production null v1 均保留；正式資料以 OBSERVED v2 明確 supersede 該 null，代表經查證的核准額度。
 - **SCENARIO**：4T TAM 與互動敏感度等反事實情境，不是預測事實。
-- **DERIVED**：28 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
+- **DERIVED**：31 條 versioned 公式，包含完整遞迴血緣與確切輸入版本；上游未知則結果未知。
 - 圖譜的初始 edges 全部是 `assumed` 研究假設。沒有宣稱 DTCC 整合已 live，或圖譜收購已完成。初始 asset registry 的投資性仍是 unverified。
 
 最新金融模型參考日為 2026-10-07；它不是全部年度財務資料的觀測日，也不能補足論點所需的連續證據。最近的數值更新是 UNI 同區塊供給、同分鐘收盤價、模型市值與 FDV 口徑，以及依新價格重新折算的負擔（只改來源與觀測，公式／假設／情境未改）。再之前是 UNI 單筆價格與名目年率折算負擔；其來源／公式變更分開呈現，假設／情境未改。最新季度提領查證只增加來源，沒有數值變動；舊快照保留原日期、數值與 v1 公式。五條 UNI 公式升至 v2，將折算明示為 model 並傳遞報價日，已知跨期收入／市值仍拒絕。原未套用候選保留當時研究，現在已有同 ID 的觀測，不能再次直接 apply；新的研究需新 ID／版本及重新 preview。
@@ -166,6 +166,8 @@ node cli.js freshness --production --as-of 2026-10-03
 ```powershell
 node cli.js research-freshness --production --as-of 2026-10-03
 ```
+
+2026-10-29 依 D-20261029-01 已新增[獨立兩類報表收入路徑](reports/secz-reported-ttm-model.md)：從六筆 FY／H1 原觀測重算附條件 TTM，兩類 36,249,459／30,520,797、合計 66,770,256 USD/year，期間 2025-07-01 至 2026-06-30。新推導保留低信心、MG Stover 名稱衝突及混合審計狀態；假設撤回或缺值即未知。六欄細分及其估值路徑不改，母公司估值仍未知；在 SECZ 區塊點擊新 TTM 卡片可查原觀測與假設血緣。
 
 ## 使用研究介面
 
