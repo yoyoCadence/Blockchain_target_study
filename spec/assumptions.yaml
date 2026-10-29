@@ -274,3 +274,28 @@ metrics:
     fixture: false
     supersedes: uni.fee@1
     rationale: 分析者決策 D-20261012-01（見 reports/decision-log.md）：協議費率 1.25 bps，沿用原始提示，信心低；敏感度以 0.5／2 bps 檢視。尚未以鏈上實際協議費設定查證，查證後追加新版本。
+  - id: secz.reported_ttm_comparability@1
+    metric_id: secz.reported_ttm_comparability
+    asset: SECZ
+    value: 1
+    unit: ratio
+    classification: ASSUMPTION
+    as_of_date: 2026-10-29
+    period:
+      basis: model
+      end: 2025-12-31
+    confidence: low
+    version: 1
+    fixture: false
+    rationale: D-20261029-01：分析者同意採研究 TTM v2，沿用 secz-ttm-20260630-comparability@2；v2
+      附條件假設：只用於所選報表口徑的子公司收入銜接。除 acquisition_treatment 外，四項判斷逐字沿用 v1
+      的理由與結論。acquisition_treatment 由 null 改為「依財務呈現一致性成立的假設」；MG Stover Inc.／LLC
+      法律名稱衝突原樣保留、未解，因此信心定為 low。不含完整歷史更正查證、有機成長推論、pro forma 替代、母公司估值或六類收入對應。v1
+      request 與其 null 結果保留不改。 五項檢查在研究中為 true；法律主體 Inc.／LLC
+      等價仍未直接查證、來源衝突保留；本旗標是模型採用假設而非事實。若撤回請追加新版本為 0 或 null，兩類輸出必須未知。
+    source_ids:
+      - secz-424b3-20260807-annual-statements-v1
+      - secz-q22026-financial-exhibit-v1
+    research_reference:
+      artifact_id: cd09b167530a627545fbb7dfeaed1d3f3d267d21e2e091210ec3513595f8e45c
+      record_id: secz-ttm-20260630-comparability@2

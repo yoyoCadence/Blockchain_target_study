@@ -105,7 +105,10 @@ properties:
                 - TTM
                 - point
                 - model
+                - year_to_date
             end: *a1
+            start: *a1
+            duration_months: {type: integer, minimum: 1, maximum: 12}
           required:
             - basis
             - end
@@ -126,6 +129,22 @@ properties:
           type: integer
           minimum: 1
         dependencies: *a3
+        statement_context:
+          type: object
+          additionalProperties: false
+          required: [entity_name, scope, accounting_basis, audit_status]
+          properties:
+            entity_name: *a2
+            scope: *a2
+            accounting_basis: *a2
+            audit_status: {enum: [audited, unaudited, mixed_audit_conditional]}
+        research_reference:
+          type: object
+          additionalProperties: false
+          required: [artifact_id, record_id]
+          properties:
+            artifact_id: {type: string, pattern: '^[a-f0-9]{64}$'}
+            record_id: *a2
         rationale: *a2
         scenario: *a2
         range:

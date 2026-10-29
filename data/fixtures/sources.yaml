@@ -112,3 +112,19 @@ sources:
       - uni.timelock_balance
     fixture: true
     supersedes: fixture-source@1
+  - id: fixture-secz-reported-ttm@1
+    version: 1
+    url: https://example.invalid/synthetic-secz-ttm
+    publisher: Local test fixture generator
+    title: 合成 SECZ FY／H1 收入；非市場資料
+    date: 2025-12-31
+    retrieved_at: 2026-01-01T00:00:00Z
+    tier: 5
+    covered_metrics:
+      - secz.reported_tokenization_fy
+      - secz.reported_tokenization_prior_ytd
+      - secz.reported_tokenization_current_ytd
+      - secz.reported_servicing_fy
+      - secz.reported_servicing_prior_ytd
+      - secz.reported_servicing_current_ytd
+    fixture: true

@@ -77,7 +77,12 @@ export function validateProject(p) {
   assert(Number.isInteger(f.version)&&f.version>0,`Invalid formula version ${f.id}`);
   assert(dictionary[f.output]?.kind==='derived',`Missing derived dictionary entry ${f.output}`);
   assert(f.unit===dictionary[f.output].unit,`Formula output unit mismatch ${f.id}`);
-  assert(['compatible','prior_comparison','annual_rate_valuation','valuation_compatible','same_block_point','aligned_price_valuation'].includes(f.period_policy),`Invalid period policy ${f.id}`);
+  assert(['compatible','prior_comparison','annual_rate_valuation','valuation_compatible','same_block_point','aligned_price_valuation','conditional_ttm_bridge','reported_ttm_sum'].includes(f.period_policy),`Invalid period policy ${f.id}`);
+  if(f.period_policy==='conditional_ttm_bridge') {
+   const r=f.ttm_inputs,expected={op:'mul',args:[{op:'add',args:[{op:'sub',args:[r.annual,r.prior_ytd]},r.current_ytd]},r.comparability]};
+   assert(new Set(Object.values(r)).size===4&&fingerprint(f.expression)===fingerprint(expected),`Invalid conditional TTM expression: ${f.id}`);
+  }
+  if(f.period_policy==='reported_ttm_sum')assert(f.expression.op==='add'&&f.expression.args.length===2&&f.expression.args.every(x=>typeof x==='string'),`Invalid reported TTM sum: ${f.id}`);
   if(f.period_policy==='aligned_price_valuation')assert(f.expression.op==='mul'&&f.expression.args.length===2&&f.expression.args.includes(f.price_input)&&
    f.expression.args.every(a=>typeof a==='string'),`Invalid aligned valuation expression: ${f.id}`);
   if(f.period_policy==='annual_rate_valuation') {
@@ -142,9 +147,17 @@ export function calculate(p,{overrides={},history=[],previousThesis={}}={}) {
  for(const f of orderFormulas(p.registry.formulas,Object.keys(metrics))) {
   const dependencyIds=references(f.expression),dependencies=dependencyIds.map(id=>metrics[id]);
   let value=null,period={basis:'model',end:defaultDate},error=null;
-  try {period=checkPeriods(f,dependencies);value=evaluate(f.expression,metrics);} catch(e) {error=e.message;issues.push({severity:'ERROR',metric_id:f.output,message:e.message});}
+  try {
+   period=checkPeriods(f,dependencies);
+   value=f.period_policy==='conditional_ttm_bridge'&&metrics[f.ttm_inputs.comparability].value!==1?null:evaluate(f.expression,metrics);
+  } catch(e) {error=e.message;issues.push({severity:'ERROR',metric_id:f.output,message:e.message});}
   metrics[f.output]={id:`${f.output}@${f.version}`,metric_id:f.output,asset:f.asset,value,unit:f.unit,classification:'DERIVED',as_of_date:dependencies.map(x=>x.as_of_date).sort().at(-1),period,confidence:dependencies.some(x=>x.value===null)?'unknown':dependencies.some(x=>['low','unknown'].includes(x.confidence))?'low':'medium',version:f.version,fixture:dependencies.some(x=>x.fixture),formula_id:f.id,formula_version:f.version,dependencies:dependencyIds,input_record_ids:dependencies.map(x=>x.id),error};
   if(!error) {
+   if(['conditional_ttm_bridge','reported_ttm_sum'].includes(f.period_policy)) {
+    const context=dependencies.find(m=>m.statement_context)?.statement_context;
+    if(context)metrics[f.output].statement_context={...context,audit_status:'mixed_audit_conditional'};
+    metrics[f.output].rationale=f.description;
+   }
    const quote=f.period_policy==='annual_rate_valuation'?dependencies.find(m=>m.metric_id===f.price_input):null;
    const valuationDate=quote&&quote.value!==null?quote.period.end:dependencies.find(m=>m.valuation_date)?.valuation_date;
    if(valuationDate)metrics[f.output].valuation_date=valuationDate;

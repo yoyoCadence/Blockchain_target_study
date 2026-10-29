@@ -101,6 +101,15 @@ export function blockTime(formula,dependencies) {
  return known.length&&known.every(m=>m.observed_at)?known[0].observed_at:undefined;
 }
 export function checkPeriods(formula, dependencies) {
+ if(formula.period_policy==='conditional_ttm_bridge')return checkReportedTtmBridge(formula,dependencies);
+ if(formula.period_policy==='reported_ttm_sum') {
+  assert(formula.asset==='SECZ'&&formula.unit==='USD/year'&&dependencies.length===2,'Reported TTM sum requires two SECZ annual revenue totals');
+  const known=dependencies.filter(m=>m.value!==null);
+  assert(known.every(m=>m.asset==='SECZ'&&m.unit==='USD/year'&&m.period.basis==='TTM'&&m.period.start&&m.period.duration_months===12&&m.statement_context),'Reported TTM sum needs explicit twelve-month flows');
+  assert(new Set(known.map(m=>JSON.stringify([m.period.basis,m.period.start,m.period.end,m.period.duration_months]))).size<=1,'Reported TTM category periods differ');
+  assert(new Set(known.map(m=>JSON.stringify(['entity_name','scope','accounting_basis','audit_status'].map(k=>m.statement_context[k])))).size<=1,'Reported TTM category scopes differ');
+  return known.length===2?{...known[0].period}:{basis:'model',end:dependencies.map(m=>m.period.end).sort().at(-1)};
+ }
  if(formula.period_policy==='same_block_point') {
   const known=sameBlockKnown(formula,dependencies);
   // An unknown output carries no period evidence, so only a complete reading set is a dated point.
@@ -167,4 +176,34 @@ export function checkPeriods(formula, dependencies) {
   }
  } else assert(ends.length<=1,`Unaligned accounting periods: ${formula.id}`);
  return {basis:flows[0]?.period.basis||factual[0]?.period.basis||'model',end:ends.at(-1)||dependencies[0].period.end};
+}
+
+// Deliberate calendar-year FY - prior YTD + current YTD conversion. The
+// comparability assumption is a dependency, not a multiplier that turns rejection into zero revenue.
+function checkReportedTtmBridge(formula,dependencies) {
+ const roles=formula.ttm_inputs,get=role=>dependencies.find(m=>m.metric_id===roles[role]);
+ const annual=get('annual'),prior=get('prior_ytd'),current=get('current_ytd'),gate=get('comparability');
+ assert(annual&&prior&&current&&gate&&dependencies.length===4,'TTM bridge needs four declared inputs');
+ assert(formula.asset==='SECZ'&&formula.unit==='USD/year'&&[annual,prior,current].every(m=>m.asset==='SECZ'&&m.unit==='USD'),'TTM bridge requires SECZ USD amounts');
+ assert(gate.asset==='SECZ'&&gate.unit==='ratio'&&gate.classification==='ASSUMPTION'&&[null,0,1].includes(gate.value),'TTM comparability must be an explicit 0/1/null assumption');
+ const known=[annual,prior,current].filter(m=>m.value!==null);
+ const scope=m=>JSON.stringify([m.statement_context?.entity_name,m.statement_context?.scope,m.statement_context?.accounting_basis]);
+ assert(new Set(known.map(scope)).size<=1,'TTM statement scope/accounting context mismatch');
+ for(const [m,basis,months] of [[annual,'annual',12],[prior,'year_to_date',null],[current,'year_to_date',null]]) {
+  if(m.value===null)continue;
+  const p=m.period,y=Number(p.end.slice(0,4));
+  assert(m.classification==='OBSERVED'&&m.statement_context&&['audited','unaudited'].includes(m.statement_context.audit_status),'TTM amount needs observed statement/audit context');
+  assert(m.statement_context.audit_status===(basis==='annual'?'audited':'unaudited'),'TTM policy requires audited FY and unaudited YTD; preserve their distinct audit status');
+  assert(m.statement_context.scope==='operating_subsidiary_consolidated'&&m.statement_context.accounting_basis==='US_GAAP','TTM requires disclosed subsidiary US GAAP scope');
+  assert(p.basis===basis&&p.start===`${y}-01-01`,'TTM bridge needs calendar annual/YTD flows, not quarterly, point or model');
+  const duration=months??p.duration_months;
+  assert(Number.isInteger(duration)&&duration>=1&&duration<=12&&(basis!=='year_to_date'||duration<12)&&p.duration_months===duration,'TTM amount needs an explicit valid duration');
+  const expectedEnd=new Date(Date.UTC(y,duration,0)).toISOString().slice(0,10);
+  assert(p.end===expectedEnd,'TTM flow dates do not match duration');
+ }
+ if(prior.value!==null&&annual.value!==null)assert(prior.period.start===annual.period.start&&prior.value<=annual.value,'TTM prior YTD must belong to and not exceed the full year');
+ if(prior.value!==null&&current.value!==null)assert(alignedCalendarPeriods(prior.period.end,current.period.end,12)&&prior.period.duration_months===current.period.duration_months,'TTM YTD intervals must match one year apart');
+ if(annual.value!==null&&current.value!==null)assert(Number(current.period.end.slice(0,4))===Number(annual.period.end.slice(0,4))+1,'TTM current YTD must follow the full year');
+ if(known.length!==3)return {basis:'model',end:dependencies.map(m=>m.period.end).sort().at(-1)};
+ return {basis:'TTM',start:new Date(Date.UTC(Number(annual.period.end.slice(0,4)),current.period.duration_months,1)).toISOString().slice(0,10),end:current.period.end,duration_months:12};
 }

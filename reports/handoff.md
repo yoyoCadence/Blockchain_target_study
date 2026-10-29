@@ -1,5 +1,17 @@
 # 開發交接
 
+## 2026-10-29（台北）— SECZ 獨立兩類附條件 TTM 模型與資料
+
+PR #82 已通過兩 CI 並合併（main `946e59f`）。使用者明選 D-20261029-01 的附條件 TTM v2 路徑。本段 `model/secz-reported-ttm-20261029` 新增 6 個 FY／YTD 金額輸入、1 個低信心假設、3 個推導；102 指標／31 公式。可比性 0／null 回未知，季度／錯窗口／跨主體／審計提升拒絕；原六欄與原 92 指標／論點不變。
+
+**已保存，不可重跑或改寫**：模型快照 Fixture `fc6d2fd6…`／Production `bb6079b8…`；preview digest `925f1293…`；套用事件 `secz-reported-ttm-baseline-20261029`，完整快照 `8c216014…`。六筆原觀測由研究 `cd09b167…` 的年度／期中輸入逐欄映射，三份研究來源 v1 原樣追加，另三份 v2 只擴充覆蓋。`research_reference` 保留原研究及紀錄 ID；原主體／會計基礎／審計及完整期間皆保存。
+
+建置用 scratch `.work.tmp/` 被 Git 忽略，勿重跑 append 腳本。PowerShell `>` 會把 JSON 寫為 UTF-16；需用明示 UTF-8 或 Node 寫檔。現有測試的「當前」快照比較已更新到新增 TTM；舊研究不可用目前字典重播，必須用快照自己的 dictionary／formulas／inputs。Fixture 第五份快照加入合成兩類 TTM（110M，原六類仍 100M）。Chrome 窄版 override 因縮放實際 CSS 288×608，已重設；console 空、無水平溢出，Enter 血緣及 Fixture 切換通過。
+
+本機全套 1282 項通過（新增 37 項），兩模式 validate 無 errors／warnings、unknown 1／72。暫時服務 4336／PID 20400 已核對 node server.js，驗證後停止；PR／CI／合併狀態以遠端為準。
+
+下一個 baseline 缺口仍為 SECZ 母公司股本／價格／EV 與期間對齊、FCF 假設、個人可投資性；六類細分沒有被此路徑解決。Firepit 30 天窗口自 10/06 起約 11/05 才滿；不把當前短窗口偽裝成 30 天。原法律名稱衝突與其他未知值保留，無自動化／排程。
+
 ## 2026-10-29（台北）— SECZ 收入定義與六欄對應缺口
 
 從 main `61ec71a` 建立 `research/secz-revenue-definitions-20261029`。查閱 S-1 年度 Note 19 與 Q2 Note 18，兩類披露與六個模型欄位重疊，不能把未披露四欄當零。研究檔 `secz-revenue-definitions-2026-10-29-v1.yaml` SHA-256 `6c977fd8…`；取得方式 `web_reader_text`，不是逐 byte HTTP 封存。本環境 process／user／machine 都沒有 `SEC_CONTACT_EMAIL`，不虛構聯絡資訊，也未把信箱寫入 repo。

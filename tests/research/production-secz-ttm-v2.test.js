@@ -86,7 +86,8 @@ test('catalog keeps both assumption versions; v2 results never become observatio
  const metrics=calculate(p).metrics;
  for(const id of ['secz.tokenization','secz.servicing','secz.revenue','secz.prior_revenue','secz.revenue_growth','secz.required_revenue'])assert.equal(metrics[id].value,null,id);
  assert.equal(Object.values(metrics).filter(m=>m.value===null).length,Object.values(history.at(-1).metrics).filter(m=>m.value===null).length);
- assert.ok(!p.inputs.some(r=>String(r.id).includes('secz-ttm')||String(r.metric_id).startsWith('secz.reported_')));
+ // D-20261029-01 adds original FY/YTD inputs; the TTM results themselves stay derived.
+ assert.ok(!p.inputs.some(r=>v2.results.some(x=>x.id===r.id)||['secz.reported_tokenization_ttm','secz.reported_servicing_ttm','secz.reported_revenue_ttm'].includes(r.metric_id)));
  assert.ok(!history.some(s=>JSON.stringify(s.event||{}).includes('secz-ttm-20260630-review@2')));
  assert.deepEqual(inspectResearch(loadProject('fixture')).records,[]);assert.equal(calculate(loadProject('fixture')).metrics['uni.required_share'].value,0.422);
  assert.equal(fingerprint({economics:calculate(p),history:readSnapshots(p.root,p.mode)}),before);

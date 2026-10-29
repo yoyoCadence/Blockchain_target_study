@@ -95,5 +95,5 @@ test('only sources and observations changed; formulas, assumptions, scenarios, e
  for(const snapshot of history)verifySnapshot(snapshot);assert.equal(fingerprint(readSnapshots(p.root,p.mode)),before);
  assert.ok(Object.values(saved.thesis).every(t=>t.coverage==='insufficient'));
  assert.equal(calculate(loadProject('fixture')).metrics['uni.required_share'].value,0.422);
- assert.equal(readSnapshots(p.root,'fixture').length,4);
+ assert.equal(readSnapshots(p.root,'fixture').length,5);
 });

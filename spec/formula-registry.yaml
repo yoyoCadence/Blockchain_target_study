@@ -1,4 +1,4 @@
-version: 3
+version: 4
 formulas:
   - id: f.market.penetration
     version: 1
@@ -467,3 +467,71 @@ formulas:
         - xlm.activity_growth
     period_policy: compatible
     description: Economic Capture Ratio
+  - id: f.secz.reported_tokenization_ttm
+    version: 1
+    output: secz.reported_tokenization_ttm
+    asset: SECZ
+    label: 報表口徑 Tokenization／附條件 TTM
+    unit: USD/year
+    expression:
+      op: mul
+      args:
+        - op: add
+          args:
+            - op: sub
+              args:
+                - secz.reported_tokenization_fy
+                - secz.reported_tokenization_prior_ytd
+            - secz.reported_tokenization_current_ytd
+        - secz.reported_ttm_comparability
+    period_policy: conditional_ttm_bridge
+    ttm_inputs:
+      annual: secz.reported_tokenization_fy
+      prior_ytd: secz.reported_tokenization_prior_ytd
+      current_ytd: secz.reported_tokenization_current_ytd
+      comparability: secz.reported_ttm_comparability
+    description: D-20261029-01：前一全年 − 前年同期累計 ＋ 本年同期累計，必須同營運子公司／US GAAP 範圍及相同 YTD
+      窗口；可比性 ASSUMPTION 只有 1 才重算，0／null 直接回到未知，並非乘成零收入。原六欄不分配、不加總入此路徑。保留 MG
+      Stover Inc.／LLC 名稱衝突與低信心；混合年度已審計／期中未審計資料，TTM 本身未經審計，不是有機成長、pro forma
+      或母公司估值。
+  - id: f.secz.reported_servicing_ttm
+    version: 1
+    output: secz.reported_servicing_ttm
+    asset: SECZ
+    label: 報表口徑 Asset Servicing／附條件 TTM
+    unit: USD/year
+    expression:
+      op: mul
+      args:
+        - op: add
+          args:
+            - op: sub
+              args:
+                - secz.reported_servicing_fy
+                - secz.reported_servicing_prior_ytd
+            - secz.reported_servicing_current_ytd
+        - secz.reported_ttm_comparability
+    period_policy: conditional_ttm_bridge
+    ttm_inputs:
+      annual: secz.reported_servicing_fy
+      prior_ytd: secz.reported_servicing_prior_ytd
+      current_ytd: secz.reported_servicing_current_ytd
+      comparability: secz.reported_ttm_comparability
+    description: D-20261029-01：前一全年 − 前年同期累計 ＋ 本年同期累計，必須同營運子公司／US GAAP 範圍及相同 YTD
+      窗口；可比性 ASSUMPTION 只有 1 才重算，0／null 直接回到未知，並非乘成零收入。原六欄不分配、不加總入此路徑。保留 MG
+      Stover Inc.／LLC 名稱衝突與低信心；混合年度已審計／期中未審計資料，TTM 本身未經審計，不是有機成長、pro forma
+      或母公司估值。
+  - id: f.secz.reported_revenue_ttm
+    version: 1
+    output: secz.reported_revenue_ttm
+    asset: SECZ
+    label: 報表口徑兩類合計／附條件 TTM
+    unit: USD/year
+    expression:
+      op: add
+      args:
+        - secz.reported_tokenization_ttm
+        - secz.reported_servicing_ttm
+    period_policy: reported_ttm_sum
+    description: 同範圍、同十二個月期間的兩類附條件 TTM 相加，任一未知即未知；依賴低信心可比性假設，保留 MG Stover
+      名稱衝突，不與原六類模型收入相加，不當作已審計 TTM、母公司收入或估值。

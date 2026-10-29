@@ -12,7 +12,7 @@ const reach=(tree,out=new Set())=>{out.add(tree.metric.metric_id);for(const chil
 
 test('model valuation metrics are new versioned formulas; legacy direct inputs stay but no formula reads them',()=>{
  const p=fixture(),d=Object.fromEntries(p.dictionary.metrics.map(m=>[m.id,m]));
- assert.equal(p.dictionary.metrics.length,92);assert.equal(p.registry.formulas.length,28);assert.equal(p.registry.version,3);
+ assert.equal(p.dictionary.metrics.length,102);assert.equal(p.registry.formulas.length,31);assert.equal(p.registry.version,4);
  for(const [id,kind,unit] of [['uni.total_supply','input','UNI'],['uni.dead_balance','input','UNI'],['uni.timelock_balance','input','UNI'],
   ['uni.supply_basis_excludes_dead','input','ratio'],['uni.timelock_exclusion','input','ratio'],['uni.model_supply','derived','UNI'],
   ['uni.model_market_cap','derived','USD'],['uni.fdv_current_supply','derived','USD'],['uni.market_cap','input','USD'],['uni.fdv','input','USD']])
