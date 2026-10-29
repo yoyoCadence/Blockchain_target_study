@@ -1,0 +1,86 @@
+id: secz-revenue-definitions-20261029-v1
+version: 1
+fixture: false
+as_of_date: 2026-10-29
+purpose: 查證兩類報表收入與六類模型的重疊；不分配金額、不更新金融輸入。
+capture:
+  kind: web_reader_text
+  retrieved_at: 2026-10-29T11:48:36Z
+  raw_response_sha256: null
+  limitation: 透過網頁讀取工具查閱 SEC 文件；下列為中文摘要與章節定位，沒有保存原始 HTTP bytes，不聲稱逐 byte 查證。
+statement:
+  entity: Securitize, Inc. and subsidiaries
+  scope: operating_subsidiary_consolidated
+  accounting_basis: US_GAAP
+  parent_equivalence_verified: null
+sources:
+  - id: secz-s1-revenue-definitions-20261029-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026051182/secz-20260731.htm
+    publisher: Securitize Corp. / SEC EDGAR
+    title: S-1；年度 Note 19 Revenue 與收入認列政策
+    date: 2026-07-31
+    retrieved_at: 2026-10-29T11:48:36Z
+    tier: 1
+    covered_metrics: [secz.revenue_definition_evidence]
+    fixture: false
+  - id: secz-q2-revenue-definitions-20261029-v1
+    version: 1
+    url: https://www.sec.gov/Archives/edgar/data/2094496/000162828026056811/exhibit991securitize-q22026.htm
+    publisher: Securitize Corp. / SEC EDGAR
+    title: 8-K/A 附件 99.1；截至 2026-06-30 未審計財報 Note 18 Revenue
+    date: 2026-08-13
+    retrieved_at: 2026-10-29T11:48:36Z
+    tier: 1
+    covered_metrics: [secz.revenue_definition_evidence]
+    fixture: false
+observations:
+  - id: research.secz.revenue-definitions.annual.tokenization@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-07-31
+    confidence: high
+    source_ids: [secz-s1-revenue-definitions-20261029-v1]
+    period: {basis: annual, start: 2025-01-01, end: 2025-12-31}
+    category: Tokenization
+    section: 年度 Note 19 Revenue；Summary of Significant Accounting Policies / Revenue Recognition
+    summary: 包含生態系擴展、交易、效用提升與分銷；整合和交易於履約時認列，維護支援按合約期間認列，配售費依合約可於時點或期間認列。
+  - id: research.secz.revenue-definitions.annual.asset-servicing@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-07-31
+    confidence: high
+    source_ids: [secz-s1-revenue-definitions-20261029-v1]
+    period: {basis: annual, start: 2025-01-01, end: 2025-12-31}
+    category: Asset Servicing
+    section: 年度 Note 19 Revenue / Asset Servicing
+    summary: 包含記錄、移轉處理、基金會計及合規支援；設置服務於提供時認列，持續服務按期間認列。
+  - id: research.secz.revenue-definitions.interim.tokenization@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q2-revenue-definitions-20261029-v1]
+    period: {basis: interim, start: 2026-01-01, end: 2026-06-30}
+    category: Tokenization
+    section: Note 18 Revenue / Tokenization；財報頁 31
+    summary: 包含生態系擴展、交易、效用提升與分銷；整合和交易於履約時認列，維護支援按合約期間認列，配售費依合約可於時點或期間認列。
+  - id: research.secz.revenue-definitions.interim.asset-servicing@1
+    version: 1
+    classification: OBSERVED
+    fixture: false
+    as_of_date: 2026-08-13
+    confidence: high
+    source_ids: [secz-q2-revenue-definitions-20261029-v1]
+    period: {basis: interim, start: 2026-01-01, end: 2026-06-30}
+    category: Asset Servicing
+    section: Note 18 Revenue / Asset Servicing；財報頁 31
+    summary: 包含記錄、移轉處理、基金會計及合規支援；設置服務於提供時認列，持續服務按期間認列。
+limitations:
+  - 查閱的兩份收入表均只分 Tokenization／Asset Servicing；沒有六類模型的完整互斥金額。
+  - 收入認列時點與重複性不同；整類收入不能全部當作 SaaS 或經常性收入。
+  - 六類的分配比例、剩餘金額與未披露類別均未知；不能填零或等分。
+  - 法律主體名稱衝突、TTM 可比性假設與母公司股本估值另行保留；本次未解決。

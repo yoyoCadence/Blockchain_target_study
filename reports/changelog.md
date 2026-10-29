@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-29（台北）— SECZ 收入定義與六欄對應缺口
+
+查閱 S-1 年度 Note 19 與 Q2 Note 18，保存四項 OBSERVED 定義摘要，明示網頁文字取得、未保存原 HTTP bytes。兩大類包含交易、維護與基金行政等子服務，六欄不能直接重複加總或補零。source-only 事件 `secz-revenue-definitions-20261029` 追加兩個 tier 1 來源及快照 `e0f7c236…`；金融 unknown 72、公式／假設／情境與模型期間不變。見[對應缺口](secz-revenue-mapping.md)。
+
 ## 2026-10-13（台北）— Binance 公開封存交叉核對 UNI 同分鐘收盤價
 
 依 D-20261012-03 新增唯讀模組 `engine/research/binance-klines.js`（K 線行解析、微秒／毫秒精確換算、十進位差值、zip 重驗）。資料包 `binance-uni-klines-2026-10-07-v1.json`（SHA-256 `e6ffc5c4…`）保存官方 CHECKSUM、zip hash 與參考分鐘前後三行原 CSV。UNIUSDT 7.995（+4.50 bp）、UNIUSDC 7.994（+3.25 bp），對照 Coinbase UNI-USD 7.9914；不同報價單位、不換算、不取代正式價格、無門檻。source-only 事件追加兩個 tier 1 來源，快照 `a0003005…`。三個舊測試改用日期合格的來源，不再依賴 `sources[0]`。4 項新增，全套 1243。見[說明](binance-uni-cross-check.md)。
